@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Obj">
+      <UniqueIdentifier>{43a99378-47c4-4322-a12f-0384bfb16de1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\3D">
+      <UniqueIdentifier>{8079af06-c5b0-4174-98aa-729cb8c70396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\2D">
+      <UniqueIdentifier>{756221a7-9b90-49f4-bb92-dcda0a5d4be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field">
+      <UniqueIdentifier>{b984ceab-53c7-419d-a037-901173947f58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Box">
+      <UniqueIdentifier>{437dcdc7-e40d-47c3-8a7d-73d6497f5a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Preyer Test">
+      <UniqueIdentifier>{90a4a412-b1ab-4f7f-84b5-b764fdbbdadb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{1cd085f2-860d-4c9a-b02c-5c7e2242a423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D">
+      <UniqueIdentifier>{2cfb7093-cf44-45e3-915c-61b89f8e4051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{efdf4685-7f4b-4d2f-bd82-88b0bfb6f160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="struct">
+      <UniqueIdentifier>{d53f9f3c-bef0-46ad-894e-af4ed69c3ae7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{69cb7126-3cf9-4ea1-8b6a-8cbdaea1f5ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Scene">
+      <UniqueIdentifier>{48644620-8c07-49bf-91ff-6b6450cc54b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Scene\cpp">
+      <UniqueIdentifier>{09857b1d-023b-4c03-9f29-b34017b95753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Scene\h">
+      <UniqueIdentifier>{704464be-3431-4cf8-b132-f21d1f699e99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Mesh">
+      <UniqueIdentifier>{4f126af0-c281-47f1-b08f-a7cc18f9d480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Input">
+      <UniqueIdentifier>{f4c0d54e-637c-4454-b2c0-7781e087a041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\imgui">
+      <UniqueIdentifier>{3dc5161a-5fe3-4767-a7d7-478c5166641e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\imgui\cpp">
+      <UniqueIdentifier>{af7c2316-b838-4a07-b16d-031c91a69b36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\imgui\h">
+      <UniqueIdentifier>{ce8bcf6f-ca26-428e-a7dd-b427ff0f42a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Application">
+      <UniqueIdentifier>{2256e755-dd7e-47fe-b32d-076e6f1d7869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\AssimpPerse">
+      <UniqueIdentifier>{138d207c-8dfe-4c72-8437-c8fdfed7896c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Shader">
+      <UniqueIdentifier>{5e6bd8fb-5651-4a18-bcba-bbef3e935e1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Twin">
+      <UniqueIdentifier>{95156638-b4b2-4fb5-836f-3cc698d173d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Timer">
+      <UniqueIdentifier>{3069ee2d-e34a-4514-8b05-2808e0822628}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Object">
+      <UniqueIdentifier>{3302b377-830f-43da-a9b5-91ccc7fe48ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Object\ENEMY">
+      <UniqueIdentifier>{fa796561-d19c-4201-b95e-65924c211aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Object\Player">
+      <UniqueIdentifier>{72b6c477-21eb-4c51-b5a6-652b97a572dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Obj\Character">
+      <UniqueIdentifier>{c58d20f8-8399-420e-be8d-6ec44f7d4dd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Model">
+      <UniqueIdentifier>{3549485d-8ee6-480a-99c7-707b4cad179f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\GameManager">
+      <UniqueIdentifier>{42452c89-a552-47da-a51d-86592994a11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Terrain">
+      <UniqueIdentifier>{49eb3dd1-bdcd-4e6d-bbd7-0e68690d6d16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Camera">
+      <UniqueIdentifier>{0df5bb4f-2331-4ac4-b92e-ae0b5ac473f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Collision">
+      <UniqueIdentifier>{7f9b1b6f-425f-49a7-b871-7c69c6574e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Anim">
+      <UniqueIdentifier>{eaec6843-e39d-4d6a-a5f0-4594658816b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gaol">
+      <UniqueIdentifier>{c7c61dc4-8b96-4afe-b660-947f4ae7a3b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\AStar">
+      <UniqueIdentifier>{bbd9c4bf-1a0a-46a0-bb63-f41f81865f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Radar">
+      <UniqueIdentifier>{9cb73b00-ed76-4eed-8d13-a92af92b4fcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\Fade">
+      <UniqueIdentifier>{4428fe5c-8350-493a-908c-1dc2f92069b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkyDome">
+      <UniqueIdentifier>{8b7a65d1-7a45-4a53-bb5f-762836db904c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="dx11helper.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="stb.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj3DMesh.cpp">
+      <Filter>Obj\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>System\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Field</Filter>
+    </ClCompile>
+    <ClCompile Include="ParesObj.cpp">
+      <Filter>Obj\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\imgui.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\imgui_demo.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\imgui_draw.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\backends\imgui_impl_dx11.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\misc\cpp\imgui_stdlib.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\imgui_widgets.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\backends\imgui_impl_win32.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="gui\imgui_tables.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>System\imgui\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="CTest.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoxMesh.cpp">
+      <Filter>Box</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTest.cpp">
+      <Filter>Preyer Test</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>System\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>System\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>System\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>System\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="Polygon2D.cpp">
+      <Filter>2D</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="AssimpPerse.cpp">
+      <Filter>System\AssimpPerse</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>System\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="CStaticMesh.cpp">
+      <Filter>System\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollision.cpp">
+      <Filter>System\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimScene.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="CStaticMeshRenderer.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimationMesh.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoneCombMatrices.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="CTreeNode.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimationData.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Obj\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Obj\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="easings.cpp">
+      <Filter>System\Twin</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimObj.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="BoneCombMatrix.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Obj\Object\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Obj\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimationObject.cpp">
+      <Filter>System\Anim</Filter>
+    </ClCompile>
+    <ClCompile Include="ETexture.cpp">
+      <Filter>Obj\Object\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxObj.cpp">
+      <Filter>Obj\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Obj\Object\ENEMY</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>System\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TerrainLoder.cpp">
+      <Filter>System\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="AStar.cpp">
+      <Filter>System\AStar</Filter>
+    </ClCompile>
+    <ClCompile Include="Radar.cpp">
+      <Filter>Radar</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="STAGE1.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>System\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyDome.cpp">
+      <Filter>SkyDome</Filter>
+    </ClCompile>
+    <ClCompile Include="GoalObj.cpp">
+      <Filter>Gaol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CIndexBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CVertexBuffer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="dx11helper.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="fpscontrol.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="NonCopyable.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj3DMesh.h">
+      <Filter>Obj\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>System\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Field</Filter>
+    </ClInclude>
+    <ClInclude Include="ParesObj.h">
+      <Filter>Obj\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\imgui.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\backends\imgui_impl_dx11.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\misc\cpp\imgui_stdlib.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\imconfig.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\backends\imgui_impl_win32.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\imstb_rectpack.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\imstb_textedit.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\imstb_truetype.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\misc\single_file\imgui_single_file.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="gui\imgui_internal.h">
+      <Filter>System\imgui\h</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CTest.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoxMesh.h">
+      <Filter>Box</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTest.h">
+      <Filter>Preyer Test</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>System\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>System\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>System\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>System\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon2D.h">
+      <Filter>2D</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="AssimpPerse.h">
+      <Filter>System\AssimpPerse</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>System\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRenderer.h">
+      <Filter>System\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>System\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CStaticMesh.h">
+      <Filter>System\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollision.h">
+      <Filter>System\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimScene.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="CStaticMeshRenderer.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimationMesh.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoneCombMatrices.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="CTreeNode.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimationData.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Obj\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Obj\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="easings.h">
+      <Filter>System\Twin</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimObj.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="BoneCombMatrix.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Obj\Object\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Obj\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CAnimationObject.h">
+      <Filter>System\Anim</Filter>
+    </ClInclude>
+    <ClInclude Include="ETexture.h">
+      <Filter>Obj\Object\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxObj.h">
+      <Filter>Obj\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Obj\Object\ENEMY</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>System\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TerrainLoder.h">
+      <Filter>System\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="AStar.h">
+      <Filter>System\AStar</Filter>
+    </ClInclude>
+    <ClInclude Include="Radar.h">
+      <Filter>Radar</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="STAGE1.h">
+      <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>System\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyDome.h">
+      <Filter>SkyDome</Filter>
+    </ClInclude>
+    <ClInclude Include="GoalObj.h">
+      <Filter>Gaol</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="shader\common.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\unlitTexturePS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\unlitTextureVS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\vertexLightingOneSkinVS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\vertexLightingPS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\vertexLightingVS.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_skyDome.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
