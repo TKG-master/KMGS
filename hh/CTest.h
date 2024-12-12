@@ -12,6 +12,7 @@
 #include "EnemyManager.h"
 #include "GameManager.h"
 #include "SkyDome.h"
+#include "GameResult.h"
 
 
 
@@ -32,6 +33,8 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+	GameUI* GoalUI;
+	GameUI* SpaceUI;
 
 	//イージングしていない時
 	bool isEasing = true;

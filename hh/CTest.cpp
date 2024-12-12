@@ -1,6 +1,7 @@
 #include "CTest.h"
 #include "GUI.h"
 #include "easings.h"
+#include "CSceneManager.h"
 
 
 
@@ -13,6 +14,19 @@ CTest::CTest()
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
     Dome->DrawInit(2000.0f, "assets\\BDome.jpg");
+
+    GoalUI = new GameUI();
+    GoalUI->Init("assets\\siro.jpg");
+    GoalUI->SetCenter(Vector2(500.0f, 500.0f));
+    GoalUI->SetHeight(2500.0f);
+    GoalUI->SetWidth(2500.0f);
+    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
+
+    SpaceUI = new GameUI();
+    SpaceUI->Init("assets\\SPACEUI.png");
+    SpaceUI->SetCenter(Vector2(625.0f, 600.0f));
+    SpaceUI->SetHeight(300.0f);
+    SpaceUI->SetWidth(500.0f);
 
     CScene::CreateStage(TERRAIN_ID::STAGE_TEST);
 
@@ -47,6 +61,10 @@ CTest::CTest()
     //Player:SneakWalk
     playerMS.MotionKey = "SWalk";
     playerMS.MotionFile = "assets/model/player/sneakWalk.fbx";
+    MS.push_back(playerMS);
+    //ゴールした時のモーション
+    playerMS.MotionKey = "Goal";
+    playerMS.MotionFile = "assets/model/player/PlayerGoalIdle.fbx";
     MS.push_back(playerMS);
 
 
@@ -160,7 +178,7 @@ void CTest::Update()
         radar->Update(Pl->GetPosition(), enemyPositions);
 
         //普通のカメラの追尾処理
-        if (camera->GetCranning() && !gameTime->TameStarflg)
+        if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
             camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed());
     }
 
@@ -169,7 +187,7 @@ void CTest::Update()
     {
         if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
         {
-            gameTime->Start();
+            //gameTime->Start();
             EM->SetRookNow(true);
         }
     }
@@ -179,12 +197,16 @@ void CTest::Update()
     {
         box->Update();
     }
+
     //ドームのアップデート
     Dome->Update();
+
     //ゴールのアップデート
     goal->Update(Pl->square);
+
     //ゴールにぶつかったか？
     GM->GameEnd(EM->GetEnemies(), goal);
+
     //ゴールにぶつかったらイージング
     if (GM->GetGoal() && GM->GetEndEasing())
     {
@@ -193,12 +215,24 @@ void CTest::Update()
     //イージングが終わったら
     else if (!GM->GetEndEasing())
     {
-
+        //ゴールした時のモーションにする
         Pl->SetGoalState();
-
+        //アニメーションの再生
         Pl->AnimUpdate();
-
+        //時間を止める
         gameTime->Stop();
+
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        {
+            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+        }
+    }
+    else if (EM->GetRookNow())
+    {
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        {
+            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+        }
     }
 
 
@@ -228,7 +262,20 @@ void CTest::Draw()
 
     goal->Draw();
 
-    radar->Draw(EM->GetEnemies());
+    if (!GM->GetEndEasing())
+    {
+        GoalUI->Draw();
+        SpaceUI->Draw();
+    }
+    else if (EM->GetRookNow())
+    {
+        GoalUI->Draw();
+        SpaceUI->Draw();
+    }
+    else
+    {
+        radar->Draw(EM->GetEnemies());
+    }
 
 
     //カメラの描画
@@ -264,6 +311,13 @@ void CTest::UnInit()
 
     delete goal;
     goal = nullptr;
+
+    delete GoalUI;
+    GoalUI = nullptr;
+
+    delete SpaceUI;
+    SpaceUI = nullptr;
+
 
     Pl->UnInit();
     delete Pl;
