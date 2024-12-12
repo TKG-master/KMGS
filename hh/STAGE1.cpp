@@ -195,25 +195,26 @@ void STAGE1::Update()
         //プレイヤーを見つけた敵に対してイージング
         if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
         {
-            gameTime->Start();
+            //gameTime->Start();
             EM->SetRookNow(true);
         }
     }
-
-
-
 
     //ボックスのアップデート
     for (auto& box : BOXS)
     {
         box->Update();
     }
+
     //ドームのアップデート
     Dome->Update();
+
     //ゴールのアップデート
     goal->Update(Pl->square);
+
     //ゴールにぶつかったか？
     GM->GameEnd(EM->GetEnemies(), goal);
+
     //ゴールにぶつかったらイージング
     if (GM->GetGoal() && GM->GetEndEasing())
     {   
@@ -222,25 +223,25 @@ void STAGE1::Update()
     //イージングが終わったら
     else if (!GM->GetEndEasing())
     {
-
+        //ゴールした時のモーションにする
         Pl->SetGoalState();
-
+        //アニメーションの再生
         Pl->AnimUpdate();
-
+        //時間を止める
         gameTime->Stop();
 
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
             CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
         }
-
     }
-
-    //画面を薄くしていく
-
-
-
-
+    else if (EM->GetRookNow())
+    {
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        {
+            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+        }
+    }
 
 
 
@@ -272,6 +273,11 @@ void STAGE1::Draw()
     goal->Draw();
 
     if (!GM->GetEndEasing())
+    {
+        GoalUI->Draw();
+        SpaceUI->Draw();
+    }
+    else if (EM->GetRookNow())
     {
         GoalUI->Draw();
         SpaceUI->Draw();
