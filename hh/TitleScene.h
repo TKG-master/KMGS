@@ -4,6 +4,7 @@
 #include "GoalObj.h"
 #include "Player.h"
 #include "SkyDome.h"
+#include "GameResult.h"
 
 
 
@@ -14,6 +15,7 @@ private:
 	GoalObj* goal;
 	Camera* Cam;
 	SkyDome* Dome;
+	GameUI* GR;
 
 public:
 	TitleScene();

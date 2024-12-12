@@ -130,6 +130,9 @@
     <Filter Include="SkyDome">
       <UniqueIdentifier>{8b7a65d1-7a45-4a53-bb5f-762836db904c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameResult">
+      <UniqueIdentifier>{d775d6b4-2c0d-4e14-bb58-da9f08614831}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -314,6 +317,9 @@
     </ClCompile>
     <ClCompile Include="GoalObj.cpp">
       <Filter>Gaol</Filter>
+    </ClCompile>
+    <ClCompile Include="GameResult.cpp">
+      <Filter>GameResult</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -529,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="GoalObj.h">
       <Filter>Gaol</Filter>
+    </ClInclude>
+    <ClInclude Include="GameResult.h">
+      <Filter>GameResult</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

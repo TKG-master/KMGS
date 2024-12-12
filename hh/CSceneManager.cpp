@@ -3,7 +3,7 @@
 // static メンバ変数の定義
 CSceneManager* CSceneManager::instance = nullptr;
 
-CSceneManager::CSceneManager() : currentScene(nullptr), m_Fade(nullptr), NowScene(SCENE_ID::TITLE)
+CSceneManager::CSceneManager() : currentScene(nullptr), m_Fade(nullptr), NowScene(SCENE_ID::STAGE_1)
 {
     m_Fade = new Fade();  // フェードオブジェクトを初期化
 }

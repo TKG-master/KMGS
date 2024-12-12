@@ -13,6 +13,9 @@ TitleScene::TitleScene()
 	Dome = new SkyDome();
 	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
 
+	GR = new GameUI();
+	GR->Init("assets\\STERTUI.png");
+
 }
 
 TitleScene::~TitleScene()
@@ -37,9 +40,12 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+
 	Dome->Draw();
 
 	goal->Draw();
+
+	GR->Draw();
 
 	Cam->Draw();
 
@@ -61,4 +67,7 @@ void TitleScene::UnInit()
 
 	delete Dome;
 	Dome = nullptr;
+
+	delete GR;
+	GR = nullptr;
 }
