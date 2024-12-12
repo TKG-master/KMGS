@@ -3,7 +3,7 @@
 // static メンバ変数の定義
 CSceneManager* CSceneManager::instance = nullptr;
 
-CSceneManager::CSceneManager() : currentScene(nullptr), m_Fade(nullptr), NowScene(SCENE_ID::TITLE)
+CSceneManager::CSceneManager() : currentScene(nullptr), m_Fade(nullptr), NowScene(SCENE_ID::RESALT)
 {
     m_Fade = new Fade();  // フェードオブジェクトを初期化
 }
@@ -80,6 +80,9 @@ void CSceneManager::ChangeScene(SCENE_ID _scene)
         break;
     case SCENE_ID::RESALT:
         currentScene = new ResultScene();
+        break;
+    case SCENE_ID::SELECT:
+        currentScene = new SelectScene();
         break;
     }
 

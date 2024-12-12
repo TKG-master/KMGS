@@ -1,8 +1,8 @@
-#include "ResultScene.h"
+#include "SelectScene.h"
 #include "CSceneManager.h"
 #include "Input.h"
 
-ResultScene::ResultScene()
+SelectScene::SelectScene()
 {
 	goal = new GoalObj(100.0f, 100.0f, 100.0f);
 	goal->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
@@ -14,19 +14,19 @@ ResultScene::ResultScene()
 	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
 
 	GR = new GameUI();
-	GR->Init("assets\\ResultUI.png");
+	GR->Init("assets\\SelectUI.png");
 	GR->SetCenter(Vector2(200.0f, 80.0f));
 	GR->SetHeight(200.0f);
 	GR->SetWidth(500.0f);
 
 	UI2 = new GameUI();
-	UI2->Init("assets\\BsckTitleUI.png");
+	UI2->Init("assets\\STAGE1UI.png");
 	UI2->SetCenter(Vector2(400.0f, 500.0f));
 	UI2->SetHeight(100.0f);
 	UI2->SetWidth(300.0f);
 
 	UI3 = new GameUI();
-	UI3->Init("assets\\QuitGameUI.png");
+	UI3->Init("assets\\STAGE2UI.png");
 	UI3->SetCenter(Vector2(900.0f, 500.0f));
 	UI3->SetHeight(100.0f);
 	UI3->SetWidth(300.0f);
@@ -38,14 +38,14 @@ ResultScene::ResultScene()
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(300.0f);
 	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
+
 }
 
-ResultScene::~ResultScene()
+SelectScene::~SelectScene()
 {
-
 }
 
-void ResultScene::Update()
+void SelectScene::Update()
 {
 	Dome->Update();
 
@@ -69,16 +69,17 @@ void ResultScene::Update()
 	{
 		if (UISelect->GetCenter() == UI2->GetCenter())
 		{
-			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TITLE);
+			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::STAGE_1);
 		}
 		else if (UISelect->GetCenter() == UI3->GetCenter())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TEST);
 		}
 	}
+
 }
 
-void ResultScene::Draw()
+void SelectScene::Draw()
 {
 	Dome->Draw();
 
@@ -95,14 +96,12 @@ void ResultScene::Draw()
 	Cam->Draw();
 }
 
-void ResultScene::Init()
+void SelectScene::Init()
 {
-
 }
 
-void ResultScene::UnInit()
+void SelectScene::UnInit()
 {
-
 	delete goal;
 	goal = nullptr;
 
@@ -123,5 +122,4 @@ void ResultScene::UnInit()
 
 	delete UISelect;
 	UISelect = nullptr;
-
 }

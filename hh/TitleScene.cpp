@@ -15,6 +15,13 @@ TitleScene::TitleScene()
 
 	GR = new GameUI();
 	GR->Init("assets\\START.png");
+	GR->SetCenter(Vector2(650.0f, 450.0f));
+
+	UI2 = new GameUI();
+	UI2->Init("assets\\SPACEUI.png");
+	UI2->SetCenter(Vector2(625.0f, 600.0f));
+	UI2->SetHeight(300.0f);
+	UI2->SetWidth(500.0f);
 
 }
 
@@ -31,9 +38,10 @@ void TitleScene::Update()
 
 	Cam->LateUpdate(goal->GetPosition(), 0.5f);
 
-	if (Input::Get()->GetKeyPress(DIK_SPACE))
+
+	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 	{
-		CSceneManager::GetInstance()->ChangeScene(SCENE_ID::STAGE_1);
+		CSceneManager::GetInstance()->ChangeScene(SCENE_ID::SELECT);
 	}
 
 }
@@ -46,6 +54,8 @@ void TitleScene::Draw()
 	goal->Draw();
 
 	GR->Draw();
+
+	UI2->Draw();
 
 	Cam->Draw();
 
@@ -70,4 +80,7 @@ void TitleScene::UnInit()
 
 	delete GR;
 	GR = nullptr;
+
+	delete UI2;
+	UI2 = nullptr;
 }

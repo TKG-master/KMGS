@@ -6,12 +6,14 @@
 #include "SkyDome.h"
 #include "GameResult.h"
 
-class ResultScene : public CScene
+
+class SelectScene : public CScene
 {
 private:
 	GoalObj* goal;
 	Camera* Cam;
 	SkyDome* Dome;
+
 
 	GameUI* GR;
 	GameUI* UI2;
@@ -19,8 +21,8 @@ private:
 	GameUI* UISelect;
 
 public:
-	ResultScene();
-	~ResultScene();
+	SelectScene();
+	~SelectScene();
 
 
 	//関数のオーバーライド
@@ -28,6 +30,5 @@ public:
 	void Draw() override;
 	void Init() override;
 	void UnInit() override;
-
 };
 

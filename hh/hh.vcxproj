@@ -194,6 +194,7 @@
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="SelectScene.cpp" />
     <ClCompile Include="SkyDome.cpp" />
     <ClCompile Include="STAGE1.cpp" />
     <ClCompile Include="stb.cpp" />
@@ -266,6 +267,7 @@
     <ClInclude Include="Radar.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="SelectScene.h" />
     <ClInclude Include="SkyDome.h" />
     <ClInclude Include="STAGE1.h" />
     <ClInclude Include="stb_image.h" />

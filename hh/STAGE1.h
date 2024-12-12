@@ -12,6 +12,7 @@
 #include "EnemyManager.h"
 #include "GameManager.h"
 #include "SkyDome.h"
+#include "GameResult.h"
 
 
 class STAGE1 : public CScene
@@ -30,6 +31,8 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+	GameUI* GoalUI;
+	GameUI* SpaceUI;
 
 	//イージングしていない時
 	bool isEasing = true;

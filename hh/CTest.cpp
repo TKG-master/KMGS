@@ -10,6 +10,10 @@ CTest::CTest()
 
     GM = new GameManager();
 
+    Dome = new SkyDome();
+    Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+    Dome->DrawInit(2000.0f, "assets\\BDome.jpg");
+
     CScene::CreateStage(TERRAIN_ID::STAGE_TEST);
 
     goal = new GoalObj(25.0f, 25.0f, 25.0f);
@@ -100,8 +104,6 @@ CTest::CTest()
 
     EMS.clear();
 
-    field.Init();
-
     camera = new Camera(this->GetCameraPos());
 
 }
@@ -177,10 +179,27 @@ void CTest::Update()
     {
         box->Update();
     }
-
+    //ドームのアップデート
+    Dome->Update();
+    //ゴールのアップデート
     goal->Update(Pl->square);
-
+    //ゴールにぶつかったか？
     GM->GameEnd(EM->GetEnemies(), goal);
+    //ゴールにぶつかったらイージング
+    if (GM->GetGoal() && GM->GetEndEasing())
+    {
+        GM->GoalEasing(Pl->GetPosition(), camera);
+    }
+    //イージングが終わったら
+    else if (!GM->GetEndEasing())
+    {
+
+        Pl->SetGoalState();
+
+        Pl->AnimUpdate();
+
+        gameTime->Stop();
+    }
 
 
     ////Imguiの処理
@@ -193,10 +212,6 @@ void CTest::Update()
 
 void CTest::Draw()
 {
-    //地面描画
-
-
-    field.Draw();
 
     //プレイヤーの描画
 
@@ -208,6 +223,8 @@ void CTest::Draw()
     {
         box->Draw();
     }
+
+    Dome->Draw();
 
     goal->Draw();
 
@@ -227,7 +244,9 @@ void CTest::Init()
 //終了処理
 void CTest::UnInit()
 {
-    field.Dispose();
+
+    delete Dome;
+    Dome = nullptr;
 
     radar->Dispose();
     delete radar;

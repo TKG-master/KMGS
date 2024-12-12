@@ -4,6 +4,7 @@
 #include "ResultScene.h"
 #include "AnimScene.h"
 #include "STAGE1.h"
+#include "SelectScene.h"
 #include "Fade.h"
 
 //ÉVÅ[ÉìÇÃéÌóﬁ
@@ -13,6 +14,7 @@ enum class SCENE_ID
 	RESALT,
 	TEST,
 	STAGE_1,
+	SELECT,
 	ANIM,
 };
 

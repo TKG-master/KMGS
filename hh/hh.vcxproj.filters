@@ -321,6 +321,9 @@
     <ClCompile Include="GameResult.cpp">
       <Filter>GameResult</Filter>
     </ClCompile>
+    <ClCompile Include="SelectScene.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CIndexBuffer.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="GameResult.h">
       <Filter>GameResult</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectScene.h">
+      <Filter>System\Scene\h</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

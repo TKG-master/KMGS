@@ -11,6 +11,7 @@
 #include "Timer.h"
 #include "EnemyManager.h"
 #include "GameManager.h"
+#include "SkyDome.h"
 
 
 
@@ -30,6 +31,7 @@ private:
 	Timer* gameTime;
 	GameManager* GM;
 	GoalObj* goal;
+	SkyDome* Dome;
 
 	//イージングしていない時
 	bool isEasing = true;
