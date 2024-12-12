@@ -154,7 +154,7 @@ void STAGE1::Update()
     {
         Pl->Update();
         //敵全体のアップデート
-        EM->UpdateEnemies(Pl, BOXS);
+         EM->UpdateEnemies(Pl, BOXS);
         //敵に見つかったのなら時間を止める
         if (EM->GetRook() && !EM->GetRookNow())
         {
@@ -177,6 +177,7 @@ void STAGE1::Update()
     //時間が止まっているときの処理
     else if (!gameTime->IsRunning() && gameTime->TameStarflg == false)
     {
+        //プレイヤーを見つけた敵に対してイージング
         if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
         {
             gameTime->Start();
@@ -192,21 +193,34 @@ void STAGE1::Update()
     {
         box->Update();
     }
-
+    //ドームのアップデート
     Dome->Update();
-
+    //ゴールのアップデート
     goal->Update(Pl->square);
-
+    //ゴールにぶつかったか？
     GM->GameEnd(EM->GetEnemies(), goal);
-
+    //ゴールにぶつかったらイージング
     if (GM->GetGoal() && GM->GetEndEasing())
-    {
+    {   
         GM->GoalEasing(Pl->GetPosition(), camera);
     }
+    //イージングが終わったら
     else if (!GM->GetEndEasing())
     {
+
         Pl->SetGoalState();
+
+        Pl->AnimUpdate();
+
+        gameTime->Stop();
     }
+
+    //画面を薄くしていく
+
+
+
+
+
 
 
 
