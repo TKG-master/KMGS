@@ -14,7 +14,7 @@ TitleScene::TitleScene()
 	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
 
 	GR = new GameUI();
-	GR->Init("assets\\STERTUI.png");
+	GR->Init("assets\\START.png");
 
 }
 

@@ -12,7 +12,7 @@ class GameUI
 private:
 	DirectX::SimpleMath::Vector2 relativePos;
 
-	DirectX::SimpleMath::Vector2 Center = DirectX::SimpleMath::Vector2(600.0f,450.0f);
+	DirectX::SimpleMath::Vector2 Center = DirectX::SimpleMath::Vector2(650.0f,450.0f);
 
 	DirectX::SimpleMath::Vector2 m_RadarCenter; //íÜêSà íu
 

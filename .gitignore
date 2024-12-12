@@ -362,8 +362,8 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-.assets/
+assets/
 
-.directxtk/
+directxtk/
 
-.x64/
+x64/
