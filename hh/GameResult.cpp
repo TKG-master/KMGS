@@ -51,11 +51,9 @@ void GameUI::Draw()
 	rectVertices[2].TexCoord = Vector2(0, 1);
 	rectVertices[3].TexCoord = Vector2(1, 1);
 
-	//長方形の色
-	Color radarColor(1.0f, 1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < 4; ++i)
 	{
-		rectVertices[i].Diffuse = radarColor;
+		rectVertices[i].Diffuse = color;
 	}
 
 	//シェーダーにセット

@@ -12,9 +12,12 @@ class GameUI
 private:
 	DirectX::SimpleMath::Vector2 relativePos;
 
-	DirectX::SimpleMath::Vector2 Center = DirectX::SimpleMath::Vector2(600.0f,450.0f);
+	DirectX::SimpleMath::Vector2 Center = DirectX::SimpleMath::Vector2(650.0f,450.0f);
 
 	DirectX::SimpleMath::Vector2 m_RadarCenter; //’†SˆÊ’u
+
+	//Ž‹–ì”ÍˆÍ‚ÌF
+	DirectX::SimpleMath::Color color = DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f);
 
 	float differenceX = 0.0f;
 	float differenceY = 0.0f;
@@ -45,6 +48,10 @@ public:
 	float GetHeight() { return this->halfHeight; };
 	void SetHeight(float Height) { this->halfHeight = Height; };
 
+	DirectX::SimpleMath::Vector2 GetCenter() { return this->Center; };
+	void SetCenter(DirectX::SimpleMath::Vector2 center) { this->Center = center; };
+
+	void SetColor(DirectX::SimpleMath::Color c) { this->color = c; };
 
 };
 

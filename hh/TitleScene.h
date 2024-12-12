@@ -11,11 +11,11 @@
 class TitleScene : public CScene
 {
 private:
-	Player* Pl;
 	GoalObj* goal;
 	Camera* Cam;
 	SkyDome* Dome;
 	GameUI* GR;
+	GameUI* UI2;
 
 public:
 	TitleScene();

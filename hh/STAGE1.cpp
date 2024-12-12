@@ -1,6 +1,7 @@
 #include "STAGE1.h"
 #include "GUI.h"
 #include "easings.h"
+#include "CSceneManager.h"
 
 
 
@@ -13,6 +14,21 @@ STAGE1::STAGE1()
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
     Dome->DrawInit(2000.0f, "assets\\BDome.jpg");
+
+    //SPACEUI.png
+
+    GoalUI = new GameUI();
+    GoalUI->Init("assets\\siro.jpg");
+    GoalUI->SetCenter(Vector2(500.0f, 500.0f));
+    GoalUI->SetHeight(2500.0f);
+    GoalUI->SetWidth(2500.0f);
+    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
+
+    SpaceUI = new GameUI();
+    SpaceUI->Init("assets\\SPACEUI.png");
+    SpaceUI->SetCenter(Vector2(625.0f, 600.0f));
+    SpaceUI->SetHeight(300.0f);
+    SpaceUI->SetWidth(500.0f);
 
     CScene::CreateStage(TERRAIN_ID::STAGE_1);
 
@@ -108,7 +124,6 @@ STAGE1::STAGE1()
 
     EMS.clear();
 
-    field.Init();
 
     camera = new Camera(this->GetCameraPos());
 
@@ -213,6 +228,12 @@ void STAGE1::Update()
         Pl->AnimUpdate();
 
         gameTime->Stop();
+
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        {
+            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+        }
+
     }
 
     //‰æ–Ê‚ð”–‚­‚µ‚Ä‚¢‚­
@@ -234,8 +255,6 @@ void STAGE1::Update()
 
 void STAGE1::Draw()
 {
-    //’n–Ê•`‰æ
-    field.Draw();
 
     EM->DrawEnemies();
 
@@ -252,8 +271,15 @@ void STAGE1::Draw()
 
     goal->Draw();
 
-    radar->Draw(EM->GetEnemies());
-
+    if (!GM->GetEndEasing())
+    {
+        GoalUI->Draw();
+        SpaceUI->Draw();
+    }
+    else
+    {
+        radar->Draw(EM->GetEnemies());
+    }
     //ƒJƒƒ‰‚Ì•`‰æ
     camera->Draw();
 }
@@ -283,8 +309,14 @@ void STAGE1::UnInit()
     delete GM;
     GM = nullptr;
 
+    delete SpaceUI;
+    SpaceUI = nullptr;
+
     delete goal;
     goal = nullptr;
+
+    delete GoalUI;
+    GoalUI = nullptr;
 
     Pl->UnInit();
     delete Pl;
