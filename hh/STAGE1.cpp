@@ -15,8 +15,6 @@ STAGE1::STAGE1()
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
     Dome->DrawInit(2000.0f, "assets\\BDome.jpg");
 
-    //SPACEUI.png
-
     GoalUI = new GameUI();
     GoalUI->Init("assets\\siro.jpg");
     GoalUI->SetCenter(Vector2(500.0f, 500.0f));
