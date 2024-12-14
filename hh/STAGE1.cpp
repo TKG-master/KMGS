@@ -17,16 +17,30 @@ STAGE1::STAGE1()
 
     GoalUI = new GameUI();
     GoalUI->Init("assets\\siro.jpg");
-    GoalUI->SetCenter(Vector2(500.0f, 500.0f));
+    GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
     GoalUI->SetHeight(2500.0f);
     GoalUI->SetWidth(2500.0f);
     GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
 
     SpaceUI = new GameUI();
     SpaceUI->Init("assets\\SPACEUI.png");
-    SpaceUI->SetCenter(Vector2(625.0f, 600.0f));
+    SpaceUI->SetCenter(Vector2(300.0f, 800.0f));
     SpaceUI->SetHeight(300.0f);
     SpaceUI->SetWidth(500.0f);
+
+
+    ClearUI = new GameUI();
+    ClearUI->Init("assets\\Clear !!.png");
+    ClearUI->SetCenter(Vector2(960.0f, 540.0f));
+    ClearUI->SetHeight(500.0f);
+    ClearUI->SetWidth(900.0f);
+
+    failedUI = new GameUI();
+    failedUI->Init("assets\\feiledUI.png");
+    failedUI->SetCenter(Vector2(960.0f, 540.0f));
+    failedUI->SetHeight(500.0f);
+    failedUI->SetWidth(900.0f);
+
 
     CScene::CreateStage(TERRAIN_ID::STAGE_1);
 
@@ -245,10 +259,10 @@ void STAGE1::Update()
 
 
     //Imgui‚Ìˆ—
-    //gui->PlayerUpdate(Pl);
-    //gui->CameraUpdate(camera);
-    //gui->CollisionUpdate(collision);
-    //gui->EnenyUpdate(EM);
+ /*   gui->PlayerUpdate(Pl);
+    gui->CameraUpdate(camera);
+    gui->CollisionUpdate(collision);
+    gui->EnenyUpdate(EM);*/
 
 }
 
@@ -274,11 +288,13 @@ void STAGE1::Draw()
     {
         GoalUI->Draw();
         SpaceUI->Draw();
+        ClearUI->Draw();
     }
     else if (EM->GetRookNow())
     {
         GoalUI->Draw();
         SpaceUI->Draw();
+        failedUI->Draw();
     }
     else
     {
@@ -321,6 +337,12 @@ void STAGE1::UnInit()
 
     delete GoalUI;
     GoalUI = nullptr;
+
+    delete ClearUI;
+    ClearUI = nullptr;
+
+    delete failedUI;
+    failedUI = nullptr;
 
     Pl->UnInit();
     delete Pl;

@@ -33,6 +33,8 @@ private:
 	SkyDome* Dome;
 	GameUI* GoalUI;
 	GameUI* SpaceUI;
+	GameUI* ClearUI;
+	GameUI* failedUI;
 
 	//イージングしていない時
 	bool isEasing = true;

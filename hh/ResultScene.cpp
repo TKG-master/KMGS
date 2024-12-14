@@ -26,7 +26,7 @@ ResultScene::ResultScene()
 	UI2->SetWidth(300.0f);
 
 	UI3 = new GameUI();
-	UI3->Init("assets\\QuitGameUI.png");
+	UI3->Init("assets\\SelectUI.png");
 	UI3->SetCenter(Vector2(900.0f, 500.0f));
 	UI3->SetHeight(100.0f);
 	UI3->SetWidth(300.0f);
@@ -73,7 +73,7 @@ void ResultScene::Update()
 		}
 		else if (UISelect->GetCenter() == UI3->GetCenter())
 		{
-			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TEST);
+			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::SELECT);
 		}
 	}
 }

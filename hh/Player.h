@@ -22,6 +22,8 @@ private:
     //ボックスに当たってる時の判定
     bool hitBox = false;
 
+    bool sticking = false;
+
     //プレイヤーが音を出したときのbool型
     bool knockSound = false;
 
@@ -60,6 +62,9 @@ public:
     void SetGoalState() { 
         STATUS = GOAL;
         this->SetToAnimationName("Goal"); };
+
+    bool GetSticking() { return this->sticking; };
+    void SetSticking(bool flg) { this->sticking = flg; };
 
     //壁に張り付いているときの向きを合わせる
     void StickyWall(CORRECT_DIR dir);

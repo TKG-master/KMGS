@@ -37,8 +37,8 @@ void Radar::Update(DirectX::SimpleMath::Vector3 playerPosition, const std::vecto
 	m_EnemyPositions.clear();
 
 	// レーダーの長方形のサイズ
-	float radarWidth = 250.0f;
-	float radarHeight = 150.0f;
+	float radarWidth = 300.0f;
+	float radarHeight = 250.0f;
 
 	// スケーリングファクター（索敵範囲を広げるための係数）
 	float scaleFactor = 3.0f;
@@ -76,10 +76,10 @@ void Radar::Draw(const std::vector<Enemy*>& enemies)
 	m_Material.SetGPU();
 
 	// レーダーの中心を設定
-	Vector2 radarCenter = Vector2(1100, 100); // レーダーの画面上の位置
+	Vector2 radarCenter = Vector2(1500, 150); // レーダーの画面上の位置
 	//横幅と縦幅
-	float width = 250.0f;
-	float height = 150.0f;
+	float width = 300.0f;
+	float height = 250.0f;
 
 
 	//長方形の４頂点の位置

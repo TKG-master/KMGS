@@ -38,11 +38,11 @@ SelectScene::SelectScene()
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(300.0f);
 	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
-
 }
 
 SelectScene::~SelectScene()
 {
+
 }
 
 void SelectScene::Update()

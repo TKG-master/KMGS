@@ -45,18 +45,9 @@ void CScene::CreateStage(TERRAIN_ID ID)
     TerrainLoder::GetInstance()->LoadWnderingData(ID);
     Wandering_data = TerrainLoder::GetInstance()->GetWnderingData();
 
-    // 各タイルのサイズ
-    const float tile_size_x = SIZEX;
-    const float tile_size_y = SIZEY;
-    const float Bigtile_size_y = BIGSIZEY;
-    const float tile_size_z = SIZEZ;
-
-    float x_tile = ORIGIN_TILE_POS_X;
-    float z_tile = ORIGIN_TILE_POS_Z;
-
     // ステージの総幅と総奥行きを計算
-    float total_width = (map_data[0].size() - 1) * tile_size_x;
-    float total_depth = (map_data.size() - 2) * tile_size_z;
+    total_width = (map_data[0].size()) * tile_size_x;
+    total_depth = (map_data.size() - 2) * tile_size_z;
 
     // floorBoxのサイズと位置を設定
     floorBox = new BoxObj(total_width, 100.0f, total_depth, "assets\\MGfloor.jpeg");
@@ -65,6 +56,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
         ORIGIN_TILE_POS_Z - (total_depth / 2.0f) + (tile_size_z / 2.0f));
     floorBox->SetPosition(floor_position);
     floorBox->CollisionInit(floor_position, Vector3(total_width, tile_size_y, total_depth));
+    //floorBox->CollisionInit(floor_position, Vector3(0.0f,0.0f,0.0f));
     BOXS.push_back(floorBox);
 
     // マップデータに基づいてステージを構築

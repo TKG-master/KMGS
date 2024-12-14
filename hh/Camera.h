@@ -20,7 +20,7 @@ private:
 	DirectX::SimpleMath::Matrix m_ViewMatrix{};
 
 	//ƒJƒƒ‰‚ÌˆÊ’u
-	float PosX = 0.0f, PosY = 400.0f, PosZ = -200.0f;
+	float PosX = 0.0f, PosY = 500.0f, PosZ = -250.0f;
 
 	float speed = 0.3f;
 

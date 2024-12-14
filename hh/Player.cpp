@@ -109,7 +109,7 @@ void Player::MoveUpdate()
 		SetToAnimationName("Walk");
 	}
 	else if (STATUS == RUN) {
-		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 1.5);
+		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.0);
 		SetToAnimationName("Run");
 	}
 	else if (STATUS == SNEAKWLKE)
@@ -141,7 +141,7 @@ void Player::MoveUpdate()
 
 	if (STATUS == GOAL)
 	{
-		this->SetAnimationSpeed(0.75f);
+		this->SetAnimationSpeed(0.5f);
 	}
 	else
 	{
@@ -196,7 +196,6 @@ Player::~Player()
 
 void Player::UnInit()
 {
-
 	Character::UnInit();
 }
 
@@ -206,23 +205,32 @@ void Player::StickyWall(CORRECT_DIR dir)
 	if (dir.x == 1) {
 		// 右方向に張り付く処理
 		this->SetRotation(Vector3(0.0f, 270.0f, 0.0f));
-
+		//張り付き状態
+		this->SetSticking(true);
+		STATUS = IDLE;
 	}
 	else if (dir.x == -1) {
 		// 左方向に張り付く処理
 		this->SetRotation(Vector3(0.0f, 90.0f, 0.0f));
+		//張り付き状態
+		this->SetSticking(true);
+		STATUS = IDLE;
 
 	}
 
-	if (dir.z == 1) {
+	if (dir.z == 1 && Input::Get()->GetKeyPress(DIK_S)) {
 		// 上方向に張り付く処理
 		this->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
-
+		//張り付き状態
+		this->SetSticking(true);
+		STATUS = IDLE;
 	}
-	else if (dir.z == -1) {
+	else if (dir.z == -1 && Input::Get()->GetKeyPress(DIK_W)) {
 		// 下方向に張り付く処理
 		this->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-
+		//張り付き状態
+		this->SetSticking(true);
+		STATUS = IDLE;
 	}
 }
 
@@ -249,6 +257,7 @@ void Player::Update()
 		}
 	}
 
+	//しゃがみ状態と立ち状態の当たり判定の変更
 	if (STATUS == SNEAK || STATUS == SNEAKWLKE)
 	{
 		this->SetSquare3D(Vector3(45.0f, 40.0f, 45.0f));

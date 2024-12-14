@@ -67,5 +67,17 @@ protected:
 	DirectX::SimpleMath::Vector3 CameraPos;
 
 
+	// 各タイルのサイズ
+	const float tile_size_x = SIZEX;
+	const float tile_size_y = SIZEY;
+	const float Bigtile_size_y = BIGSIZEY;
+	const float tile_size_z = SIZEZ;
+
+	float x_tile = ORIGIN_TILE_POS_X;
+	float z_tile = ORIGIN_TILE_POS_Z;
+
+	float total_width = 0.0f;
+	float total_depth = 0.0f;
+
 };
 
