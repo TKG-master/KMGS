@@ -4,6 +4,7 @@
 #include "CScene.h"
 #include "BoxObj.h"
 #include "CSceneManager.h"
+#include "easings.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -143,10 +144,10 @@ void Enemy::viewDraw()
 
         //１セグメントの点のｘ軸とｚ軸の計算
         float x = cos(angle) * viewDistance * this->Getview();
-        float z = sin(angle) * viewDistance * this->Getview();
+        float z = sin(angle) * viewDistance * viewZ;
 
         //扇形が埋もれないようにy軸に+0.1f
-        point = DirectX::SimpleMath::Vector3(x, 0.0f, z);
+        point = DirectX::SimpleMath::Vector3(x, 0.1f, z);
 
         // エネミーの向きに応じて回転
         rotation = DirectX::SimpleMath::Matrix::CreateRotationY(atan2(90.0f, 0.0f));
@@ -327,7 +328,7 @@ void Enemy::Wanderaround()
     DirectX::SimpleMath::Vector3 currentPosition = this->GetPosition();
 
     // 移動量を計算
-    DirectX::SimpleMath::Vector3 direction = targetPos - currentPosition;
+    direction = targetPos - currentPosition;
     float distance = direction.Length();
 
     // 次の位置に到達した場合の判定を緩める
@@ -343,13 +344,16 @@ void Enemy::Wanderaround()
         this->SetPosition(currentPosition + direction * MoveSpeed);
     }
 
-    // 進行方向に向けて回転を更新
+    // 進行方向に向けて回転を更新（イージングを使用）
     if (direction.LengthSquared() > 0.0f) {
-        //向きをセット
-        this->Setforward(direction);
-        UpdateRotation();  // 回転の更新
+        DirectX::SimpleMath::Vector3 currentForward = this->Getforward();
+        DirectX::SimpleMath::Vector3 newForward = EaseOutCirc(currentForward, direction, Time1);
+        this->Setforward(newForward);
+        Time1 += deltaTime;
+        if (Time1 >= 1.0f) {
+            Time1 = 0.0f;
+        }
     }
-
 }
 
 void Enemy::FollowPath()
@@ -406,6 +410,21 @@ void Enemy::FollowPath()
         this->Setforward(direction);
         UpdateRotation();  // 回転の更新
     }
+}
+
+bool Enemy::turnaround(DirectX::SimpleMath::Vector3 start, DirectX::SimpleMath::Vector3 gorl)
+{
+    if (start == gorl)
+    {
+        //振り向きが完了していたらtrue
+        return true;
+    }
+    else if (start != gorl)
+    {
+
+        return false;
+    }
+
 }
 
 

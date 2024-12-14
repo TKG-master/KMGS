@@ -55,7 +55,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
     float z_tile = ORIGIN_TILE_POS_Z;
 
     // ステージの総幅と総奥行きを計算
-    float total_width = (map_data[0].size() - 1) * tile_size_x;
+    float total_width = (map_data[0].size()) * tile_size_x;
     float total_depth = (map_data.size() - 2) * tile_size_z;
 
     // floorBoxのサイズと位置を設定

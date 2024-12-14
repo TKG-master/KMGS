@@ -12,7 +12,7 @@ private:
 	//向いている方向
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
 	//視野範囲の色
-	DirectX::SimpleMath::Color color = DirectX::SimpleMath::Color(0.8f, 0.0f, 0.0f, 0.8f);
+	DirectX::SimpleMath::Color color = DirectX::SimpleMath::Color(1.0f, 0.0f, 0.0f, 0.8f);
 	//扇形の点の場所
 	DirectX::SimpleMath::Vector3 point;
 	//次の地点
@@ -38,9 +38,19 @@ private:
 	//捕まった
 	bool getcaught = false;
 
+	float deltaTime = 0.000016f;
+	float Time1 = 0.0;
+
+	// 移動量を計算
+	DirectX::SimpleMath::Vector3 direction;
+
 	// 視野範囲の最大角度
-	float maxLookAngle = 60.0f;  // 最大30度の範囲で左右に回転
-	bool isLookingRight = true;  // 右に向かっているかどうか
+	float maxLookAngle = 45.0f;  // 最大30度の範囲で左右に回転
+	// 右に向かっているかどうか
+	bool isLookingRight = false;
+	//振り向ている最中か？
+	bool turn = false;
+
 	float lookSpeed = 0.01f; // 回転速度
 	//プレイヤーのデーター（読み取り用）
 	const Player* playerdate;
@@ -48,16 +58,17 @@ private:
 	Timer* time;
 
 	//扇形を描画するときのセグメント数
-	static constexpr int numSegments = 50;
+	static constexpr int numSegments = 200;
 	std::vector<VERTEX_3D> fanVertices = std::vector<VERTEX_3D>(numSegments + 2);
 
 
 
 	// 視野角の設定
-	float viewAngle = 1.0f; // 視野角
+	float viewAngle = 0.8f; // 視野角
 	float viewDistance = 300.0f; // 視野の距離
 	bool test = false;
 	float viewX = 2.0f;
+	float viewZ = 2.8f;
 	DirectX::SimpleMath::Vector3 SaveForward;
 
 	CIndexBuffer				e_IndexBuffer;
@@ -176,6 +187,8 @@ public:
 	//プレイヤーを捕まえた時のセッターとゲッター
 	void Setgetcaught(bool flg) { this->getcaught = flg; };
 	bool Getgetcaught() { return this->getcaught; };
+
+	bool turnaround(DirectX::SimpleMath::Vector3 start , DirectX::SimpleMath::Vector3 gorl);
 
 
 };
