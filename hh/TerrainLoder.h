@@ -38,13 +38,13 @@ private:
 	std::vector<std::string> file_name =
 	{
 		"stage_Test.csv",
-		"stage1_data.csv",
+		"stageF_data.csv",
 	};
 
 	std::vector<std::string> Wandering_name =
 	{
 		"Stage_T.csv",
-		"stage_1w.csv",
+		"Stage_Fw.csv",
 	};
 
 	// •¶š—ñ˜AŒ‹‚ÅŠ®¬‚³‚¹‚½ƒpƒX‚Ìî•ñ‚ğŠi”[
