@@ -36,6 +36,9 @@ private:
 	GameUI* ClearUI;
 	GameUI* failedUI;
 
+	GameUI* Fade;
+	bool FadeOut = false;
+
 	//イージングしていない時
 	bool isEasing = true;
 	//イージングした後

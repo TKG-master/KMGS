@@ -3,9 +3,9 @@
 // static メンバ変数の定義
 CSceneManager* CSceneManager::instance = nullptr;
 
-CSceneManager::CSceneManager() : currentScene(nullptr), m_Fade(nullptr), NowScene(SCENE_ID::TITLE)
+CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::TITLE),nextScene(SCENE_ID::TITLE)
 {
-    m_Fade = new Fade();  // フェードオブジェクトを初期化
+
 }
 
 CSceneManager::~CSceneManager()
@@ -16,12 +16,6 @@ CSceneManager::~CSceneManager()
         currentScene->UnInit();
         delete currentScene;
         currentScene = nullptr;
-    }
-    // フェードオブジェクトを解放
-    if (m_Fade)
-    {
-        delete m_Fade;
-        m_Fade = nullptr;
     }
 }
 
@@ -49,8 +43,6 @@ CSceneManager* CSceneManager::GetInstance()
 
 void CSceneManager::ChangeScene(SCENE_ID _scene)
 {
-    // フェードアウト開始
-    StartFadeOut();
 
     // 現在のシーンを解放
     if (currentScene)
@@ -90,9 +82,6 @@ void CSceneManager::ChangeScene(SCENE_ID _scene)
     {
         currentScene->Init();
     }
-
-    // フェードイン開始
-    StartFadeIn();
 }
 
 void CSceneManager::Init()
@@ -105,12 +94,6 @@ void CSceneManager::Update()
     if (currentScene)
     {
         currentScene->Update();
-    }
-
-    // フェードの更新
-    if (m_Fade)
-    {
-        m_Fade->Update();
     }
 
 }
@@ -131,22 +114,6 @@ void CSceneManager::Dis()
         currentScene->UnInit();
         delete currentScene;
         currentScene = nullptr;
-    }
-}
-
-void CSceneManager::StartFadeIn()
-{
-    if (m_Fade)
-    {
-        m_Fade->FadeIn();  // フェードイン開始
-    }
-}
-
-void CSceneManager::StartFadeOut()
-{
-    if (m_Fade)
-    {
-        m_Fade->FadeOut();  // フェードアウト開始
     }
 }
 

@@ -21,6 +21,8 @@ private:
 	Input() {};
 
 	~Input();
+
+	bool Inputflg = true;
 	
 
 public:
@@ -46,6 +48,8 @@ public:
 
 	// ƒ}ƒEƒX‚ÌˆÚ“®—Ê‚ğæ“¾‚·‚é
 	POINT GetMouseMove();
+
+	void Setkeyflg(bool flg) { Inputflg = flg; };
 
 };
 

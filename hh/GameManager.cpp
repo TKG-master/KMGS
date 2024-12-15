@@ -6,6 +6,7 @@
 #include "GoalObj.h"
 #include "BoxObj.h"
 #include "CSceneManager.h"
+#include "GameResult.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -14,6 +15,8 @@ GameManager::GameManager()
     Rookfarst = false;
     Goal = false;
     EndEasing = true;
+    Fadein = true;
+    Fadeout = true;
 }
 
 GameManager::~GameManager()
@@ -164,6 +167,44 @@ void GameManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
     }
 
 
+}
+
+void GameManager::FadeIn(GameUI* FadeUI)
+{
+    DirectX::SimpleMath::Vector3 FadePos;
+    FadePos.x = FadeUI->GetCenter().x;
+    FadePos.y = FadeUI->GetCenter().y;
+
+    DirectX::SimpleMath::Vector3 EndPos = Vector3(2880.0f, 0.0f, 540.0f);
+
+    if (Fadein)
+    {
+        FadeUI->SetFadePos(EaseOutCirc(FadeUI->GetFadePos(), EndPos, Time1));
+        Time1 += deltaTime;
+        if (Time1 >= 1.0f) {
+            Time1 = 0.0f;
+            Fadein = false;
+        }
+    }
+}
+
+void GameManager::FadeOut(GameUI* FadeUI)
+{
+    DirectX::SimpleMath::Vector3 FadePos;
+    FadePos.x = FadeUI->GetCenter().x;
+    FadePos.y = FadeUI->GetCenter().y;
+
+    DirectX::SimpleMath::Vector3 EndPos = Vector3(960.0f, 0.0f, 540.0f);
+
+    if (Fadeout)
+    {
+        FadeUI->SetFadePos(EaselnOutBack(FadeUI->GetFadePos(), EndPos, Time1));
+        Time1 += deltaTime;
+        if (Time1 >= 1.0f) {
+            Time1 = 0.0f;
+            Fadeout = false;
+        }
+    }
 }
 
 

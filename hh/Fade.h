@@ -4,36 +4,24 @@
 #include "CShader.h"
 #include "CMaterial.h"
 #include "CTexture.h"
+#include "GameResult.h"
 
 
-class Fade 
+class Fade : public GameUI
 {
 private:
-	CIndexBuffer				m_IndexBuffer;
-	CVertexBuffer<VERTEX_3D>	m_VertexBuffer;
-	CShader						m_Shader;
-	CMaterial					m_Material;
-	CTexture					m_Texture;
+    float alpha;       // 現在の透明度
+    float fadeSpeed;   // フェード速度
+    bool fadingIn;     // フェードイン中かどうか
+    bool fadingOut;    // フェードアウト中かどうか
 
-	float m_Opacity;          // 現在の不透明度
-	bool m_FadingIn;         // フェードインかフェードアウトか
-	bool m_IsFading;         // フェード中かどうか
 public:
-	Fade() : m_Opacity(0.0f), m_FadingIn(false), m_IsFading(false) {}
+    Fade();
 
-	void Init();
+    void StartFadeIn(float speed);
+    void StartFadeOut(float speed);
 
-	void Uninit();
-
-	void Draw();
-
-	void FadeIn();
-
-	void FadeOut();
-
-	void Update();
-
-
-
+    void Update() override;
+    void Draw() override;
 };
 
