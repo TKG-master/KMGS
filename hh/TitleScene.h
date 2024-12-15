@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "SkyDome.h"
 #include "GameResult.h"
+#include "GameManager.h"
 
 
 
@@ -16,6 +17,10 @@ private:
 	SkyDome* Dome;
 	GameUI* GR;
 	GameUI* UI2;
+
+	GameUI* Fade;
+	GameManager* GM;
+	bool FadeOut = false;
 
 public:
 	TitleScene();

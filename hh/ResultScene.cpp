@@ -13,23 +13,23 @@ ResultScene::ResultScene()
 	Dome = new SkyDome();
 	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
 
-	GR = new GameUI();
-	GR->Init("assets\\ResultUI.png");
-	GR->SetCenter(Vector2(200.0f, 80.0f));
-	GR->SetHeight(200.0f);
-	GR->SetWidth(500.0f);
+	Result = new GameUI();
+	Result->Init("assets\\ResultUI.png");
+	Result->SetCenter(Vector2(200.0f, 80.0f));
+	Result->SetHeight(200.0f);
+	Result->SetWidth(500.0f);
 
-	UI2 = new GameUI();
-	UI2->Init("assets\\BsckTitleUI.png");
-	UI2->SetCenter(Vector2(400.0f, 500.0f));
-	UI2->SetHeight(100.0f);
-	UI2->SetWidth(300.0f);
+	BsckTitle = new GameUI();
+	BsckTitle->Init("assets\\BsckTitleUI.png");
+	BsckTitle->SetCenter(Vector2(400.0f, 500.0f));
+	BsckTitle->SetHeight(100.0f);
+	BsckTitle->SetWidth(300.0f);
 
-	UI3 = new GameUI();
-	UI3->Init("assets\\SelectUI.png");
-	UI3->SetCenter(Vector2(900.0f, 500.0f));
-	UI3->SetHeight(100.0f);
-	UI3->SetWidth(300.0f);
+	Select = new GameUI();
+	Select->Init("assets\\SelectUI.png");
+	Select->SetCenter(Vector2(900.0f, 500.0f));
+	Select->SetHeight(100.0f);
+	Select->SetWidth(300.0f);
 
 
 	UISelect = new GameUI();
@@ -38,6 +38,18 @@ ResultScene::ResultScene()
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(300.0f);
 	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
+
+	Fade = new GameUI();
+	Fade->Init("assets\\siro.jpg");
+	Fade->SetCenter(Vector2(960.0f, 540.0f));
+	Fade->SetHeight(1080.0f);
+	Fade->SetWidth(1920.0f);
+	Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
+
+	GM = new GameManager();
+
+	Input::Get()->Setkeyflg(false);
+
 }
 
 ResultScene::~ResultScene()
@@ -47,6 +59,12 @@ ResultScene::~ResultScene()
 
 void ResultScene::Update()
 {
+	GM->FadeIn(Fade);
+	if (!GM->GetFadein())
+	{
+		Input::Get()->Setkeyflg(true);
+	}
+
 	Dome->Update();
 
 
@@ -56,26 +74,36 @@ void ResultScene::Update()
 
 	Cam->LateUpdate(goal->GetPosition(), 0.5f);
 
-	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != UI3->GetCenter())
+	//カーソルの移動
+	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != Select->GetCenter())
 	{
-		UISelect->SetCenter(UI3->GetCenter());
+		UISelect->SetCenter(Select->GetCenter());
 	}
-	else if (Input::Get()->GetKeyTrigger(DIK_LEFT) && UISelect->GetCenter() != UI2->GetCenter())
+	//カーソルの移動
+	else if (Input::Get()->GetKeyTrigger(DIK_LEFT) && UISelect->GetCenter() != BsckTitle->GetCenter())
 	{
-		UISelect->SetCenter(UI2->GetCenter());
+		UISelect->SetCenter(BsckTitle->GetCenter());
 	}
-
+	//決定したとき
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 	{
-		if (UISelect->GetCenter() == UI2->GetCenter())
+		this->FadeOut = true;
+		Input::Get()->Setkeyflg(false);
+	}
+
+	if (this->FadeOut)
+	{
+		GM->FadeOut(Fade);
+		if (UISelect->GetCenter() == BsckTitle->GetCenter() && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TITLE);
 		}
-		else if (UISelect->GetCenter() == UI3->GetCenter())
+		else if (UISelect->GetCenter() == Select->GetCenter() && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::SELECT);
 		}
 	}
+
 }
 
 void ResultScene::Draw()
@@ -84,13 +112,15 @@ void ResultScene::Draw()
 
 	goal->Draw();
 
-	GR->Draw();
+	Result->Draw();
 
-	UI2->Draw();
+	BsckTitle->Draw();
 
-	UI3->Draw();
+	Select->Draw();
 
 	UISelect->Draw();
+
+	Fade->Draw();
 
 	Cam->Draw();
 }
@@ -112,16 +142,22 @@ void ResultScene::UnInit()
 	delete Dome;
 	Dome = nullptr;
 
-	delete GR;
-	GR = nullptr;
+	delete Result;
+	Result = nullptr;
 
-	delete UI2;
-	UI2 = nullptr;
+	delete BsckTitle;
+	BsckTitle = nullptr;
 
-	delete UI3;
-	UI3 = nullptr;
+	delete Select;
+	Select = nullptr;
 
 	delete UISelect;
 	UISelect = nullptr;
+
+	delete Fade;
+	Fade = nullptr;
+
+	delete GM;
+	GM = nullptr;
 
 }

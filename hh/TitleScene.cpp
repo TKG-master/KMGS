@@ -23,6 +23,17 @@ TitleScene::TitleScene()
 	UI2->SetHeight(300.0f);
 	UI2->SetWidth(500.0f);
 
+	Fade = new GameUI();
+	Fade->Init("assets\\siro.jpg");
+	Fade->SetCenter(Vector2(960.0f, 540.0f));
+	Fade->SetHeight(1080.0f);
+	Fade->SetWidth(1920.0f);
+	Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
+
+	GM = new GameManager();
+
+	Input::Get()->Setkeyflg(false);
+
 }
 
 TitleScene::~TitleScene()
@@ -32,16 +43,31 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
+	GM->FadeIn(Fade);
+
+	if (!GM->GetFadein())
+	{
+		Input::Get()->Setkeyflg(true);
+	}
+
 	Dome->Update();
 
 	goal->TitleUpdate();
 
 	Cam->LateUpdate(goal->GetPosition(), 0.5f);
 
-
-	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+	if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetFadein())
 	{
-		CSceneManager::GetInstance()->ChangeScene(SCENE_ID::SELECT);
+		this->FadeOut = true;
+	}
+
+	if (this->FadeOut)
+	{
+		GM->FadeOut(Fade);
+		if (!GM->GetFadeout())
+		{
+			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::SELECT);
+		}
 	}
 
 }
@@ -56,6 +82,8 @@ void TitleScene::Draw()
 	GR->Draw();
 
 	UI2->Draw();
+
+	Fade->Draw();
 
 	Cam->Draw();
 
@@ -83,4 +111,11 @@ void TitleScene::UnInit()
 
 	delete UI2;
 	UI2 = nullptr;
+
+	delete Fade;
+	Fade = nullptr;
+
+	delete GM;
+	GM = nullptr;
+
 }

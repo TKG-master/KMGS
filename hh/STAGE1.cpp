@@ -15,6 +15,8 @@ STAGE1::STAGE1()
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
     Dome->DrawInit(2000.0f, "assets\\BDome.jpg");
 
+
+    //UIの初期化
     GoalUI = new GameUI();
     GoalUI->Init("assets\\siro.jpg");
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
@@ -40,6 +42,13 @@ STAGE1::STAGE1()
     failedUI->SetCenter(Vector2(960.0f, 540.0f));
     failedUI->SetHeight(500.0f);
     failedUI->SetWidth(900.0f);
+
+    Fade = new GameUI();
+    Fade->Init("assets\\siro.jpg");
+    Fade->SetCenter(Vector2(960.0f, 540.0f));
+    Fade->SetHeight(1080.0f);
+    Fade->SetWidth(1920.0f);
+    Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
 
 
     CScene::CreateStage(TERRAIN_ID::STAGE_1);
@@ -136,7 +145,6 @@ STAGE1::STAGE1()
 
     EMS.clear();
 
-
     camera = new Camera(this->GetCameraPos());
 
 }
@@ -148,8 +156,12 @@ STAGE1::~STAGE1()
 
 void STAGE1::Update()
 {
+
+    GM->FadeIn(Fade);
+
+
     //ゲーム開始の処理
-    if (GM->GetStartBoxEasing())
+    if (GM->GetStartBoxEasing() && !GM->GetFadein())
     {
         GM->farstBoxEasing(BOXS);
         Pl->AnimUpdate();
@@ -207,7 +219,6 @@ void STAGE1::Update()
         //プレイヤーを見つけた敵に対してイージング
         if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
         {
-            //gameTime->Start();
             EM->SetRookNow(true);
         }
     }
@@ -232,7 +243,8 @@ void STAGE1::Update()
     {   
         GM->GoalEasing(Pl->GetPosition(), camera);
     }
-    //イージングが終わったら
+
+    //ゴールした時の処理
     else if (!GM->GetEndEasing())
     {
         //ゴールした時のモーションにする
@@ -244,18 +256,33 @@ void STAGE1::Update()
 
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
-            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            this->FadeOut = true;
+        }
+        else if (this->FadeOut)
+        {
+            GM->FadeOut(Fade);
+            if (!GM->GetFadeout())
+            {
+                CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            }
         }
     }
+    //敵に見つかった時の処理
     else if (EM->GetRookNow())
     {
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
-            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            this->FadeOut = true;
+        }
+        else if (this->FadeOut)
+        {
+            GM->FadeOut(Fade);
+            if (!GM->GetFadeout())
+            {
+                CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            }
         }
     }
-
-
 
 
     //Imguiの処理
@@ -269,20 +296,22 @@ void STAGE1::Update()
 void STAGE1::Draw()
 {
 
-    EM->DrawEnemies();
-
-    //プレイヤーの描画
-
-    Pl->Draw();
-
-    for (auto& box : BOXS)
+    if (!GM->GetFadein())
     {
-        box->Draw();
+        EM->DrawEnemies();
+
+        Pl->Draw();
+
+        for (auto& box : BOXS)
+        {
+            box->Draw();
+        }
+
+        goal->Draw();
     }
 
     Dome->Draw();
 
-    goal->Draw();
 
     if (!GM->GetEndEasing())
     {
@@ -300,6 +329,9 @@ void STAGE1::Draw()
     {
         radar->Draw(EM->GetEnemies());
     }
+
+    Fade->Draw();
+
     //カメラの描画
     camera->Draw();
 }
@@ -343,6 +375,9 @@ void STAGE1::UnInit()
 
     delete failedUI;
     failedUI = nullptr;
+
+    delete Fade;
+    Fade = nullptr;
 
     Pl->UnInit();
     delete Pl;

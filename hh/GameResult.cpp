@@ -64,3 +64,19 @@ void GameUI::Draw()
 	devicecontext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	devicecontext->Draw(4, 0);
 }
+
+void GameUI::SetFadePos(DirectX::SimpleMath::Vector3 Fadepos)
+{
+	this->Center.x = Fadepos.x;
+	this->Center.y = Fadepos.z;
+}
+
+DirectX::SimpleMath::Vector3 GameUI::GetFadePos()
+{
+	DirectX::SimpleMath::Vector3 Fadepos;
+	Fadepos.x = this->Center.x;
+	Fadepos.z = this->Center.y;
+
+	return Fadepos;
+
+}

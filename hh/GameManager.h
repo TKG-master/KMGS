@@ -8,6 +8,7 @@ class Timer;
 class Player;
 class GoalObj;
 class BoxObj;
+class GameUI;
 
 
 
@@ -24,6 +25,11 @@ private:
 	bool RookEasing = true;
 	//最初のボックスの処理をするためのbool型
 	bool startBoxEasing = true;
+	//フェードを管理するbool型
+	bool Fadein = true;
+	bool Fadeout = true;
+
+
 	//イージングの時に使う時間の変数
 	float deltaTime = 0.010f;
 	float BdeltaTime = 0.05f;
@@ -63,6 +69,12 @@ public:
 	bool GetEndEasing() { return this->EndEasing; };
 	void SetEndEasing(bool flg) { this->EndEasing = flg; };
 
+	void FadeIn(GameUI* FadeUI);
+
+	void FadeOut(GameUI* FadeUI);
+
+	bool GetFadein() { return this->Fadein; };
+	bool GetFadeout() { return this->Fadeout; };
 
 
 

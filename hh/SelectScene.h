@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "SkyDome.h"
 #include "GameResult.h"
+#include "GameManager.h"
 
 
 class SelectScene : public CScene
@@ -15,10 +16,15 @@ private:
 	SkyDome* Dome;
 
 
-	GameUI* GR;
-	GameUI* UI2;
-	GameUI* UI3;
+	GameUI* SELECT;
+	GameUI* STAGE1;
+	GameUI* STAGE2;
 	GameUI* UISelect;
+
+	GameManager* GM;
+	GameUI* Fade;
+	bool FadeOut = false;
+
 
 public:
 	SelectScene();

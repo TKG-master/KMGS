@@ -108,11 +108,20 @@ void Input::Update()
 
 bool Input::GetKeyPress(int key)
 {
+	if (!Inputflg)
+	{
+		return false;
+	}
+
 	return (mKeyBuffer[key] & 0x80) != 0;
 }
 
 bool Input::GetKeyTrigger(int key)
 {
+	if (!Inputflg)
+	{
+		return false;
+	}
 	return (mOldKeyBuffer[key] & 0x80) == 0 && (mKeyBuffer[key] & 0x80) != 0;
 }
 

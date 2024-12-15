@@ -33,6 +33,8 @@ private:
 
 	//現在のシーン
 	SCENE_ID NowScene = SCENE_ID::TITLE;
+	//次のシーン
+	SCENE_ID nextScene;
 
 	static CSceneManager* instance;
 
@@ -46,15 +48,19 @@ public:
 
 	static void CleanupSingleton();
 
+	void PerformSceneChange();
+
 	void Init();
 	void Update();
 	void Draw();
 	void Dis();
 
 	// フェードの開始（フェードイン）
-	void StartFadeIn();
+	void SFadeIn();
 
 	// フェードの開始（フェードアウト）
-	void StartFadeOut();
+	void SFadeOut();
+
+	void UpdateFade();
 };
 

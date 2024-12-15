@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "SkyDome.h"
 #include "GameResult.h"
+#include "GameManager.h"
 
 class ResultScene : public CScene
 {
@@ -13,10 +14,14 @@ private:
 	Camera* Cam;
 	SkyDome* Dome;
 
-	GameUI* GR;
-	GameUI* UI2;
-	GameUI* UI3;
+	GameUI* Result;
+	GameUI* BsckTitle;
+	GameUI* Select;
 	GameUI* UISelect;
+
+	GameManager* GM;
+	GameUI* Fade;
+	bool FadeOut = false;
 
 public:
 	ResultScene();

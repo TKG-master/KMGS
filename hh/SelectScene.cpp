@@ -13,23 +13,23 @@ SelectScene::SelectScene()
 	Dome = new SkyDome();
 	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
 
-	GR = new GameUI();
-	GR->Init("assets\\SelectUI.png");
-	GR->SetCenter(Vector2(200.0f, 80.0f));
-	GR->SetHeight(200.0f);
-	GR->SetWidth(500.0f);
+	SELECT = new GameUI();
+	SELECT->Init("assets\\SelectUI.png");
+	SELECT->SetCenter(Vector2(200.0f, 80.0f));
+	SELECT->SetHeight(200.0f);
+	SELECT->SetWidth(500.0f);
 
-	UI2 = new GameUI();
-	UI2->Init("assets\\STAGE1UI.png");
-	UI2->SetCenter(Vector2(400.0f, 500.0f));
-	UI2->SetHeight(100.0f);
-	UI2->SetWidth(300.0f);
+	STAGE1 = new GameUI();
+	STAGE1->Init("assets\\STAGE1UI.png");
+	STAGE1->SetCenter(Vector2(400.0f, 500.0f));
+	STAGE1->SetHeight(100.0f);
+	STAGE1->SetWidth(300.0f);
 
-	UI3 = new GameUI();
-	UI3->Init("assets\\STAGE2UI.png");
-	UI3->SetCenter(Vector2(900.0f, 500.0f));
-	UI3->SetHeight(100.0f);
-	UI3->SetWidth(300.0f);
+	STAGE2 = new GameUI();
+	STAGE2->Init("assets\\STAGE2UI.png");
+	STAGE2->SetCenter(Vector2(900.0f, 500.0f));
+	STAGE2->SetHeight(100.0f);
+	STAGE2->SetWidth(300.0f);
 
 
 	UISelect = new GameUI();
@@ -38,6 +38,18 @@ SelectScene::SelectScene()
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(300.0f);
 	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
+
+	Fade = new GameUI();
+	Fade->Init("assets\\siro.jpg");
+	Fade->SetCenter(Vector2(960.0f, 540.0f));
+	Fade->SetHeight(1080.0f);
+	Fade->SetWidth(1920.0f);
+	Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
+
+	GM = new GameManager();
+
+	Input::Get()->Setkeyflg(false);
+
 }
 
 SelectScene::~SelectScene()
@@ -47,36 +59,49 @@ SelectScene::~SelectScene()
 
 void SelectScene::Update()
 {
-	Dome->Update();
+	GM->FadeIn(Fade);
+	if (!GM->GetFadein())
+	{
+		Input::Get()->Setkeyflg(true);
+	}
 
+	Dome->Update();
 
 	goal->TitleUpdate();
 
-
-
 	Cam->LateUpdate(goal->GetPosition(), 0.5f);
 
-	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != UI3->GetCenter())
+	//ƒJ[ƒ\ƒ‹‚ÌˆÚ“®
+	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != STAGE2->GetCenter())
 	{
-		UISelect->SetCenter(UI3->GetCenter());
+		UISelect->SetCenter(STAGE2->GetCenter());
 	}
-	else if (Input::Get()->GetKeyTrigger(DIK_LEFT) && UISelect->GetCenter() != UI2->GetCenter())
+	else if (Input::Get()->GetKeyTrigger(DIK_LEFT) && UISelect->GetCenter() != STAGE1->GetCenter())
 	{
-		UISelect->SetCenter(UI2->GetCenter());
+		UISelect->SetCenter(STAGE1->GetCenter());
 	}
+
+
+
 
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 	{
-		if (UISelect->GetCenter() == UI2->GetCenter())
+		this->FadeOut = true;
+	}
+
+	if (this->FadeOut)
+	{
+
+		GM->FadeOut(Fade);
+		if (UISelect->GetCenter() == STAGE1->GetCenter() && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::STAGE_1);
 		}
-		else if (UISelect->GetCenter() == UI3->GetCenter())
+		else if (UISelect->GetCenter() == STAGE2->GetCenter() && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TEST);
 		}
 	}
-
 }
 
 void SelectScene::Draw()
@@ -85,13 +110,15 @@ void SelectScene::Draw()
 
 	goal->Draw();
 
-	GR->Draw();
+	SELECT->Draw();
 
-	UI2->Draw();
+	STAGE1->Draw();
 
-	UI3->Draw();
+	STAGE2->Draw();
 
 	UISelect->Draw();
+
+	Fade->Draw();
 
 	Cam->Draw();
 }
@@ -111,15 +138,21 @@ void SelectScene::UnInit()
 	delete Dome;
 	Dome = nullptr;
 
-	delete GR;
-	GR = nullptr;
+	delete SELECT;
+	SELECT = nullptr;
 
-	delete UI2;
-	UI2 = nullptr;
+	delete STAGE1;
+	STAGE1 = nullptr;
 
-	delete UI3;
-	UI3 = nullptr;
+	delete STAGE2;
+	STAGE2 = nullptr;
 
 	delete UISelect;
 	UISelect = nullptr;
+
+	delete Fade;
+	Fade = nullptr;
+
+	delete GM;
+	GM = nullptr;
 }
