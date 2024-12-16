@@ -39,6 +39,8 @@ protected:
 
     //===== 更新処理に使用 =====
 
+    bool AnimEndState = false;
+
     // アニメーション速度
     float m_AnimationSpeed = 1.0f;
     //アニメーションブレンド速度
@@ -108,6 +110,10 @@ public:
 
 
     void CollisionInit(DirectX::SimpleMath::Vector3 pos, DirectX::SimpleMath::Vector3 size);
+
+    void SetAnimEndState(bool flg) { this->AnimEndState = flg; };
+    bool GetAnimEndState() { return this->AnimEndState; };
+
 
 };
 

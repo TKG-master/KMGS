@@ -210,7 +210,7 @@ void STAGE1::Update()
 
         //•’Ê‚ÌƒJƒƒ‰‚Ì’Ç”öˆ—
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
-            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed());
+            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f);
     }
 
     //ŽžŠÔ‚ªŽ~‚Ü‚Á‚Ä‚¢‚é‚Æ‚«‚Ìˆ—

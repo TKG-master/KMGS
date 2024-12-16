@@ -62,7 +62,10 @@ void Player::MoveUpdate()
 	//‘–‚éƒ‚[ƒh
 	if (Input::Get()->GetKeyPress(DIK_LSHIFT))
 	{
-		STATUS = RUN;
+		if (this->GetAnimEndState())
+		{
+			STATUS = RUN;
+		}
 	}
 
 	if (Input::Get()->GetKeyTrigger(DIK_E))
@@ -106,15 +109,18 @@ void Player::MoveUpdate()
 	//Velocity‚ÆMoveSpeed‚ð‚©‚¯‚Ä“ü‚ê‚é
 	if (STATUS == WALK) {
 		m_AnimationObject.m_Position += Velocity * MoveSpeed;
+		this->SetknockSound(false);
 		SetToAnimationName("Walk");
 	}
 	else if (STATUS == RUN) {
-		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.0);
+		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
+		this->SetknockSound(true);
 		SetToAnimationName("Run");
 	}
 	else if (STATUS == SNEAKWLKE)
 	{
 		m_AnimationObject.m_Position += Velocity * MoveSpeed * 0.5f;
+		this->SetknockSound(false);
 		SetToAnimationName("SWalk");
 	}
 	//----------------------//
@@ -122,6 +128,7 @@ void Player::MoveUpdate()
 	if (Velocity.Length() < 0.5f && STATUS != SNEAK && STATUS != SNEAKWLKE && STATUS != GOAL)
 	{
 		STATUS = IDLE;
+		if (this->GetAnimEndState())
 		SetToAnimationName("Idle");
 	}
 	else if (Velocity.Length() < 0.5f && STATUS == SNEAK)

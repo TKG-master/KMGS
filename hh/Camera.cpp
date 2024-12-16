@@ -92,10 +92,10 @@ void Camera::II(DirectX::SimpleMath::Vector3 G)
 }
 
 //カメラの追尾
-void Camera::LateUpdate(DirectX::SimpleMath::Vector3 TargetPos, float deltaTime)
+void Camera::LateUpdate(DirectX::SimpleMath::Vector3 TargetPos, float deltaTime,float Ypos)
 {
 	//目標の位置までを計算
-	Vector3 TargetPosition = TargetPos + Vector3(PosX, PosY, PosZ);
+	Vector3 TargetPosition = TargetPos + Vector3(PosX, Ypos, PosZ);
 
 	//線形補完
 	float lerpFactor = 0.9f;

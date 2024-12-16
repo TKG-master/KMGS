@@ -26,7 +26,6 @@ private:
 	Radar* radar;
 	Camera* camera;
 	Field field;
-	CCollision collision;
 	Player* Pl;
 	EnemyManager* EM;
 	Timer* gameTime;

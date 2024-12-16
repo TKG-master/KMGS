@@ -191,17 +191,7 @@ void CTest::Update()
 
         //普通のカメラの追尾処理
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
-            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed());
-    }
-
-    //時間が止まっているときの処理
-    else if (!gameTime->IsRunning() && gameTime->TameStarflg == false)
-    {
-        if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
-        {
-            //gameTime->Start();
-            EM->SetRookNow(true);
-        }
+            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f);
     }
 
     //ボックスのアップデート

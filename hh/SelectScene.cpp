@@ -69,7 +69,7 @@ void SelectScene::Update()
 
 	goal->TitleUpdate();
 
-	Cam->LateUpdate(goal->GetPosition(), 0.5f);
+	Cam->LateUpdate(goal->GetPosition(), 0.5f ,0.0f);
 
 	//ƒJ[ƒ\ƒ‹‚ÌˆÚ“®
 	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != STAGE2->GetCenter())
