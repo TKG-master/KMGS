@@ -40,6 +40,23 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
     for (Enemy* enemy : enemies) {
         enemy->Update();
         //敵の視野範囲の判定
+
+        //なんとなく見えている距離
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()* 1.4f))
+        {
+            // プレイヤーに向かってレイを飛ばす
+            rayDirection = Pl->GetPosition() - enemy->GetPosition();
+            Vector3 Epos = enemy->GetPosition();
+            // レイの発射位置をY軸方向に少し高くする
+            Epos.y += rayY;
+            //正規化
+            rayDirection.Normalize();
+            if (CCollision::RayIntersectsBox(Epos, rayDirection, Pl->square, obstacleBoxes, hitDis)) {
+                UpdateEnemyPaths(Pl->GetPosition());
+                enemy->SetSearch(true);
+            }
+        }
+        //絶対に見つかる距離
         if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()) && enemy->GetState() == EStateType::Patrolling) 
         {
             // プレイヤーに向かってレイを飛ばす
@@ -47,8 +64,8 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             Vector3 Epos = enemy->GetPosition();
             // レイの発射位置をY軸方向に少し高くする
             Epos.y += rayY;
+            //正規化
             rayDirection.Normalize();
-            float hitDis;
             if (CCollision::RayIntersectsBox(Epos, rayDirection, Pl->square, obstacleBoxes, hitDis)) {
                 enemy->SetTest(true);
                 this->Rook = true;
@@ -56,12 +73,13 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             else {
                 enemy->SetTest(false);
             }
+
         }
         //音が鳴った時かつ敵の状態がAlerted以外の時
         if (Pl->GetKnockSound() && enemy->GetState() != EStateType::Alerted)
         {
             //音が聞こえる範囲にいるか？
-            if (CCollision::PointInCircle(Pl->GetPosition(),350.0f,enemy->GetPosition()) && !enemy->GethearSound())
+            if (CCollision::PointInCircle(Pl->GetPosition(),50.0f,enemy->GetPosition()) && !enemy->GethearSound())
             {
                 this->UpdateEnemyPaths(Pl->GetPosition());
                 enemy->SethearSound(true);

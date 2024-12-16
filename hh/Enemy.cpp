@@ -171,6 +171,15 @@ void Enemy::viewDraw()
         fanIndices.push_back(i);
     }
 
+    if (this->Search)
+    {
+        this->SetColor(Color(1.0f, 0.0f, 0.0f, 0.8f));
+    }
+    else if (!this->Search)
+    {
+        this->SetColor(Color(1.0f, 1.0f, 0.0f, 0.8f));
+    }
+
     // 頂点バッファを作成して設定
     e_VertexBuffer.Create(fanVertices);
     e_VertexBuffer.SetGPU();
@@ -410,66 +419,5 @@ void Enemy::FollowPath()
         this->Setforward(direction);
         UpdateRotation();  // 回転の更新
     }
-}
-
-bool Enemy::turnaround(DirectX::SimpleMath::Vector3 start, DirectX::SimpleMath::Vector3 gorl)
-{
-    if (start == gorl)
-    {
-        //振り向きが完了していたらtrue
-        return true;
-    }
-    else if (start != gorl)
-    {
-
-        return false;
-    }
 
 }
-
-
-
-void Enemy::LookAround()
-{
-    // 現在の向いている方向（forward）を取得
-    DirectX::SimpleMath::Vector3 currentForward = this->Getforward();
-
-    // Y軸周りの回転角度
-    float angle = atan2(currentForward.z, currentForward.x);
-
-    // 右に向かっているか、左に向かっているかを判定
-    if (isLookingRight) {
-        angle += lookSpeed; // 右に向かって角度を増加させる
-        if (angle >= maxLookAngle) {
-            isLookingRight = false; // 最大角度に達したら左に回転する
-        }
-    }
-    else {
-        angle -= lookSpeed; // 左に向かって角度を減少させる
-        if (angle <= -maxLookAngle) {
-            isLookingRight = true; // 最小角度に達したら右に回転する
-        }
-    }
-
-    // 新しいforwardベクトルを計算
-    DirectX::SimpleMath::Vector3 newForward;
-    newForward.x = cos(angle); // x成分はcosを使って回転
-    newForward.z = sin(angle); // z成分はsinを使って回転
-
-    // 新しい向きを設定
-    this->Setforward(newForward);
-
-    // 回転後の向きでキャラクターの回転を更新
-    UpdateRotation();
-}
-
-
-
-
-
-
-
-
-
-
-

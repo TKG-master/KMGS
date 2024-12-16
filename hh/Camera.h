@@ -20,7 +20,7 @@ private:
 	DirectX::SimpleMath::Matrix m_ViewMatrix{};
 
 	//カメラの位置
-	float PosX = 0.0f, PosY = 500.0f, PosZ = -250.0f;
+	float PosX = 0.0f, PosY = 500.0f, PosZ = -350.0f;
 
 	float speed = 0.3f;
 
@@ -57,7 +57,7 @@ public:
 	void II(DirectX::SimpleMath::Vector3 G);
 
 	//カメラの追尾処理
-	void LateUpdate(DirectX::SimpleMath::Vector3 playerPos,float deltaTime);
+	void LateUpdate(DirectX::SimpleMath::Vector3 playerPos,float deltaTime,float Ypos);
 
 
 	//カメラがいる位置の座標を設定する関数

@@ -133,6 +133,9 @@
     <Filter Include="GameResult">
       <UniqueIdentifier>{d775d6b4-2c0d-4e14-bb58-da9f08614831}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\Behaviortree">
+      <UniqueIdentifier>{b58cf1d1-5f80-48ff-a75b-07cc25b00501}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">

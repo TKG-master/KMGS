@@ -139,9 +139,6 @@ public:
 	void EnemyDraw() { Character::Draw(); };
 	//敵の向きを計算する
 	void UpdateRotation();
-
-	void LookAround();
-
 	//Patrollingの時の動作
 	void PatrollingMove();
 	//Alertedの時の動作
@@ -187,8 +184,6 @@ public:
 	//プレイヤーを捕まえた時のセッターとゲッター
 	void Setgetcaught(bool flg) { this->getcaught = flg; };
 	bool Getgetcaught() { return this->getcaught; };
-
-	bool turnaround(DirectX::SimpleMath::Vector3 start , DirectX::SimpleMath::Vector3 gorl);
 
 
 };

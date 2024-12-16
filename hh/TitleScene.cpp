@@ -54,7 +54,7 @@ void TitleScene::Update()
 
 	goal->TitleUpdate();
 
-	Cam->LateUpdate(goal->GetPosition(), 0.5f);
+	Cam->LateUpdate(goal->GetPosition(), 0.5f ,0.0f);
 
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetFadein())
 	{
