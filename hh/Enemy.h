@@ -29,6 +29,14 @@ private:
 	//œpœj‚·‚éƒ‹[ƒg‚Ìƒ|ƒCƒ“ƒgŠi”[‚Ì”z—ñ
 	std::vector<DirectX::SimpleMath::Vector3> wandering_path;
 	int currentwanderingpathIndex = 0;
+	//Ÿ‚Ìœpœj‚Ì–Ú“I’n
+	DirectX::SimpleMath::Vector3 targetPos;
+	// Œ»İ‚ÌˆÊ’u
+	DirectX::SimpleMath::Vector3 currentPosition;
+
+	float distance;
+
+
 	//‰¹‚ª•·‚±‚¦‚½‚©H
 	bool hearSound = false;
 	//Œo˜H’Tõ’†‚ÌboolŒ^
@@ -38,8 +46,9 @@ private:
 	//•ß‚Ü‚Á‚½
 	bool getcaught = false;
 
-	float deltaTime = 0.000016f;
-	float Time1 = 0.0;
+	float deltaTime = 0.01f;
+	float Time1 = 0.5;
+	float Time = 0.5f;
 
 	// ˆÚ“®—Ê‚ğŒvZ
 	DirectX::SimpleMath::Vector3 direction;
@@ -142,7 +151,7 @@ public:
 	//Patrolling‚Ì‚Ì“®ì
 	void PatrollingMove();
 	//Alerted‚Ì‚Ì“®ì
-	void AlertedMove();
+	void lookaround();
 	//Investigating‚Ì‚Ì“®ì
 	void InvestigatingMove();
 

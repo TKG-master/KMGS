@@ -9,8 +9,8 @@ enum ObjectType {
 
 enum class EStateType {
     Patrolling,  // 徘徊
-    Alerted,     // プレイヤーを見つけた
-    Investigating // 中間地点のフェーズ（例：プレイヤーを見失った後の探索）
+    Lookaround,     //周りを見る
+    Turn // 中間地点のフェーズ（例：プレイヤーを見失った後の探索）
 };
 
 enum class GameState {

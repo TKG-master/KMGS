@@ -62,10 +62,7 @@ void Player::MoveUpdate()
 	//‘–‚éƒ‚[ƒh
 	if (Input::Get()->GetKeyPress(DIK_LSHIFT))
 	{
-		if (this->GetAnimEndState())
-		{
-			STATUS = RUN;
-		}
+		STATUS = RUN;
 	}
 
 	if (Input::Get()->GetKeyTrigger(DIK_E))
@@ -116,6 +113,11 @@ void Player::MoveUpdate()
 		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
 		this->SetknockSound(true);
 		SetToAnimationName("Run");
+		if (this->GetAnimEndState())
+		{
+			this->Stand = true;
+		}
+
 	}
 	else if (STATUS == SNEAKWLKE)
 	{
@@ -128,8 +130,12 @@ void Player::MoveUpdate()
 	if (Velocity.Length() < 0.5f && STATUS != SNEAK && STATUS != SNEAKWLKE && STATUS != GOAL)
 	{
 		STATUS = IDLE;
-		if (this->GetAnimEndState())
 		SetToAnimationName("Idle");
+		if (this->GetAnimEndState())
+		{
+			this->Stand = true;
+		}
+
 	}
 	else if (Velocity.Length() < 0.5f && STATUS == SNEAK)
 	{
@@ -270,7 +276,7 @@ void Player::Update()
 		this->SetSquare3D(Vector3(45.0f, 40.0f, 45.0f));
 		this->SetPosition(Vector3(this->GetPosition().x, 0.0f, this->GetPosition().z));
 	}
-	else if (STATUS != SNEAK && STATUS != SNEAKWLKE)
+	else if (STATUS != SNEAK && STATUS != SNEAKWLKE && this->Stand == true)
 	{
 		this->SetSquare3D(Vector3(45.0f, 80.0f, 45.0f));
 		this->SetPosition(Vector3(this->GetPosition().x, 0.1f, this->GetPosition().z));

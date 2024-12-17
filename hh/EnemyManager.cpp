@@ -76,7 +76,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
         }
         //‰¹‚ª–Â‚Á‚½Žž‚©‚Â“G‚Ìó‘Ô‚ªAlertedˆÈŠO‚ÌŽž
-        if (Pl->GetKnockSound() && enemy->GetState() != EStateType::Alerted)
+        if (Pl->GetKnockSound() && enemy->GetState() != EStateType::Lookaround)
         {
             //‰¹‚ª•·‚±‚¦‚é”ÍˆÍ‚É‚¢‚é‚©H
             if (CCollision::PointInCircle(Pl->GetPosition(),50.0f,enemy->GetPosition()) && !enemy->GethearSound())
@@ -91,8 +91,6 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         {
             this->UpdateEnemyPaths(enemy->GetwanderingPath()[0]);
         }
-
-        ManageEnemyState(enemy, Rook, Pl->GetPosition());
         Pl->SetknockSound(false);
     }
 }
@@ -106,7 +104,7 @@ void EnemyManager::DrawEnemies() {
 void EnemyManager::NotifyEnemies(Enemy* alertingEnemy) {
     for (Enemy* enemy : enemies) {
         if (enemy != alertingEnemy) {
-            enemy->SetState(EStateType::Alerted);
+            enemy->SetState(EStateType::Lookaround);
         }
     }
 }
@@ -114,7 +112,7 @@ void EnemyManager::NotifyEnemies(Enemy* alertingEnemy) {
 void EnemyManager::AlertEnemies(Enemy* alertedEnemy) {
     for (Enemy* enemy : enemies) {
         if (enemy != alertedEnemy) {
-            enemy->SetState(EStateType::Alerted);
+            enemy->SetState(EStateType::Lookaround);
         }
     }
 }
@@ -123,17 +121,17 @@ void EnemyManager::ManageEnemyState(Enemy* enemy, bool find, const DirectX::Simp
     switch (enemy->GetState()) {
     case EStateType::Patrolling:
         if (Rook) {
-            enemy->SetState(EStateType::Alerted);
+            enemy->SetState(EStateType::Lookaround);
             NotifyEnemies(enemy);
         }
         break;
-    case EStateType::Alerted:
+    case EStateType::Lookaround:
         if (Rook)
         {
             this->UpdateEnemyPaths(PlPos);
         }
         break;
-    case EStateType::Investigating:
+    case EStateType::Turn:
         break;
     }
 }

@@ -286,10 +286,9 @@ void STAGE1::Update()
 
 
     //Imgui‚Ìˆ—
- /*   gui->PlayerUpdate(Pl);
-    gui->CameraUpdate(camera);
-    gui->CollisionUpdate(collision);
-    gui->EnenyUpdate(EM);*/
+    //gui->PlayerUpdate(Pl);
+    //gui->CameraUpdate(camera);
+    //gui->EnenyUpdate(EM);
 
 }
 

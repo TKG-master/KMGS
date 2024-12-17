@@ -27,7 +27,7 @@ Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<Motio
     STATUS = IDLE;
     this->playerdate = Pl;
     this->square.type = ObjectType::ENEMY;
-    time = new Timer();
+    time = new Timer(true);
     this->Setgetcaught(false);
     this->SethearSound(false);
     this->Setback(false);
@@ -94,11 +94,11 @@ void Enemy::MoveUpdate()
     case EStateType::Patrolling:
         this->PatrollingMove();
         break;
-    case EStateType::Investigating:
+    case EStateType::Turn:
         this->InvestigatingMove();
         break;
-    case EStateType::Alerted:
-        this->AlertedMove();
+    case EStateType::Lookaround:
+        this->lookaround();
         break;
     }
      //進行方向に基づいて回転させる
@@ -291,25 +291,42 @@ void Enemy::PatrollingMove()
 
 }
 
-void Enemy::AlertedMove()
+void Enemy::lookaround()
 {
+        // タイマーがまだ開始されていない場合に開始する
+        if (!time->IsRunning()) {
+            time->StartCountDown(1500);
+        }
+        if (STATUS != IDLE)
+        {
+            STATUS = IDLE;
+        }
+        else if (STATUS == IDLE)
+        {
+            SetToAnimationName("Idle");
+        }
+        if (time->IsTimeUp())
+        {
+            time->Reset();
+            if (currentwanderingpathIndex >= wandering_path.size())
+            {
+                currentwanderingpathIndex = 0;
+            }
 
-    // 経路に沿って移動
-    this->FollowPath();
+            targetPos = wandering_path[currentwanderingpathIndex];
 
-    if (STATUS == RUN)
-    {
-        SetToAnimationName("Run");
-    }
-    else if (STATUS != RUN)
-    {
-        STATUS = RUN;
-    }
-
+            this->SetState(EStateType::Turn);
+        }
 }
 
 void Enemy::InvestigatingMove()
 {
+    this->Setforward(EaseInCirc(this->Getforward(),Vector3(0.0f,0.0f,-1.0f), Time));
+    Time += deltaTime;
+    if (Time >= 1.0f) {
+        Time = 0.5f;
+        this->SetState(EStateType::Patrolling);
+    }
 }
 
 void Enemy::SetPath(const std::vector<DirectX::SimpleMath::Vector3>& newPath)
@@ -321,20 +338,17 @@ void Enemy::SetPath(const std::vector<DirectX::SimpleMath::Vector3>& newPath)
 void Enemy::SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath)
 {
     wandering_path = wanderingPath;
+    currentwanderingpathIndex = 1;
 }
 
 void Enemy::Wanderaround()
 {
-    if (currentwanderingpathIndex >= wandering_path.size())
-    {
-        currentwanderingpathIndex = 0;
-    }
 
     // 次の位置
-    DirectX::SimpleMath::Vector3 targetPos = wandering_path[currentwanderingpathIndex];
+    targetPos = wandering_path[currentwanderingpathIndex];
 
     // 現在の位置
-    DirectX::SimpleMath::Vector3 currentPosition = this->GetPosition();
+    currentPosition = this->GetPosition();
 
     // 移動量を計算
     direction = targetPos - currentPosition;
@@ -346,6 +360,7 @@ void Enemy::Wanderaround()
         // 次の位置に到達した場合
         this->SetPosition(targetPos);
         currentwanderingpathIndex++;
+        this->SetState(EStateType::Lookaround);
     }
     else {
         // 移動量を正規化して速度を掛ける
@@ -353,14 +368,14 @@ void Enemy::Wanderaround()
         this->SetPosition(currentPosition + direction * MoveSpeed);
     }
 
-    // 進行方向に向けて回転を更新（イージングを使用）
+     //進行方向に向けて回転を更新（イージングを使用）
     if (direction.LengthSquared() > 0.0f) {
         DirectX::SimpleMath::Vector3 currentForward = this->Getforward();
-        DirectX::SimpleMath::Vector3 newForward = EaseOutCirc(currentForward, direction, Time1);
+        DirectX::SimpleMath::Vector3 newForward = EaseInCirc(currentForward, direction, Time1);
         this->Setforward(newForward);
         Time1 += deltaTime;
         if (Time1 >= 1.0f) {
-            Time1 = 0.0f;
+            Time1 = 0.5f;
         }
     }
 }
