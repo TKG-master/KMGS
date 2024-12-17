@@ -59,6 +59,7 @@ void GUI::PlayerUpdate(Player* player)
     auto sca = player->GetScale();
     auto speed = player->GetSpeed();
     auto square = player->Getsquare();
+    auto BlendeBool = player->GetAnimEndState();
 
 
     //ŠK‘w\‘¢
@@ -95,6 +96,13 @@ void GUI::PlayerUpdate(Player* player)
         ImGui::SliderFloat("Square3D.X", &square.sizeX, 0.0f, 40.0f);
         ImGui::SliderFloat("Square3D.Y", &square.sizeY, 0.0f, 40.0f);
         ImGui::SliderFloat("Square3D.Z", &square.sizeZ, 0.0f, 40.0f);
+        ImGui::TreePop();
+    }
+
+    if (ImGui::TreeNode("STAND"))
+    {
+        ImGui::Checkbox("stand", &BlendeBool);
+        player->SetAnimEndState(BlendeBool); // ’l‚ğ”½‰f
         ImGui::TreePop();
     }
 
@@ -145,6 +153,8 @@ void GUI::CameraUpdate(Camera* camera)
         ImGui::DragFloat("Speed", &speed, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }
+
+
 
 
     ImGui::SliderFloat("TTTT", &time, 0.0f, 1.0f);
@@ -303,6 +313,7 @@ void GUI::EnenyUpdate(EnemyManager* Menemy)
                 ImGui::SliderFloat("Square3D.Z", &square.sizeZ, 0.0f, 40.0f);
                 ImGui::TreePop();
             }
+
 
             enemy->Setsquare3D(square);
 

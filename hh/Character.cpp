@@ -23,10 +23,11 @@ bool Character::AnimationBrend()
 		//•Ï‚¦Ø‚Á‚½‚Ì‚ÅFrom‚ÉTo‚ğ‚¢‚ê‚é
 		m_FromAnimationName = m_ToAnimationName;
 		m_BlendRate = 0.0f;
-		AnimEndState = true;
+		this->AnimEndState = true;
 		return true;
 	}
 	m_AnimationObject.SetBlendRate(m_BlendRate);
+	this->AnimEndState = false;
 	return false;
 }
 

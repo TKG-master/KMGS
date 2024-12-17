@@ -194,6 +194,16 @@ void CTest::Update()
             camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f);
     }
 
+    //時間が止まっているときの処理
+    else if (!gameTime->IsRunning() && gameTime->TameStarflg == false)
+    {
+        //プレイヤーを見つけた敵に対してイージング
+        if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
+        {
+            EM->SetRookNow(true);
+        }
+    }
+
     //ボックスのアップデート
     for (auto& box : BOXS)
     {

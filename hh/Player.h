@@ -17,6 +17,8 @@ private:
     //動ける状態か？
     bool Moveflg;
 
+    bool Stand = true;
+
     // 前フレームされた衝突補正の方向
     CORRECT_DIR prevFrameCorrect = { 0 };
     //ボックスに当たってる時の判定
