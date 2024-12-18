@@ -13,6 +13,14 @@ enum class EStateType {
     Turn // 中間地点のフェーズ（例：プレイヤーを見失った後の探索）
 };
 
+enum class PStateType {
+    STAND,
+    SNEAK,
+    STANDEYE,
+    SNEAKEYE,
+};
+
+
 enum class GameState {
     START,
     UPDATE,

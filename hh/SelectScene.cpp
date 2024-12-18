@@ -11,36 +11,36 @@ SelectScene::SelectScene()
 	Cam->SetFoucus(Vector3(0.0f, 0.0f, 0.0f));
 
 	Dome = new SkyDome();
-	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
+	Dome->DrawInit(2000.0f, "assets\\Texture\\MGfloor.jpeg");
 
 	SELECT = new GameUI();
-	SELECT->Init("assets\\SelectUI.png");
+	SELECT->Init("assets\\Texture\\SelectUI.png");
 	SELECT->SetCenter(Vector2(200.0f, 80.0f));
 	SELECT->SetHeight(200.0f);
 	SELECT->SetWidth(500.0f);
 
 	STAGE1 = new GameUI();
-	STAGE1->Init("assets\\STAGE1UI.png");
+	STAGE1->Init("assets\\Texture\\STAGE1UI.png");
 	STAGE1->SetCenter(Vector2(400.0f, 500.0f));
 	STAGE1->SetHeight(100.0f);
 	STAGE1->SetWidth(300.0f);
 
 	STAGE2 = new GameUI();
-	STAGE2->Init("assets\\STAGE2UI.png");
+	STAGE2->Init("assets\\Texture\\STAGE2UI.png");
 	STAGE2->SetCenter(Vector2(900.0f, 500.0f));
 	STAGE2->SetHeight(100.0f);
 	STAGE2->SetWidth(300.0f);
 
 
 	UISelect = new GameUI();
-	UISelect->Init("assets\\siro.jpg");
+	UISelect->Init("assets\\Texture\\siro.jpg");
 	UISelect->SetCenter(Vector2(400.0f, 500.0f));
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(300.0f);
 	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
 
 	Fade = new GameUI();
-	Fade->Init("assets\\siro.jpg");
+	Fade->Init("assets\\Texture\\siro.jpg");
 	Fade->SetCenter(Vector2(960.0f, 540.0f));
 	Fade->SetHeight(1080.0f);
 	Fade->SetWidth(1920.0f);
@@ -69,14 +69,14 @@ void SelectScene::Update()
 
 	goal->TitleUpdate();
 
-	Cam->LateUpdate(goal->GetPosition(), 0.5f ,0.0f);
+	Cam->FocusCamera(goal->GetPosition(), 0.5f ,0.0f);
 
 	//ƒJ[ƒ\ƒ‹‚ÌˆÚ“®
-	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != STAGE2->GetCenter())
+	if (Input::Get()->GetKeyTrigger(DIK_D) && UISelect->GetCenter() != STAGE2->GetCenter())
 	{
 		UISelect->SetCenter(STAGE2->GetCenter());
 	}
-	else if (Input::Get()->GetKeyTrigger(DIK_LEFT) && UISelect->GetCenter() != STAGE1->GetCenter())
+	else if (Input::Get()->GetKeyTrigger(DIK_A) && UISelect->GetCenter() != STAGE1->GetCenter())
 	{
 		UISelect->SetCenter(STAGE1->GetCenter());
 	}

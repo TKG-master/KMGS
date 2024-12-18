@@ -50,12 +50,12 @@ void CScene::CreateStage(TERRAIN_ID ID)
     total_depth = (map_data.size() - 2) * tile_size_z;
 
     // floorBoxのサイズと位置を設定
-    floorBox = new BoxObj(total_width, 100.0f, total_depth, "assets\\MGfloor.jpeg");
+    floorBox = new BoxObj(total_width, 100.0f, total_depth, "assets\\Texture\\MGfloor.jpeg");
     Vector3 floor_position(ORIGIN_TILE_POS_X + (total_width / 2.0f) - (tile_size_x / 2.0f),
-        tile_size_y / 2.0 - 100.1f,
+        tile_size_y / 2.0 - 92.0f,
         ORIGIN_TILE_POS_Z - (total_depth / 2.0f) + (tile_size_z / 2.0f));
     floorBox->SetPosition(floor_position);
-    floorBox->CollisionInit(floor_position, Vector3(total_width, tile_size_y, total_depth));
+    floorBox->CollisionInit(floor_position, Vector3(total_width, tile_size_y / 2, total_depth));
     //floorBox->CollisionInit(floor_position, Vector3(0.0f,0.0f,0.0f));
     BOXS.push_back(floorBox);
 
@@ -71,7 +71,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
             // 地形IDに応じたオブジェクトを配置
             if (map_data[z][x] == 1) //Box
             {
-                BoxObj* box = new BoxObj(tile_size_x, tile_size_y, tile_size_z , "assets\\RaderT.png");
+                BoxObj* box = new BoxObj(tile_size_x, tile_size_y, tile_size_z , "assets\\Texture\\floor.png");
                 Vector3 position(x_tile, (tile_size_y / 2), z_tile);
                 box->SetPosition(position);
                 box->CollisionInit(position, Vector3(tile_size_x, (tile_size_y / 2.0f), tile_size_z));
@@ -88,7 +88,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
             }
             else if (map_data[z][x] == 4) //Goal
             {
-                GoalPos = Vector3(x_tile, 25.0f, z_tile);
+                GoalPos = Vector3(x_tile, 50.0f, z_tile);
             }
             else if (map_data[z][x] == 5) //Camera
             {
@@ -96,7 +96,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
             }
             else if (map_data[z][x] == 6) 
             {
-                BoxObj* box = new BoxObj(tile_size_x, Bigtile_size_y, tile_size_z , "assets\\RaderT.png");
+                BoxObj* box = new BoxObj(tile_size_x, Bigtile_size_y, tile_size_z , "assets\\Texture\\RaderT.png");
                 Vector3 position(x_tile, (Bigtile_size_y / 2), z_tile);
                 box->SetPosition(position);
                 box->CollisionInit(position, Vector3(tile_size_x, Bigtile_size_y, tile_size_z));

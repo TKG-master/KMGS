@@ -17,7 +17,6 @@ private:
 	SkyDome* Dome;
 	GameUI* GR;
 	GameUI* UI2;
-
 	GameUI* Fade;
 	GameManager* GM;
 	bool FadeOut = false;

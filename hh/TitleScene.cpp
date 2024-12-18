@@ -11,20 +11,22 @@ TitleScene::TitleScene()
 	Cam->SetFoucus(Vector3(0.0f, 0.0f, 0.0f));
 
 	Dome = new SkyDome();
-	Dome->DrawInit(2000.0f, "assets\\MGfloor.jpeg");
+	Dome->DrawInit(2000.0f, "assets\\Texture\\MGfloor.jpeg");
 
 	GR = new GameUI();
-	GR->Init("assets\\START.png");
+	GR->Init("assets\\Texture\\START.png");
 	GR->SetCenter(Vector2(650.0f, 450.0f));
 
 	UI2 = new GameUI();
-	UI2->Init("assets\\SPACEUI.png");
-	UI2->SetCenter(Vector2(625.0f, 600.0f));
-	UI2->SetHeight(300.0f);
-	UI2->SetWidth(500.0f);
+	UI2->Init("assets\\Texture\\WkeyUI.png");
+	UI2->SetCenter(Vector2(100.0f, 800.0f));
+	UI2->SetHeight(100.0f);
+	UI2->SetWidth(100.0f);
+
+
 
 	Fade = new GameUI();
-	Fade->Init("assets\\siro.jpg");
+	Fade->Init("assets\\Texture\\siro.jpg");
 	Fade->SetCenter(Vector2(960.0f, 540.0f));
 	Fade->SetHeight(1080.0f);
 	Fade->SetWidth(1920.0f);
@@ -54,7 +56,7 @@ void TitleScene::Update()
 
 	goal->TitleUpdate();
 
-	Cam->LateUpdate(goal->GetPosition(), 0.5f ,0.0f);
+	Cam->FocusCamera(goal->GetPosition(), 0.5f ,0.0f);
 
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetFadein())
 	{

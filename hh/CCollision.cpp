@@ -1,6 +1,7 @@
 #include "CCollision.h"
 #include "GUI.h"
 #include "BoxObj.h"
+#include "Enemy.h"
 
 using namespace DirectX::SimpleMath;
 
@@ -165,10 +166,57 @@ CORRECT_DIR CCollision::ResolveCollision(SQUARE3D& box1, SQUARE3D& box2)
 
 }
 
-float CCollision::GetCenterpoint()
+bool CCollision::IsCollisionWithBox(const DirectX::SimpleMath::Vector3& point, const SQUARE3D& box)
 {
-    return square.centerX , square.centerZ , square.sizeX , square.sizeZ;
+    // ボックスの境界に扇形が交差するかを計算するロジックを実装
+    // 例えば、扇形の外周がボックスに接触するかをチェックします
+    // ここでは簡単なチェックの一例を示します
+    return (point.x >= box.centerX - box.sizeX / 2 &&
+        point.x <= box.centerX + box.sizeX / 2 &&
+        point.z >= box.centerZ - box.sizeZ / 2 &&
+        point.z <= box.centerZ + box.sizeZ / 2);
 }
+
+bool CCollision::RayIntersectsBox(const DirectX::SimpleMath::Vector3& rayOrigin, const DirectX::SimpleMath::Vector3& rayDir, const SQUARE3D& box)
+{
+    // ボックスの面とレイの交差判定を行う関数
+
+  // ボックスの最小値（min）と最大値（max）を計算
+    float minX = box.centerX - box.sizeX / 2;
+    float maxX = box.centerX + box.sizeX / 2;
+    float minY = box.centerY - box.sizeY / 2;
+    float maxY = box.centerY + box.sizeY / 2;
+    float minZ = box.centerZ - box.sizeZ / 2;
+    float maxZ = box.centerZ + box.sizeZ / 2;
+
+    // レイの始点と方向を使って交差判定
+    float tmin = (minX - rayOrigin.x) / rayDir.x;
+    float tmax = (maxX - rayOrigin.x) / rayDir.x;
+
+    if (tmin > tmax) std::swap(tmin, tmax);
+
+    float tymin = (minY - rayOrigin.y) / rayDir.y;
+    float tymax = (maxY - rayOrigin.y) / rayDir.y;
+
+    if (tymin > tymax) std::swap(tymin, tymax);
+
+    if ((tmin > tymax) || (tymin > tmax))
+        return false;
+
+    if (tymin > tmin) tmin = tymin;
+    if (tymax < tmax) tmax = tymax;
+
+    float tzmin = (minZ - rayOrigin.z) / rayDir.z;
+    float tzmax = (maxZ - rayOrigin.z) / rayDir.z;
+
+    if (tzmin > tzmax) std::swap(tzmin, tzmax);
+
+    if ((tmin > tzmax) || (tzmin > tmax))
+        return false;
+
+    return true;  // レイとボックスが交差する場合
+}
+
 
 void CCollision::SetCenterpoint(float CeneterpointX, float CeneterpointZ, float sizeX, float sizeZ)
 {

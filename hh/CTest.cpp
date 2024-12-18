@@ -13,29 +13,29 @@ CTest::CTest()
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-    Dome->DrawInit(2000.0f, "assets\\BDome.jpg");
+    Dome->DrawInit(2000.0f, "assets\\Texture\\BDome.jpg");
 
     GoalUI = new GameUI();
-    GoalUI->Init("assets\\siro.jpg");
+    GoalUI->Init("assets\\Texture\\siro.jpg");
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
     GoalUI->SetHeight(2500.0f);
     GoalUI->SetWidth(2500.0f);
     GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
 
     SpaceUI = new GameUI();
-    SpaceUI->Init("assets\\SPACEUI.png");
+    SpaceUI->Init("assets\\Texture\\SPACEUI.png");
     SpaceUI->SetCenter(Vector2(300.0f, 800.0f));
     SpaceUI->SetHeight(300.0f);
     SpaceUI->SetWidth(500.0f);
 
     ClearUI = new GameUI();
-    ClearUI->Init("assets\\Clear !!.png");
+    ClearUI->Init("assets\\Texture\\Clear !!.png");
     ClearUI->SetCenter(Vector2(960.0f, 540.0f));
     ClearUI->SetHeight(500.0f);
     ClearUI->SetWidth(900.0f);
 
     failedUI = new GameUI();
-    failedUI->Init("assets\\feiledUI.png");
+    failedUI->Init("assets\\Texture\\feiledUI.png");
     failedUI->SetCenter(Vector2(960.0f, 540.0f));
     failedUI->SetHeight(500.0f);
     failedUI->SetWidth(900.0f);
@@ -191,7 +191,7 @@ void CTest::Update()
 
         //•’Ê‚ÌƒJƒƒ‰‚Ì’Ç”öˆ—
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
-            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f);
+            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f, Pl->GetFPSeye(),Pl->GetFacingDirection());
     }
 
     //ŽžŠÔ‚ªŽ~‚Ü‚Á‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
