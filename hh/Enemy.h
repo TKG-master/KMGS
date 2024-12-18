@@ -48,7 +48,7 @@ private:
 
 	float deltaTime = 0.01f;
 	float Time1 = 0.5;
-	float Time = 0.5f;
+	float Time = 0.0f;
 
 	// 移動量を計算
 	DirectX::SimpleMath::Vector3 direction;
@@ -67,10 +67,10 @@ private:
 	Timer* time;
 
 	//扇形を描画するときのセグメント数
-	static constexpr int numSegments = 200;
+	static constexpr int numSegments = 50;
 	std::vector<VERTEX_3D> fanVertices = std::vector<VERTEX_3D>(numSegments + 2);
 
-
+	std::vector<DirectX::SimpleMath::Vector3> intersectionPoints;
 
 	// 視野角の設定
 	float viewAngle = 0.8f; // 視野角
@@ -100,7 +100,6 @@ public:
 	void Update();
 	void MoveUpdate();
 	void Draw();
-
 	//情報のゲッター
 	//向いている方向のゲット
 	DirectX::SimpleMath::Vector3 Getforward() { return this->forward; };
@@ -193,6 +192,8 @@ public:
 	//プレイヤーを捕まえた時のセッターとゲッター
 	void Setgetcaught(bool flg) { this->getcaught = flg; };
 	bool Getgetcaught() { return this->getcaught; };
+
+	DirectX::SimpleMath::Vector3 AdjustForBoxCollision(const DirectX::SimpleMath::Vector3& rayDir, const SQUARE3D& box);
 
 
 };

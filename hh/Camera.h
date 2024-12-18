@@ -57,7 +57,9 @@ public:
 	void II(DirectX::SimpleMath::Vector3 G);
 
 	//カメラの追尾処理
-	void LateUpdate(DirectX::SimpleMath::Vector3 playerPos,float deltaTime,float Ypos);
+	void LateUpdate(DirectX::SimpleMath::Vector3 playerPos,float deltaTime,float Ypos,bool flog , DirectX::SimpleMath::Vector3 Direction);
+
+	void FocusCamera(DirectX::SimpleMath::Vector3 playerPos, float deltaTime, float Ypos);
 
 
 	//カメラがいる位置の座標を設定する関数

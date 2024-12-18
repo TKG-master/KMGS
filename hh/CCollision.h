@@ -3,6 +3,8 @@
 #include <DirectXCollision.h> // BoundingBoxクラスが含まれているヘッダー
 #include "Type.h"
 
+class Enemy;
+
 struct SQUARE3D {
 	float centerX;	// Boxコライダーの中心点X
 	float centerZ;	// Boxコライダーの中心点Z
@@ -66,11 +68,15 @@ public:
 		const std::vector<BoxObj*>& obstacleBoxes,
 		float& hitDistance);
 
+
+
 	static CORRECT_DIR ResolveCollision(SQUARE3D& box1, SQUARE3D& box2);
 
+	static bool IsCollisionWithBox(const DirectX::SimpleMath::Vector3& point, const SQUARE3D& box);
 
-	//squareの中身をゲット
-	float GetCenterpoint();
+	static bool RayIntersectsBox(const DirectX::SimpleMath::Vector3& rayOrigin,
+		const DirectX::SimpleMath::Vector3& rayDir,
+		const SQUARE3D& box);
 
 	//squareをセット
 	void SetCenterpoint(float CeneterpointX, float CeneterpointZ , float sizeX,float sizeZ);

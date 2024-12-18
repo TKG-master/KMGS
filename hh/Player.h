@@ -19,12 +19,14 @@ private:
 
     bool Stand = true;
 
+    bool FPSeye = false;
+
+    PStateType State = PStateType::STAND;
+
     // 前フレームされた衝突補正の方向
     CORRECT_DIR prevFrameCorrect = { 0 };
     //ボックスに当たってる時の判定
     bool hitBox = false;
-
-    bool sticking = false;
 
     //プレイヤーが音を出したときのbool型
     bool knockSound = false;
@@ -61,12 +63,19 @@ public:
     void SetknockSound(bool flg) { this->knockSound = flg; };
     bool GetKnockSound() { return this->knockSound; };
 
+    bool GetFPSeye() { return this->FPSeye; };
+    void SetFPSeye(bool flg) { this->FPSeye = flg; };
+
+    void PlayerInput();
+
     void SetGoalState() { 
         STATUS = GOAL;
         this->SetToAnimationName("Goal"); };
 
-    bool GetSticking() { return this->sticking; };
-    void SetSticking(bool flg) { this->sticking = flg; };
+    PStateType GetState() { return this->State; };
+    void SetState(PStateType state) { this->State = state; };
+
+    DirectX::SimpleMath::Vector3 GetFacingDirection();
 
     //壁に張り付いているときの向きを合わせる
     void StickyWall(CORRECT_DIR dir);

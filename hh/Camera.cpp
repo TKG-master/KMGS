@@ -92,7 +92,44 @@ void Camera::II(DirectX::SimpleMath::Vector3 G)
 }
 
 //カメラの追尾
-void Camera::LateUpdate(DirectX::SimpleMath::Vector3 TargetPos, float deltaTime,float Ypos)
+void Camera::LateUpdate(DirectX::SimpleMath::Vector3 TargetPos, float deltaTime,float Ypos,bool flg, DirectX::SimpleMath::Vector3 Direction)
+{
+	if (flg)
+	{
+		//目標の位置までを計算
+		Vector3 TargetPosition = TargetPos + Vector3(0.0f, 80.0f, 0.0f);
+
+		//線形補完
+		float lerpFactor = 0.9f;
+
+
+		//遅れてカメラの位置をプレイヤーに追尾させる処理
+		this->m_Position = Vector3::Lerp(this->m_Position, TargetPosition, deltaTime * lerpFactor);	//引数　１開始地点・２終了地点・３補完係数の順番
+
+
+		//プレイヤーの位置に設定
+		this->m_Target = Vector3(Direction.x * 5000.0f,50.0f, Direction.z * 5000.0f);
+	}
+	else
+	{
+		//目標の位置までを計算
+		Vector3 TargetPosition = TargetPos + Vector3(PosX, Ypos, PosZ);
+
+		//線形補完
+		float lerpFactor = 0.9f;
+
+
+		//遅れてカメラの位置をプレイヤーに追尾させる処理
+		this->m_Position = Vector3::Lerp(this->m_Position, TargetPosition, deltaTime * lerpFactor);	//引数　１開始地点・２終了地点・３補完係数の順番
+
+		//this->m_Target = TargetPos + Vector3(PosX, PosY, PosZ);
+
+		//プレイヤーの位置に設定
+		this->m_Target = TargetPos;
+	}
+}
+
+void Camera::FocusCamera(DirectX::SimpleMath::Vector3 TargetPos, float deltaTime, float Ypos)
 {
 	//目標の位置までを計算
 	Vector3 TargetPosition = TargetPos + Vector3(PosX, Ypos, PosZ);

@@ -140,9 +140,9 @@ void GUI::CameraUpdate(Camera* camera)
         }
 
         if (ImGui::TreeNode("Focus")) {
-            ImGui::SliderFloat("Focus X", &focus.x, -100.0f, 100.0f);
-            ImGui::SliderFloat("Focus Y", &focus.y, -100.0f, 100.0f);
-            ImGui::SliderFloat("Focus Z", &focus.z, -100.0f, 100.0f);
+            ImGui::SliderFloat("Focus X", &focus.x, -5000.0f, 5000.0f);
+            ImGui::SliderFloat("Focus Y", &focus.y, -5000.0f, 5000.0f);
+            ImGui::SliderFloat("Focus Z", &focus.z, -5000.0f, 5000.0f);
             ImGui::TreePop();
         }
 
