@@ -13,7 +13,7 @@ STAGE1::STAGE1()
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-    Dome->DrawInit(2000.0f, "assets\\Texture\\MGfloor.jpeg");
+    Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
 
 
     //UI‚Ì‰Šú‰»
@@ -49,6 +49,18 @@ STAGE1::STAGE1()
     Fade->SetHeight(1080.0f);
     Fade->SetWidth(1920.0f);
     Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
+
+    KeyUI = new GameUI();
+    KeyUI->Init("assets\\Texture\\WASDkeyUI.png");
+    KeyUI->SetCenter(Vector2(200.0f, 900.0f));
+    KeyUI->SetHeight(200.0f);
+    KeyUI->SetWidth(250.0f);
+
+    WalkUI = new GameUI();
+    WalkUI->Init("assets\\Texture\\WalkUI.png");
+    WalkUI->SetCenter(Vector2(200.0f, 750.0f));
+    WalkUI->SetHeight(100.0f);
+    WalkUI->SetWidth(100.0f);
 
 
     CScene::CreateStage(TERRAIN_ID::STAGE_1);
@@ -286,9 +298,10 @@ void STAGE1::Update()
 
 
     //Imgui‚Ìˆ—
- /*   gui->PlayerUpdate(Pl);
+    gui->PlayerUpdate(Pl);
     gui->CameraUpdate(camera);
-    gui->EnenyUpdate(EM);*/
+    gui->EnenyUpdate(EM);
+
 
 }
 
@@ -327,6 +340,8 @@ void STAGE1::Draw()
     else
     {
         radar->Draw(EM->GetEnemies());
+        KeyUI->Draw();
+        WalkUI->Draw();
     }
 
     Fade->Draw();
@@ -374,6 +389,12 @@ void STAGE1::UnInit()
 
     delete failedUI;
     failedUI = nullptr;
+
+    delete KeyUI;
+    KeyUI = nullptr;
+
+    delete WalkUI;
+    WalkUI = nullptr;
 
     delete Fade;
     Fade = nullptr;

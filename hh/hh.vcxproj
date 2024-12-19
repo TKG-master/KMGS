@@ -138,6 +138,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionLookaround.cpp" />
+    <ClCompile Include="ActionMoveToPlayer.cpp" />
+    <ClCompile Include="ActionTurn.cpp" />
     <ClCompile Include="AnimObj.cpp" />
     <ClCompile Include="AnimScene.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -153,6 +156,7 @@
     <ClCompile Include="CBoxMesh.cpp" />
     <ClCompile Include="CCollision.cpp" />
     <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CheckPlayerInSight.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CObj3DMesh.cpp" />
     <ClCompile Include="CScene.cpp" />
@@ -166,6 +170,7 @@
     <ClCompile Include="dx11helper.cpp" />
     <ClCompile Include="easings.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="ETexture.cpp" />
     <ClCompile Include="Fade.cpp" />
@@ -196,7 +201,9 @@
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="Selector.cpp" />
     <ClCompile Include="SelectScene.cpp" />
+    <ClCompile Include="Sequence.cpp" />
     <ClCompile Include="SkyDome.cpp" />
     <ClCompile Include="STAGE1.cpp" />
     <ClCompile Include="stb.cpp" />
@@ -206,6 +213,9 @@
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionLookaround.h" />
+    <ClInclude Include="ActionMoveToPlayer.h" />
+    <ClInclude Include="ActionTurn.h" />
     <ClInclude Include="AnimObj.h" />
     <ClInclude Include="AnimScene.h" />
     <ClInclude Include="Application.h" />
@@ -221,6 +231,7 @@
     <ClInclude Include="CBoxMesh.h" />
     <ClInclude Include="CCollision.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="CheckPlayerInSight.h" />
     <ClInclude Include="CIndexBuffer.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
@@ -238,6 +249,7 @@
     <ClInclude Include="dx11helper.h" />
     <ClInclude Include="easings.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="ETexture.h" />
     <ClInclude Include="Fade.h" />
@@ -258,6 +270,7 @@
     <ClInclude Include="gui\imstb_truetype.h" />
     <ClInclude Include="gui\misc\cpp\imgui_stdlib.h" />
     <ClInclude Include="gui\misc\single_file\imgui_single_file.h" />
+    <ClInclude Include="IBehaviorNode.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ModelLoader.h" />
@@ -269,7 +282,9 @@
     <ClInclude Include="Radar.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="ResultScene.h" />
+    <ClInclude Include="Selector.h" />
     <ClInclude Include="SelectScene.h" />
+    <ClInclude Include="Sequence.h" />
     <ClInclude Include="SkyDome.h" />
     <ClInclude Include="STAGE1.h" />
     <ClInclude Include="stb_image.h" />

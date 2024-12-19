@@ -7,6 +7,7 @@
 #include <DirectXMath.h>
 #include <SimpleMath.h>
 using namespace DirectX::SimpleMath;
+#include <string>
 
 //それぞれ必要なクラスの前方宣言
 class PlayerTest;

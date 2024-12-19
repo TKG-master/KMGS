@@ -6,6 +6,7 @@
 #include  "Player.h"
 #include "easings.h"
 #include "Type.h"
+#include "IBehaviorNode.h"
 
 const char* EStateTypeNames[] = {
     "Patrolling",  // œpœj
