@@ -30,6 +30,7 @@ Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<Motio
     this->playerdate = Pl;
     this->square.type = ObjectType::ENEMY;
     time = new Timer(true);
+    AI = new EnemyAI();
     this->Setgetcaught(false);
     this->SethearSound(false);
     this->Setback(false);
@@ -39,6 +40,10 @@ Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<Motio
 Enemy::~Enemy()
 {
     delete time;
+    time = nullptr;
+
+    delete AI;
+    AI = nullptr;
 }
 
 void Enemy::DrawInit()
@@ -63,6 +68,7 @@ void Enemy::DrawInit()
 
 void Enemy::Update()
 {
+
     //敵の動きのアップデート
     MoveUpdate();
 
@@ -91,18 +97,7 @@ void Enemy::Update()
 void Enemy::MoveUpdate()
 {
     
-    switch (this->GetState())
-    {
-    case EStateType::Patrolling:
-        this->PatrollingMove();
-        break;
-    case EStateType::Turn:
-        this->InvestigatingMove();
-        break;
-    case EStateType::Lookaround:
-        this->lookaround();
-        break;
-    }
+    AI->Update(this);
      //進行方向に基づいて回転させる
     UpdateRotation();
 
@@ -239,7 +234,11 @@ bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::V
     float dotrotview = vecview.Dot(vecrotview);
     // 視野角範囲内？
     if (dotrotview <= dotobj) {
-        return true;
+        if (RayLookHit())
+        {
+            return true;
+        }
+        false;
     }
     else {
         return false;
@@ -439,62 +438,18 @@ void Enemy::FollowPath()
 
 }
 
-DirectX::SimpleMath::Vector3 Enemy::AdjustForBoxCollision(const DirectX::SimpleMath::Vector3& rayDir, const SQUARE3D& box)
+bool Enemy::RayLookHit()
 {
-    // レイ方向を正規化（ゼロベクトルチェック）
-    DirectX::SimpleMath::Vector3 dir = rayDir;
-
-    // ゼロ長さのベクトルでないことを確認
-    if (dir.LengthSquared() == 0) {
-        // ゼロベクトルの場合は何もせず、レイをそのまま返す
-        return this->GetPosition();
+    // プレイヤーに向かってレイを飛ばす
+    rayDirection = playerdate->GetPosition() - this->GetPosition();
+    Vector3 Epos = this->GetPosition();
+    // レイの発射位置をY軸方向に少し高くする
+    Epos.y += rayY;
+    //正規化
+    rayDirection.Normalize();
+    if (CCollision::RayIntersectsBox(Epos, rayDirection, playerdate->square,CScene::BOXS, hitDis)) {
+        this->SetSearch(true);
+        return true;
     }
-
-    dir.Normalize();  // これでrayDirが正規化されます
-
-    // ボックスの最小値（min）と最大値（max）
-    float minX = box.centerX - box.sizeX / 2;
-    float maxX = box.centerX + box.sizeX / 2;
-    float minY = box.centerY - box.sizeY / 2;
-    float maxY = box.centerY + box.sizeY / 2;
-    float minZ = box.centerZ - box.sizeZ / 2;
-    float maxZ = box.centerZ + box.sizeZ / 2;
-
-    // レイの発射点（敵の位置）とレイの方向
-    DirectX::SimpleMath::Vector3 rayOrigin = this->GetPosition();
-
-    // t値を計算するための変数
-    float tmin = (minX - rayOrigin.x) / dir.x;
-    float tmax = (maxX - rayOrigin.x) / dir.x;
-
-    if (tmin > tmax) std::swap(tmin, tmax);
-
-    float tymin = (minY - rayOrigin.y) / dir.y;
-    float tymax = (maxY - rayOrigin.y) / dir.y;
-
-    if (tymin > tymax) std::swap(tymin, tymax);
-
-    if (tmin > tymax || tymin > tmax)
-        return rayOrigin;  // 衝突なし
-
-    if (tymin > tmin) tmin = tymin;
-    if (tymax < tmax) tmax = tymax;
-
-    float tzmin = (minZ - rayOrigin.z) / dir.z;
-    float tzmax = (maxZ - rayOrigin.z) / dir.z;
-
-    if (tzmin > tzmax) std::swap(tzmin, tzmax);
-
-    if (tmin > tzmax || tzmin > tmax)
-        return rayOrigin;  // 衝突なし
-
-    // tmin, tmax の値で交差点を計算
-    if (tzmin > tmin) tmin = tzmin;
-    if (tzmax < tmax) tmax = tzmax;
-
-    // 交差点の位置（ボックスとの交点を計算）
-    DirectX::SimpleMath::Vector3 intersectionPoint = rayOrigin + dir * tmin;
-
-    // 交差点でレイを修正（レイをボックスの境界で止める）
-    return intersectionPoint;
+    return false;
 }

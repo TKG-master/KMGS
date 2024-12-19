@@ -133,8 +133,29 @@
     <Filter Include="GameResult">
       <UniqueIdentifier>{d775d6b4-2c0d-4e14-bb58-da9f08614831}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\Behaviortree">
+    <Filter Include="System\EnemyAI">
+      <UniqueIdentifier>{3f9eed8e-b1ce-4c48-ae85-4656e6d7463c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\Behaviortree">
       <UniqueIdentifier>{b58cf1d1-5f80-48ff-a75b-07cc25b00501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\Behaviortree\Selector">
+      <UniqueIdentifier>{898ba585-f9cd-47da-a2f2-40467ce15e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\Behaviortree\Sequence">
+      <UniqueIdentifier>{9ff65483-7a65-49d8-a8c8-a6b4783d758f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\CheckPlayerInSight">
+      <UniqueIdentifier>{1ca718bc-8c4d-439e-b3e7-9b39fc72e878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\ActionMoveToPlayer">
+      <UniqueIdentifier>{bb33d6a6-ac59-4750-9963-373b9c750a17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\Turn">
+      <UniqueIdentifier>{73f88ae2-1b18-4e91-ba75-f1ee723156bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\ActionLookaround">
+      <UniqueIdentifier>{4ff6885d-dd39-4465-8a2e-7d6e5126e994}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +347,27 @@
     </ClCompile>
     <ClCompile Include="SelectScene.cpp">
       <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="Selector.cpp">
+      <Filter>System\EnemyAI\Behaviortree\Selector</Filter>
+    </ClCompile>
+    <ClCompile Include="Sequence.cpp">
+      <Filter>System\EnemyAI\Behaviortree\Sequence</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMoveToPlayer.cpp">
+      <Filter>System\EnemyAI\ActionMoveToPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckPlayerInSight.cpp">
+      <Filter>System\EnemyAI\CheckPlayerInSight</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyAI.cpp">
+      <Filter>System\EnemyAI</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionTurn.cpp">
+      <Filter>System\EnemyAI\Turn</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionLookaround.cpp">
+      <Filter>System\EnemyAI\ActionLookaround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -547,6 +589,30 @@
     </ClInclude>
     <ClInclude Include="SelectScene.h">
       <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="IBehaviorNode.h">
+      <Filter>System\EnemyAI\Behaviortree</Filter>
+    </ClInclude>
+    <ClInclude Include="Selector.h">
+      <Filter>System\EnemyAI\Behaviortree\Selector</Filter>
+    </ClInclude>
+    <ClInclude Include="Sequence.h">
+      <Filter>System\EnemyAI\Behaviortree\Sequence</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMoveToPlayer.h">
+      <Filter>System\EnemyAI\ActionMoveToPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckPlayerInSight.h">
+      <Filter>System\EnemyAI\CheckPlayerInSight</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyAI.h">
+      <Filter>System\EnemyAI</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionTurn.h">
+      <Filter>System\EnemyAI\Turn</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionLookaround.h">
+      <Filter>System\EnemyAI\ActionLookaround</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

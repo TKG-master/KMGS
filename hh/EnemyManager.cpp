@@ -3,6 +3,7 @@
 #include "BoxObj.h"
 #include <algorithm>
 #include "TerrainLoder.h"
+#include "GUI.h"
 #include <cmath>
 
 using namespace DirectX::SimpleMath;
@@ -42,46 +43,27 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         //敵の視野範囲の判定
 
         //なんとなく見えている距離
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()* 1.4f))
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength() * 1.5f))
         {
-            // プレイヤーに向かってレイを飛ばす
-            rayDirection = Pl->GetPosition() - enemy->GetPosition();
-            Vector3 Epos = enemy->GetPosition();
-            // レイの発射位置をY軸方向に少し高くする
-            Epos.y += rayY;
-            //正規化
-            rayDirection.Normalize();
-            if (CCollision::RayIntersectsBox(Epos, rayDirection, Pl->square, obstacleBoxes, hitDis)) {
-                UpdateEnemyPaths(Pl->GetPosition());
-                enemy->SetSearch(true);
-            }
+            EnemyPathsAster(enemy,Pl->GetPosition());
+            enemy->SetSearch(true);
         }
         //絶対に見つかる距離
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()) && enemy->GetState() == EStateType::Patrolling) 
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()) && enemy->GetState() == EStateType::Patrolling)
         {
-            // プレイヤーに向かってレイを飛ばす
-            rayDirection = Pl->GetPosition() - enemy->GetPosition();
-            Vector3 Epos = enemy->GetPosition();
-            // レイの発射位置をY軸方向に少し高くする
-            Epos.y += rayY;
-            //正規化
-            rayDirection.Normalize();
-            if (CCollision::RayIntersectsBox(Epos, rayDirection, Pl->square, obstacleBoxes, hitDis)) {
-                enemy->SetTest(true);
-                this->Rook = true;
-            }
-            else {
-                enemy->SetTest(false);
-            }
-
+            enemy->SetTest(true);
+            this->Rook = true;
+        }
+        else {
+            enemy->SetTest(false);
         }
         //音が鳴った時かつ敵の状態がAlerted以外の時
         if (Pl->GetKnockSound() && enemy->GetState() != EStateType::Lookaround)
         {
             //音が聞こえる範囲にいるか？
-            if (CCollision::PointInCircle(Pl->GetPosition(),50.0f,enemy->GetPosition()) && !enemy->GethearSound())
+            if (CCollision::PointInCircle(Pl->GetPosition(), 50.0f, enemy->GetPosition()) && !enemy->GethearSound())
             {
-                this->UpdateEnemyPaths(Pl->GetPosition());
+                this->EnemyPathsAster(enemy, Pl->GetPosition());
                 enemy->SethearSound(true);
                 enemy->SetSearch(true);
             }
@@ -89,10 +71,11 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
         if (enemy->Getback())
         {
-            this->UpdateEnemyPaths(enemy->GetwanderingPath()[0]);
+            this->EnemyPathsAster(enemy,Pl->GetPosition());
         }
         Pl->SetknockSound(false);
     }
+
 }
 
 void EnemyManager::DrawEnemies() {
@@ -145,7 +128,7 @@ std::vector<Enemy*> EnemyManager::GetEnemiesWhoSawPlayer() {
     }
     return enemiesWhoSawPlayer;
 }
-
+//敵全体にAsterのパスを渡す
 void EnemyManager::UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPosition) {
     for (Enemy* enemy : enemies) {
         
@@ -178,6 +161,39 @@ void EnemyManager::UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPo
             // 経路を設定
             enemy->SetPath(worldPath);
         }
+    }
+}
+//敵単体
+void EnemyManager::EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vector3& playerPosition)
+{
+    //グリッド座標にする
+    int start_x = static_cast<int>(std::round(std::abs(enemy->GetPosition().x - ORIGIN_TILE_POS_X) / SIZEX));
+    int start_y = static_cast<int>(std::round(std::abs(enemy->GetPosition().z - ORIGIN_TILE_POS_Z) / SIZEZ));
+
+    int goal_x = static_cast<int>(std::round(std::abs(playerPosition.x - ORIGIN_TILE_POS_X) / SIZEX));
+    int goal_y = static_cast<int>(std::round(std::abs(playerPosition.z - ORIGIN_TILE_POS_Z) / SIZEZ));
+
+    // グリッド座標をAStarVec2に変換
+    AStarVec2 start(start_y, start_x);
+    AStarVec2 goal(goal_y, goal_x);
+
+    // A*アルゴリズムを使って経路を計算
+    std::vector<AStarNode> path = astar.findPath(start, goal);
+
+    // 経路が見つかった場合、敵に経路をセット
+    if (!path.empty()) {
+        // 経路をワールド座標に変換して設定
+        std::vector<DirectX::SimpleMath::Vector3> worldPath;
+        for (const AStarNode& node : path) {
+            DirectX::SimpleMath::Vector3 worldPos;
+            worldPos.x = node.position.z * SIZEX + ORIGIN_TILE_POS_X;
+            worldPos.z = node.position.x * SIZEZ + ORIGIN_TILE_POS_Z;
+            worldPos.z *= -1;
+            worldPos.y = enemy->GetPosition().y;
+            worldPath.push_back(worldPos);
+        }
+        // 経路を設定
+        enemy->SetPath(worldPath);
     }
 }
 

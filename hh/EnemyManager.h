@@ -84,6 +84,9 @@ public:
 
     // 経路を計算して敵を更新する
     void UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPosition);
+
+    void EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vector3& playerPosition);
+
     //徘徊ルートをセット
     void SetEnemywandering();
 

@@ -71,6 +71,9 @@ public:
     virtual void Update();
     virtual void Draw();
 
+    CharacterStatus GetAstatus() { return this->STATUS; };
+    void SetAstatus(CharacterStatus status) { this->STATUS = status; };
+
     void SetAnimationSpeed(float as) { m_AnimationSpeed = as; }
     float GetAnimationSpeed() { return m_AnimationSpeed; }
 

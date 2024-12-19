@@ -18,10 +18,10 @@ TitleScene::TitleScene()
 	GR->SetCenter(Vector2(650.0f, 450.0f));
 
 	UI2 = new GameUI();
-	UI2->Init("assets\\Texture\\WkeyUI.png");
-	UI2->SetCenter(Vector2(100.0f, 800.0f));
-	UI2->SetHeight(100.0f);
-	UI2->SetWidth(100.0f);
+	UI2->Init("assets\\Texture\\WASDkeyUI.png");
+	UI2->SetCenter(Vector2(200.0f, 800.0f));
+	UI2->SetHeight(200.0f);
+	UI2->SetWidth(250.0f);
 
 
 

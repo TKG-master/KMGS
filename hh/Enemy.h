@@ -3,12 +3,18 @@
 #include "CShader.h"
 #include "Character.h"
 #include "Timer.h"
+#include "EnemyAI.h"
+
+class EnemyAI;
 
 class Player;
 
 class Enemy : public Character
 {
 private:
+
+	EnemyAI* AI;
+
 	//向いている方向
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
 	//視野範囲の色
@@ -33,6 +39,13 @@ private:
 	DirectX::SimpleMath::Vector3 targetPos;
 	// 現在の位置
 	DirectX::SimpleMath::Vector3 currentPosition;
+
+	//例のVector3
+	DirectX::SimpleMath::Vector3 rayDirection;
+	//45固定
+	float rayY = 45.0f;
+	//例がどこまで伸ばして当たったか
+	float hitDis = 0.0f;
 
 	float distance;
 
@@ -117,6 +130,10 @@ public:
 
 	float Getview() { return this->viewX; };
 
+	const Player* getPlayer() const {
+		return playerdate;
+	};
+
 	EStateType GetState() const { return state; };
 
 	//情報のセッター
@@ -193,7 +210,17 @@ public:
 	void Setgetcaught(bool flg) { this->getcaught = flg; };
 	bool Getgetcaught() { return this->getcaught; };
 
-	DirectX::SimpleMath::Vector3 AdjustForBoxCollision(const DirectX::SimpleMath::Vector3& rayDir, const SQUARE3D& box);
+	bool RayLookHit();
+
+	float GetTime() { return this->Time; };
+	float GetTime1() { return this->Time1; };
+
+	void SetTime(float delta) { this->Time = delta; }
+	void SetTime1(float delta) { this->Time1 = delta; };
+
+	void Setdeltatime(float delta) { this->deltaTime = delta; };
+	float Getdeltatime() { return this->deltaTime; };
+
 
 
 };

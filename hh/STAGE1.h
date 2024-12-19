@@ -30,10 +30,13 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+
 	GameUI* GoalUI;
 	GameUI* SpaceUI;
 	GameUI* ClearUI;
+	GameUI* KeyUI;
 	GameUI* failedUI;
+	GameUI* WalkUI;
 
 	GameUI* Fade;
 	bool FadeOut = false;
