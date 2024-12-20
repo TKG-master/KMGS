@@ -139,6 +139,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionLookaround.cpp" />
+    <ClCompile Include="ActionMoveback.cpp" />
+    <ClCompile Include="ActionMoveSearch.cpp" />
     <ClCompile Include="ActionMoveToPlayer.cpp" />
     <ClCompile Include="ActionTurn.cpp" />
     <ClCompile Include="AnimObj.cpp" />
@@ -214,6 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionLookaround.h" />
+    <ClInclude Include="ActionMoveback.h" />
+    <ClInclude Include="ActionMoveSearch.h" />
     <ClInclude Include="ActionMoveToPlayer.h" />
     <ClInclude Include="ActionTurn.h" />
     <ClInclude Include="AnimObj.h" />

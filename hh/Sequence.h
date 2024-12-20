@@ -10,6 +10,15 @@ public:
     void AddChild(IBehaviorNode* child);
     bool Execute(Enemy* enemy) override;
 
+    void UnInit() {
+        for (auto child : children)
+        {
+            delete child;
+            child = nullptr;
+        }
+    }
+
+
     // children ‚ğæ“¾‚·‚é‚½‚ß‚Ì getter ƒƒ\ƒbƒh
     const std::vector<IBehaviorNode*>& GetChildren() const {
         return children;

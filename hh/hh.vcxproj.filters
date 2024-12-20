@@ -157,6 +157,12 @@
     <Filter Include="System\EnemyAI\ActionLookaround">
       <UniqueIdentifier>{4ff6885d-dd39-4465-8a2e-7d6e5126e994}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\EnemyAI\ActionMoveSearch">
+      <UniqueIdentifier>{9b72d2a5-1521-4d6b-846c-1cc687c327e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\ActionMoveback">
+      <UniqueIdentifier>{4b1f017e-49eb-4b2a-b2e8-1377330504ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -368,6 +374,12 @@
     </ClCompile>
     <ClCompile Include="ActionLookaround.cpp">
       <Filter>System\EnemyAI\ActionLookaround</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMoveSearch.cpp">
+      <Filter>System\EnemyAI\ActionMoveSearch</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionMoveback.cpp">
+      <Filter>System\EnemyAI\ActionMoveback</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -613,6 +625,12 @@
     </ClInclude>
     <ClInclude Include="ActionLookaround.h">
       <Filter>System\EnemyAI\ActionLookaround</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMoveSearch.h">
+      <Filter>System\EnemyAI\ActionMoveSearch</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionMoveback.h">
+      <Filter>System\EnemyAI\ActionMoveback</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

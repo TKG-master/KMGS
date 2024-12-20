@@ -1,7 +1,8 @@
-#include "ActionMoveToPlayer.h"
+#include "ActionMoveSearch.h"
 #include "Enemy.h"
 
-bool ActionMoveToPlayer::Execute(Enemy* enemy) {
+bool ActionMoveSearch::Execute(Enemy* enemy)
+{
     // 徘徊モードのロジックを処理
     if (enemy->GetState() != EStateType::Patrolling) {
         return false;  // 徘徊状態でない場合、処理しない
@@ -16,14 +17,11 @@ bool ActionMoveToPlayer::Execute(Enemy* enemy) {
         enemy->SetAstatus(WALK);
     }
 
-    if (!enemy->GetSearch() && !enemy->Getback())
+    if (enemy->GetSearch())
     {
-        enemy->Wanderaround();
+        enemy->FollowPath();
         return true;
     }
 
     return false;
-
-    //enemy->PatrollingMove();
-    //return true;  // 処理が成功した
 }
