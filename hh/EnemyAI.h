@@ -6,12 +6,22 @@
 #include "CheckPlayerInSight.h"
 #include "ActionTurn.h"
 #include "ActionLookaround.h"
+#include "ActionMoveSearch.h"
+#include "ActionMoveback.h"
 
 class Enemy;
 
 class EnemyAI {
 private:
     IBehaviorNode* rootNode;
+
+    Selector* root;
+
+    Sequence* patrolSequence;
+
+    Sequence* TurnSequence;
+
+    Sequence* LookaroundSequence;
 
 public:
     EnemyAI();
