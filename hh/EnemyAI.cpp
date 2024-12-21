@@ -5,12 +5,12 @@ EnemyAI::EnemyAI() {
     // ビヘイビアツリーの構築
 
     //パトロール
-    root = new Selector();
-    patrolSequence = new Sequence();
-    patrolSequence->AddChild(new ActionMoveToPlayer());
-    patrolSequence->AddChild(new ActionMoveSearch());
-    patrolSequence->AddChild(new ActionMoveback());
-    root->AddChild(patrolSequence);
+    Selector* root = new Selector();
+    patrolSelector = new Selector();
+    patrolSelector->AddChild(new ActionMoveToPlayer());
+    patrolSelector->AddChild(new ActionMoveSearch());
+    patrolSelector->AddChild(new ActionMoveback());
+    root->AddChild(patrolSelector);
     rootNode = root;
     //ターン
     TurnSequence = new Sequence();
@@ -23,17 +23,22 @@ EnemyAI::EnemyAI() {
 
 }
 
+// ビヘイビアツリーの更新
 void EnemyAI::Update(Enemy* enemy) {
-    rootNode->Execute(enemy);  // ビヘイビアツリーの更新
+    rootNode->Execute(enemy);
 }
-
+// メモリの解放
 EnemyAI::~EnemyAI() {
-    delete rootNode;  // メモリの解放
 
-    patrolSequence->UnInit();
-    delete patrolSequence;
+    delete rootNode;
+
+    //UnInitで木の葉ノードのメモリ解放
+    patrolSelector->UnInit();
+    delete patrolSelector;
+
     TurnSequence->UnInit();
     delete TurnSequence;
+
     LookaroundSequence->UnInit();
     delete LookaroundSequence;
 

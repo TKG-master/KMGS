@@ -7,7 +7,7 @@
 
 STAGE1::STAGE1()
 {
-    gameTime = new Timer();
+    gameTime = new Timer(true);
 
     GM = new GameManager();
 
@@ -186,7 +186,8 @@ void STAGE1::Update()
         {
             if (gameTime->TameStarflg == true)
             {
-                gameTime->Start();
+                //gameTime->Start();
+                gameTime->StartCountDown(10000);
                 gameTime->TameStarflg = false;
             }
         }
@@ -295,12 +296,31 @@ void STAGE1::Update()
             }
         }
     }
+    else if (gameTime->IsTimeUp() && !gameTime->TameStarflg)
+    {
+        gameTime->Stop();
+        gameTime->SetTimeUp(true);
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        {
+            this->FadeOut = true;
+        }
+        else if (this->FadeOut)
+        {
+            GM->FadeOut(Fade);
+            if (!GM->GetFadeout())
+            {
+                CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            }
+        }
+
+    }
+
 
 
     //Imgui‚Ìˆ—
-    gui->PlayerUpdate(Pl);
-    gui->CameraUpdate(camera);
-    gui->EnenyUpdate(EM);
+    //gui->PlayerUpdate(Pl);
+    //gui->CameraUpdate(camera);
+    //gui->EnenyUpdate(EM);
 
 
 }
@@ -331,7 +351,7 @@ void STAGE1::Draw()
         SpaceUI->Draw();
         ClearUI->Draw();
     }
-    else if (EM->GetRookNow())
+    else if (EM->GetRookNow() || gameTime->GetTimeUp())
     {
         GoalUI->Draw();
         SpaceUI->Draw();

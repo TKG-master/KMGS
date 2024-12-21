@@ -5,11 +5,10 @@ void Sequence::AddChild(IBehaviorNode* child) {
 }
 
 bool Sequence::Execute(Enemy* enemy) {
-    bool anySuccess = false;
-    for (auto child : children) {
-        if (child->Execute(enemy)) {
-            anySuccess = true;
+    for (auto& child : children) {
+        if (!child->Execute(enemy)) {
+            return false;
         }
     }
-    return anySuccess;
+    return true;
 }

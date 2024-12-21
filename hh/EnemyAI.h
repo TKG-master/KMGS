@@ -15,9 +15,7 @@ class EnemyAI {
 private:
     IBehaviorNode* rootNode;
 
-    Selector* root;
-
-    Sequence* patrolSequence;
+    Selector* patrolSelector;
 
     Sequence* TurnSequence;
 

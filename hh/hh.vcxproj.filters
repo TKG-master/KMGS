@@ -163,6 +163,9 @@
     <Filter Include="System\EnemyAI\ActionMoveback">
       <UniqueIdentifier>{4b1f017e-49eb-4b2a-b2e8-1377330504ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\EnemyAI\ActionConcern">
+      <UniqueIdentifier>{cb2e786b-23e9-4320-a30d-1d5d99849057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -380,6 +383,9 @@
     </ClCompile>
     <ClCompile Include="ActionMoveback.cpp">
       <Filter>System\EnemyAI\ActionMoveback</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionConcern.cpp">
+      <Filter>System\EnemyAI\ActionConcern</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -631,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="ActionMoveback.h">
       <Filter>System\EnemyAI\ActionMoveback</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionConcern.h">
+      <Filter>System\EnemyAI\ActionConcern</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
