@@ -15,6 +15,8 @@ private:
 
 	EnemyAI* AI;
 
+	Timer* time;
+
 	//向いている方向
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
 	//視野範囲の色
@@ -76,8 +78,6 @@ private:
 	float lookSpeed = 0.01f; // 回転速度
 	//プレイヤーのデーター（読み取り用）
 	const Player* playerdate;
-
-	Timer* time;
 
 	//扇形を描画するときのセグメント数
 	static constexpr int numSegments = 50;
@@ -210,7 +210,11 @@ public:
 	void Setgetcaught(bool flg) { this->getcaught = flg; };
 	bool Getgetcaught() { return this->getcaught; };
 
+	//レイを飛ばす処理
 	bool RayLookHit();
+
+	Timer* GetTimer() { return this->time; };
+
 
 	float GetTime() { return this->Time; };
 	float GetTime1() { return this->Time1; };

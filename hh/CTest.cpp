@@ -13,7 +13,7 @@ CTest::CTest()
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-    Dome->DrawInit(2000.0f, "assets\\Texture\\BDome.jpg");
+    Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
 
     GoalUI = new GameUI();
     GoalUI->Init("assets\\Texture\\siro.jpg");

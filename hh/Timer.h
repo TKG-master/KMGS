@@ -12,10 +12,14 @@ private:
     std::chrono::time_point<std::chrono::high_resolution_clock> startTime;
     long long elapsedTime;  // milliseconds
     bool isRunning;
+    bool TimeUp = false;
 
 public:
 
     bool TameStarflg = true;
+
+    bool GetTimeUp() { return this->TimeUp; };
+    void SetTimeUp(bool flg) { this->TimeUp = flg; };
 
     Timer(bool countDown = false) : isCountingDown(countDown), startTime(), elapsedTime(0), isRunning(false) {}
 

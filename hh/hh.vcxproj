@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionConcern.cpp" />
     <ClCompile Include="ActionLookaround.cpp" />
     <ClCompile Include="ActionMoveback.cpp" />
     <ClCompile Include="ActionMoveSearch.cpp" />
@@ -215,6 +216,7 @@
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionConcern.h" />
     <ClInclude Include="ActionLookaround.h" />
     <ClInclude Include="ActionMoveback.h" />
     <ClInclude Include="ActionMoveSearch.h" />
