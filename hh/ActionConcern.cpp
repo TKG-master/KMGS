@@ -7,7 +7,5 @@ bool ActionConcern::Execute(Enemy* enemy)
 		return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
 	}
 
-
-
 	return false;
 }

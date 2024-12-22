@@ -50,7 +50,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
     total_depth = (map_data.size() - 2) * tile_size_z;
 
     // floorBoxのサイズと位置を設定
-    floorBox = new BoxObj(total_width, 100.0f, total_depth, "assets\\Texture\\MGfloor.jpeg");
+    floorBox = new BoxObj(total_width, 100.0f, total_depth, "assets\\Texture\\yuka.png");
     Vector3 floor_position(ORIGIN_TILE_POS_X + (total_width / 2.0f) - (tile_size_x / 2.0f),
         tile_size_y / 2.0 - 92.0f,
         ORIGIN_TILE_POS_Z - (total_depth / 2.0f) + (tile_size_z / 2.0f));

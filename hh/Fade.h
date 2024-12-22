@@ -20,8 +20,5 @@ public:
 
     void StartFadeIn(float speed);
     void StartFadeOut(float speed);
-
-    void Update() override;
-    void Draw() override;
 };
 

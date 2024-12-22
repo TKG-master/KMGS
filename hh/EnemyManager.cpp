@@ -71,16 +71,16 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
         if (enemy->Getback())
         {
-            this->EnemyPathsAster(enemy,Pl->GetPosition());
+            this->EnemyPathsAster(enemy,enemy->GetwanderingPath()[0]);
         }
         Pl->SetknockSound(false);
     }
 
 }
 
-void EnemyManager::DrawEnemies() {
+void EnemyManager::DrawEnemies(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM) {
     for (Enemy* enemy : enemies) {
-        enemy->Draw();
+        enemy->Draw(viewM,ProjM);
     }
 }
 

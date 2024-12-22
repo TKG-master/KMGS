@@ -7,6 +7,8 @@
 
 class EnemyAI;
 
+class GameUI;
+
 class Player;
 
 class Enemy : public Character
@@ -16,6 +18,8 @@ private:
 	EnemyAI* AI;
 
 	Timer* time;
+
+	GameUI* UI;
 
 	//向いている方向
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
@@ -112,7 +116,11 @@ public:
 	void DrawInit();
 	void Update();
 	void MoveUpdate();
-	void Draw();
+
+
+	void Draw(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM);
+
+
 	//情報のゲッター
 	//向いている方向のゲット
 	DirectX::SimpleMath::Vector3 Getforward() { return this->forward; };

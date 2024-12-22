@@ -57,25 +57,26 @@ public:
         isCountingDown = countDown;
     }
 
-    void SetInitialTime(long long timeInMilliseconds) {
+    void SetInitialTime(float timeInMilliseconds) {
         initialTime = timeInMilliseconds;
     }
 
-    void StartCountDown(long long timeInMilliseconds) {
+    void StartCountDown(float timeInMilliseconds) {
+        timeInMilliseconds *= 1000.0f;
         SetInitialTime(timeInMilliseconds);
         Restart();
     }
 
-    long long GetRemainingTime() const {
+    float GetRemainingTime() const {
         if (!isCountingDown) {
             return 0; // カウントダウンモードでない場合は0を返す
         }
         auto now = std::chrono::high_resolution_clock::now();
-        long long elapsed = elapsedTime;
+        float elapsed = elapsedTime;
         if (isRunning) {
             elapsed += std::chrono::duration_cast<std::chrono::milliseconds>(now - startTime).count();
         }
-        long long remainingTime = initialTime - elapsed;
+        float remainingTime = initialTime - elapsed;
         return remainingTime > 0 ? remainingTime : 0;
     }
 

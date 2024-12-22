@@ -144,6 +144,7 @@ private:
 	static ID3D11BlendState* m_BlendStateATC;
 
 
+
 	static ID3D11RasterizerState* rasterizer;
 
 public:
@@ -161,6 +162,7 @@ public:
 	static void SetWorldMatrix(DirectX::SimpleMath::Matrix* WorldMatrix);
 	static void SetViewMatrix(DirectX::SimpleMath::Matrix* ViewMatrix);
 	static void SetProjectionMatrix(DirectX::SimpleMath::Matrix* ProjectionMatrix);
+
 	static void SetMaterial(MATERIAL Material);
 	static void SetLight(LIGHT Light);
 	static void SetBoneCombMatrices(CBBoneCombMatrix* BoneCombMatrices);	// 20240704 add by tomoki.suzuki

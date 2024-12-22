@@ -212,6 +212,7 @@
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="TerrainLoder.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerUI.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
@@ -297,6 +298,7 @@
     <ClInclude Include="structs.h" />
     <ClInclude Include="TerrainLoder.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerUI.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="utility.h" />

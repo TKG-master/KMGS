@@ -13,6 +13,8 @@
 #include "GameManager.h"
 #include "SkyDome.h"
 #include "GameResult.h"
+#include "TimerUI.h"
+#include "Polygon2D.h"
 
 
 class STAGE1 : public CScene

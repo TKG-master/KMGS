@@ -3,13 +3,13 @@
 #include <string>
 
 // マップを構成するボックスのサイズ
-#define SIZEX		(75.0f)
+#define SIZEX		(60.0f)
 //小さいボックスY
 #define SIZEY		(60.0f)
 //大きいボックスY
 #define BIGSIZEY	(100.0f);
 
-#define SIZEZ		(75.0f)
+#define SIZEZ		(60.0f)
 
 //ゴールのサイズ
 #define GSIZEX		(25.0f)
