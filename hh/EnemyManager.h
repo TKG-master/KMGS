@@ -51,7 +51,9 @@ public:
     void UpdateEnemies(Player* Pl , const std::vector<BoxObj*>& obstacleBoxes);
 
     // “G‚ğ•`‰æ‚·‚é
-    void DrawEnemies(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM);
+    void DrawEnemies();
+
+    void DrawEnemiesUI();
 
     // “G“¯m‚Ì’ÊM‚ğŠÇ—‚·‚é
     void NotifyEnemies(Enemy* alertingEnemy);

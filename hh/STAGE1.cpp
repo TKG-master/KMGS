@@ -141,6 +141,7 @@ STAGE1::STAGE1()
             "shader/vertexLightingOneSkinVS.hlsl",
             "shader/vertexLightingPS.hlsl", Pl);
         enemy->SetPosition(this->GetEnemyStartPoss()[a]);  // “G‚ÌˆÊ’u
+        enemy->UIInit(a);
         enemy->CollisionInit(enemy->GetPosition(), enemy->GetCollisionScale());
         enemy->SetScale(CharacterScale);
         enemy->Setforward(Vector3(0.0f, 0.0f, -1.0f));
@@ -342,7 +343,7 @@ void STAGE1::Draw()
 
         goal->Draw();
 
-        EM->DrawEnemies(camera->GetViewMatrix(),camera->GetprojectionMatrix());
+        EM->DrawEnemies();
     }
 
 
@@ -363,6 +364,7 @@ void STAGE1::Draw()
         radar->Draw(EM->GetEnemies());
         KeyUI->Draw();
         WalkUI->Draw();
+        EM->DrawEnemiesUI();
     }
 
     Fade->Draw();

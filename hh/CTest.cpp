@@ -7,7 +7,7 @@
 
 CTest::CTest()
 {
-    gameTime = new Timer();
+    gameTime = new Timer(true);
 
     GM = new GameManager();
 
@@ -15,6 +15,8 @@ CTest::CTest()
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
     Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
 
+
+    //UIの初期化
     GoalUI = new GameUI();
     GoalUI->Init("assets\\Texture\\siro.jpg");
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
@@ -28,6 +30,7 @@ CTest::CTest()
     SpaceUI->SetHeight(300.0f);
     SpaceUI->SetWidth(500.0f);
 
+
     ClearUI = new GameUI();
     ClearUI->Init("assets\\Texture\\Clear !!.png");
     ClearUI->SetCenter(Vector2(960.0f, 540.0f));
@@ -39,6 +42,26 @@ CTest::CTest()
     failedUI->SetCenter(Vector2(960.0f, 540.0f));
     failedUI->SetHeight(500.0f);
     failedUI->SetWidth(900.0f);
+
+    Fade = new GameUI();
+    Fade->Init("assets\\Texture\\siro.jpg");
+    Fade->SetCenter(Vector2(960.0f, 540.0f));
+    Fade->SetHeight(1080.0f);
+    Fade->SetWidth(1920.0f);
+    Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
+
+    KeyUI = new GameUI();
+    KeyUI->Init("assets\\Texture\\WASDkeyUI.png");
+    KeyUI->SetCenter(Vector2(200.0f, 900.0f));
+    KeyUI->SetHeight(200.0f);
+    KeyUI->SetWidth(250.0f);
+
+    WalkUI = new GameUI();
+    WalkUI->Init("assets\\Texture\\WalkUI.png");
+    WalkUI->SetCenter(Vector2(200.0f, 750.0f));
+    WalkUI->SetHeight(100.0f);
+    WalkUI->SetWidth(100.0f);
+
 
     CScene::CreateStage(TERRAIN_ID::STAGE_TEST);
 
@@ -74,7 +97,7 @@ CTest::CTest()
     playerMS.MotionKey = "SWalk";
     playerMS.MotionFile = "assets/model/player/sneakWalk.fbx";
     MS.push_back(playerMS);
-    //ゴールした時のモーション
+    //PlayerGoal
     playerMS.MotionKey = "Goal";
     playerMS.MotionFile = "assets/model/player/PlayerGoalIdle.fbx";
     MS.push_back(playerMS);
@@ -107,17 +130,18 @@ CTest::CTest()
     Pl->CollisionInit(Pl->GetPosition(), Pl->GetCollisionScale());
     Pl->SetMapdata(this->GetMapData());
 
-    EM = new EnemyManager(this->GetMapData(),this->GetWanderingdata());
+    EM = new EnemyManager(this->GetMapData(), this->GetWanderingdata());
 
     //敵の初期化
-    for (int a = 0; a < this->GetEnemyStartPoss().size();a++) {
+    for (int a = 0; a < this->GetEnemyStartPoss().size(); a++) {
         Enemy* enemy = new Enemy(
             "assets/model/player/X Bot.fbx",
             "assets/model",
             EMS,
             "shader/vertexLightingOneSkinVS.hlsl",
-            "shader/vertexLightingPS.hlsl",Pl);
+            "shader/vertexLightingPS.hlsl", Pl);
         enemy->SetPosition(this->GetEnemyStartPoss()[a]);  // 敵の位置
+        enemy->UIInit(a);
         enemy->CollisionInit(enemy->GetPosition(), enemy->GetCollisionScale());
         enemy->SetScale(CharacterScale);
         enemy->Setforward(Vector3(0.0f, 0.0f, -1.0f));
@@ -145,7 +169,12 @@ CTest::~CTest()
 
 void CTest::Update()
 {
-    if (GM->GetStartBoxEasing())
+
+    GM->FadeIn(Fade);
+
+
+    //ゲーム開始の処理
+    if (GM->GetStartBoxEasing() && !GM->GetFadein())
     {
         GM->farstBoxEasing(BOXS);
         Pl->AnimUpdate();
@@ -158,7 +187,8 @@ void CTest::Update()
         {
             if (gameTime->TameStarflg == true)
             {
-                gameTime->Start();
+                //gameTime->Start();
+                gameTime->StartCountDown(120);
                 gameTime->TameStarflg = false;
             }
         }
@@ -169,11 +199,15 @@ void CTest::Update()
         }
     }
 
+
+
+
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
+
         Pl->Update();
-        //敵全体のアップデート
+
         EM->UpdateEnemies(Pl, BOXS);
         //敵に見つかったのなら時間を止める
         if (EM->GetRook() && !EM->GetRookNow())
@@ -191,7 +225,7 @@ void CTest::Update()
 
         //普通のカメラの追尾処理
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
-            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f, Pl->GetFPSeye(),Pl->GetFacingDirection());
+            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(), 500.0f, Pl->GetFPSeye(), Pl->GetFacingDirection());
     }
 
     //時間が止まっているときの処理
@@ -224,7 +258,8 @@ void CTest::Update()
     {
         GM->GoalEasing(Pl->GetPosition(), camera);
     }
-    //イージングが終わったら
+
+    //ゴールした時の処理
     else if (!GM->GetEndEasing())
     {
         //ゴールした時のモーションにする
@@ -236,15 +271,50 @@ void CTest::Update()
 
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
-            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            this->FadeOut = true;
+        }
+        else if (this->FadeOut)
+        {
+            GM->FadeOut(Fade);
+            if (!GM->GetFadeout())
+            {
+                CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            }
         }
     }
+    //敵に見つかった時の処理
     else if (EM->GetRookNow())
     {
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
-            CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            this->FadeOut = true;
         }
+        else if (this->FadeOut)
+        {
+            GM->FadeOut(Fade);
+            if (!GM->GetFadeout())
+            {
+                CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            }
+        }
+    }
+    else if (gameTime->IsTimeUp() && !gameTime->TameStarflg)
+    {
+        gameTime->Stop();
+        gameTime->SetTimeUp(true);
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        {
+            this->FadeOut = true;
+        }
+        else if (this->FadeOut)
+        {
+            GM->FadeOut(Fade);
+            if (!GM->GetFadeout())
+            {
+                CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
+            }
+        }
+
     }
 
 
@@ -258,21 +328,24 @@ void CTest::Update()
 
 void CTest::Draw()
 {
-
-    //プレイヤーの描画
-
-    Pl->Draw();
-
-    EM->DrawEnemies(camera->GetViewMatrix(), camera->GetprojectionMatrix());
-
-    for (auto& box : BOXS)
-    {
-        box->Draw();
-    }
-
     Dome->Draw();
 
-    goal->Draw();
+    if (!GM->GetFadein())
+    {
+        for (auto& box : BOXS)
+        {
+            box->Draw();
+        }
+
+
+        Pl->Draw();
+
+        goal->Draw();
+
+        EM->DrawEnemies();
+
+    }
+
 
     if (!GM->GetEndEasing())
     {
@@ -280,7 +353,7 @@ void CTest::Draw()
         SpaceUI->Draw();
         ClearUI->Draw();
     }
-    else if (EM->GetRookNow())
+    else if (EM->GetRookNow() || gameTime->GetTimeUp())
     {
         GoalUI->Draw();
         SpaceUI->Draw();
@@ -289,12 +362,15 @@ void CTest::Draw()
     else
     {
         radar->Draw(EM->GetEnemies());
+        KeyUI->Draw();
+        WalkUI->Draw();
+        EM->DrawEnemiesUI();
     }
 
+    Fade->Draw();
 
     //カメラの描画
     camera->Draw();
-
 }
 
 void CTest::Init()
@@ -305,9 +381,6 @@ void CTest::Init()
 //終了処理
 void CTest::UnInit()
 {
-
-    delete Dome;
-    Dome = nullptr;
 
     radar->Dispose();
     delete radar;
@@ -320,8 +393,14 @@ void CTest::UnInit()
     delete EM;
     EM = nullptr;
 
+    delete Dome;
+    Dome = nullptr;
+
     delete GM;
     GM = nullptr;
+
+    delete SpaceUI;
+    SpaceUI = nullptr;
 
     delete goal;
     goal = nullptr;
@@ -329,14 +408,20 @@ void CTest::UnInit()
     delete GoalUI;
     GoalUI = nullptr;
 
-    delete SpaceUI;
-    SpaceUI = nullptr;
-
     delete ClearUI;
     ClearUI = nullptr;
 
     delete failedUI;
     failedUI = nullptr;
+
+    delete KeyUI;
+    KeyUI = nullptr;
+
+    delete WalkUI;
+    WalkUI = nullptr;
+
+    delete Fade;
+    Fade = nullptr;
 
 
     Pl->UnInit();
@@ -346,6 +431,7 @@ void CTest::UnInit()
     camera->Dispose();
     delete camera;
     camera = nullptr;
+
 
     for (auto& box : BOXS)
     {

@@ -22,6 +22,25 @@ void Enemy::Init(std::string ModelName, std::string TexFolderPath, std::vector<M
     this->square.type = ObjectType::ENEMY;
 }
 
+void Enemy::UIInit(int nam)
+{
+    float shift = 150.0f;
+
+    shift *= nam;
+
+    UI = new GameUI();
+    UI->Init("assets\\Texture\\EnemyUI.png");
+    UI->SetHeight(100.0f);
+    UI->SetWidth(100.0f);
+    UI->SetCenter(Vector2(1800.0f - shift, 900.0f));
+
+    suspiciousUI = new GameUI();
+    suspiciousUI->Init("assets\\Texture\\hatenaUI.png");
+    suspiciousUI->SetHeight(100.0f);
+    suspiciousUI->SetWidth(100.0f);
+    suspiciousUI->SetCenter(Vector2(1800.0f - shift, 800.0f));
+}
+
 Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader, const Player* Pl)
 {
     //ƒ‚ƒfƒ‹“Ç‚İ‚İ“™
@@ -31,15 +50,14 @@ Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<Motio
     this->playerdate = Pl;
     this->square.type = ObjectType::ENEMY;
     time = new Timer(true);
-    UI = new GameUI();
-    UI->Init("assets\\Texture\\hatenaUI.png");
-    UI->SetHeight(100.0f);
-    UI->SetWidth(100.0f);
+
+
     AI = new EnemyAI();
     this->Setgetcaught(false);
     this->SethearSound(false);
     this->Setback(false);
     this->SetSearch(false);
+
 }
 
 Enemy::~Enemy()
@@ -52,6 +70,9 @@ Enemy::~Enemy()
 
     delete UI;
     UI = nullptr;
+
+    delete suspiciousUI;
+    suspiciousUI = nullptr;
 
 }
 
@@ -107,15 +128,11 @@ void Enemy::MoveUpdate()
     AI->Update(this);
 }
 
-void Enemy::Draw(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM)
+void Enemy::Draw()
 {
     this->EnemyDraw();
     this->viewDraw();
-    if (this->GetSearch() || this->Getback())
-    {
-        UI->Update(viewM,ProjM);
-        UI->Draw();
-    }
+
 }
 
 DirectX::SimpleMath::Vector3 Enemy::PositionForward()
@@ -205,6 +222,15 @@ void Enemy::viewDraw()
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     deviceContext->DrawIndexed(fanIndices.size(), 0, 0);
 
+}
+//“G‚ÌUI‚Ì•`‰æ
+void Enemy::UIDraw()
+{
+    if (this->GetSearch())
+    {
+        suspiciousUI->Draw();
+    }
+    UI->Draw();
 }
 //“G‚Ì‹–ì”ÍˆÍ‚ÉƒvƒŒƒCƒ„[‚ª“ü‚Á‚Ä‚é‚©‚Ì”»’è
 bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 checkpoint, float length)
