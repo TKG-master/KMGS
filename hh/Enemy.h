@@ -20,6 +20,7 @@ private:
 	Timer* time;
 
 	GameUI* UI;
+	GameUI* suspiciousUI;
 
 	//Œü‚¢‚Ä‚¢‚é•ûŒü
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
@@ -110,6 +111,8 @@ public:
 	void Init(std::string ModelName, std::string TexFolderPath,
 		std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader);
 
+	void UIInit(int nam);
+
 	Enemy(std::string ModelName, std::string TexFolderPath, std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader,const Player*Pl);
 	~Enemy();
 
@@ -118,7 +121,7 @@ public:
 	void MoveUpdate();
 
 
-	void Draw(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM);
+	void Draw();
 
 
 	//î•ñ‚ÌƒQƒbƒ^[
@@ -165,6 +168,8 @@ public:
 	DirectX::SimpleMath::Vector3 PositionForward();
 
 	void viewDraw();
+
+	void UIDraw();
 
 	//‹–ìŠp‚ÌŒvZ
 	bool IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 checkpoint, float length);

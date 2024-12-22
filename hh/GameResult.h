@@ -40,7 +40,7 @@ public:
 	void Init(std::string TexPaht);
 
 	//アップデート
-	void Update(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM);
+	void Update();
 
 	//描画
 	void Draw();

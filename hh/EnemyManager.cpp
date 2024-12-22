@@ -78,9 +78,16 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
 }
 
-void EnemyManager::DrawEnemies(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM) {
+void EnemyManager::DrawEnemies() {
     for (Enemy* enemy : enemies) {
-        enemy->Draw(viewM,ProjM);
+        enemy->Draw();
+    }
+}
+
+void EnemyManager::DrawEnemiesUI()
+{
+    for (Enemy* enemy : enemies) {
+        enemy->UIDraw();
     }
 }
 
