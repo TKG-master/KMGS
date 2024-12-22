@@ -263,7 +263,7 @@ void CTest::Draw()
 
     Pl->Draw();
 
-    EM->DrawEnemies();
+    EM->DrawEnemies(camera->GetViewMatrix(), camera->GetprojectionMatrix());
 
     for (auto& box : BOXS)
     {

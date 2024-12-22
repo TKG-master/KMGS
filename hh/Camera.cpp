@@ -39,7 +39,7 @@ void Camera::Dispose()
 
 }
 
-void Camera::Update(DirectX::SimpleMath::Vector3 TargetPos)
+void Camera::Update()
 {
 
 }
@@ -64,7 +64,6 @@ void Camera::Draw()
 	float nearPlane = 1.0f;
 	float farPlane = 3500.0f;
 
-	Matrix projectionMatrix;
 	projectionMatrix =
 		DirectX::XMMatrixPerspectiveFovLH(
 			fieldOfView,

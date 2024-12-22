@@ -19,6 +19,8 @@ private:
 
 	DirectX::SimpleMath::Matrix m_ViewMatrix{};
 
+	DirectX::SimpleMath::Matrix projectionMatrix{};
+
 	//カメラの位置
 	float PosX = 0.0f, PosY = 500.0f, PosZ = -350.0f;
 
@@ -50,7 +52,7 @@ public:
 	//終了処理
 	void Dispose();
 	//アップデートの関数
-	void Update(DirectX::SimpleMath::Vector3 TargetPos);
+	void Update();
 	//描画処理
 	void Draw();
 
@@ -92,11 +94,8 @@ public:
 
 	void SetCranning(bool run) { this->CameraRunning = run; };
 
-
-
-
-
-
+	DirectX::SimpleMath::Matrix GetprojectionMatrix() { return this->projectionMatrix; };
+	DirectX::SimpleMath::Matrix GetViewMatrix() { return this->m_ViewMatrix; };
 
 
 };

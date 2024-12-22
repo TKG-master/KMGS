@@ -1,6 +1,17 @@
 #include "GameResult.h"
+#include "Camera.h"
 
 using namespace DirectX::SimpleMath;
+
+GameUI::GameUI()
+{
+
+}
+
+GameUI::~GameUI()
+{
+
+}
 
 void GameUI::Init(std::string TexPaht)
 {
@@ -24,9 +35,25 @@ void GameUI::Init(std::string TexPaht)
 
 }
 
-void GameUI::Update()
+void GameUI::Update(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM)
 {
+	// カメラからビュー行列とプロジェクション行列を取得
+	DirectX::SimpleMath::Matrix viewMatrix = viewM;  // カメラクラスのGetViewMatrix()を使用
+	DirectX::SimpleMath::Matrix projectionMatrix = ProjM;  // カメラクラスのGetProjectionMatrix()を使用
 
+	// 3Dのワールド空間座標 (例：UIの中央位置)
+	DirectX::SimpleMath::Vector3 worldPosition(Center.x, Center.y, 0.0f);
+
+	// ワールド、ビュー、プロジェクション行列を使ってスクリーン座標に変換
+	DirectX::SimpleMath::Vector4 screenPosition = DirectX::XMVector4Transform(DirectX::SimpleMath::Vector4(worldPosition.x, worldPosition.y, worldPosition.z, 1.0f), viewMatrix * projectionMatrix);
+
+	// NDC (正規化デバイス座標)からスクリーン座標へ変換
+	screenPosition.x /= screenPosition.w;
+	screenPosition.y /= screenPosition.w;
+
+	// スクリーン座標に変換された結果をUIの中央位置に設定
+	Center.x = (screenPosition.x + 1.0f) * 0.5f * 1920;
+	Center.y = (1.0f - screenPosition.y) * 0.5f * 1080; // Y軸が反転している場合
 }
 
 void GameUI::Draw()
@@ -79,4 +106,11 @@ DirectX::SimpleMath::Vector3 GameUI::GetFadePos()
 
 	return Fadepos;
 
+}
+
+void GameUI::SetPosition(DirectX::SimpleMath::Vector3 position)
+{
+	// 3D空間上の座標をUIの中央位置として設定
+	Center.x = position.x;
+	Center.y = position.y;
 }

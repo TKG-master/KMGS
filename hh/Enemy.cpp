@@ -3,7 +3,8 @@
 #include "Player.h"
 #include "CScene.h"
 #include "BoxObj.h"
-#include "CSceneManager.h"
+#include "GameResult.h"
+#include "Camera.h"
 #include "easings.h"
 #include <algorithm> 
 #include <iostream>
@@ -30,6 +31,10 @@ Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<Motio
     this->playerdate = Pl;
     this->square.type = ObjectType::ENEMY;
     time = new Timer(true);
+    UI = new GameUI();
+    UI->Init("assets\\Texture\\hatenaUI.png");
+    UI->SetHeight(100.0f);
+    UI->SetWidth(100.0f);
     AI = new EnemyAI();
     this->Setgetcaught(false);
     this->SethearSound(false);
@@ -44,6 +49,10 @@ Enemy::~Enemy()
 
     delete AI;
     AI = nullptr;
+
+    delete UI;
+    UI = nullptr;
+
 }
 
 void Enemy::DrawInit()
@@ -68,12 +77,13 @@ void Enemy::DrawInit()
 
 void Enemy::Update()
 {
+    // アニメーションのアップデート
+    AnimUpdate();
 
     //敵の動きのアップデート
     MoveUpdate();
 
-    // アニメーションのアップデート
-    AnimUpdate();
+
     //当たり判定の押し出し処理
     for (auto it = CScene::BOXS.begin(); it != CScene::BOXS.end(); it++)
     {
@@ -87,26 +97,25 @@ void Enemy::Update()
         }
     }
 
-    if (CCollision::Square3DCollision(this->square, playerdate->square))
-    {
-        this->Setgetcaught(true);
-    }
+    //進行方向に基づいて回転させる
+    UpdateRotation();
 
 }
 
 void Enemy::MoveUpdate()
 {
-    
     AI->Update(this);
-     //進行方向に基づいて回転させる
-    UpdateRotation();
-
 }
 
-void Enemy::Draw()
+void Enemy::Draw(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM)
 {
     this->EnemyDraw();
     this->viewDraw();
+    if (this->GetSearch() || this->Getback())
+    {
+        UI->Update(viewM,ProjM);
+        UI->Draw();
+    }
 }
 
 DirectX::SimpleMath::Vector3 Enemy::PositionForward()
@@ -296,7 +305,7 @@ void Enemy::lookaround()
 {
         // タイマーがまだ開始されていない場合に開始する
         if (!time->IsRunning()) {
-            time->StartCountDown(1500);
+            time->StartCountDown(1.5f);
         }
         if (STATUS != IDLE)
         {
@@ -391,11 +400,13 @@ void Enemy::FollowPath()
             this->SetSearch(false);
             this->SethearSound(false);
             this->back = true;
+            this->time->Reset();
             return;
         }
         //徘徊ルートに戻ったら
         else if(this->back)
         {
+            this->SetState(EStateType::Patrolling);
             this->back = false;
             currentwanderingpathIndex = 0;
             return;

@@ -5,6 +5,7 @@
 #include "CMaterial.h"
 #include "CTexture.h"
 
+class Camera;
 
 
 class GameUI
@@ -32,14 +33,17 @@ protected:
 
 public:
 
+	GameUI();
+	~GameUI();
+
 	//初期化
 	void Init(std::string TexPaht);
 
 	//アップデート
-	virtual void Update();
+	void Update(DirectX::SimpleMath::Matrix viewM, DirectX::SimpleMath::Matrix ProjM);
 
 	//描画
-	virtual void Draw();
+	void Draw();
 
 	float GetWidth() { return this->halfWidth; };
 	void SetWidth(float Width) { this->halfWidth = Width; };
@@ -55,6 +59,9 @@ public:
 	void SetFadePos(DirectX::SimpleMath::Vector3 Fadepos);
 
 	DirectX::SimpleMath::Vector3 GetFadePos();
+
+	// 新しく追加：スクリーン上に描画する3D位置を設定
+	void SetPosition(DirectX::SimpleMath::Vector3 position);
 
 };
 

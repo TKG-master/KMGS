@@ -187,7 +187,7 @@ void STAGE1::Update()
             if (gameTime->TameStarflg == true)
             {
                 //gameTime->Start();
-                gameTime->StartCountDown(10000);
+                gameTime->StartCountDown(120);
                 gameTime->TameStarflg = false;
             }
         }
@@ -204,8 +204,9 @@ void STAGE1::Update()
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
+
         Pl->Update();
-        //敵全体のアップデート
+
          EM->UpdateEnemies(Pl, BOXS);
         //敵に見つかったのなら時間を止める
         if (EM->GetRook() && !EM->GetRookNow())
@@ -223,7 +224,7 @@ void STAGE1::Update()
 
         //普通のカメラの追尾処理
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
-            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(),500.0f,Pl->GetFPSeye(),Pl->GetFacingDirection());
+            camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(), 500.0f, Pl->GetFPSeye(), Pl->GetFacingDirection());
     }
 
     //時間が止まっているときの処理
@@ -327,22 +328,22 @@ void STAGE1::Update()
 
 void STAGE1::Draw()
 {
+    Dome->Draw();
 
     if (!GM->GetFadein())
     {
-        EM->DrawEnemies();
-
-        Pl->Draw();
-
         for (auto& box : BOXS)
         {
             box->Draw();
         }
 
-        goal->Draw();
-    }
 
-    Dome->Draw();
+        Pl->Draw();
+
+        goal->Draw();
+
+        EM->DrawEnemies(camera->GetViewMatrix(),camera->GetprojectionMatrix());
+    }
 
 
     if (!GM->GetEndEasing())
@@ -419,6 +420,7 @@ void STAGE1::UnInit()
     delete Fade;
     Fade = nullptr;
 
+
     Pl->UnInit();
     delete Pl;
     Pl = nullptr;
@@ -426,6 +428,7 @@ void STAGE1::UnInit()
     camera->Dispose();
     delete camera;
     camera = nullptr;
+
 
     for (auto& box : BOXS)
     {
