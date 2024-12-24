@@ -13,6 +13,7 @@
 #include "GameManager.h"
 #include "SkyDome.h"
 #include "GameResult.h"
+#include "DirectWrite.h"
 
 
 
@@ -32,6 +33,7 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+	DirectWrite* Write;
 
 	GameUI* GoalUI;
 	GameUI* SpaceUI;

@@ -8,9 +8,10 @@ enum ObjectType {
 };
 
 enum class EStateType {
-    Patrolling,  // 徘徊
+    Patrolling,     //徘徊
     Lookaround,     //周りを見る
-    Turn // 中間地点のフェーズ（例：プレイヤーを見失った後の探索）
+    Turn,            //敵の向きを戻す
+    Fixed,
 };
 
 enum class PStateType {

@@ -4,11 +4,13 @@
 
 TitleScene::TitleScene()
 {
+
 	goal = new GoalObj(100.0f, 100.0f, 100.0f);
 	goal->SetPosition(Vector3(0.0f,0.0f,0.0f));
 
 	Cam = new Camera(Vector3(0.0f,200.0f,0.0f));
 	Cam->SetFoucus(Vector3(0.0f, 0.0f, 0.0f));
+
 
 	Dome = new SkyDome();
 	Dome->DrawInit(2000.0f, "assets\\Texture\\MGfloor.jpeg");
@@ -45,6 +47,8 @@ TitleScene::~TitleScene()
 
 void TitleScene::Update()
 {
+
+
 	GM->FadeIn(Fade);
 
 	if (!GM->GetFadein())
@@ -119,5 +123,7 @@ void TitleScene::UnInit()
 
 	delete GM;
 	GM = nullptr;
+
+
 
 }

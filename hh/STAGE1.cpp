@@ -9,6 +9,17 @@ STAGE1::STAGE1()
 {
     gameTime = new Timer(true);
 
+    FontData* data = new FontData();
+    data->fontSize = 50;
+    data->font = Font::HG_SOUEIKAKU_GOTHIC;
+    data->Color = D2D1_COLOR_F(1, 1, 1, 1);
+
+    Write = new DirectWrite(data);
+    Write->Init();
+
+    delete data;
+    data = nullptr;
+
     GM = new GameManager();
 
     Dome = new SkyDome();
@@ -205,6 +216,16 @@ void STAGE1::Update()
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
+        float remainingTime = gameTime->GetRemainingTime();
+
+        // 残り時間を分と秒に変換
+        int minutes = static_cast<int>(remainingTime) / 60000;  // ミリ秒単位なので60000で割る
+        int seconds = (static_cast<int>(remainingTime) % 60000) / 1000;
+
+        Write->SetTimeranning(minutes, seconds);
+
+        Write->SetPosition(Vector2(100.0f, 100.0f));
+
 
         Pl->Update();
 
@@ -365,6 +386,7 @@ void STAGE1::Draw()
         KeyUI->Draw();
         WalkUI->Draw();
         EM->DrawEnemiesUI();
+        Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();
@@ -430,6 +452,10 @@ void STAGE1::UnInit()
     camera->Dispose();
     delete camera;
     camera = nullptr;
+
+    Write->Release();
+    delete Write;
+    Write = nullptr;
 
 
     for (auto& box : BOXS)

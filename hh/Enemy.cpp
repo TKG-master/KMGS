@@ -296,7 +296,6 @@ void Enemy::UpdateRotation()
     ModifyRotation();
 
 }
-
 //“G‚ªƒvƒŒƒCƒ„[‚ğŒ©‚Â‚¯‚Ä‚¢‚È‚¢‚Ì“®‚«
 void Enemy::PatrollingMove()
 {
@@ -375,6 +374,14 @@ void Enemy::SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wa
 {
     wandering_path = wanderingPath;
     currentwanderingpathIndex = 1;
+}
+
+void Enemy::SetSecurity(int num)
+{
+    if (num == 100)
+    {
+        this->SetState(EStateType::Fixed);
+    }
 }
 
 void Enemy::Wanderaround()

@@ -47,10 +47,11 @@ void Renderer::Init()
 	swapChainDesc.SampleDesc.Quality = 0;
 	swapChainDesc.Windowed = TRUE;
 
-	hr = D3D11CreateDeviceAndSwapChain(NULL,
+	hr = D3D11CreateDeviceAndSwapChain(
+		NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
-		0,
+		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
 		NULL,
 		0,
 		D3D11_SDK_VERSION,

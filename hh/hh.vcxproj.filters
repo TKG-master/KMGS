@@ -166,6 +166,12 @@
     <Filter Include="System\EnemyAI\ActionConcern">
       <UniqueIdentifier>{cb2e786b-23e9-4320-a30d-1d5d99849057}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXwrite">
+      <UniqueIdentifier>{4dd2991c-f319-4eb0-8acb-88b80d059860}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\ActionFixed">
+      <UniqueIdentifier>{b6ea5dcc-cafa-4506-8994-45cc47caf364}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -386,6 +392,15 @@
     </ClCompile>
     <ClCompile Include="ActionConcern.cpp">
       <Filter>System\EnemyAI\ActionConcern</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerUI.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectWrite.cpp">
+      <Filter>DirectXwrite</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionFixed.cpp">
+      <Filter>System\EnemyAI\ActionFixed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -640,6 +655,15 @@
     </ClInclude>
     <ClInclude Include="ActionConcern.h">
       <Filter>System\EnemyAI\ActionConcern</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerUI.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectWrite.h">
+      <Filter>DirectXwrite</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionFixed.h">
+      <Filter>System\EnemyAI\ActionFixed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

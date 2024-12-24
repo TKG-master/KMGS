@@ -21,6 +21,7 @@ EnemyAI::EnemyAI() {
     LookaroundSequence->AddChild(new ActionLookaround());
     root->AddChild(LookaroundSequence);
 
+
 }
 
 // ビヘイビアツリーの更新
