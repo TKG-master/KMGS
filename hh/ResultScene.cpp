@@ -75,12 +75,12 @@ void ResultScene::Update()
 	Cam->FocusCamera(goal->GetPosition(), 0.5f,0.0f);
 
 	//カーソルの移動
-	if (Input::Get()->GetKeyTrigger(DIK_RIGHT) && UISelect->GetCenter() != Select->GetCenter())
+	if (Input::Get()->GetKeyTrigger(DIK_D) && UISelect->GetCenter() != Select->GetCenter())
 	{
 		UISelect->SetCenter(Select->GetCenter());
 	}
 	//カーソルの移動
-	else if (Input::Get()->GetKeyTrigger(DIK_LEFT) && UISelect->GetCenter() != BsckTitle->GetCenter())
+	else if (Input::Get()->GetKeyTrigger(DIK_A) && UISelect->GetCenter() != BsckTitle->GetCenter())
 	{
 		UISelect->SetCenter(BsckTitle->GetCenter());
 	}

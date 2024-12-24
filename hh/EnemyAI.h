@@ -21,6 +21,7 @@ private:
 
     Sequence* LookaroundSequence;
 
+
 public:
     EnemyAI();
     void Update(Enemy* enemy);  // AI‚ÌXV

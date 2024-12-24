@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionConcern.cpp" />
+    <ClCompile Include="ActionFixed.cpp" />
     <ClCompile Include="ActionLookaround.cpp" />
     <ClCompile Include="ActionMoveback.cpp" />
     <ClCompile Include="ActionMoveSearch.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="CTest.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTreeNode.cpp" />
+    <ClCompile Include="DirectWrite.cpp" />
     <ClCompile Include="dx11helper.cpp" />
     <ClCompile Include="easings.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -218,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionConcern.h" />
+    <ClInclude Include="ActionFixed.h" />
     <ClInclude Include="ActionLookaround.h" />
     <ClInclude Include="ActionMoveback.h" />
     <ClInclude Include="ActionMoveSearch.h" />
@@ -253,6 +256,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTreeNode.h" />
     <ClInclude Include="CVertexBuffer.h" />
+    <ClInclude Include="DirectWrite.h" />
     <ClInclude Include="dx11helper.h" />
     <ClInclude Include="easings.h" />
     <ClInclude Include="Enemy.h" />

@@ -6,6 +6,8 @@
 #include "SkyDome.h"
 #include "GameResult.h"
 #include "GameManager.h"
+#include "DirectWrite.h"
+#include "Timer.h"
 
 
 
@@ -19,6 +21,7 @@ private:
 	GameUI* UI2;
 	GameUI* Fade;
 	GameManager* GM;
+
 	bool FadeOut = false;
 
 public:

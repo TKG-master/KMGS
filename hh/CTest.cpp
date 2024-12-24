@@ -11,6 +11,17 @@ CTest::CTest()
 
     GM = new GameManager();
 
+    FontData* data = new FontData();
+    data->fontSize = 50;
+    data->font = Font::HG_SOUEIKAKU_GOTHIC;
+    data->Color = D2D1_COLOR_F(1, 1, 1, 1);
+
+    Write = new DirectWrite(data);
+    Write->Init();
+
+    delete data;
+    data = nullptr;
+
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
     Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
@@ -188,7 +199,7 @@ void CTest::Update()
             if (gameTime->TameStarflg == true)
             {
                 //gameTime->Start();
-                gameTime->StartCountDown(120);
+                gameTime->StartCountDown(90);
                 gameTime->TameStarflg = false;
             }
         }
@@ -205,6 +216,16 @@ void CTest::Update()
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
+
+        float remainingTime = gameTime->GetRemainingTime();
+
+        // 残り時間を分と秒に変換
+        int minutes = static_cast<int>(remainingTime) / 60000;  // ミリ秒単位なので60000で割る
+        int seconds = (static_cast<int>(remainingTime) % 60000) / 1000;
+
+        Write->SetTimeranning(minutes, seconds);
+
+        Write->SetPosition(Vector2(100.0f, 100.0f));
 
         Pl->Update();
 
@@ -365,6 +386,7 @@ void CTest::Draw()
         KeyUI->Draw();
         WalkUI->Draw();
         EM->DrawEnemiesUI();
+        Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();
@@ -432,6 +454,10 @@ void CTest::UnInit()
     delete camera;
     camera = nullptr;
 
+
+    Write->Release();
+    delete Write;
+    Write = nullptr;
 
     for (auto& box : BOXS)
     {

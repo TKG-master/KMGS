@@ -34,8 +34,10 @@ private:
 	float MoveSpeed = 0.8f;
 	//視野範囲を描画するために必要な行列
 	DirectX::SimpleMath::Matrix rotation;
+
 	//現在の状態を維持する
 	EStateType state = EStateType::Patrolling;
+
 	// 経路情報を保持するメンバ変数
 	std::vector<DirectX::SimpleMath::Vector3> path;
 	size_t currentPathIndex = 0;
@@ -189,6 +191,8 @@ public:
 
 	//徘徊ルートのパスをセット
 	void SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath);
+
+	void SetSecurity(int num);
 
 	//徘徊ルートのポイントをゲット
 	std::vector<DirectX::SimpleMath::Vector3> GetwanderingPath() { return this->wandering_path; };

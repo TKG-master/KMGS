@@ -15,6 +15,7 @@
 #include "GameResult.h"
 #include "TimerUI.h"
 #include "Polygon2D.h"
+#include "DirectWrite.h"
 
 
 class STAGE1 : public CScene
@@ -32,6 +33,7 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+	DirectWrite* Write;
 
 	GameUI* GoalUI;
 	GameUI* SpaceUI;
