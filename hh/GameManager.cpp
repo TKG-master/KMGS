@@ -45,12 +45,12 @@ bool GameManager::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
         if (isEasingStart)
         {
             //ポジションのイージング
-            camera->SetPosition(EaselnOutBack(goalpos, plpos, Time1));
+            camera->SetPosition(EaselnOutBack(goalpos, plpos, EasingStartTime));
             //目線のイージング
-            camera->SetFoucus(EaselnOutBack(goalFoucusPos, plFoucusPos, Time1));
-            Time1 += deltaTime;
-            if (Time1 >= 1.0f) {
-                Time1 = 0.0f;
+            camera->SetFoucus(EaselnOutBack(goalFoucusPos, plFoucusPos, EasingStartTime));
+            EasingStartTime += deltaTime;
+            if (EasingStartTime >= 1.0f) {
+                EasingStartTime = 0.0f;
                 isEasingStart = false;
                 return true;
             }
@@ -76,11 +76,11 @@ bool GameManager::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath::V
         //敵に見つかった時に見つけた敵に対してカメラのイージング
         if (!timer->IsRunning())
         {
-            camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), enemyPositionFoucus, Time1));
-            camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), enemyPosition, Time1));
-            Time1 += deltaTime;
-            if (Time1 >= 1.0f) {
-                Time1 = 0.0f;
+            camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), enemyPositionFoucus, EnemyTime));
+            camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), enemyPosition, EnemyTime));
+            EnemyTime += deltaTime;
+            if (EnemyTime >= 1.0f) {
+                EnemyTime = 0.0f;
                 RookEasing = false;
                 return true;
             }
@@ -156,17 +156,123 @@ void GameManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
 
     if (this->EndEasing && this->Goal)
     {
-        camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), EndPos, Time1));
-        camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), EndFoucasPos, Time1));
-        Time1 += deltaTime;
-        if (Time1 >= 1.0f) {
-            Time1 = 0.0f;
+        camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), EndPos, GoalTime));
+        camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), EndFoucasPos, GoalTime));
+        GoalTime += deltaTime;
+        if (GoalTime >= 1.0f) {
+            GoalTime = 0.0f;
             this->EndEasing = false;
             this->Goal = false;
         }
     }
 
 
+}
+
+bool GameManager::SEasing(Player* Pl, Camera* camera)
+{
+    //プレイヤーより右
+    if (Pl->Getdir().x == 1)
+    {
+        //張り付いたときのカメラの位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 Plpos = Pl->GetPosition();
+        Plpos.y += 140.0f;
+        Plpos.x += 100.0f;
+        /*Plpos.z += 200.0f;*/
+        //張り付いたときのカメラの見ている位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 PlFoucusPos;
+        PlFoucusPos = Pl->GetPosition();
+        PlFoucusPos.y += 80.0f;
+        PlFoucusPos.x -= 50.0f;
+        if (StikyEasing)
+        {
+            camera->SetPosition(EaseOutCirc(camera->GetCamPosition(),Plpos, StikyTime));
+            camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(),PlFoucusPos, StikyTime));
+            StikyTime += deltaTimeStiky;
+            if (StikyTime >= 1.0f) {
+                StikyTime = 0.0f;
+                StikyEasing = false;
+                return true;
+            }
+        }
+    }
+    //プレイヤーより左
+    else if (Pl->Getdir().x == -1)
+    {
+        //張り付いたときのカメラの位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 Plpos = Pl->GetPosition();
+        Plpos.y += 140.0f;
+        Plpos.x -= 100.0f;
+        /*Plpos.z += 200.0f;*/
+        //張り付いたときのカメラの見ている位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 PlFoucusPos;
+        PlFoucusPos = Pl->GetPosition();
+        PlFoucusPos.y += 80.0f;
+        PlFoucusPos.x += 50.0f;
+        if (StikyEasing)
+        {
+            camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), Plpos, StikyTime));
+            camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), PlFoucusPos, StikyTime));
+            StikyTime += deltaTimeStiky;
+            if (StikyTime >= 1.0f) {
+                StikyTime = 0.0f;
+                StikyEasing = false;
+                return true;
+            }
+        }
+    }
+    //プレイヤーより奥
+    if (Pl->Getdir().z == 1)
+    {
+        //張り付いたときのカメラの位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 Plpos = Pl->GetPosition();
+        Plpos.y += 140.0f;
+        Plpos.z += 100.0f;
+        /*Plpos.z += 200.0f;*/
+        //張り付いたときのカメラの見ている位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 PlFoucusPos;
+        PlFoucusPos = Pl->GetPosition();
+        PlFoucusPos.y += 80.0f;
+        PlFoucusPos.z -= 50.0f;
+        if (StikyEasing)
+        {
+            camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), Plpos, StikyTime));
+            camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), PlFoucusPos, StikyTime));
+            StikyTime += deltaTimeStiky;
+            if (StikyTime >= 1.0f) {
+                StikyTime = 0.0f;
+                StikyEasing = false;
+                return true;
+            }
+        }
+    }
+    //プレイヤーより手前
+    else if (Pl->Getdir().z == -1)
+    {
+        //張り付いたときのカメラの位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 Plpos = Pl->GetPosition();
+        Plpos.y += 140.0f;
+        Plpos.z -= 100.0f;
+        /*Plpos.z += 200.0f;*/
+        //張り付いたときのカメラの見ている位置（イージングのゴール地点）
+        DirectX::SimpleMath::Vector3 PlFoucusPos;
+        PlFoucusPos = Pl->GetPosition();
+        PlFoucusPos.y += 80.0f;
+        PlFoucusPos.z += 50.0f;
+        if (StikyEasing)
+        {
+            camera->SetPosition(EaseOutCirc(camera->GetCamPosition(), Plpos, StikyTime));
+            camera->SetFoucus(EaseOutCirc(camera->GetCamforcas(), PlFoucusPos, StikyTime));
+            StikyTime += deltaTimeStiky;
+            if (StikyTime >= 1.0f) {
+                StikyTime = 0.0f;
+                StikyEasing = false;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 void GameManager::FadeIn(GameUI* FadeUI)

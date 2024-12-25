@@ -24,6 +24,12 @@ EnemyManager::~EnemyManager() {
     enemies.clear();
 }
 
+void EnemyManager::EnemyModelInit(std::string ModelName, std::string TexFolderPath)
+{
+    // アニメーションメッシュ読み込み
+    m_AnimationMesh.Load(ModelName, TexFolderPath);
+}
+
 void EnemyManager::AddEnemy(Enemy* enemy) {
     enemies.push_back(enemy);
 }

@@ -123,10 +123,6 @@ CTest::CTest()
     enemyMS.MotionFile = "assets/model/player/playerWalk.fbx";
     EMS.push_back(enemyMS);
 
-    enemyMS.MotionKey = "Run";
-    enemyMS.MotionFile = "assets/model/player/playerRun.fbx";
-    EMS.push_back(enemyMS);
-
 
     //ƒvƒŒƒCƒ„[‚Ì‰Šú‰»
     Pl = new Player(
@@ -142,6 +138,7 @@ CTest::CTest()
     Pl->SetMapdata(this->GetMapData());
 
     EM = new EnemyManager(this->GetMapData(), this->GetWanderingdata());
+    EM->EnemyModelInit("assets/model/player/X Bot.fbx", "assets/model");
 
     //“G‚Ì‰Šú‰»
     for (int a = 0; a < this->GetEnemyStartPoss().size(); a++) {

@@ -159,6 +159,8 @@
     <ClCompile Include="CBoneCombMatrices.cpp" />
     <ClCompile Include="CBoxMesh.cpp" />
     <ClCompile Include="CCollision.cpp" />
+    <ClCompile Include="CFBXMesh.cpp" />
+    <ClCompile Include="CFBXMeshRenderer.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CheckPlayerInSight.cpp" />
     <ClCompile Include="CMesh.cpp" />
@@ -240,6 +242,8 @@
     <ClInclude Include="CBoneCombMatrices.h" />
     <ClInclude Include="CBoxMesh.h" />
     <ClInclude Include="CCollision.h" />
+    <ClInclude Include="CFBXMesh.h" />
+    <ClInclude Include="CFBXMeshRenderer.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CheckPlayerInSight.h" />
     <ClInclude Include="CIndexBuffer.h" />

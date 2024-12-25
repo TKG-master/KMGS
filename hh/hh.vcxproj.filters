@@ -172,6 +172,9 @@
     <Filter Include="System\EnemyAI\ActionFixed">
       <UniqueIdentifier>{b6ea5dcc-cafa-4506-8994-45cc47caf364}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FBXObj">
+      <UniqueIdentifier>{c4adae78-fcfc-4b71-a459-d221fff9c8cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -401,6 +404,12 @@
     </ClCompile>
     <ClCompile Include="ActionFixed.cpp">
       <Filter>System\EnemyAI\ActionFixed</Filter>
+    </ClCompile>
+    <ClCompile Include="CFBXMesh.cpp">
+      <Filter>FBXObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CFBXMeshRenderer.cpp">
+      <Filter>FBXObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -664,6 +673,12 @@
     </ClInclude>
     <ClInclude Include="ActionFixed.h">
       <Filter>System\EnemyAI\ActionFixed</Filter>
+    </ClInclude>
+    <ClInclude Include="CFBXMesh.h">
+      <Filter>FBXObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CFBXMeshRenderer.h">
+      <Filter>FBXObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

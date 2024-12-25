@@ -67,6 +67,13 @@ public:
     virtual void Init(
         std::string ModelName, std::string TexFolderPath,
         std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader);
+
+    virtual void EnemyInit(
+        CAnimationMesh m_AnimationMesh,
+        std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader);
+
+
+
     virtual void UnInit();
     virtual void Update();
     virtual void Draw();
