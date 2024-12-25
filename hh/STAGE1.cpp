@@ -123,10 +123,6 @@ STAGE1::STAGE1()
     enemyMS.MotionFile = "assets/model/player/playerWalk.fbx";
     EMS.push_back(enemyMS);
 
-    enemyMS.MotionKey = "Run";
-    enemyMS.MotionFile = "assets/model/player/playerRun.fbx";
-    EMS.push_back(enemyMS);
-
 
     //プレイヤーの初期化
     Pl = new Player(
@@ -216,25 +212,26 @@ void STAGE1::Update()
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
+        //時間を分と秒に変換している
         float remainingTime = gameTime->GetRemainingTime();
-
         // 残り時間を分と秒に変換
-        int minutes = static_cast<int>(remainingTime) / 60000;  // ミリ秒単位なので60000で割る
+        int minutes = static_cast<int>(remainingTime) / 60000;
         int seconds = (static_cast<int>(remainingTime) % 60000) / 1000;
-
         Write->SetTimeranning(minutes, seconds);
-
         Write->SetPosition(Vector2(100.0f, 100.0f));
 
-
+        //プレイヤーのアップデート
         Pl->Update();
 
+        //エネミーのアップデート
          EM->UpdateEnemies(Pl, BOXS);
+
         //敵に見つかったのなら時間を止める
         if (EM->GetRook() && !EM->GetRookNow())
         {
             gameTime->Stop();
         }
+
         //プレイヤーとすべての敵の位置をレーダーに渡す
         std::vector<DirectX::SimpleMath::Vector3> enemyPositions;
         for (const auto& enemy : EM->GetEnemies()) {
@@ -245,8 +242,15 @@ void STAGE1::Update()
         radar->Update(Pl->GetPosition(), enemyPositions);
 
         //普通のカメラの追尾処理
-        if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
+        if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing() && !Pl->GetSticky())
             camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(), 500.0f, Pl->GetFPSeye(), Pl->GetFacingDirection());
+        else if (Pl->GetSticky())
+        {
+            if (GM->SEasing(Pl, camera))
+            {
+                GM->SetStikyEasing(true);
+            }
+        }
     }
 
     //時間が止まっているときの処理
@@ -341,9 +345,9 @@ void STAGE1::Update()
 
 
     //Imguiの処理
-    //gui->PlayerUpdate(Pl);
-    //gui->CameraUpdate(camera);
-    //gui->EnenyUpdate(EM);
+    gui->PlayerUpdate(Pl);
+    gui->CameraUpdate(camera);
+    gui->EnenyUpdate(EM);
 
 
 }

@@ -10,65 +10,9 @@ void Player::MoveUpdate()
 	if (Velocity.x > -0.05f && Velocity.x < 0.05f) { Velocity.x = 0.0f; }
 	if (Velocity.z > -0.05f && Velocity.z < 0.05f) { Velocity.z = 0.0f; }
 
+	moveprocess();
 
-
-	//VelocityとMoveSpeedをかけて入れる
-	if (STATUS == WALK) {
-		m_AnimationObject.m_Position += Velocity * MoveSpeed;
-		this->SetknockSound(false);
-		SetToAnimationName("Walk");
-	}
-	else if (STATUS == RUN) {
-		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
-		this->SetknockSound(true);
-		SetToAnimationName("Run");
-		if (this->GetAnimEndState())
-		{
-			this->Stand = true;
-		}
-
-	}
-	else if (STATUS == SNEAKWLKE)
-	{
-		m_AnimationObject.m_Position += Velocity * MoveSpeed * 0.5f;
-		this->SetknockSound(false);
-		SetToAnimationName("SWalk");
-	}
-	//----------------------//
-
-	if (Velocity.Length() < 0.5f && STATUS != SNEAK && STATUS != SNEAKWLKE && STATUS != GOAL)
-	{
-		STATUS = IDLE;
-		SetToAnimationName("Idle");
-		if (this->GetAnimEndState())
-		{
-			this->Stand = true;
-		}
-
-	}
-	else if (Velocity.Length() < 0.5f && STATUS == SNEAK)
-	{
-		STATUS = SNEAK;
-		SetToAnimationName("Spose");
-	}
-	else if (Velocity.Length() < 0.5f && STATUS == SNEAKWLKE)
-	{
-		STATUS = SNEAK;
-		SetToAnimationName("Spose");
-	}
-	else if (Velocity.Length() < 0.5f && STATUS == GOAL)
-	{
-		SetToAnimationName("Goal");
-	}
-
-	if (STATUS == GOAL)
-	{
-		this->SetAnimationSpeed(0.5f);
-	}
-	else
-	{
-		this->SetAnimationSpeed(1.0f);
-	}
+	VelocityS();
 
 
 	//=== 回転の処理 ===
@@ -123,109 +67,173 @@ void Player::UnInit()
 
 void Player::PlayerInput()
 {
-
-	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+	if (this->Sticky == false)
 	{
-		if (this->GetFPSeye())
+		if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 		{
-			this->SetState(PStateType::STAND);
-			this->SetFPSeye(false);
+			if (this->GetFPSeye())
+			{
+				this->SetState(PStateType::STAND);
+				this->SetFPSeye(false);
+			}
+			else
+			{
+				this->SetState(PStateType::SNEAKEYE);
+				this->SetFPSeye(true);
+			}
 		}
-		else
+		//=== X軸 ===
+	//Aが押されていたら
+		if (Input::Get()->GetKeyPress(DIK_A) && !this->GetFPSeye())
 		{
-			this->SetState(PStateType::SNEAKEYE);
-			this->SetFPSeye(true);
+			//向きを代入
+			Velocity.x -= 0.1f;
+			if (Velocity.x < -1.0f) { Velocity.x = -1.0f; }
+
+			if (STATUS == IDLE)
+				STATUS = WALK;
+			else if (STATUS == SNEAK)
+				STATUS = SNEAKWLKE;
+		}
+		else if (Velocity.x < 0.0f) { Velocity.x += 0.025f; }
+
+		if (Input::Get()->GetKeyPress(DIK_D) && !this->GetFPSeye())
+		{
+			Velocity.x += 0.1f;
+			if (Velocity.x > 1) { Velocity.x = 1; }
+
+			if (STATUS == IDLE)
+				STATUS = WALK;
+			else if (STATUS == SNEAK)
+				STATUS = SNEAKWLKE;
+		}
+		else if (Velocity.x > 0.0f) { Velocity.x -= 0.025f; }
+
+
+		//=== Z軸 ===
+		if (Input::Get()->GetKeyPress(DIK_S) && !this->GetFPSeye())
+		{
+			Velocity.z -= 0.1f;
+			if (Velocity.z < -1.0f) { Velocity.z = -1.0f; }
+
+			if (STATUS == IDLE)
+				STATUS = WALK;
+			else if (STATUS == SNEAK)
+				STATUS = SNEAKWLKE;
+		}
+		else if (Velocity.z < 0.0f) { Velocity.z += 0.025f; }
+
+		if (Input::Get()->GetKeyPress(DIK_W) && !this->GetFPSeye())
+		{
+			Velocity.z += 0.1f;
+			if (Velocity.z > 1) { Velocity.z = 1; }
+
+
+			if (STATUS == IDLE)
+				STATUS = WALK;
+			else if (STATUS == SNEAK)
+				STATUS = SNEAKWLKE;
+		}
+		else if (Velocity.z > 0.0f) { Velocity.z -= 0.025f; }
+
+
+		//走るモード
+		if (Input::Get()->GetKeyPress(DIK_LSHIFT) && !this->GetFPSeye())
+		{
+			STATUS = RUN;
+		}
+
+		if (Input::Get()->GetKeyTrigger(DIK_E) && !this->GetFPSeye())
+		{
+			if (STATUS == IDLE)
+			{
+				STATUS = SNEAK;
+			}
+			else if (STATUS == SNEAK)
+			{
+				STATUS = IDLE;
+			}
+			else if (STATUS == SNEAKWLKE)
+			{
+				STATUS = WALK;
+			}
+			else if (STATUS == WALK)
+			{
+				STATUS = SNEAKWLKE;
+			}
+			else if (STATUS == RUN)
+			{
+				STATUS = SNEAKWLKE;
+			}
+		}
+		//ノックの処理
+		if (Input::Get()->GetKeyPress(DIK_C) && !this->GetFPSeye())
+		{
+			if (!this->GetKnockSound() && this->hitBox == true)
+				this->SetknockSound(true);
 		}
 	}
-	//=== X軸 ===
-//Aが押されていたら
-	if (Input::Get()->GetKeyPress(DIK_A) && !this->GetFPSeye())
-	{
-		//向きを代入
-		Velocity.x -= 0.1f;
-		if (Velocity.x < -1.0f) { Velocity.x = -1.0f; }
+}
 
-		if (STATUS == IDLE)
-			STATUS = WALK;
-		else if (STATUS == SNEAK)
-			STATUS = SNEAKWLKE;
+void Player::moveprocess()
+{	//VelocityとMoveSpeedをかけて入れる
+	if (STATUS == WALK) {
+		m_AnimationObject.m_Position += Velocity * MoveSpeed;
+		this->SetknockSound(false);
+		SetToAnimationName("Walk");
 	}
-	else if (Velocity.x < 0.0f) { Velocity.x += 0.025f; }
-
-	if (Input::Get()->GetKeyPress(DIK_D) && !this->GetFPSeye())
-	{
-		Velocity.x += 0.1f;
-		if (Velocity.x > 1) { Velocity.x = 1; }
-
-		if (STATUS == IDLE)
-			STATUS = WALK;
-		else if (STATUS == SNEAK)
-			STATUS = SNEAKWLKE;
-	}
-	else if (Velocity.x > 0.0f) { Velocity.x -= 0.025f; }
-
-
-	//=== Z軸 ===
-	if (Input::Get()->GetKeyPress(DIK_S) && !this->GetFPSeye())
-	{
-		Velocity.z -= 0.1f;
-		if (Velocity.z < -1.0f) { Velocity.z = -1.0f; }
-
-		if (STATUS == IDLE)
-			STATUS = WALK;
-		else if (STATUS == SNEAK)
-			STATUS = SNEAKWLKE;
-	}
-	else if (Velocity.z < 0.0f) { Velocity.z += 0.025f; }
-
-	if (Input::Get()->GetKeyPress(DIK_W) && !this->GetFPSeye())
-	{
-		Velocity.z += 0.1f;
-		if (Velocity.z > 1) { Velocity.z = 1; }
-
-
-		if (STATUS == IDLE)
-			STATUS = WALK;
-		else if (STATUS == SNEAK)
-			STATUS = SNEAKWLKE;
-	}
-	else if (Velocity.z > 0.0f) { Velocity.z -= 0.025f; }
-
-
-	//走るモード
-	if (Input::Get()->GetKeyPress(DIK_LSHIFT) && !this->GetFPSeye())
-	{
-		STATUS = RUN;
-	}
-
-	if (Input::Get()->GetKeyTrigger(DIK_E) && !this->GetFPSeye())
-	{
-		if (STATUS == IDLE)
+	else if (STATUS == RUN) {
+		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
+		this->SetknockSound(true);
+		SetToAnimationName("Run");
+		if (this->GetAnimEndState())
 		{
-			STATUS = SNEAK;
+			this->Stand = true;
 		}
-		else if (STATUS == SNEAK)
-		{
-			STATUS = IDLE;
-		}
-		else if (STATUS == SNEAKWLKE)
-		{
-			STATUS = WALK;
-		}
-		else if (STATUS == WALK)
-		{
-			STATUS = SNEAKWLKE;
-		}
-		else if (STATUS == RUN)
-		{
-			STATUS = SNEAKWLKE;
-		}
+
 	}
-	//ノックの処理
-	if (Input::Get()->GetKeyPress(DIK_C) && !this->GetFPSeye())
+	else if (STATUS == SNEAKWLKE)
 	{
-		if (!this->GetKnockSound() && this->hitBox == true)
-			this->SetknockSound(true);
+		m_AnimationObject.m_Position += Velocity * MoveSpeed * 0.5f;
+		this->SetknockSound(false);
+		SetToAnimationName("SWalk");
+	}
+}
+
+void Player::VelocityS()
+{
+	if (Velocity.Length() < 0.5f && STATUS != SNEAK && STATUS != SNEAKWLKE && STATUS != GOAL)
+	{
+		STATUS = IDLE;
+		SetToAnimationName("Idle");
+		if (this->GetAnimEndState())
+		{
+			this->Stand = true;
+		}
+
+	}
+	else if (Velocity.Length() < 0.5f && STATUS == SNEAK)
+	{
+		STATUS = SNEAK;
+		SetToAnimationName("Spose");
+	}
+	else if (Velocity.Length() < 0.5f && STATUS == SNEAKWLKE)
+	{
+		STATUS = SNEAK;
+		SetToAnimationName("Spose");
+	}
+	else if (Velocity.Length() < 0.5f && STATUS == GOAL)
+	{
+		SetToAnimationName("Goal");
+	}
+
+	if (STATUS == GOAL)
+	{
+		this->SetAnimationSpeed(0.5f);
+	}
+	else
+	{
+		this->SetAnimationSpeed(1.0f);
 	}
 }
 
@@ -249,42 +257,66 @@ void Player::StickyWall(CORRECT_DIR dir)
 {
 	// 壁に張り付く方向に応じて処理を実行
 	if (dir.x == 1) {
-		// 右方向に張り付く処理
-		this->SetRotation(Vector3(0.0f, 270.0f, 0.0f));
-		//張り付き状態
-		STATUS = IDLE;
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		{
+			// 右方向に張り付く処理
+			this->SetRotation(Vector3(0.0f, 270.0f, 0.0f));
+			//張り付き状態
+			this->Sticky = true;
+			STATUS = IDLE;
+		}
+		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
+		{
+			this->Sticky = false;
+		}
 	}
 	else if (dir.x == -1) {
-		// 左方向に張り付く処理
-		this->SetRotation(Vector3(0.0f, 90.0f, 0.0f));
-		//張り付き状態
-		STATUS = IDLE;
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		{
+			// 右方向に張り付く処理
+			this->SetRotation(Vector3(0.0f, 90.0f, 0.0f));
+			//張り付き状態
+			this->Sticky = true;
+			STATUS = IDLE;
+		}
+		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
+		{
+			this->Sticky = false;
+		}
 
 	}
-
-	if (dir.z == 1 && Input::Get()->GetKeyPress(DIK_S)) {
-		// 上方向に張り付く処理
-		this->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
-		//張り付き状態
-		STATUS = IDLE;
+	if (dir.z == 1) {
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		{
+			// 右方向に張り付く処理
+			this->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
+			//張り付き状態
+			this->Sticky = true;
+			STATUS = IDLE;
+		}
+		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
+		{
+			this->Sticky = false;
+		}
 	}
-	else if (dir.z == -1 && Input::Get()->GetKeyPress(DIK_W)) {
-		// 下方向に張り付く処理
-		this->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
-		//張り付き状態
-		STATUS = IDLE;
+	else if (dir.z == -1) {
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		{
+			// 右方向に張り付く処理
+			this->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
+			//張り付き状態
+			this->Sticky = true;
+			STATUS = IDLE;
+		}
+		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
+		{
+			this->Sticky = false;
+		}
 	}
 }
 
 void Player::Update()
 {
-
-	// 移動処理
-	MoveUpdate();
-	// アニメーション
-	AnimUpdate();
-
-	this->hitBox = false;
 
 	//当たり判定の押し出し処理
 	for (auto it = CScene::BOXS.begin(); it != CScene::BOXS.end(); it++)
@@ -299,6 +331,18 @@ void Player::Update()
 		}
 	}
 
+	// 移動処理
+	MoveUpdate();
+
+	StickyWall(prevFrameCorrect);
+
+	// アニメーション
+	AnimUpdate();
+
+	this->hitBox = false;
+
+
+
 	//しゃがみ状態と立ち状態の当たり判定の変更
 	if (STATUS == SNEAK || STATUS == SNEAKWLKE)
 	{
@@ -307,7 +351,7 @@ void Player::Update()
 	}
 	else if (STATUS != SNEAK && STATUS != SNEAKWLKE && this->Stand == true)
 	{
-		this->SetSquare3D(Vector3(45.0f, 80.0f, 45.0f));
+		this->SetSquare3D(Vector3(25.0f, 80.0f, 25.0f));
 		this->SetPosition(Vector3(this->GetPosition().x, 0.1f, this->GetPosition().z));
 	}
 

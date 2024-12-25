@@ -28,7 +28,7 @@ public:
 		return std::move(m_diffusetextures);
 	}
 
-private:
+protected:
 
 	std::vector<MATERIAL> m_materials;					// マテリアル情報
 	std::vector<std::string> m_diffusetexturenames;		// ディフューズテクスチャ名

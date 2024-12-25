@@ -1,6 +1,7 @@
 #pragma once
 #include "Timer.h"
 #include "easings.h"
+#include "CCollision.h"
 
 class Camera;
 class Enemy;
@@ -28,12 +29,21 @@ private:
 	//フェードを管理するbool型
 	bool Fadein = true;
 	bool Fadeout = true;
+	//壁に張り付いたときのカメラのイージング
+	bool StikyEasing = true;
 
 
 	//イージングの時に使う時間の変数
-	float deltaTime = 0.010f;
+	float deltaTime = 0.01f;
 	float BdeltaTime = 0.05f;
-	float Time1 = 0.01f;
+	float deltaTimeStiky = 0.001f;
+
+	float Time1 = 0.00f;
+	float StikyTime = 0.00f;
+	float EasingStartTime = 0.00f;
+	float EnemyTime = 0.00f;
+	float GoalTime = 0.00f;
+
 	//敵が見つけた場合の余分なループをなくすためのbool型
 	bool Rookfarst = false;
 
@@ -69,12 +79,17 @@ public:
 	bool GetEndEasing() { return this->EndEasing; };
 	void SetEndEasing(bool flg) { this->EndEasing = flg; };
 
+	bool SEasing(Player* Pl, Camera* camera);
+
 	void FadeIn(GameUI* FadeUI);
 
 	void FadeOut(GameUI* FadeUI);
 
 	bool GetFadein() { return this->Fadein; };
 	bool GetFadeout() { return this->Fadeout; };
+
+	void SetStikyEasing(bool flg) { this->StikyEasing = flg; };
+	bool GetStikyEasing() { return this->StikyEasing; };
 
 
 

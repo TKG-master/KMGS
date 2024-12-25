@@ -8,8 +8,7 @@
 #include "GameManager.h"
 #include "DirectWrite.h"
 #include "Timer.h"
-
-
+#include "CFBXMeshRenderer.h"
 
 class TitleScene : public CScene
 {

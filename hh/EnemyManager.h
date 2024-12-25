@@ -15,6 +15,8 @@ private:
     //敵の徘徊ルートの情報
     std::vector<std::vector<int>> Wandering;
 
+    CAnimationMesh m_AnimationMesh;
+
     // A*アルゴリズムを利用するためのAStarインスタンス
     Astar astar;
 
@@ -36,6 +38,8 @@ public:
     EnemyManager(const std::vector<std::vector<int>>& grid,const std::vector<std::vector<int>> wandering);
 
     ~EnemyManager();
+
+    void EnemyModelInit(std::string ModelName, std::string TexFolderPath);
 
     // 敵を追加する
     void AddEnemy(Enemy* enemy);

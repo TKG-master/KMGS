@@ -21,6 +21,8 @@ private:
 
     bool FPSeye = false;
 
+    bool Sticky = false;
+
     PStateType State = PStateType::STAND;
 
     // 前フレームされた衝突補正の方向
@@ -65,8 +67,12 @@ public:
 
     bool GetFPSeye() { return this->FPSeye; };
     void SetFPSeye(bool flg) { this->FPSeye = flg; };
-
+    //入力
     void PlayerInput();
+    //移動処理
+    void moveprocess();
+    //向きなどを整える
+    void VelocityS();
 
     void SetGoalState() { 
         STATUS = GOAL;
@@ -79,6 +85,9 @@ public:
 
     //壁に張り付いているときの向きを合わせる
     void StickyWall(CORRECT_DIR dir);
+
+    bool GetSticky() { return this->Sticky; };
+    void SetSticky(bool flg) { this->Sticky = flg; };
 
     CORRECT_DIR Getdir() { return this->prevFrameCorrect; };
 

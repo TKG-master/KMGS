@@ -75,6 +75,43 @@ void Character::Init(
 
 }
 
+void Character::EnemyInit(CAnimationMesh m_AnimationMesh, std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader)
+{
+	STATUS = IDLE;
+
+	// オブジェクトにメッシュをセット
+	m_AnimationObject.SetAnimationMesh(&m_AnimationMesh);
+
+	// シェーダオブジェクト生成
+	m_Shader.Create(vShader, pShader);
+
+	// アニメーションデータ読み込み
+	for (int i = 0; i < MotionName.size(); i++)
+	{
+		m_AnimationData[MotionName[i].MotionKey].LoadAnimation
+		(MotionName[i].MotionFile, MotionName[i].MotionKey);
+	}
+
+	// アニメーションデータ取得
+	const std::string s = MotionName[0].MotionKey;
+	aiAnimation* animation = m_AnimationData[s].GetAnimation(s);
+	// 現在のアニメーションをセット
+	m_AnimationObject.SetCurrentAnimation(animation);
+
+	// 初期化
+	m_AnimationObject.Init();
+
+	// 位置設定
+	m_AnimationObject.SetPosition(DirectX::SimpleMath::Vector3(0, 0, 0));
+
+	// スケール設定
+	m_AnimationObject.SetScale(DirectX::SimpleMath::Vector3(0.08f, 0.08f, 0.08f));
+
+	// 最初のモーションキー保存
+	m_FromAnimationName = MotionName[0].MotionKey;
+	m_ToAnimationName = MotionName[0].MotionKey;
+}
+
 void Character::UnInit()
 {
 
