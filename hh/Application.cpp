@@ -215,7 +215,7 @@ void Application::MainLoop()
                 fpsCounter++; // ゲームループ実行回数をカウント＋１
                 oldCount = nowCount;
 
-               gui->Draw();
+               //gui->Draw();
 
                 Renderer::End();
 

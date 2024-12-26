@@ -25,6 +25,7 @@ enum class TERRAIN_ID
 {
 	STAGE_TEST,
 	STAGE_1,
+	STAGE_2,
 };
 
 
@@ -39,12 +40,14 @@ private:
 	{
 		"stage_Test.csv",
 		"stageF_data.csv",
+		"StageS_data.csv",
 	};
 
 	std::vector<std::string> Wandering_name =
 	{
 		"Stage_T.csv",
 		"Stage_Fw.csv",
+		"Stage_Sw.csv"
 	};
 
 	// •¶š—ñ˜AŒ‹‚ÅŠ®¬‚³‚¹‚½ƒpƒX‚Ìî•ñ‚ğŠi”[

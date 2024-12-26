@@ -1,11 +1,11 @@
-#include "STAGE1.h"
+#include "STAGE2.h"
 #include "GUI.h"
 #include "easings.h"
 #include "CSceneManager.h"
 
 
 
-STAGE1::STAGE1()
+STAGE2::STAGE2()
 {
     gameTime = new Timer(true);
 
@@ -87,7 +87,7 @@ STAGE1::STAGE1()
     StartUI->SetColor(Color(0, 0.5, 0.5, 0.5f));
 
 
-    CScene::CreateStage(TERRAIN_ID::STAGE_1);
+    CScene::CreateStage(TERRAIN_ID::STAGE_2);
 
     goal = new GoalObj(25.0f, 25.0f, 25.0f);
     goal->SetPosition(this->GetGoalPos());
@@ -182,12 +182,12 @@ STAGE1::STAGE1()
 
 }
 
-STAGE1::~STAGE1()
+STAGE2::~STAGE2()
 {
 
 }
 
-void STAGE1::Update()
+void STAGE2::Update()
 {
 
     GM->FadeIn(Fade);
@@ -240,7 +240,7 @@ void STAGE1::Update()
         Pl->Update();
 
         //エネミーのアップデート
-         EM->UpdateEnemies(Pl, BOXS);
+        EM->UpdateEnemies(Pl, BOXS);
 
         //敵に見つかったのなら時間を止める
         if (EM->GetRook() && !EM->GetRookNow())
@@ -296,7 +296,7 @@ void STAGE1::Update()
 
     //ゴールにぶつかったらイージング
     if (GM->GetGoal() && GM->GetEndEasing())
-    {   
+    {
         GM->GoalEasing(Pl->GetPosition(), camera);
     }
 
@@ -367,7 +367,7 @@ void STAGE1::Update()
 
 }
 
-void STAGE1::Draw()
+void STAGE2::Draw()
 {
     Dome->Draw();
 
@@ -420,12 +420,12 @@ void STAGE1::Draw()
     camera->Draw();
 }
 
-void STAGE1::Init()
+void STAGE2::Init()
 {
 
 }
 
-void STAGE1::UnInit()
+void STAGE2::UnInit()
 {
 
     radar->Dispose();

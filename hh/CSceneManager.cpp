@@ -3,7 +3,7 @@
 // static ƒƒ“ƒo•Ï”‚Ì’è‹`
 CSceneManager* CSceneManager::instance = nullptr;
 
-CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::STAGE_1),nextScene(SCENE_ID::TITLE)
+CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::STAGE_2),nextScene(SCENE_ID::TITLE)
 {
 
 }
@@ -63,6 +63,9 @@ void CSceneManager::ChangeScene(SCENE_ID _scene)
         break;
     case SCENE_ID::STAGE_1:
         currentScene = new STAGE1();
+        break;
+    case SCENE_ID::STAGE_2:
+        currentScene = new STAGE2();
         break;
     case SCENE_ID::ANIM:
         currentScene = new AnimScene();

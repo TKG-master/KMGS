@@ -57,7 +57,7 @@ struct FontData
 	// デフォルト設定
 	FontData()
 	{
-		font = Font::Meiryo;
+		font = Font::Arial;
 		fontCollection = nullptr;
 		fontWeight = DWRITE_FONT_WEIGHT::DWRITE_FONT_WEIGHT_NORMAL;
 		fontStyle = DWRITE_FONT_STYLE::DWRITE_FONT_STYLE_NORMAL;

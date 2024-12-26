@@ -18,7 +18,7 @@
 #include "DirectWrite.h"
 
 
-class STAGE1 : public CScene
+class STAGE2 : public CScene
 {
 private:
 	DirectX::SimpleMath::Vector3 StartPlayerPos = DirectX::SimpleMath::Vector3(-200.0f, 0.0f, -200.0f);
@@ -59,9 +59,9 @@ public:
 	float CamZoomSpeed = 1.0f;
 
 	//コンストラクタ
-	STAGE1();
+	STAGE2();
 	//デスストラクタ
-	~STAGE1();
+	~STAGE2();
 
 	//関数のオーバーライド
 	void Update() override;
@@ -69,4 +69,6 @@ public:
 	void Init() override;
 	void UnInit() override;
 };
+
+
 
