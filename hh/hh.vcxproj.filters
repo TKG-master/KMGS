@@ -411,6 +411,9 @@
     <ClCompile Include="CFBXMeshRenderer.cpp">
       <Filter>FBXObj</Filter>
     </ClCompile>
+    <ClCompile Include="STAGE2.cpp">
+      <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CIndexBuffer.h">
@@ -679,6 +682,9 @@
     </ClInclude>
     <ClInclude Include="CFBXMeshRenderer.h">
       <Filter>FBXObj</Filter>
+    </ClInclude>
+    <ClInclude Include="STAGE2.h">
+      <Filter>System\Scene\h</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -146,11 +146,11 @@ void EnemyManager::UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPo
     for (Enemy* enemy : enemies) {
         
         //グリッド座標にする
-        int start_x = static_cast<int>(std::round(std::abs(enemy->GetPosition().x - ORIGIN_TILE_POS_X) / SIZEX));
-        int start_y = static_cast<int>(std::round(std::abs(enemy->GetPosition().z - ORIGIN_TILE_POS_Z) / SIZEZ));
+        int start_x = static_cast<int>(std::round(std::abs(enemy->GetPosition().x - ORIGIN_TILE_POS_X) / 25.0f));
+        int start_y = static_cast<int>(std::round(std::abs(enemy->GetPosition().z - ORIGIN_TILE_POS_Z) / 25.0f));
 
-        int goal_x = static_cast<int>(std::round(std::abs(playerPosition.x - ORIGIN_TILE_POS_X) / SIZEX));
-        int goal_y = static_cast<int>(std::round(std::abs(playerPosition.z - ORIGIN_TILE_POS_Z) / SIZEZ));
+        int goal_x = static_cast<int>(std::round(std::abs(playerPosition.x - ORIGIN_TILE_POS_X) / 25.0f));
+        int goal_y = static_cast<int>(std::round(std::abs(playerPosition.z - ORIGIN_TILE_POS_Z) / 25.0f));
 
         // グリッド座標をAStarVec2に変換
         AStarVec2 start(start_y, start_x);
@@ -165,8 +165,8 @@ void EnemyManager::UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPo
             std::vector<DirectX::SimpleMath::Vector3> worldPath;
             for (const AStarNode& node : path) {
                 DirectX::SimpleMath::Vector3 worldPos;
-                worldPos.x = node.position.z * SIZEX + ORIGIN_TILE_POS_X;
-                worldPos.z = node.position.x * SIZEZ + ORIGIN_TILE_POS_Z;
+                worldPos.x = node.position.z * 25.0f + ORIGIN_TILE_POS_X;
+                worldPos.z = node.position.x * 25.0f + ORIGIN_TILE_POS_Z;
                 worldPos.z *= -1;
                 worldPos.y = enemy->GetPosition().y;
                 worldPath.push_back(worldPos);

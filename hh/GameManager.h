@@ -91,6 +91,8 @@ public:
 	void SetStikyEasing(bool flg) { this->StikyEasing = flg; };
 	bool GetStikyEasing() { return this->StikyEasing; };
 
+	bool GetisEasingstart() { return this->isEasingStart; };
+
 
 
 };
