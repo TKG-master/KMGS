@@ -175,6 +175,9 @@
     <Filter Include="FBXObj">
       <UniqueIdentifier>{c4adae78-fcfc-4b71-a459-d221fff9c8cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PressurePlate">
+      <UniqueIdentifier>{ef96244a-c07a-41c9-9052-5d0ea45220a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -413,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="STAGE2.cpp">
       <Filter>System\Scene\cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="PressurePlate.cpp">
+      <Filter>PressurePlate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -685,6 +691,9 @@
     </ClInclude>
     <ClInclude Include="STAGE2.h">
       <Filter>System\Scene\h</Filter>
+    </ClInclude>
+    <ClInclude Include="PressurePlate.h">
+      <Filter>PressurePlate</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

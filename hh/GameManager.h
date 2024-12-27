@@ -36,7 +36,7 @@ private:
 	//イージングの時に使う時間の変数
 	float deltaTime = 0.01f;
 	float BdeltaTime = 0.05f;
-	float deltaTimeStiky = 0.001f;
+	float deltaTimeStiky = 0.01f;
 
 	float Time1 = 0.00f;
 	float StikyTime = 0.00f;

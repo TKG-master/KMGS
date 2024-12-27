@@ -110,11 +110,14 @@ void Enemy::Update()
     {
         BoxObj* box = *it;
         //“–‚½‚è”»’è---------------------------------//
-        if (CCollision::Square3DCollision(this->square, box->square))
+        if (box->square.type == ObjectType::BOX)
         {
-            //“–‚½‚è”»’è‚Ì•âŠ®
-            CCollision::ResolveCollision(this->square, box->square);
-            this->squareUpdate();
+            if (CCollision::Square3DCollision(this->square, box->square))
+            {
+                //“–‚½‚è”»’è‚Ì•âŠ®
+                CCollision::ResolveCollision(this->square, box->square);
+                this->squareUpdate();
+            }
         }
     }
 

@@ -4,6 +4,7 @@ enum ObjectType {
     PLAYER, //プレイヤー
     ENEMY, //敵
     BOX,   //ボックス
+    PPLATE, //音が出る床
     Goal,   //ゴール
 };
 
