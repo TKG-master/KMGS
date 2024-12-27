@@ -166,12 +166,11 @@ void Player::PlayerInput()
 				STATUS = SNEAKWLKE;
 			}
 		}
-		//ƒmƒbƒN‚Ìˆ—
-		if (Input::Get()->GetKeyPress(DIK_C) && !this->GetFPSeye())
-		{
-			if (!this->GetKnockSound() && this->hitBox == true)
-				this->SetknockSound(true);
-		}
+	}
+	//ƒmƒbƒN‚Ìˆ—
+	if (Input::Get()->GetKeyPress(DIK_F) && this->Sticky == true)
+	{
+		this->SetknockSound(true);
 	}
 }
 
@@ -184,7 +183,6 @@ void Player::moveprocess()
 	}
 	else if (STATUS == RUN) {
 		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
-		this->SetknockSound(true);
 		SetToAnimationName("Run");
 		if (this->GetAnimEndState())
 		{
@@ -323,11 +321,21 @@ void Player::Update()
 	{
 		BoxObj* box = *it;
 		//“–‚½‚è”»’è---------------------------------//
-		if (CCollision::Square3DCollision(this->square, box->square))
+		if (box->square.type == ObjectType::BOX)
 		{
-			prevFrameCorrect = CCollision::ResolveCollision(this->square, box->square);
-			this->squareUpdate();
-			this->hitBox = true;
+			if (CCollision::Square3DCollision(this->square, box->square))
+			{
+				prevFrameCorrect = CCollision::ResolveCollision(this->square, box->square);
+				this->squareUpdate();
+				this->hitBox = true;
+			}
+		}
+		else if (box->square.type == ObjectType::PPLATE)
+		{
+			if (CCollision::Square3DCollision(this->square, box->square))
+			{
+				this->SetknockSound(true);
+			}
 		}
 	}
 

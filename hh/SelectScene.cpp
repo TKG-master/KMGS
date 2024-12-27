@@ -21,23 +21,29 @@ SelectScene::SelectScene()
 
 	STAGE1 = new GameUI();
 	STAGE1->Init("assets\\Texture\\STAGE1UI.png");
-	STAGE1->SetCenter(Vector2(400.0f, 500.0f));
-	STAGE1->SetHeight(100.0f);
+	STAGE1->SetCenter(Vector2(1400.0f, 200.0f));
+	STAGE1->SetHeight(150.0f);
 	STAGE1->SetWidth(300.0f);
 
 	STAGE2 = new GameUI();
 	STAGE2->Init("assets\\Texture\\STAGE2UI.png");
-	STAGE2->SetCenter(Vector2(900.0f, 500.0f));
-	STAGE2->SetHeight(100.0f);
+	STAGE2->SetCenter(Vector2(1400.0f, 400.0f));
+	STAGE2->SetHeight(150.0f);
 	STAGE2->SetWidth(300.0f);
+
+	STAGE3 = new GameUI();
+	STAGE3->Init("assets\\Texture\\STERT3UI.png");
+	STAGE3->SetCenter(Vector2(1400.0f, 600.0f));
+	STAGE3->SetHeight(150.0f);
+	STAGE3->SetWidth(300.0f);
 
 
 	UISelect = new GameUI();
 	UISelect->Init("assets\\Texture\\siro.jpg");
-	UISelect->SetCenter(Vector2(400.0f, 500.0f));
+	UISelect->SetCenter(Vector2(1200.0f, 200.0f));
 	UISelect->SetHeight(100.0f);
-	UISelect->SetWidth(300.0f);
-	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
+	UISelect->SetWidth(100.0f);
+	UISelect->SetColor(Color(0.0, 0.5, 0.5, 0.5f));
 
 	Fade = new GameUI();
 	Fade->Init("assets\\Texture\\siro.jpg");
@@ -72,13 +78,21 @@ void SelectScene::Update()
 	Cam->FocusCamera(goal->GetPosition(), 0.5f ,0.0f);
 
 	//カーソルの移動
-	if (Input::Get()->GetKeyTrigger(DIK_D) && UISelect->GetCenter() != STAGE2->GetCenter())
+	if (Input::Get()->GetKeyTrigger(DIK_S) && UISelect->GetCenter().y == STAGE1->GetCenter().y)
 	{
-		UISelect->SetCenter(STAGE2->GetCenter());
+		UISelect->SetCenter(Vector2(STAGE2->GetCenter().x - 200 ,STAGE2->GetCenter().y));
 	}
-	else if (Input::Get()->GetKeyTrigger(DIK_A) && UISelect->GetCenter() != STAGE1->GetCenter())
+	else if (Input::Get()->GetKeyTrigger(DIK_S) && UISelect->GetCenter().y == STAGE2->GetCenter().y)
 	{
-		UISelect->SetCenter(STAGE1->GetCenter());
+		UISelect->SetCenter(Vector2(STAGE3->GetCenter().x - 200 ,STAGE3->GetCenter().y));
+	}
+	else if (Input::Get()->GetKeyTrigger(DIK_W) && UISelect->GetCenter().y == STAGE3->GetCenter().y)
+	{
+		UISelect->SetCenter(Vector2(STAGE2->GetCenter().x - 200, STAGE2->GetCenter().y));
+	}
+	else if (Input::Get()->GetKeyTrigger(DIK_W) && UISelect->GetCenter().y == STAGE2->GetCenter().y)
+	{
+		UISelect->SetCenter(Vector2(STAGE1->GetCenter().x - 200, STAGE1->GetCenter().y));
 	}
 
 
@@ -89,17 +103,21 @@ void SelectScene::Update()
 		this->FadeOut = true;
 	}
 
+	//フェードしてシーンの移動
 	if (this->FadeOut)
 	{
-
 		GM->FadeOut(Fade);
-		if (UISelect->GetCenter() == STAGE1->GetCenter() && !GM->GetFadeout())
+		if (UISelect->GetCenter().y == STAGE1->GetCenter().y && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::STAGE_1);
 		}
-		else if (UISelect->GetCenter() == STAGE2->GetCenter() && !GM->GetFadeout())
+		else if (UISelect->GetCenter().y == STAGE2->GetCenter().y && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TEST);
+		}
+		else if (UISelect->GetCenter().y == STAGE3->GetCenter().y && !GM->GetFadeout())
+		{
+			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::STAGE_2);
 		}
 	}
 }
@@ -115,6 +133,8 @@ void SelectScene::Draw()
 	STAGE1->Draw();
 
 	STAGE2->Draw();
+
+	STAGE3->Draw();
 
 	UISelect->Draw();
 
@@ -146,6 +166,9 @@ void SelectScene::UnInit()
 
 	delete STAGE2;
 	STAGE2 = nullptr;
+
+	delete STAGE3;
+	STAGE3 = nullptr;
 
 	delete UISelect;
 	UISelect = nullptr;

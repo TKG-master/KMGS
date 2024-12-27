@@ -102,6 +102,15 @@ void CScene::CreateStage(TERRAIN_ID ID)
                 box->CollisionInit(position, Vector3(tile_size_x, Bigtile_size_y, tile_size_z));
                 BOXS.push_back(box);
             }
+            else if (map_data[z][x] == 7)
+            {
+                BoxObj* box = new BoxObj(tile_size_x, 10.0f, tile_size_z, "assets\\Texture\\VR.miisyon.png");
+                Vector3 position(x_tile,0.0f, z_tile);
+                box->SetPosition(position);
+                box->CollisionInit(position, Vector3(tile_size_x, Bigtile_size_y, tile_size_z));
+                box->SetObjectType(ObjectType::PPLATE);
+                BOXS.push_back(box);
+            }
         }
     }
 

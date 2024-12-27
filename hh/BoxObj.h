@@ -15,6 +15,8 @@ public:
 	BoxObj(float X,float Y,float Z,std::string TexPath);
 	~BoxObj();
 
+	void SetObjectType(ObjectType Type) { this->square.type = Type; };
+
 	void CollisionInit(DirectX::SimpleMath::Vector3 pos, DirectX::SimpleMath::Vector3 size);
 
 	SQUARE3D GetCollisionSize() { return this->square; };

@@ -55,7 +55,7 @@ protected:
 
     CharacterStatus STATUS = NONE;
 
-    DirectX::SimpleMath::Vector3 CollisionScale = { 25.0f,0.0f,25.0f };
+    DirectX::SimpleMath::Vector3 CollisionScale = { 0.0f,0.0f,0.0f };
 
 
 public:
