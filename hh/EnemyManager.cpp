@@ -55,7 +55,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             enemy->SetSearch(true);
         }
         //â‘Î‚ÉŒ©‚Â‚©‚é‹——£
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()) && enemy->GetState() == EStateType::Patrolling)
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()))
         {
             enemy->SetTest(true);
             this->Rook = true;
@@ -78,7 +78,14 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
         if (enemy->Getback())
         {
-            this->EnemyPathsAster(enemy,enemy->GetwanderingPath()[0]);
+            if (enemy->GetState() == EStateType::Patrolling)
+            {
+                this->EnemyPathsAster(enemy, enemy->GetwanderingPath()[0]);
+            }
+            else if (enemy->GetState() == EStateType::Fixed)
+            {
+                this->EnemyPathsAster(enemy, enemy->GetStartPositon());
+            }
         }
     }
 

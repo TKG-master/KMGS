@@ -7,6 +7,7 @@ bool ActionMoveToPlayer::Execute(Enemy* enemy) {
         return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
     }
 
+
     if (enemy->GetAstatus() == WALK)
     {
         enemy->SetToAnimationName("Walk");

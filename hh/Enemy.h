@@ -32,6 +32,9 @@ private:
 	DirectX::SimpleMath::Vector3 nextPosition;
 	//動く速度
 	float MoveSpeed = 0.8f;
+	//一番初めにいる場所
+	DirectX::SimpleMath::Vector3 StartPosition;
+
 	//視野範囲を描画するために必要な行列
 	DirectX::SimpleMath::Matrix rotation;
 
@@ -171,6 +174,9 @@ public:
 
 	void SetState(EStateType newState) { state = newState; };
 
+	void SetStartPositon(DirectX::SimpleMath::Vector3 Spos) { this->StartPosition = Spos; };
+	DirectX::SimpleMath::Vector3 GetStartPositon() { return this->StartPosition; };
+
 	DirectX::SimpleMath::Vector3 PositionForward();
 
 	void viewDraw();
@@ -195,8 +201,6 @@ public:
 
 	//徘徊ルートのパスをセット
 	void SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath);
-
-	void SetSecurity(int num);
 
 	//徘徊ルートのポイントをゲット
 	std::vector<DirectX::SimpleMath::Vector3> GetwanderingPath() { return this->wandering_path; };
