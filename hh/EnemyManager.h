@@ -29,6 +29,8 @@ private:
     //45ŒÅ’è
     float rayY = 45.0f;
 
+    int pointIndex;
+
     float hitDis = 0.0f;
 
 

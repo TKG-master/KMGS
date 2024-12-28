@@ -20,7 +20,10 @@ EnemyAI::EnemyAI() {
     LookaroundSequence = new Sequence();
     LookaroundSequence->AddChild(new ActionLookaround());
     root->AddChild(LookaroundSequence);
-
+    //Fixed
+    FixedSelector = new Selector();
+    FixedSelector->AddChild(new ActionConcern());
+    root->AddChild(FixedSelector);
 
 }
 
@@ -42,5 +45,8 @@ EnemyAI::~EnemyAI() {
 
     LookaroundSequence->UnInit();
     delete LookaroundSequence;
+
+    FixedSelector->UnInit();
+    delete  FixedSelector;
 
 }

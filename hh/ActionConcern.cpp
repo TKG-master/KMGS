@@ -3,9 +3,11 @@
 
 bool ActionConcern::Execute(Enemy* enemy)
 {
-	if (enemy->GetState() != EStateType::Patrolling) {
+	if (enemy->GetState() != EStateType::Fixed) {
 		return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
 	}
 
-	return false;
+	enemy->securityMove();
+
+	return true;
 }

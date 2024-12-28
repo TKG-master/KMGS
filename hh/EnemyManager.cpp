@@ -219,23 +219,40 @@ void EnemyManager::SetEnemywandering()
             {
                 int a = 0;
                 // グリッド座標を取得
-                int pointIndex = Wandering[i][a = x * 3];
+                pointIndex = Wandering[i][a = x * 3];
 
                 float gridX = static_cast<float>(Wandering[i][a + 1]);
                 float gridZ = static_cast<float>(Wandering[i][a + 2]);
 
-                // ワールド座標に変換
-                float worldX = gridX * SIZEX + ORIGIN_TILE_POS_X;
-                float worldZ = gridZ * SIZEZ + ORIGIN_TILE_POS_Z;
-                worldZ *= -1;
+                if (pointIndex != 100)
+                {
+                    // ワールド座標に変換
+                    float worldX = gridX * SIZEX + ORIGIN_TILE_POS_X;
+                    float worldZ = gridZ * SIZEZ + ORIGIN_TILE_POS_Z;
+                    worldZ *= -1;
+                    // ワールド座標をVector3として格納
+                    Vector3 worldPosition(worldX, 0.0f, worldZ); // Y座標は0と仮定
+                    worldPositions.push_back(worldPosition);
+                }
+                else if (pointIndex == 100)
+                {
+                    float FovX = gridX / 100.0f;
+                    float FovZ = gridZ / 100.0f;
 
-                // ワールド座標をVector3として格納
-                Vector3 worldPosition(worldX, 0.0f, worldZ); // Y座標は0と仮定
-                worldPositions.push_back(worldPosition);
-
+                    // ワールド座標をVector3として格納
+                    Vector3 worldPosition(FovX, 0.0f, FovZ); // Y座標は0と仮定
+                    worldPositions.push_back(worldPosition);
+                }
             }
-            // 変換されたワールド座標をエネミーに設定
-            enemies[i]->SetwanderingPath(worldPositions);
+            if (pointIndex != 100)
+            {
+                // 変換されたワールド座標をエネミーに設定
+                enemies[i]->SetwanderingPath(worldPositions);
+            }
+            else if (pointIndex == 100)
+            {
+                enemies[i]->Getsecurityfov(worldPositions);
+            }
         }
 
 }
