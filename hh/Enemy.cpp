@@ -500,3 +500,41 @@ bool Enemy::RayLookHit()
     }
     return false;
 }
+
+void Enemy::Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& forvPath)
+{
+    this->SetState(EStateType::Fixed);
+    forward_path = forvPath;
+}
+
+void Enemy::securityMove()
+{
+
+    if (!time->IsRunning()) {
+        time->StartCountDown(0.5f);
+    }
+
+    if (time->IsTimeUp())
+    {
+        if (!this->secrity)
+        {
+            this->Setforward(EaselnQuart(forward_path[0], forward_path[1], Time));
+            Time += deltaTime;
+            if (Time >= 1.0f) {
+                Time = 0.0f;
+                time->Reset();
+                this->secrity = true;
+            }
+        }
+        else if (this->secrity)
+        {
+            this->Setforward(EaselnQuart(forward_path[1], forward_path[0], Time));
+            Time += deltaTime;
+            if (Time >= 1.0f) {
+                Time = 0.0f;
+                time->Reset();
+                this->secrity = false;
+            }
+        }
+    }
+}

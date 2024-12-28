@@ -8,6 +8,7 @@
 #include "ActionLookaround.h"
 #include "ActionMoveSearch.h"
 #include "ActionMoveback.h"
+#include "ActionConcern.h"
 
 class Enemy;
 
@@ -20,6 +21,8 @@ private:
     Sequence* TurnSequence;
 
     Sequence* LookaroundSequence;
+
+    Selector* FixedSelector;
 
 
 public:

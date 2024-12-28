@@ -411,7 +411,7 @@ void STAGE2::Draw()
     if (gameTime->TameStarflg == true && !GM->GetisEasingstart())
     {
         StartUI->Draw();
-        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n‰ö‚µ‚¢°‚Ìã‚Í‘–‚é‚ÈI", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();

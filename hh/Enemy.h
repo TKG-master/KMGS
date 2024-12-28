@@ -40,9 +40,11 @@ private:
 
 	// Œo˜Hî•ñ‚ğ•Û‚·‚éƒƒ“ƒo•Ï”
 	std::vector<DirectX::SimpleMath::Vector3> path;
-	size_t currentPathIndex = 0;
+	int currentPathIndex = 0;
 	//œpœj‚·‚éƒ‹[ƒg‚Ìƒ|ƒCƒ“ƒgŠi”[‚Ì”z—ñ
 	std::vector<DirectX::SimpleMath::Vector3> wandering_path;
+	//Œx‰ú‚·‚éê‡‚ÌŒü‚«
+	std::vector<DirectX::SimpleMath::Vector3> forward_path;
 	int currentwanderingpathIndex = 0;
 	//Ÿ‚Ìœpœj‚Ì–Ú“I’n
 	DirectX::SimpleMath::Vector3 targetPos;
@@ -67,8 +69,10 @@ private:
 	bool back = false;
 	//•ß‚Ü‚Á‚½
 	bool getcaught = false;
+	//Œ©“n‚µ‚Ä‚¢‚é‚Æ‚«‚Ìƒu[ƒ‹Œ^
+	bool secrity = false;
 
-	float deltaTime = 0.01f;
+	float deltaTime = 0.005f;
 	float Time1 = 0.5;
 	float Time = 0.0f;
 
@@ -232,7 +236,6 @@ public:
 
 	Timer* GetTimer() { return this->time; };
 
-
 	float GetTime() { return this->Time; };
 	float GetTime1() { return this->Time1; };
 
@@ -241,6 +244,9 @@ public:
 
 	void Setdeltatime(float delta) { this->deltaTime = delta; };
 	float Getdeltatime() { return this->deltaTime; };
+
+	void Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath);
+	void securityMove();
 
 
 

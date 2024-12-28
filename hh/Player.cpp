@@ -330,7 +330,7 @@ void Player::Update()
 				this->hitBox = true;
 			}
 		}
-		else if (box->square.type == ObjectType::PPLATE)
+		else if (box->square.type == ObjectType::PPLATE && STATUS == RUN)
 		{
 			if (CCollision::Square3DCollision(this->square, box->square))
 			{
