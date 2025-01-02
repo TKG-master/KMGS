@@ -51,12 +51,18 @@ Player::Player(std::string ModelName, std::string TexFolderPath,
 	//モデル読み込み等
 	Character::Init(ModelName, TexFolderPath, MotionName, vShader, pShader);
 	STATUS = IDLE;
+	book = new Book();
+	book->Init();
+	book->Setscale(Vector3(10.0f, 10.0f, 10.0f));
+	book->Setrot(Vector3(0.0f, 0.0f, 0.0f));
+
 	this->square.type = ObjectType::PLAYER;
 }
 
 Player::~Player()
 {
-
+	delete book;
+	book = nullptr;
 }
 
 
@@ -69,7 +75,7 @@ void Player::PlayerInput()
 {
 	if (this->Sticky == false)
 	{
-		if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+		/*if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 		{
 			if (this->GetFPSeye())
 			{
@@ -81,7 +87,7 @@ void Player::PlayerInput()
 				this->SetState(PStateType::SNEAKEYE);
 				this->SetFPSeye(true);
 			}
-		}
+		}*/
 		//=== X軸 ===
 	//Aが押されていたら
 		if (Input::Get()->GetKeyPress(DIK_A) && !this->GetFPSeye())
@@ -166,6 +172,15 @@ void Player::PlayerInput()
 				STATUS = SNEAKWLKE;
 			}
 		}
+		//本を置く
+		if (Input::Get()->GetKeyTrigger(DIK_J) && !book->Getthisbook())
+		{
+			Bookput = true;
+			book->Setthisbook(true);
+			book->Setpos(this->GetPosition());
+			book->CollisionInit(book->Getpos(), Vector3(10.0f, 10.0f, 10.0f));
+		}
+
 	}
 	//ノックの処理
 	if (Input::Get()->GetKeyPress(DIK_F) && this->Sticky == true)
@@ -339,6 +354,7 @@ void Player::Update()
 		}
 	}
 
+
 	// 移動処理
 	MoveUpdate();
 
@@ -368,4 +384,8 @@ void Player::Update()
 void Player::Draw()
 {
 	Character::Draw();
+	if (this->Bookput == true)
+	{
+		book->Draw();
+	}
 }

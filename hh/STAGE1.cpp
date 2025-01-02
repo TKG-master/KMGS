@@ -214,9 +214,9 @@ void STAGE1::Update()
         }
         else if (!GM->GetisEasingstart())
         {
-            if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+            if (Input::Get()->GetKeyTrigger(DIK_K))
             {
-                gameTime->StartCountDown(120);
+                gameTime->StartCountDown(300);
                 gameTime->TameStarflg = false;
             }
         }

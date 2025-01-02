@@ -8,7 +8,7 @@
 #include "GameManager.h"
 #include "DirectWrite.h"
 #include "Timer.h"
-#include "CFBXMeshRenderer.h"
+#include "CFBXMesh.h"
 
 class TitleScene : public CScene
 {
@@ -20,6 +20,7 @@ private:
 	GameUI* UI2;
 	GameUI* Fade;
 	GameManager* GM;
+	FBXMesh* Book;
 
 	bool FadeOut = false;
 

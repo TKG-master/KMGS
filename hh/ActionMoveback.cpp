@@ -7,7 +7,6 @@ bool ActionMoveback::Execute(Enemy* enemy)
     {
         return false;
     }
-
     else if(enemy->Getback())
     {
        //­‚µŠÔ‚ğ‘Ò‚Á‚Ä‚©‚ç‹A‚é

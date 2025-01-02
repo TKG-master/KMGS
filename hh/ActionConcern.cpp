@@ -7,6 +7,15 @@ bool ActionConcern::Execute(Enemy* enemy)
 		return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
 	}
 
+    if (enemy->GetAstatus() != IDLE)
+    {
+        enemy->SetAstatus(IDLE);
+    }
+    else if (enemy->GetAstatus() == IDLE)
+    {
+        enemy->SetToAnimationName("Idle");
+    }
+
 	enemy->securityMove();
 
 	return true;

@@ -16,6 +16,7 @@
 #include "TimerUI.h"
 #include "Polygon2D.h"
 #include "DirectWrite.h"
+#include "CFBXMesh.h"
 
 
 class STAGE1 : public CScene
@@ -25,6 +26,7 @@ private:
 	DirectX::SimpleMath::Vector3 CharacterScale = DirectX::SimpleMath::Vector3(0.5f, 0.5f, 0.5f);
 
 	Radar* radar;
+
 	Camera* camera;
 	Field field;
 	Player* Pl;
@@ -33,6 +35,8 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+
+
 	DirectWrite* Write;
 	DirectWrite* StartWrite;
 

@@ -313,6 +313,31 @@ void GameManager::FadeOut(GameUI* FadeUI)
     }
 }
 
+void GameManager::SelectEasing(GameUI* Select)
+{
+    if (SelectUIEasing)
+    {
+        Select->SetWH(EaselnSine(Vector3(300.0f,150.0f,0.0f), Vector3(280.0f,130.0f,0.0f), Stime));
+        Stime += 0.03;
+        if (Stime >= 1.0f)
+        {
+            Stime = 0.0f;
+            SelectUIEasing = false;
+        }
+    }
+    else if (!SelectUIEasing)
+    {
+        Select->SetWH(EaselnSine(Vector3(280.0f, 130.0f, 0.0f), Vector3(300.0f, 150.0f, 0.0f), Stime));
+        Stime += 0.03;
+        if (Stime >= 1.0f)
+        {
+            Stime = 0.0f;
+            SelectUIEasing = true;
+        }
+    }
+
+}
+
 
 
 

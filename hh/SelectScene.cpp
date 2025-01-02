@@ -95,6 +95,31 @@ void SelectScene::Update()
 		UISelect->SetCenter(Vector2(STAGE1->GetCenter().x - 200, STAGE1->GetCenter().y));
 	}
 
+	if (UISelect->GetCenter().y == STAGE1->GetCenter().y)
+	{
+		GM->SelectEasing(STAGE1);
+		STAGE2->SetWidth(300.0f);
+		STAGE2->SetHeight(150.0f);
+		STAGE3->SetWidth(300.0f);
+		STAGE3->SetHeight(150.0f);
+	}
+	else if (UISelect->GetCenter().y == STAGE2->GetCenter().y)
+	{
+		GM->SelectEasing(STAGE2);
+		STAGE1->SetWidth(300.0f);
+		STAGE1->SetHeight(150.0f);
+		STAGE3->SetWidth(300.0f);
+		STAGE3->SetHeight(150.0f);
+	}
+	else if (UISelect->GetCenter().y == STAGE3->GetCenter().y)
+	{
+		GM->SelectEasing(STAGE3);
+		STAGE1->SetWidth(300.0f);
+		STAGE1->SetHeight(150.0f);
+		STAGE2->SetWidth(300.0f);
+		STAGE2->SetHeight(150.0f);
+	}
+
 
 
 
@@ -102,9 +127,8 @@ void SelectScene::Update()
 	{
 		this->FadeOut = true;
 	}
-
 	//フェードしてシーンの移動
-	if (this->FadeOut)
+	else if (this->FadeOut)
 	{
 		GM->FadeOut(Fade);
 		if (UISelect->GetCenter().y == STAGE1->GetCenter().y && !GM->GetFadeout())

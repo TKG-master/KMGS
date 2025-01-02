@@ -1,78 +1,102 @@
 #include "CFBXMesh.h"
 #include <iostream>
+using namespace DirectX::SimpleMath;
 
-void CFBXMesh::LoadFBX(std::string filename, std::string texturedirectory) {
-    Assimp::Importer importer;
-    const aiScene* scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+FBXMesh::FBXMesh()
+{
 
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-        std::cerr << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
-        return;
-    }
-
-    ProcessNode(scene->mRootNode, scene);
 }
 
-void CFBXMesh::ProcessNode(aiNode* node, const aiScene* scene) {
-    // ノード内の全てのメッシュを処理
-    for (unsigned int i = 0; i < node->mNumMeshes; i++) {
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        ProcessMesh(mesh, scene);
-    }
+FBXMesh::~FBXMesh()
+{
 
-    // 子ノードを再帰的に処理
-    for (unsigned int i = 0; i < node->mNumChildren; i++) {
-        ProcessNode(node->mChildren[i], scene);
-    }
 }
 
-void CFBXMesh::ProcessMesh(aiMesh* mesh, const aiScene* scene) {
-    std::vector<VERTEX_3D> vertices;
-    std::vector<unsigned int> indices;
+void FBXMesh::Init()
+{
+	// メッシュ読み込み
+	CStaticMesh staticmesh;
 
-    for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
-        VERTEX_3D vertex;
-        vertex.Position = DirectX::SimpleMath::Vector3(mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z);
-        vertex.Normal = DirectX::SimpleMath::Vector3(mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z);
-        if (mesh->mTextureCoords[0]) {
-            vertex.TexCoord = DirectX::SimpleMath::Vector2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
-        } else {
-            vertex.TexCoord = DirectX::SimpleMath::Vector2(0.0f, 0.0f);
-        }
+	std::vector<std::string> filename =
+	{
+		"assets/model/book",
+	};
 
-        vertices.push_back(vertex);
-    }
+	std::vector<std::string> texdirectory =
+	{
+		"assets/model/book"
+	};
 
-    for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
-        aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++) {
-            indices.push_back(face.mIndices[j]);
-        }
-    }
+	// u8stringをstringに変換
+	std::u8string u8str = u8"assets/model/book/book.obj";  //ok
+	//std::u8string u8str = u8"assets/model/グリン子レギュ1.0/グリン子レギュ1.0.pmx";   //ng
 
-    // 頂点とインデックスをメンバ変数に追加
-    m_vertices.insert(m_vertices.end(), vertices.begin(), vertices.end());
-    m_indices.insert(m_indices.end(), indices.begin(), indices.end());
+	std::string str(reinterpret_cast<const char*>(u8str.c_str()), u8str.size());
 
-    // マテリアル情報を処理
-    if (mesh->mMaterialIndex >= 0) {
-        aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-        MATERIAL mat;
-        aiColor4D color;
-        if (AI_SUCCESS == material->Get(AI_MATKEY_COLOR_DIFFUSE, color)) {
-            mat.Diffuse = DirectX::SimpleMath::Color(color.r, color.g, color.b, color.a);
-        }
-        if (AI_SUCCESS == material->Get(AI_MATKEY_COLOR_SPECULAR, color)) {
-            mat.Specular = DirectX::SimpleMath::Color(color.r, color.g, color.b, color.a);
-        }
-        if (AI_SUCCESS == material->Get(AI_MATKEY_COLOR_AMBIENT, color)) {
-            mat.Ambient = DirectX::SimpleMath::Color(color.r, color.g, color.b, color.a);
-        }
-        float shininess;
-        if (AI_SUCCESS == material->Get(AI_MATKEY_SHININESS, shininess)) {
-            mat.Shiness = shininess;
-        }
+	staticmesh.Load(str, texdirectory[0]);
 
-        m_materials.push_back(mat);
-    }
+	g_MeshRenderer.Init(staticmesh);
+
+	// シェーダオブジェクト生成
+	g_Shader.Create("shader/vertexLightingVS.hlsl", "shader/vertexLightingPS.hlsl");
+
+	// サブセット情報取得
+	g_subsets = staticmesh.GetSubsets();
+
+	// diffuseテクスチャ情報取得
+	g_DiffuseTextures = staticmesh.GetDiffuseTextures();
+
+	// マテリアル情報取得	
+	std::vector<MATERIAL> materials = staticmesh.GetMaterials();
+
+	// マテリアル数分ループ
+	for (int i = 0; i < materials.size(); i++)
+	{
+		// マテリアルオブジェクト生成
+		std::unique_ptr<CMaterial> m = std::make_unique<CMaterial>();
+
+		// マテリアル情報をセット
+		m->Create(materials[i]);
+
+		// マテリアルオブジェクトを配列に追加
+		g_Materiales.push_back(std::move(m));
+	}
+}
+
+void FBXMesh::UnInit()
+{
+
+}
+
+void FBXMesh::Draw()
+{
+	Matrix rmtx = Matrix::CreateFromYawPitchRoll(rot.y, rot.x, rot.z);
+	Matrix smtx = Matrix::CreateScale(scale.x, scale.y, scale.z);
+	Matrix tmtx = Matrix::CreateTranslation(pos.x, pos.y, pos.z);
+
+	Matrix wmtx = smtx * rmtx * tmtx;
+
+	Renderer::SetWorldMatrix(&wmtx);
+
+	g_Shader.SetGPU();
+
+	// インデックスバッファ・頂点バッファをセット
+	g_MeshRenderer.BeforeDraw();
+
+	// マテリアル数分ループ 
+	for (int i = 0; i < g_subsets.size(); i++)
+	{
+		// マテリアルをセット(サブセット情報の中にあるマテリアルインデックを使用する)
+		g_Materiales[g_subsets[i].MaterialIdx]->SetGPU();
+
+		if (g_Materiales[g_subsets[i].MaterialIdx]->isDiffuseTextureEnable())
+		{
+			g_DiffuseTextures[g_subsets[i].MaterialIdx]->SetGPU();
+		}
+
+		g_MeshRenderer.DrawSubset(
+			g_subsets[i].IndexNum,							// 描画するインデックス数
+			g_subsets[i].IndexBase,							// 最初のインデックスバッファの位置	
+			g_subsets[i].VertexBase);						// 頂点バッファの最初から使用
+	}
 }

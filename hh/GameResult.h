@@ -22,6 +22,8 @@ protected:
 	float differenceX = 0.0f;
 	float differenceY = 0.0f;
 
+	DirectX::SimpleMath::Vector2 WH;
+
 	float halfWidth = 700.0f;
 	float halfHeight = 700.0f;
 
@@ -63,5 +65,7 @@ public:
 	// 新しく追加：スクリーン上に描画する3D位置を設定
 	void SetPosition(DirectX::SimpleMath::Vector3 position);
 
+	void SetWH(DirectX::SimpleMath::Vector3 wh);
+	DirectX::SimpleMath::Vector3 GetWH();
 };
 

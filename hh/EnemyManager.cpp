@@ -78,13 +78,13 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
         if (enemy->Getback())
         {
-            if (enemy->GetState() == EStateType::Patrolling)
-            {
-                this->EnemyPathsAster(enemy, enemy->GetwanderingPath()[0]);
-            }
-            else if (enemy->GetState() == EStateType::Fixed)
+            if (enemy->GetState() == EStateType::Fixed)
             {
                 this->EnemyPathsAster(enemy, enemy->GetStartPositon());
+            }
+            else
+            {
+                this->EnemyPathsAster(enemy, enemy->GetwanderingPath()[0]);
             }
         }
     }
