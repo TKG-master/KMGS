@@ -379,14 +379,6 @@ void Enemy::SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wa
     currentwanderingpathIndex = 1;
 }
 
-void Enemy::SetSecurity(int num)
-{
-    if (num == 100)
-    {
-        this->SetState(EStateType::Fixed);
-    }
-}
-
 void Enemy::Wanderaround()
 {
 
@@ -442,10 +434,19 @@ void Enemy::FollowPath()
         //œpœjƒ‹[ƒg‚É–ß‚Á‚½‚ç
         else if(this->back)
         {
-            this->SetState(EStateType::Patrolling);
-            this->back = false;
-            currentwanderingpathIndex = 0;
-            return;
+            if (this->GetState() == EStateType::Fixed)
+            {
+                this->back = false;
+                currentwanderingpathIndex = 0;
+                return;
+            }
+            else
+            {
+                this->SetState(EStateType::Patrolling);
+                this->back = false;
+                currentwanderingpathIndex = 0;
+                return;
+            }
         }
         else
         {
@@ -504,6 +505,7 @@ bool Enemy::RayLookHit()
 void Enemy::Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& forvPath)
 {
     this->SetState(EStateType::Fixed);
+    this->SetStartPositon(this->GetPosition());
     forward_path = forvPath;
 }
 

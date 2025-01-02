@@ -151,6 +151,7 @@
     <ClCompile Include="AssimpPerse.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="BoneCombMatrix.cpp" />
+    <ClCompile Include="Book.cpp" />
     <ClCompile Include="BoxObj.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CAnimationData.cpp" />
@@ -236,6 +237,7 @@
     <ClInclude Include="AssimpPerse.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="BoneCombMatrix.h" />
+    <ClInclude Include="Book.h" />
     <ClInclude Include="BoxObj.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CAnimationData.h" />

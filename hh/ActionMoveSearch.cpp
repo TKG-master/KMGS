@@ -4,11 +4,15 @@
 bool ActionMoveSearch::Execute(Enemy* enemy)
 {
     // œpœjƒ‚[ƒh‚ÌƒƒWƒbƒN‚ðˆ—
-    if (enemy->GetState() != EStateType::Patrolling) {
-        return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
+    //if (enemy->GetState() == EStateType::Patrolling) {
+    //    return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
+    //}
+    if (!enemy->GetSearch())
+    {
+        return false;
     }
     //’T‚µ‚És‚­‚Æ‚«‚Ìif•¶
-    if (enemy->GetSearch())
+    else if (enemy->GetSearch())
     {
         //­‚µŽžŠÔ‚ð‘Ò‚Á‚Ä‚©‚ç’T‚µ‚És‚­
         if (!enemy->GetTimer()->IsRunning()) {

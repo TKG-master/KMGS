@@ -98,3 +98,18 @@ void GameUI::SetPosition(DirectX::SimpleMath::Vector3 position)
 	Center.x = position.x;
 	Center.y = position.y;
 }
+
+void GameUI::SetWH(DirectX::SimpleMath::Vector3 wh)
+{
+	this->halfWidth = wh.x;
+	this->halfHeight = wh.y;
+}
+
+DirectX::SimpleMath::Vector3 GameUI::GetWH()
+{
+	DirectX::SimpleMath::Vector3 size;
+	size.x = this->GetWidth();
+	size.y = this->GetHeight();
+
+	return size;
+}

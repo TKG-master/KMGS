@@ -6,6 +6,7 @@ enum ObjectType {
     BOX,   //ボックス
     PPLATE, //音が出る床
     Goal,   //ゴール
+    BOOK,
 };
 
 enum class EStateType {

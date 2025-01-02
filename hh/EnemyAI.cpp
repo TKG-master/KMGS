@@ -23,6 +23,8 @@ EnemyAI::EnemyAI() {
     //Fixed
     FixedSelector = new Selector();
     FixedSelector->AddChild(new ActionConcern());
+    FixedSelector->AddChild(new ActionMoveSearch());
+    FixedSelector->AddChild(new ActionMoveback());
     root->AddChild(FixedSelector);
 
 }

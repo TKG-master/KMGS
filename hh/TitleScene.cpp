@@ -11,6 +11,12 @@ TitleScene::TitleScene()
 	Cam = new Camera(Vector3(0.0f,200.0f,0.0f));
 	Cam->SetFoucus(Vector3(0.0f, 0.0f, 0.0f));
 
+	Book = new FBXMesh();
+	Book->Init();
+	Book->Setpos(Vector3(0.0f, 0.0f, 0.0f));
+	Book->Setscale(Vector3(100.0f,100.0f, 100.0f));
+	Book->Setrot(Vector3(90.0f, 0.0f, 0.0f));
+
 
 	Dome = new SkyDome();
 	Dome->DrawInit(2000.0f, "assets\\Texture\\MGfloor.jpeg");
@@ -60,7 +66,7 @@ void TitleScene::Update()
 
 	goal->TitleUpdate();
 
-	Cam->FocusCamera(goal->GetPosition(), 0.5f ,0.0f);
+	Cam->FocusCamera(Book->Getpos(), 0.5f ,0.0f);
 
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetFadein())
 	{
@@ -83,7 +89,9 @@ void TitleScene::Draw()
 
 	Dome->Draw();
 
-	goal->Draw();
+	//goal->Draw();
+
+	Book->Draw();
 
 	GR->Draw();
 
@@ -105,6 +113,9 @@ void TitleScene::UnInit()
 
 	delete goal;
 	goal = nullptr;
+
+	delete Book;
+	Book = nullptr;
 
 	delete Cam;
 	Cam = nullptr;

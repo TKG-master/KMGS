@@ -1,6 +1,7 @@
 #pragma once
 #include "Input.h"
 #include "Character.h"
+#include "Book.h"
 
 
 class Player : public Character
@@ -9,6 +10,8 @@ private:
     //ベクトルの向き
     DirectX::SimpleMath::Vector3 Velocity;
 
+    Book* book;
+
     //マップの情報を格納
     std::vector<std::vector<int>> Mdata;
 
@@ -16,6 +19,8 @@ private:
     float MoveSpeed = 1.0f;
     //動ける状態か？
     bool Moveflg;
+
+    bool Bookput = false;
 
     bool Stand = true;
 

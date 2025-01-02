@@ -31,6 +31,8 @@ private:
 	bool Fadeout = true;
 	//壁に張り付いたときのカメラのイージング
 	bool StikyEasing = true;
+	//セレクト画面のイージングを管理するbool型
+	bool SelectUIEasing = true;
 
 
 	//イージングの時に使う時間の変数
@@ -43,6 +45,7 @@ private:
 	float EasingStartTime = 0.00f;
 	float EnemyTime = 0.00f;
 	float GoalTime = 0.00f;
+	float Stime = 0.00f;
 
 	//敵が見つけた場合の余分なループをなくすためのbool型
 	bool Rookfarst = false;
@@ -92,6 +95,8 @@ public:
 	bool GetStikyEasing() { return this->StikyEasing; };
 
 	bool GetisEasingstart() { return this->isEasingStart; };
+
+	void SelectEasing(GameUI* Select);
 
 
 

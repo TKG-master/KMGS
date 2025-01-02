@@ -3,14 +3,11 @@
 
 bool ActionMoveback::Execute(Enemy* enemy)
 {
-    // œpœjƒ‚[ƒh‚ÌƒƒWƒbƒN‚ðˆ—
-    if (enemy->GetState() != EStateType::Patrolling) {
-        return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
+    if (!enemy->Getback())
+    {
+        return false;
     }
-
-
-
-    if(enemy->Getback())
+    else if(enemy->Getback())
     {
        //­‚µŽžŠÔ‚ð‘Ò‚Á‚Ä‚©‚ç‹A‚é
         if (!enemy->GetTimer()->IsRunning()) {
