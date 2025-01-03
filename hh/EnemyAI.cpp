@@ -8,6 +8,8 @@ EnemyAI::EnemyAI() {
     Selector* root = new Selector();
     patrolSelector = new Selector();
     patrolSelector->AddChild(new ActionMoveToPlayer());
+    patrolSelector->AddChild(new ActionRead());
+    patrolSelector->AddChild(new ActionBookRook());
     patrolSelector->AddChild(new ActionMoveSearch());
     patrolSelector->AddChild(new ActionMoveback());
     root->AddChild(patrolSelector);
@@ -23,10 +25,11 @@ EnemyAI::EnemyAI() {
     //Fixed
     FixedSelector = new Selector();
     FixedSelector->AddChild(new ActionConcern());
+    FixedSelector->AddChild(new ActionRead());
+    FixedSelector->AddChild(new ActionBookRook());
     FixedSelector->AddChild(new ActionMoveSearch());
     FixedSelector->AddChild(new ActionMoveback());
     root->AddChild(FixedSelector);
-
 }
 
 // ビヘイビアツリーの更新

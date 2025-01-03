@@ -272,11 +272,11 @@ bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::V
     float dotrotview = vecview.Dot(vecrotview);
     // 視野角範囲内？
     if (dotrotview <= dotobj) {
-        if (RayLookHit())
-        {
+        //if (RayLookHit())
+        //{
             return true;
-        }
-        false;
+        //}
+//        false;
     }
     else {
         return false;
@@ -431,6 +431,14 @@ void Enemy::FollowPath()
             this->time->Reset();
             return;
         }
+        else if (this->GetRookBook())
+        {
+            this->bookCount++;
+            this->time->Reset();
+            this->SetRookBook(false);
+            this->bookRead = true;
+          return;
+        }
         //徘徊ルートに戻ったら
         else if(this->back)
         {
@@ -497,6 +505,22 @@ bool Enemy::RayLookHit()
     rayDirection.Normalize();
     if (CCollision::RayIntersectsBox(Epos, rayDirection, playerdate->square,CScene::BOXS, hitDis)) {
         this->SetSearch(true);
+        return true;
+    }
+    return false;
+}
+
+bool Enemy::RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square)
+{
+    // プレイヤーに向かってレイを飛ばす
+    rayDirection = pos - this->GetPosition();
+    Vector3 Epos = this->GetPosition();
+    // レイの発射位置をY軸方向に少し高くする
+    Epos.y += rayY;
+    //正規化
+    rayDirection.Normalize();
+    if (CCollision::RayIntersectsBox(Epos, rayDirection,square,CScene::BOXS, hitDis)) {
+        this->SetRookBook(true);
         return true;
     }
     return false;

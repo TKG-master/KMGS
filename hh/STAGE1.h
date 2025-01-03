@@ -16,7 +16,7 @@
 #include "TimerUI.h"
 #include "Polygon2D.h"
 #include "DirectWrite.h"
-#include "CFBXMesh.h"
+#include "Book.h"
 
 
 class STAGE1 : public CScene

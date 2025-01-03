@@ -138,12 +138,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionBookRook.cpp" />
     <ClCompile Include="ActionConcern.cpp" />
     <ClCompile Include="ActionFixed.cpp" />
     <ClCompile Include="ActionLookaround.cpp" />
     <ClCompile Include="ActionMoveback.cpp" />
     <ClCompile Include="ActionMoveSearch.cpp" />
     <ClCompile Include="ActionMoveToPlayer.cpp" />
+    <ClCompile Include="ActionRead.cpp" />
     <ClCompile Include="ActionTurn.cpp" />
     <ClCompile Include="AnimObj.cpp" />
     <ClCompile Include="AnimScene.cpp" />
@@ -197,6 +199,7 @@
     <ClCompile Include="gui\imgui_widgets.cpp" />
     <ClCompile Include="gui\misc\cpp\imgui_stdlib.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\81909\Desktop\GM31\a\hh\hh\directxtk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\81909\Desktop\GM31\a\hh\hh\directxtk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -224,12 +227,14 @@
     <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionBookRook.h" />
     <ClInclude Include="ActionConcern.h" />
     <ClInclude Include="ActionFixed.h" />
     <ClInclude Include="ActionLookaround.h" />
     <ClInclude Include="ActionMoveback.h" />
     <ClInclude Include="ActionMoveSearch.h" />
     <ClInclude Include="ActionMoveToPlayer.h" />
+    <ClInclude Include="ActionRead.h" />
     <ClInclude Include="ActionTurn.h" />
     <ClInclude Include="AnimObj.h" />
     <ClInclude Include="AnimScene.h" />
@@ -291,6 +296,7 @@
     <ClInclude Include="gui\misc\single_file\imgui_single_file.h" />
     <ClInclude Include="IBehaviorNode.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="NonCopyable.h" />

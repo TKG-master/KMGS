@@ -9,6 +9,8 @@
 #include "ActionMoveSearch.h"
 #include "ActionMoveback.h"
 #include "ActionConcern.h"
+#include "ActionBookRook.h"
+#include "ActionRead.h"
 
 class Enemy;
 

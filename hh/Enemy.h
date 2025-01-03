@@ -20,6 +20,7 @@ private:
 	Timer* time;
 
 	GameUI* UI;
+
 	GameUI* suspiciousUI;
 
 	//向いている方向
@@ -34,13 +35,10 @@ private:
 	float MoveSpeed = 0.8f;
 	//一番初めにいる場所
 	DirectX::SimpleMath::Vector3 StartPosition;
-
 	//視野範囲を描画するために必要な行列
 	DirectX::SimpleMath::Matrix rotation;
-
 	//現在の状態を維持する
 	EStateType state = EStateType::Patrolling;
-
 	// 経路情報を保持するメンバ変数
 	std::vector<DirectX::SimpleMath::Vector3> path;
 	int currentPathIndex = 0;
@@ -53,7 +51,6 @@ private:
 	DirectX::SimpleMath::Vector3 targetPos;
 	// 現在の位置
 	DirectX::SimpleMath::Vector3 currentPosition;
-
 	//例のVector3
 	DirectX::SimpleMath::Vector3 rayDirection;
 	//45固定
@@ -61,7 +58,7 @@ private:
 	//例がどこまで伸ばして当たったか
 	float hitDis = 0.0f;
 
-	float distance;
+	int bookCount = 0;
 
 
 	//音が聞こえたか？
@@ -74,6 +71,12 @@ private:
 	bool getcaught = false;
 	//見渡しているときのブール型
 	bool secrity = false;
+	//本を見つけた時のbool型
+	bool RookBook = false;
+	//本に夢中になっているとき
+	bool bookRead = false;
+
+
 
 	float deltaTime = 0.005f;
 	float Time1 = 0.5;
@@ -100,7 +103,7 @@ private:
 	std::vector<DirectX::SimpleMath::Vector3> intersectionPoints;
 
 	// 視野角の設定
-	float viewAngle = 0.8f; // 視野角
+	float viewAngle = 0.5f; // 視野角
 	float viewDistance = 300.0f; // 視野の距離
 	bool test = false;
 	float viewX = 2.0f;
@@ -234,9 +237,17 @@ public:
 	//プレイヤーを捕まえた時のセッターとゲッター
 	void Setgetcaught(bool flg) { this->getcaught = flg; };
 	bool Getgetcaught() { return this->getcaught; };
+	//本を見つけた時のbool型のゲッターとセッター
+	bool GetRookBook() { return this->RookBook; };
+	void SetRookBook(bool flg) { this->RookBook = flg; };
+	//本を読んでいるときのbool型
+	bool GetbookRead() { return this->bookRead; };
+	void SetbookRead(bool flg) { this->bookRead = flg; };
 
 	//レイを飛ばす処理
 	bool RayLookHit();
+
+	bool RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square);
 
 	Timer* GetTimer() { return this->time; };
 
@@ -251,6 +262,8 @@ public:
 
 	void Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath);
 	void securityMove();
+
+	int GetbookCount() { return this->bookCount; };
 
 
 

@@ -94,6 +94,11 @@ public:
     bool GetSticky() { return this->Sticky; };
     void SetSticky(bool flg) { this->Sticky = flg; };
 
+    SQUARE3D GetBooksquare() { return book->square; };
+    
+    DirectX::SimpleMath::Vector3 GetBookpos() { return book->Getpos(); };
+
+
     CORRECT_DIR Getdir() { return this->prevFrameCorrect; };
 
     SQUARE3D Getsquare() { return this->square; };
