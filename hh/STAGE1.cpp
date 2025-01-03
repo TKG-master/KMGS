@@ -18,6 +18,7 @@ STAGE1::STAGE1()
     Write->Init();
 
 
+
     data->fontSize = 25;
     StartWrite = new DirectWrite(data);
     StartWrite->Init();
@@ -373,6 +374,8 @@ void STAGE1::Draw()
 
     if (!GM->GetFadein())
     {
+        EM->DrawEnemies();
+
         for (auto& box : BOXS)
         {
             box->Draw();
@@ -382,8 +385,6 @@ void STAGE1::Draw()
         Pl->Draw();
 
         goal->Draw();
-
-        EM->DrawEnemies();
     }
 
 
