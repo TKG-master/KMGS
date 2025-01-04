@@ -38,9 +38,9 @@ STAGE1::STAGE1()
     GoalUI = new GameUI();
     GoalUI->Init("assets\\Texture\\siro.jpg");
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
-    GoalUI->SetHeight(2500.0f);
-    GoalUI->SetWidth(2500.0f);
-    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
+    GoalUI->SetHeight(0.0f);
+    GoalUI->SetWidth(0.0f);
+    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.8f));
 
     SpaceUI = new GameUI();
     SpaceUI->Init("assets\\Texture\\SPACEUI.png");
@@ -311,7 +311,12 @@ void STAGE1::Update()
         //ŽžŠÔ‚ðŽ~‚ß‚é
         gameTime->Stop();
 
-        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        if (GM->GetClearUIEasingX() || GM->GetClearUIEasingY())
+        {
+            GM->ClearEasing(GoalUI);
+        }
+
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetClearUIEasingY())
         {
             this->FadeOut = true;
         }
@@ -391,11 +396,16 @@ void STAGE1::Draw()
     if (!GM->GetEndEasing())
     {
         GoalUI->Draw();
-        SpaceUI->Draw();
-        ClearUI->Draw();
+        if (!GM->GetClearUIEasingY())
+        {
+            SpaceUI->Draw();
+            ClearUI->Draw();
+        }
     }
     else if (EM->GetRookNow() || gameTime->GetTimeUp())
     {
+        GoalUI->SetHeight(2500.0f);
+        GoalUI->SetWidth(2500.0f);
         GoalUI->Draw();
         SpaceUI->Draw();
         failedUI->Draw();
@@ -412,7 +422,7 @@ void STAGE1::Draw()
     if (gameTime->TameStarflg == true && !GM->GetisEasingstart())
     {
         StartUI->Draw();
-        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI\n§ŒÀŽžŠÔ‚Q•ª00•b", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();

@@ -7,9 +7,9 @@ EnemyAI::EnemyAI() {
     //ƒpƒgƒ[ƒ‹
     Selector* root = new Selector();
     patrolSelector = new Selector();
-    patrolSelector->AddChild(new ActionMoveToPlayer());
     patrolSelector->AddChild(new ActionRead());
     patrolSelector->AddChild(new ActionBookRook());
+    patrolSelector->AddChild(new ActionMoveToPlayer());
     patrolSelector->AddChild(new ActionMoveSearch());
     patrolSelector->AddChild(new ActionMoveback());
     root->AddChild(patrolSelector);
