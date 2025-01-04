@@ -33,6 +33,9 @@ private:
 	bool StikyEasing = true;
 	//セレクト画面のイージングを管理するbool型
 	bool SelectUIEasing = true;
+	//クリア時の画面のイージングを管理するbool型
+	bool ClearUIEasingX = true;
+	bool ClearUIEasingY = true;
 
 
 	//イージングの時に使う時間の変数
@@ -88,6 +91,8 @@ public:
 
 	void FadeOut(GameUI* FadeUI);
 
+	void ClearEasing(GameUI* Clear);
+
 	bool GetFadein() { return this->Fadein; };
 	bool GetFadeout() { return this->Fadeout; };
 
@@ -95,6 +100,9 @@ public:
 	bool GetStikyEasing() { return this->StikyEasing; };
 
 	bool GetisEasingstart() { return this->isEasingStart; };
+
+	bool GetClearUIEasingX() { return this->ClearUIEasingX; };
+	bool GetClearUIEasingY() { return this->ClearUIEasingY; };
 
 	void SelectEasing(GameUI* Select);
 

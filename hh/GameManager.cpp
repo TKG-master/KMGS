@@ -17,6 +17,8 @@ GameManager::GameManager()
     EndEasing = true;
     Fadein = true;
     Fadeout = true;
+    ClearUIEasingX = true;
+    ClearUIEasingY = true;
 }
 
 GameManager::~GameManager()
@@ -309,6 +311,31 @@ void GameManager::FadeOut(GameUI* FadeUI)
         if (Time1 >= 1.0f) {
             Time1 = 0.0f;
             Fadeout = false;
+        }
+    }
+}
+
+void GameManager::ClearEasing(GameUI* Clear)
+{
+
+    if (ClearUIEasingX)
+    {
+        Clear->SetWH(EaselnSine(Vector3(0.0f, 0.0f, 0.0f), Vector3(2500.0f, 0.0f, 0.0f), Stime));
+        Stime += 0.02;
+        if (Stime >= 1.0f)
+        {
+            Stime = 0.0f;
+            ClearUIEasingX = false;
+        }
+    }
+    else if (ClearUIEasingY)
+    {
+        Clear->SetWH(EaselnSine(Vector3(2500.0f, 0.0f, 0.0f), Vector3(2500.0f, 2500.0f, 0.0f), Stime));
+        Stime += 0.02;
+        if (Stime >= 1.0f)
+        {
+            Stime = 0.0f;
+            ClearUIEasingY = false;
         }
     }
 }

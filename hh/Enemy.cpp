@@ -6,7 +6,7 @@
 #include "GameResult.h"
 #include "Camera.h"
 #include "easings.h"
-#include <algorithm> 
+#include <algorithm>
 #include <iostream>
 
 using namespace DirectX::SimpleMath;
