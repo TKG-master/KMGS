@@ -114,9 +114,7 @@ void EnemyManager::DrawEnemies() {
 
 void EnemyManager::DrawEnemiesUI()
 {
-    for (Enemy* enemy : enemies) {
-        enemy->UIDraw();
-    }
+
 }
 
 void EnemyManager::NotifyEnemies(Enemy* alertingEnemy) {

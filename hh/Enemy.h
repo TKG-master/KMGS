@@ -19,9 +19,6 @@ private:
 
 	Timer* time;
 
-	GameUI* UI;
-
-	GameUI* suspiciousUI;
 
 	//Œü‚¢‚Ä‚¢‚é•ûŒü
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
@@ -183,8 +180,6 @@ public:
 	DirectX::SimpleMath::Vector3 PositionForward();
 
 	void viewDraw();
-
-	void UIDraw();
 
 	//Ž‹–ìŠp‚ÌŒvŽZ
 	bool IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 checkpoint, float length);

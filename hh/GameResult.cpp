@@ -5,7 +5,7 @@ using namespace DirectX::SimpleMath;
 
 GameUI::GameUI()
 {
-
+	isVisible = false;
 }
 
 GameUI::~GameUI()
