@@ -11,11 +11,8 @@ class Camera;
 class GameUI
 {
 protected:
-	DirectX::SimpleMath::Vector2 relativePos;
 
 	DirectX::SimpleMath::Vector2 Center = DirectX::SimpleMath::Vector2(650.0f,450.0f);
-
-	DirectX::SimpleMath::Vector2 m_RadarCenter; //中心位置
 
 	DirectX::SimpleMath::Color color = DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -32,6 +29,9 @@ protected:
 	CShader						m_Shader;
 	CMaterial					m_Material;
 	CTexture					m_Texture;
+
+	std::string id; // 識別子
+	bool isVisible; // 表示状態
 
 public:
 
@@ -67,5 +67,11 @@ public:
 
 	void SetWH(DirectX::SimpleMath::Vector3 wh);
 	DirectX::SimpleMath::Vector3 GetWH();
+
+	void SetID(const std::string& id) { this->id = id; }
+	const std::string& GetID() const { return id; }
+
+	void SetVisible(bool visible) { isVisible = visible; }
+	bool IsVisible() const { return isVisible; }
 };
 

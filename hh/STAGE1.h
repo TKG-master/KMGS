@@ -17,6 +17,7 @@
 #include "Polygon2D.h"
 #include "DirectWrite.h"
 #include "Book.h"
+#include "UIManager.h"
 
 
 class STAGE1 : public CScene
@@ -47,6 +48,8 @@ private:
 	GameUI* failedUI;
 	GameUI* WalkUI;
 	GameUI* StartUI;
+	GameUI* SyagamiUI;
+	UIManager* UM;
 
 	GameUI* Fade;
 	bool FadeOut = false;

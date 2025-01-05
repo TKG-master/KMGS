@@ -9,8 +9,6 @@ CTest::CTest()
 {
     gameTime = new Timer(true);
 
-    GM = new GameManager();
-
     FontData* data = new FontData();
     data->fontSize = 50;
     data->font = Font::HG_SOUEIKAKU_GOTHIC;
@@ -19,40 +17,47 @@ CTest::CTest()
     Write = new DirectWrite(data);
     Write->Init();
 
+    data->fontSize = 25;
+    StartWrite = new DirectWrite(data);
+    StartWrite->Init();
+    StartWrite->SetPosition(Vector2(720.0f, 500.0f));
+
     delete data;
     data = nullptr;
 
+    UM = new UIManager();
+
+
+
+    GM = new GameManager();
+
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-    Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
+    Dome->DrawInit(1800.0f, "assets\\Texture\\DomeS.jpeg");
 
 
     //UIの初期化
     GoalUI = new GameUI();
     GoalUI->Init("assets\\Texture\\siro.jpg");
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
-    GoalUI->SetHeight(2500.0f);
-    GoalUI->SetWidth(2500.0f);
-    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
-
-    SpaceUI = new GameUI();
-    SpaceUI->Init("assets\\Texture\\SPACEUI.png");
-    SpaceUI->SetCenter(Vector2(300.0f, 800.0f));
-    SpaceUI->SetHeight(300.0f);
-    SpaceUI->SetWidth(500.0f);
-
+    GoalUI->SetHeight(0.0f);
+    GoalUI->SetWidth(0.0f);
+    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.8f));
+    UM->AddUI("GoalUI", GoalUI);
 
     ClearUI = new GameUI();
     ClearUI->Init("assets\\Texture\\Clear !!.png");
     ClearUI->SetCenter(Vector2(960.0f, 540.0f));
     ClearUI->SetHeight(500.0f);
     ClearUI->SetWidth(900.0f);
+    UM->AddUI("ClearUI", ClearUI);
 
     failedUI = new GameUI();
     failedUI->Init("assets\\Texture\\feiledUI.png");
     failedUI->SetCenter(Vector2(960.0f, 540.0f));
     failedUI->SetHeight(500.0f);
     failedUI->SetWidth(900.0f);
+    UM->AddUI("failedUI", failedUI);
 
     Fade = new GameUI();
     Fade->Init("assets\\Texture\\siro.jpg");
@@ -66,12 +71,22 @@ CTest::CTest()
     KeyUI->SetCenter(Vector2(200.0f, 900.0f));
     KeyUI->SetHeight(200.0f);
     KeyUI->SetWidth(250.0f);
+    UM->AddUI("KeyUI", KeyUI);
 
     WalkUI = new GameUI();
     WalkUI->Init("assets\\Texture\\WalkUI.png");
     WalkUI->SetCenter(Vector2(200.0f, 750.0f));
     WalkUI->SetHeight(100.0f);
     WalkUI->SetWidth(100.0f);
+    UM->AddUI("WalkUI", WalkUI);
+
+    StartUI = new GameUI();
+    StartUI->Init("assets\\Texture\\siro.jpg");
+    StartUI->SetCenter(Vector2(960.0f, 540.0f));
+    StartUI->SetHeight(500.0f);
+    StartUI->SetWidth(500.0f);
+    StartUI->SetColor(Color(0, 0.5, 0.5, 0.5f));
+    UM->AddUI("StartUI", StartUI);
 
 
     CScene::CreateStage(TERRAIN_ID::STAGE_TEST);
@@ -138,7 +153,6 @@ CTest::CTest()
     Pl->SetMapdata(this->GetMapData());
 
     EM = new EnemyManager(this->GetMapData(), this->GetWanderingdata());
-    EM->EnemyModelInit("assets/model/player/X Bot.fbx", "assets/model");
 
     //敵の初期化
     for (int a = 0; a < this->GetEnemyStartPoss().size(); a++) {
@@ -149,7 +163,6 @@ CTest::CTest()
             "shader/vertexLightingOneSkinVS.hlsl",
             "shader/vertexLightingPS.hlsl", Pl);
         enemy->SetPosition(this->GetEnemyStartPoss()[a]);  // 敵の位置
-        enemy->UIInit(a);
         enemy->CollisionInit(enemy->GetPosition(), enemy->GetCollisionScale());
         enemy->SetScale(CharacterScale);
         enemy->Setforward(Vector3(0.0f, 0.0f, -1.0f));
@@ -157,6 +170,8 @@ CTest::CTest()
     }
 
     EM->SetEnemywandering();
+
+    UM->InitEnemyUI(EM->GetEnemies());
 
     //レーダーの初期化
     radar = new Radar();
@@ -193,17 +208,20 @@ void CTest::Update()
     {
         if (GM->farstEasing(camera, Pl, goal))
         {
-            if (gameTime->TameStarflg == true)
-            {
-                //gameTime->Start();
-                gameTime->StartCountDown(90);
-                gameTime->TameStarflg = false;
-            }
+
         }
-        else if (gameTime->TameStarflg) {
+        else if (gameTime->TameStarflg && GM->GetisEasingstart()) {
             //イージング中でもモデルが見えるように
             Pl->AnimUpdate();
             EM->EnemysAnimUpdate();
+        }
+        else if (!GM->GetisEasingstart())
+        {
+            if (Input::Get()->GetKeyTrigger(DIK_K))
+            {
+                gameTime->StartCountDown(300);
+                gameTime->TameStarflg = false;
+            }
         }
     }
 
@@ -213,25 +231,26 @@ void CTest::Update()
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
-
+        //時間を分と秒に変換している
         float remainingTime = gameTime->GetRemainingTime();
-
         // 残り時間を分と秒に変換
-        int minutes = static_cast<int>(remainingTime) / 60000;  // ミリ秒単位なので60000で割る
+        int minutes = static_cast<int>(remainingTime) / 60000;
         int seconds = (static_cast<int>(remainingTime) % 60000) / 1000;
-
         Write->SetTimeranning(minutes, seconds);
-
         Write->SetPosition(Vector2(100.0f, 100.0f));
 
+        //プレイヤーのアップデート
         Pl->Update();
 
+        //エネミーのアップデート
         EM->UpdateEnemies(Pl, BOXS);
+
         //敵に見つかったのなら時間を止める
         if (EM->GetRook() && !EM->GetRookNow())
         {
             gameTime->Stop();
         }
+
         //プレイヤーとすべての敵の位置をレーダーに渡す
         std::vector<DirectX::SimpleMath::Vector3> enemyPositions;
         for (const auto& enemy : EM->GetEnemies()) {
@@ -242,8 +261,15 @@ void CTest::Update()
         radar->Update(Pl->GetPosition(), enemyPositions);
 
         //普通のカメラの追尾処理
-        if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing())
+        if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing() && !Pl->GetSticky())
             camera->LateUpdate(Pl->GetPosition(), camera->GetSpeed(), 500.0f, Pl->GetFPSeye(), Pl->GetFacingDirection());
+        else if (Pl->GetSticky())
+        {
+            if (GM->SEasing(Pl, camera))
+            {
+                GM->SetStikyEasing(true);
+            }
+        }
     }
 
     //時間が止まっているときの処理
@@ -287,7 +313,12 @@ void CTest::Update()
         //時間を止める
         gameTime->Stop();
 
-        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        if (GM->GetClearUIEasingX() || GM->GetClearUIEasingY())
+        {
+            GM->ClearEasing(GoalUI);
+        }
+
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetClearUIEasingY())
         {
             this->FadeOut = true;
         }
@@ -336,11 +367,11 @@ void CTest::Update()
     }
 
 
-    ////Imguiの処理
+    //Imguiの処理
     //gui->PlayerUpdate(Pl);
     //gui->CameraUpdate(camera);
-    //gui->CollisionUpdate(collision);
     //gui->EnenyUpdate(EM);
+
 
 }
 
@@ -350,6 +381,8 @@ void CTest::Draw()
 
     if (!GM->GetFadein())
     {
+        EM->DrawEnemies();
+
         for (auto& box : BOXS)
         {
             box->Draw();
@@ -359,31 +392,40 @@ void CTest::Draw()
         Pl->Draw();
 
         goal->Draw();
-
-        EM->DrawEnemies();
-
     }
 
+    UM->Draw();
 
     if (!GM->GetEndEasing())
     {
-        GoalUI->Draw();
-        SpaceUI->Draw();
-        ClearUI->Draw();
+        UM->ListCler();
+        UM->SetActiveUI({ "GoalUI" });
+        if (!GM->GetClearUIEasingY())
+        {
+            UM->SetActiveUI({ "GoalUI","SpaceUI","ClearUI" });
+        }
     }
     else if (EM->GetRookNow() || gameTime->GetTimeUp())
     {
-        GoalUI->Draw();
-        SpaceUI->Draw();
-        failedUI->Draw();
+        UM->ListCler();
+        GoalUI->SetHeight(2500.0f);
+        GoalUI->SetWidth(2500.0f);
+        UM->SetActiveUI({ "GoalUI","failedUI" });
     }
     else
     {
+        UM->ListCler();
         radar->Draw(EM->GetEnemies());
-        KeyUI->Draw();
-        WalkUI->Draw();
-        EM->DrawEnemiesUI();
+        UM->SetActiveUI({ "KeyUI","WalkUI" });
+        UM->EnemyUIActive(EM->GetEnemies());
         Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+    }
+
+    if (gameTime->TameStarflg == true && !GM->GetisEasingstart())
+    {
+        UM->ListCler();
+        UM->SetActiveUI({ "StartUI" });
+        StartWrite->DrawString("敵に見つからない様、ゴールせよ！\n 敵の行動をよく観察しろ！\n制限時間２分00秒", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();
@@ -418,26 +460,11 @@ void CTest::UnInit()
     delete GM;
     GM = nullptr;
 
-    delete SpaceUI;
-    SpaceUI = nullptr;
-
     delete goal;
     goal = nullptr;
 
-    delete GoalUI;
-    GoalUI = nullptr;
-
-    delete ClearUI;
-    ClearUI = nullptr;
-
-    delete failedUI;
-    failedUI = nullptr;
-
-    delete KeyUI;
-    KeyUI = nullptr;
-
-    delete WalkUI;
-    WalkUI = nullptr;
+    delete UM;
+    UM = nullptr;
 
     delete Fade;
     Fade = nullptr;
@@ -451,10 +478,14 @@ void CTest::UnInit()
     delete camera;
     camera = nullptr;
 
-
     Write->Release();
     delete Write;
     Write = nullptr;
+
+    StartWrite->Release();
+    delete StartWrite;
+    StartWrite = nullptr;
+
 
     for (auto& box : BOXS)
     {

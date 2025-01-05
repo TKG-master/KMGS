@@ -1,7 +1,6 @@
 #pragma once
 #include "CScene.h"
 #include "Camera.h"
-#include "Field.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Radar.h"
@@ -14,8 +13,9 @@
 #include "SkyDome.h"
 #include "GameResult.h"
 #include "TimerUI.h"
-#include "Polygon2D.h"
 #include "DirectWrite.h"
+#include "UIManager.h"
+
 
 
 class STAGE2 : public CScene
@@ -26,7 +26,6 @@ private:
 
 	Radar* radar;
 	Camera* camera;
-	Field field;
 	Player* Pl;
 	EnemyManager* EM;
 	Timer* gameTime;
@@ -43,6 +42,7 @@ private:
 	GameUI* failedUI;
 	GameUI* WalkUI;
 	GameUI* StartUI;
+	UIManager* UM;
 
 	GameUI* Fade;
 	bool FadeOut = false;

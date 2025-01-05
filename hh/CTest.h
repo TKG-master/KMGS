@@ -14,6 +14,7 @@
 #include "SkyDome.h"
 #include "GameResult.h"
 #include "DirectWrite.h"
+#include "UIManager.h"
 
 
 
@@ -33,7 +34,9 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+
 	DirectWrite* Write;
+	DirectWrite* StartWrite;
 
 	GameUI* GoalUI;
 	GameUI* SpaceUI;
@@ -41,6 +44,8 @@ private:
 	GameUI* KeyUI;
 	GameUI* failedUI;
 	GameUI* WalkUI;
+	GameUI* StartUI;
+	UIManager* UM;
 
 	GameUI* Fade;
 	bool FadeOut = false;

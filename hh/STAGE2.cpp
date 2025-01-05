@@ -17,7 +17,6 @@ STAGE2::STAGE2()
     Write = new DirectWrite(data);
     Write->Init();
 
-
     data->fontSize = 25;
     StartWrite = new DirectWrite(data);
     StartWrite->Init();
@@ -26,39 +25,39 @@ STAGE2::STAGE2()
     delete data;
     data = nullptr;
 
+    UM = new UIManager();
+
+
+
     GM = new GameManager();
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-    Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
+    Dome->DrawInit(1800.0f, "assets\\Texture\\DomeS.jpeg");
 
 
     //UI‚Ì‰Šú‰»
     GoalUI = new GameUI();
     GoalUI->Init("assets\\Texture\\siro.jpg");
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
-    GoalUI->SetHeight(2500.0f);
-    GoalUI->SetWidth(2500.0f);
-    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.5f));
-
-    SpaceUI = new GameUI();
-    SpaceUI->Init("assets\\Texture\\SPACEUI.png");
-    SpaceUI->SetCenter(Vector2(300.0f, 800.0f));
-    SpaceUI->SetHeight(300.0f);
-    SpaceUI->SetWidth(500.0f);
-
+    GoalUI->SetHeight(0.0f);
+    GoalUI->SetWidth(0.0f);
+    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.8f));
+    UM->AddUI("GoalUI", GoalUI);
 
     ClearUI = new GameUI();
     ClearUI->Init("assets\\Texture\\Clear !!.png");
     ClearUI->SetCenter(Vector2(960.0f, 540.0f));
     ClearUI->SetHeight(500.0f);
     ClearUI->SetWidth(900.0f);
+    UM->AddUI("ClearUI", ClearUI);
 
     failedUI = new GameUI();
     failedUI->Init("assets\\Texture\\feiledUI.png");
     failedUI->SetCenter(Vector2(960.0f, 540.0f));
     failedUI->SetHeight(500.0f);
     failedUI->SetWidth(900.0f);
+    UM->AddUI("failedUI", failedUI);
 
     Fade = new GameUI();
     Fade->Init("assets\\Texture\\siro.jpg");
@@ -72,12 +71,14 @@ STAGE2::STAGE2()
     KeyUI->SetCenter(Vector2(200.0f, 900.0f));
     KeyUI->SetHeight(200.0f);
     KeyUI->SetWidth(250.0f);
+    UM->AddUI("KeyUI", KeyUI);
 
     WalkUI = new GameUI();
     WalkUI->Init("assets\\Texture\\WalkUI.png");
     WalkUI->SetCenter(Vector2(200.0f, 750.0f));
     WalkUI->SetHeight(100.0f);
     WalkUI->SetWidth(100.0f);
+    UM->AddUI("WalkUI", WalkUI);
 
     StartUI = new GameUI();
     StartUI->Init("assets\\Texture\\siro.jpg");
@@ -85,6 +86,7 @@ STAGE2::STAGE2()
     StartUI->SetHeight(500.0f);
     StartUI->SetWidth(500.0f);
     StartUI->SetColor(Color(0, 0.5, 0.5, 0.5f));
+    UM->AddUI("StartUI", StartUI);
 
 
     CScene::CreateStage(TERRAIN_ID::STAGE_2);
@@ -161,7 +163,6 @@ STAGE2::STAGE2()
             "shader/vertexLightingOneSkinVS.hlsl",
             "shader/vertexLightingPS.hlsl", Pl);
         enemy->SetPosition(this->GetEnemyStartPoss()[a]);  // “G‚ÌˆÊ’u
-        enemy->UIInit(a);
         enemy->CollisionInit(enemy->GetPosition(), enemy->GetCollisionScale());
         enemy->SetScale(CharacterScale);
         enemy->Setforward(Vector3(0.0f, 0.0f, -1.0f));
@@ -169,6 +170,8 @@ STAGE2::STAGE2()
     }
 
     EM->SetEnemywandering();
+
+    UM->InitEnemyUI(EM->GetEnemies());
 
     //ƒŒ[ƒ_[‚Ì‰Šú‰»
     radar = new Radar();
@@ -179,7 +182,6 @@ STAGE2::STAGE2()
     EMS.clear();
 
     camera = new Camera(this->GetCameraPos());
-
 }
 
 STAGE2::~STAGE2()
@@ -214,9 +216,9 @@ void STAGE2::Update()
         }
         else if (!GM->GetisEasingstart())
         {
-            if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+            if (Input::Get()->GetKeyTrigger(DIK_K))
             {
-                gameTime->StartCountDown(120);
+                gameTime->StartCountDown(300);
                 gameTime->TameStarflg = false;
             }
         }
@@ -310,7 +312,12 @@ void STAGE2::Update()
         //ŽžŠÔ‚ðŽ~‚ß‚é
         gameTime->Stop();
 
-        if (Input::Get()->GetKeyTrigger(DIK_SPACE))
+        if (GM->GetClearUIEasingX() || GM->GetClearUIEasingY())
+        {
+            GM->ClearEasing(GoalUI);
+        }
+
+        if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetClearUIEasingY())
         {
             this->FadeOut = true;
         }
@@ -373,6 +380,8 @@ void STAGE2::Draw()
 
     if (!GM->GetFadein())
     {
+        EM->DrawEnemies();
+
         for (auto& box : BOXS)
         {
             box->Draw();
@@ -382,36 +391,40 @@ void STAGE2::Draw()
         Pl->Draw();
 
         goal->Draw();
-
-        EM->DrawEnemies();
     }
 
+    UM->Draw();
 
     if (!GM->GetEndEasing())
     {
-        GoalUI->Draw();
-        SpaceUI->Draw();
-        ClearUI->Draw();
+        UM->ListCler();
+        UM->SetActiveUI({ "GoalUI" });
+        if (!GM->GetClearUIEasingY())
+        {
+            UM->SetActiveUI({ "GoalUI","SpaceUI","ClearUI" });
+        }
     }
     else if (EM->GetRookNow() || gameTime->GetTimeUp())
     {
-        GoalUI->Draw();
-        SpaceUI->Draw();
-        failedUI->Draw();
+        UM->ListCler();
+        GoalUI->SetHeight(2500.0f);
+        GoalUI->SetWidth(2500.0f);
+        UM->SetActiveUI({ "GoalUI","failedUI" });
     }
     else
     {
+        UM->ListCler();
         radar->Draw(EM->GetEnemies());
-        KeyUI->Draw();
-        WalkUI->Draw();
-        EM->DrawEnemiesUI();
+        UM->SetActiveUI({ "KeyUI","WalkUI" });
+        UM->EnemyUIActive(EM->GetEnemies());
         Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     if (gameTime->TameStarflg == true && !GM->GetisEasingstart())
     {
-        StartUI->Draw();
-        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n‰ö‚µ‚¢°‚Ìã‚Í‘–‚é‚ÈI", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        UM->ListCler();
+        UM->SetActiveUI({ "StartUI" });
+        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI\n§ŒÀŽžŠÔ‚Q•ª00•b", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();
@@ -445,26 +458,11 @@ void STAGE2::UnInit()
     delete GM;
     GM = nullptr;
 
-    delete SpaceUI;
-    SpaceUI = nullptr;
-
     delete goal;
     goal = nullptr;
 
-    delete GoalUI;
-    GoalUI = nullptr;
-
-    delete ClearUI;
-    ClearUI = nullptr;
-
-    delete failedUI;
-    failedUI = nullptr;
-
-    delete KeyUI;
-    KeyUI = nullptr;
-
-    delete WalkUI;
-    WalkUI = nullptr;
+    delete UM;
+    UM = nullptr;
 
     delete Fade;
     Fade = nullptr;
@@ -494,7 +492,5 @@ void STAGE2::UnInit()
     }
     BOXS.clear();
 
-    delete StartUI;
-    StartUI = nullptr;
 
 }

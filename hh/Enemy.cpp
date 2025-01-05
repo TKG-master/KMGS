@@ -22,25 +22,6 @@ void Enemy::Init(std::string ModelName, std::string TexFolderPath, std::vector<M
     this->square.type = ObjectType::ENEMY;
 }
 
-void Enemy::UIInit(int nam)
-{
-    float shift = 150.0f;
-
-    shift *= nam;
-
-    UI = new GameUI();
-    UI->Init("assets\\Texture\\EnemyUI.png");
-    UI->SetHeight(100.0f);
-    UI->SetWidth(100.0f);
-    UI->SetCenter(Vector2(1800.0f - shift, 900.0f));
-
-    suspiciousUI = new GameUI();
-    suspiciousUI->Init("assets\\Texture\\hatenaUI.png");
-    suspiciousUI->SetHeight(100.0f);
-    suspiciousUI->SetWidth(100.0f);
-    suspiciousUI->SetCenter(Vector2(1800.0f - shift, 800.0f));
-}
-
 Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader, const Player* Pl)
 {
     //モデル読み込み等
@@ -67,12 +48,6 @@ Enemy::~Enemy()
 
     delete AI;
     AI = nullptr;
-
-    delete UI;
-    UI = nullptr;
-
-    delete suspiciousUI;
-    suspiciousUI = nullptr;
 
 }
 
@@ -225,15 +200,6 @@ void Enemy::viewDraw()
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     deviceContext->DrawIndexed(fanIndices.size(), 0, 0);
 
-}
-//敵のUIの描画
-void Enemy::UIDraw()
-{
-    if (this->GetSearch())
-    {
-        suspiciousUI->Draw();
-    }
-    UI->Draw();
 }
 //敵の視野範囲にプレイヤーが入ってるかの判定
 bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 checkpoint, float length)
@@ -440,7 +406,7 @@ void Enemy::FollowPath()
           return;
         }
         //徘徊ルートに戻ったら
-        else if(this->back)
+        if(this->back)
         {
             if (this->GetState() == EStateType::Fixed)
             {
@@ -461,37 +427,37 @@ void Enemy::FollowPath()
             return;
         }
     }
-
-    // 次の位置
-    DirectX::SimpleMath::Vector3 targetPos = path[currentPathIndex];
-
-    // 現在の位置
-    DirectX::SimpleMath::Vector3 currentPosition = this->GetPosition();
-
-    // 移動量を計算
-    DirectX::SimpleMath::Vector3 direction = targetPos - currentPosition;
-    float distance = direction.Length();
-
-    // 次の位置に到達した場合の判定を緩める
-    float tolerance = MoveSpeed * 2.5f;
-    if (distance < tolerance) {
-        // 次の位置に到達した場合
-        this->SetPosition(targetPos);
-        currentPathIndex++;
-    }
     else {
-        // 移動量を正規化して速度を掛ける
-        direction.Normalize();
-        this->SetPosition(currentPosition + direction * MoveSpeed * 1.5f);
-    }
+        // 次の位置
+        DirectX::SimpleMath::Vector3 targetPos = path[currentPathIndex];
 
-    // 進行方向に向けて回転を更新
-    if (direction.LengthSquared() > 0.0f) {
-        //向きをセット
-        this->Setforward(direction);
-        UpdateRotation();  // 回転の更新
-    }
+        // 現在の位置
+        DirectX::SimpleMath::Vector3 currentPosition = this->GetPosition();
 
+        // 移動量を計算
+        DirectX::SimpleMath::Vector3 direction = targetPos - currentPosition;
+        float distance = direction.Length();
+
+        // 次の位置に到達した場合の判定を緩める
+        float tolerance = MoveSpeed * 2.5f;
+        if (distance < tolerance) {
+            // 次の位置に到達した場合
+            this->SetPosition(targetPos);
+            currentPathIndex++;
+        }
+        else {
+            // 移動量を正規化して速度を掛ける
+            direction.Normalize();
+            this->SetPosition(currentPosition + direction * MoveSpeed * 1.5f);
+        }
+
+        // 進行方向に向けて回転を更新
+        if (direction.LengthSquared() > 0.0f) {
+            //向きをセット
+            this->Setforward(direction);
+            UpdateRotation();  // 回転の更新
+        }
+    }
 }
 
 bool Enemy::RayLookHit()

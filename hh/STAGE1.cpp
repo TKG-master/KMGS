@@ -17,8 +17,6 @@ STAGE1::STAGE1()
     Write = new DirectWrite(data);
     Write->Init();
 
-
-
     data->fontSize = 25;
     StartWrite = new DirectWrite(data);
     StartWrite->Init();
@@ -27,11 +25,15 @@ STAGE1::STAGE1()
     delete data;
     data = nullptr;
 
+    UM = new UIManager();
+
+
+
     GM = new GameManager();
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-    Dome->DrawInit(2000.0f, "assets\\Texture\\DomeS.jpeg");
+    Dome->DrawInit(1500.0f, "assets\\Texture\\DomeS.jpeg");
 
 
     //UI‚Ì‰Šú‰»
@@ -41,25 +43,21 @@ STAGE1::STAGE1()
     GoalUI->SetHeight(0.0f);
     GoalUI->SetWidth(0.0f);
     GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.8f));
-
-    SpaceUI = new GameUI();
-    SpaceUI->Init("assets\\Texture\\SPACEUI.png");
-    SpaceUI->SetCenter(Vector2(300.0f, 800.0f));
-    SpaceUI->SetHeight(300.0f);
-    SpaceUI->SetWidth(500.0f);
-
+    UM->AddUI("GoalUI", GoalUI);
 
     ClearUI = new GameUI();
     ClearUI->Init("assets\\Texture\\Clear !!.png");
     ClearUI->SetCenter(Vector2(960.0f, 540.0f));
     ClearUI->SetHeight(500.0f);
     ClearUI->SetWidth(900.0f);
+    UM->AddUI("ClearUI", ClearUI);
 
     failedUI = new GameUI();
     failedUI->Init("assets\\Texture\\feiledUI.png");
     failedUI->SetCenter(Vector2(960.0f, 540.0f));
     failedUI->SetHeight(500.0f);
     failedUI->SetWidth(900.0f);
+    UM->AddUI("failedUI", failedUI);
 
     Fade = new GameUI();
     Fade->Init("assets\\Texture\\siro.jpg");
@@ -73,12 +71,21 @@ STAGE1::STAGE1()
     KeyUI->SetCenter(Vector2(200.0f, 900.0f));
     KeyUI->SetHeight(200.0f);
     KeyUI->SetWidth(250.0f);
+    UM->AddUI("KeyUI", KeyUI);
 
     WalkUI = new GameUI();
     WalkUI->Init("assets\\Texture\\WalkUI.png");
     WalkUI->SetCenter(Vector2(200.0f, 750.0f));
     WalkUI->SetHeight(100.0f);
     WalkUI->SetWidth(100.0f);
+    UM->AddUI("WalkUI", WalkUI);
+
+    SyagamiUI = new GameUI();
+    SyagamiUI->Init("assets\\Texture\\syagamu.png");
+    SyagamiUI->SetCenter(Vector2(200.0f, 750.0f));
+    SyagamiUI->SetHeight(100.0f);
+    SyagamiUI->SetWidth(100.0f);
+    UM->AddUI("SyagamiUI", SyagamiUI);
 
     StartUI = new GameUI();
     StartUI->Init("assets\\Texture\\siro.jpg");
@@ -86,6 +93,9 @@ STAGE1::STAGE1()
     StartUI->SetHeight(500.0f);
     StartUI->SetWidth(500.0f);
     StartUI->SetColor(Color(0, 0.5, 0.5, 0.5f));
+    UM->AddUI("StartUI", StartUI);
+
+
 
 
     CScene::CreateStage(TERRAIN_ID::STAGE_1);
@@ -162,7 +172,6 @@ STAGE1::STAGE1()
             "shader/vertexLightingOneSkinVS.hlsl",
             "shader/vertexLightingPS.hlsl", Pl);
         enemy->SetPosition(this->GetEnemyStartPoss()[a]);  // “G‚ÌˆÊ’u
-        enemy->UIInit(a);
         enemy->CollisionInit(enemy->GetPosition(), enemy->GetCollisionScale());
         enemy->SetScale(CharacterScale);
         enemy->Setforward(Vector3(0.0f, 0.0f, -1.0f));
@@ -170,6 +179,8 @@ STAGE1::STAGE1()
     }
 
     EM->SetEnemywandering();
+
+    UM->InitEnemyUI(EM->GetEnemies());
 
     //ƒŒ[ƒ_[‚Ì‰Šú‰»
     radar = new Radar();
@@ -392,36 +403,44 @@ void STAGE1::Draw()
         goal->Draw();
     }
 
+    UM->Draw();
 
     if (!GM->GetEndEasing())
     {
-        GoalUI->Draw();
+        UM->ListCler();
+        UM->SetActiveUI({ "GoalUI" });
         if (!GM->GetClearUIEasingY())
         {
-            SpaceUI->Draw();
-            ClearUI->Draw();
+            UM->SetActiveUI({ "GoalUI","SpaceUI","ClearUI"});
         }
     }
     else if (EM->GetRookNow() || gameTime->GetTimeUp())
     {
+        UM->ListCler();
         GoalUI->SetHeight(2500.0f);
         GoalUI->SetWidth(2500.0f);
-        GoalUI->Draw();
-        SpaceUI->Draw();
-        failedUI->Draw();
+        UM->SetActiveUI({ "GoalUI","failedUI"});
     }
     else
     {
+        UM->ListCler();
         radar->Draw(EM->GetEnemies());
-        KeyUI->Draw();
-        WalkUI->Draw();
-        EM->DrawEnemiesUI();
+        if (Pl->GetState() == PStateType::STAND)
+        {
+            UM->SetActiveUI({ "KeyUI" ,"WalkUI"});
+        }
+        else if (Pl->GetState() == PStateType::SNEAK)
+        {
+            UM->SetActiveUI({ "KeyUI" ,"SyagamiUI" });
+        }
+        UM->EnemyUIActive(EM->GetEnemies());
         Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     if (gameTime->TameStarflg == true && !GM->GetisEasingstart())
     {
-        StartUI->Draw();
+        UM->ListCler();
+        UM->SetActiveUI({ "StartUI"});
         StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI\n§ŒÀŽžŠÔ‚Q•ª00•b", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
@@ -456,26 +475,11 @@ void STAGE1::UnInit()
     delete GM;
     GM = nullptr;
 
-    delete SpaceUI;
-    SpaceUI = nullptr;
-
     delete goal;
     goal = nullptr;
 
-    delete GoalUI;
-    GoalUI = nullptr;
-
-    delete ClearUI;
-    ClearUI = nullptr;
-
-    delete failedUI;
-    failedUI = nullptr;
-
-    delete KeyUI;
-    KeyUI = nullptr;
-
-    delete WalkUI;
-    WalkUI = nullptr;
+    delete UM;
+    UM = nullptr;
 
     delete Fade;
     Fade = nullptr;
@@ -504,8 +508,5 @@ void STAGE1::UnInit()
         box = nullptr;
     }
     BOXS.clear();
-
-    delete StartUI;
-    StartUI = nullptr;
 
 }
