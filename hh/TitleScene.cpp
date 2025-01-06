@@ -5,7 +5,6 @@
 TitleScene::TitleScene()
 {
 
-	UM = new UIManager();
 
 	goal = new GoalObj(100.0f, 100.0f, 100.0f);
 	goal->SetPosition(Vector3(0.0f,0.0f,0.0f));
@@ -20,14 +19,12 @@ TitleScene::TitleScene()
 	GR = new GameUI();
 	GR->Init("assets\\Texture\\START.png");
 	GR->SetCenter(Vector2(650.0f, 450.0f));
-	UM->AddUI("GR", GR);
 
 	UI2 = new GameUI();
 	UI2->Init("assets\\Texture\\SPACEUI.png");
 	UI2->SetCenter(Vector2(200.0f, 800.0f));
 	UI2->SetHeight(200.0f);
 	UI2->SetWidth(250.0f);
-	UM->AddUI("UI2", UI2);
 
 
 
@@ -89,14 +86,9 @@ void TitleScene::Draw()
 
 	goal->Draw();
 
-	//GR->Draw();
+	GR->Draw();
 
-	//UI2->Draw();
-
-	UM->SetActiveUI({"GR","UI2"});
-
-	UM->Draw();
-
+	UI2->Draw();
 
 
 	Fade->Draw();
@@ -122,20 +114,17 @@ void TitleScene::UnInit()
 	delete Dome;
 	Dome = nullptr;
 
-	//delete GR;
-	//GR = nullptr;
+	delete GR;
+	GR = nullptr;
 
-	//delete UI2;
-	//UI2 = nullptr;
+	delete UI2;
+	UI2 = nullptr;
 
 	delete Fade;
 	Fade = nullptr;
 
 	delete GM;
 	GM = nullptr;
-
-	delete UM;
-	UM = nullptr;
 
 
 

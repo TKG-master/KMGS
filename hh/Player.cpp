@@ -154,22 +154,27 @@ void Player::PlayerInput()
 			if (STATUS == IDLE)
 			{
 				STATUS = SNEAK;
+				this->SetState(PStateType::SNEAK);
 			}
 			else if (STATUS == SNEAK)
 			{
 				STATUS = IDLE;
+				this->SetState(PStateType::STAND);
 			}
 			else if (STATUS == SNEAKWLKE)
 			{
 				STATUS = WALK;
+				this->SetState(PStateType::STAND);
 			}
 			else if (STATUS == WALK)
 			{
 				STATUS = SNEAKWLKE;
+				this->SetState(PStateType::SNEAK);
 			}
 			else if (STATUS == RUN)
 			{
 				STATUS = SNEAKWLKE;
+				this->SetState(PStateType::SNEAK);
 			}
 		}
 		//–{‚ð’u‚­
@@ -193,13 +198,11 @@ void Player::moveprocess()
 {	//Velocity‚ÆMoveSpeed‚ð‚©‚¯‚Ä“ü‚ê‚é
 	if (STATUS == WALK) {
 		m_AnimationObject.m_Position += Velocity * MoveSpeed;
-		this->SetState(PStateType::STAND);
 		this->SetknockSound(false);
 		SetToAnimationName("Walk");
 	}
 	else if (STATUS == RUN) {
 		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
-		this->SetState(PStateType::SNEAK);
 		SetToAnimationName("Run");
 		if (this->GetAnimEndState())
 		{

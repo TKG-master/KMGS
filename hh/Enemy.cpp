@@ -11,8 +11,6 @@
 
 using namespace DirectX::SimpleMath;
 
-
-
 void Enemy::Init(std::string ModelName, std::string TexFolderPath, std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader)
 {
     //ƒ‚ƒfƒ‹“Ç‚İ‚İ“™

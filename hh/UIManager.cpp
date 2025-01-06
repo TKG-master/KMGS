@@ -53,8 +53,10 @@ void UIManager::InitEnemyUI(const std::vector<Enemy*>& enemies)
     for (int i = 0; i < enemies.size(); i++) {
         std::string id = "enemy_" + std::to_string(i);
         std::string id2 = "suspicious_" + std::to_string(i);
+        std::string id3 = "ReadBook_" + std::to_string(i);
         GameUI* enemyUI = new GameUI();
         GameUI* suspiciousUI = new GameUI();
+        GameUI* ReadBookUI = new GameUI();
 
         // “G‚ÌUI‚ðÝ’è
         float shift = 150.0f * i;
@@ -68,9 +70,16 @@ void UIManager::InitEnemyUI(const std::vector<Enemy*>& enemies)
         suspiciousUI->SetWidth(100.0f);
         suspiciousUI->SetCenter(Vector2(1800.0f - shift, 800.0f));
 
+        ReadBookUI->Init("assets\\Texture\\hatopng.png");
+        ReadBookUI->SetHeight(50.0f);
+        ReadBookUI->SetWidth(50.0f);
+        ReadBookUI->SetCenter(Vector2(1800.0f - shift, 800.0f));
+
+
         // UIManager‚É’Ç‰Á
         AddUI(id, enemyUI);
         AddUI(id2, suspiciousUI);
+        AddUI(id3, ReadBookUI);
     }
 }
 
@@ -80,12 +89,17 @@ void UIManager::EnemyUIActive(const std::vector<Enemy*>& enemies)
     {
         std::string id = "enemy_" + std::to_string(i);
         std::string id2 = "suspicious_" + std::to_string(i);
+        std::string id3 = "ReadBook_" + std::to_string(i);
 
         this->SetActiveUI({id});
 
         if (enemies[i]->GetSearch())
         {
             this->SetActiveUI({id2});
+        }
+        else if (enemies[i]->GetbookRead())
+        {
+            this->SetActiveUI({id3});
         }
 
     }
