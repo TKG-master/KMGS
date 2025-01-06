@@ -8,7 +8,6 @@
 #include "GameManager.h"
 #include "DirectWrite.h"
 #include "Timer.h"
-#include "UIManager.h"
 
 class TitleScene : public CScene
 {
@@ -20,7 +19,6 @@ private:
 	GameUI* UI2;
 	GameUI* Fade;
 	GameManager* GM;
-	UIManager* UM;
 
 
 	bool FadeOut = false;
