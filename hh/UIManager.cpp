@@ -1,5 +1,6 @@
 #include "UIManager.h"
 #include "Enemy.h"
+#include "Player.h"
 #include <iostream>
 
 using namespace DirectX::SimpleMath;
@@ -75,7 +76,6 @@ void UIManager::InitEnemyUI(const std::vector<Enemy*>& enemies)
         ReadBookUI->SetWidth(50.0f);
         ReadBookUI->SetCenter(Vector2(1800.0f - shift, 800.0f));
 
-
         // UIManager‚É’Ç‰Á
         AddUI(id, enemyUI);
         AddUI(id2, suspiciousUI);
@@ -105,9 +105,40 @@ void UIManager::EnemyUIActive(const std::vector<Enemy*>& enemies)
     }
 }
 
-void UIManager::PlayerStateUI(const Player* Pl)
+void UIManager::InitPlayerUI()
 {
-  
+    GameUI* KeyUI = new GameUI();
+    KeyUI->Init("assets\\Texture\\PlayerUI.png");
+    KeyUI->SetCenter(Vector2(200.0f, 900.0f));
+    KeyUI->SetHeight(250.0f);
+    KeyUI->SetWidth(250.0f);
+    AddUI("KeyUI", KeyUI);
+
+    GameUI* KeyUI2 = new GameUI();
+    KeyUI2->Init("assets\\Texture\\Bookput.png");
+    KeyUI2->SetCenter(Vector2(450.0f, 950.0f));
+    KeyUI2->SetHeight(125.0f);
+    KeyUI2->SetWidth(125.0f);
+    AddUI("KeyUI2", KeyUI2);
+
+}
+
+
+
+void UIManager::PlayerStateUI(Player* Pl)
+{
+    if (Pl->GetState() == PStateType::STAND)
+    {
+        this->SetActiveUI({ "KeyUI","KeyUI2"});
+    }
+    else if (Pl->GetState() == PStateType::SNEAK)
+    {
+        this->SetActiveUI({ "KeyUI","KeyUI2" });
+    }
+    else if (Pl->GetState() == PStateType::STIKY)
+    {
+        this->SetActiveUI({ "KeyUI","KeyUI2" });
+    }
 }
 
 void UIManager::SetactiveUI(const std::vector<std::string>& ids)

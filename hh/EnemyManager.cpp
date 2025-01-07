@@ -70,7 +70,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             enemy->SetTest(false);
         }
 
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetBookpos(), enemy->Getlength() * 1.5f) && enemy->GetbookCount() == 0 )
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetBookpos(), enemy->Getlength() * 1.5f) && enemy->GetbookCount() == 0)
         {
             if (enemy->RayLookBook(Pl->GetBookpos(),Pl->GetBooksquare()))
             {

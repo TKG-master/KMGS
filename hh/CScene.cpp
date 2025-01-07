@@ -55,8 +55,8 @@ void CScene::CreateStage(TERRAIN_ID ID)
         tile_size_y / 2.0 - 92.0f,
         ORIGIN_TILE_POS_Z - (total_depth / 2.0f) + (tile_size_z / 2.0f));
     floorBox->SetPosition(floor_position);
-    floorBox->CollisionInit(floor_position, Vector3(total_width, tile_size_y / 2, total_depth));
-    //floorBox->CollisionInit(floor_position, Vector3(0.0f,0.0f,0.0f));
+    //floorBox->CollisionInit(floor_position, Vector3(total_width, tile_size_y / 2, total_depth));
+    floorBox->CollisionInit(floor_position, Vector3(0.0f,0.0f,0.0f));
     BOXS.push_back(floorBox);
 
     // マップデータに基づいてステージを構築

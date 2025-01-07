@@ -107,14 +107,12 @@ CORRECT_DIR CCollision::ResolveCollision(SQUARE3D& box1, SQUARE3D& box2)
         {
             box1.centerZ -= overlapZ;
             correct_dir.z = -1;
-
         }
         else
         {
             box1.centerZ += overlapZ;
             correct_dir.z = 1;
         }
-
     }
     else if (overlapX < overlapZ) {
         // X軸方向にめり込んでいる場合
@@ -127,38 +125,6 @@ CORRECT_DIR CCollision::ResolveCollision(SQUARE3D& box1, SQUARE3D& box2)
         {
             box1.centerX += overlapX;
             correct_dir.x = 1;
-        }
-        // コライダーを補正する
-        if (overlapY < overlapX && overlapY < overlapZ) {
-            // Y軸方向にめり込んでいる場合
-            if (box1.centerY < box2.centerY) {
-                box1.centerY -= overlapY;
-            }
-            else {
-                box1.centerY += overlapY;
-            }
-        }
-        else if (overlapX < overlapY && overlapX < overlapZ) {
-            // X軸方向にめり込んでいる場合
-            if (box1.centerX < box2.centerX) {
-                box1.centerX -= overlapX;
-                correct_dir.x = -1;
-            }
-            else {
-                box1.centerX += overlapX;
-                correct_dir.x = 1;
-            }
-        }
-        else {
-            // Z軸方向にめり込んでいる場合
-            if (box1.centerZ < box2.centerZ) {
-                box1.centerZ -= overlapZ;
-                correct_dir.z = -1;
-            }
-            else {
-                box1.centerZ += overlapZ;
-                correct_dir.z = 1;
-            }
         }
     }
 

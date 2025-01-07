@@ -100,6 +100,7 @@ public:
 
 
     CORRECT_DIR Getdir() { return this->prevFrameCorrect; };
+    void Setdir(CORRECT_DIR dir) { this->prevFrameCorrect = dir; };
 
     SQUARE3D Getsquare() { return this->square; };
 

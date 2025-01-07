@@ -19,6 +19,7 @@ enum class EStateType {
 enum class PStateType {
     STAND,
     SNEAK,
+    STIKY,
     STANDEYE,
     SNEAKEYE,
 };

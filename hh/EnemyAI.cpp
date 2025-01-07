@@ -9,9 +9,9 @@ EnemyAI::EnemyAI() {
     patrolSelector = new Selector();
     patrolSelector->AddChild(new ActionRead());
     patrolSelector->AddChild(new ActionBookRook());
-    patrolSelector->AddChild(new ActionMoveToPlayer());
     patrolSelector->AddChild(new ActionMoveSearch());
     patrolSelector->AddChild(new ActionMoveback());
+    patrolSelector->AddChild(new ActionMoveToPlayer());
     root->AddChild(patrolSelector);
     rootNode = root;
     //ƒ^[ƒ“
@@ -26,9 +26,9 @@ EnemyAI::EnemyAI() {
     FixedSelector = new Selector();
     FixedSelector->AddChild(new ActionRead());
     FixedSelector->AddChild(new ActionBookRook());
-    FixedSelector->AddChild(new ActionConcern());
     FixedSelector->AddChild(new ActionMoveSearch());
     FixedSelector->AddChild(new ActionMoveback());
+    FixedSelector->AddChild(new ActionConcern());
     root->AddChild(FixedSelector);
 }
 

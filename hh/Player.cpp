@@ -281,12 +281,14 @@ void Player::StickyWall(CORRECT_DIR dir)
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 270.0f, 0.0f));
 			//張り付き状態
+			this->SetState(PStateType::STIKY);
 			this->Sticky = true;
 			STATUS = IDLE;
 		}
 		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
 		{
 			this->Sticky = false;
+			this->SetState(PStateType::STAND);
 		}
 	}
 	else if (dir.x == -1) {
@@ -295,12 +297,14 @@ void Player::StickyWall(CORRECT_DIR dir)
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 90.0f, 0.0f));
 			//張り付き状態
+			this->SetState(PStateType::STIKY);
 			this->Sticky = true;
 			STATUS = IDLE;
 		}
 		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
 		{
 			this->Sticky = false;
+			this->SetState(PStateType::STAND);
 		}
 
 	}
@@ -310,12 +314,14 @@ void Player::StickyWall(CORRECT_DIR dir)
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
 			//張り付き状態
+			this->SetState(PStateType::STIKY);
 			this->Sticky = true;
 			STATUS = IDLE;
 		}
 		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
 		{
 			this->Sticky = false;
+			this->SetState(PStateType::STAND);
 		}
 	}
 	else if (dir.z == -1) {
@@ -324,18 +330,23 @@ void Player::StickyWall(CORRECT_DIR dir)
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 0.0f, 0.0f));
 			//張り付き状態
+			this->SetState(PStateType::STIKY);
 			this->Sticky = true;
 			STATUS = IDLE;
 		}
 		else if (Input::Get()->GetKeyTrigger(DIK_Q) && this->Sticky)
 		{
 			this->Sticky = false;
+			this->SetState(PStateType::STAND);
 		}
 	}
 }
 
 void Player::Update()
 {
+
+	this->hitBox = false;
+	prevFrameCorrect = { 0 };
 
 	//当たり判定の押し出し処理
 	for (auto it = CScene::BOXS.begin(); it != CScene::BOXS.end(); it++)
@@ -351,7 +362,8 @@ void Player::Update()
 				this->hitBox = true;
 			}
 		}
-		else if (box->square.type == ObjectType::PPLATE && STATUS == RUN)
+
+		if (box->square.type == ObjectType::PPLATE && STATUS == RUN)
 		{
 			if (CCollision::Square3DCollision(this->square, box->square))
 			{
@@ -368,8 +380,6 @@ void Player::Update()
 
 	// アニメーション
 	AnimUpdate();
-
-	this->hitBox = false;
 
 
 

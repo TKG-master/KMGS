@@ -16,6 +16,7 @@ STAGE1::STAGE1()
 
     Write = new DirectWrite(data);
     Write->Init();
+    Write->SetPosition(Vector2(100.0f, 100.0f));
 
     data->fontSize = 25;
     StartWrite = new DirectWrite(data);
@@ -65,27 +66,6 @@ STAGE1::STAGE1()
     Fade->SetHeight(1080.0f);
     Fade->SetWidth(1920.0f);
     Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
-
-    KeyUI = new GameUI();
-    KeyUI->Init("assets\\Texture\\WASDkeyUI.png");
-    KeyUI->SetCenter(Vector2(200.0f, 900.0f));
-    KeyUI->SetHeight(200.0f);
-    KeyUI->SetWidth(250.0f);
-    UM->AddUI("KeyUI", KeyUI);
-
-    WalkUI = new GameUI();
-    WalkUI->Init("assets\\Texture\\WalkUI.png");
-    WalkUI->SetCenter(Vector2(200.0f, 750.0f));
-    WalkUI->SetHeight(100.0f);
-    WalkUI->SetWidth(100.0f);
-    UM->AddUI("WalkUI", WalkUI);
-
-    SyagamiUI = new GameUI();
-    SyagamiUI->Init("assets\\Texture\\syagamu.png");
-    SyagamiUI->SetCenter(Vector2(200.0f, 750.0f));
-    SyagamiUI->SetHeight(100.0f);
-    SyagamiUI->SetWidth(100.0f);
-    UM->AddUI("SyagamiUI", SyagamiUI);
 
     StartUI = new GameUI();
     StartUI->Init("assets\\Texture\\siro.jpg");
@@ -181,6 +161,7 @@ STAGE1::STAGE1()
     EM->SetEnemywandering();
 
     UM->InitEnemyUI(EM->GetEnemies());
+    UM->InitPlayerUI();
 
     //レーダーの初期化
     radar = new Radar();
@@ -246,7 +227,6 @@ void STAGE1::Update()
         int minutes = static_cast<int>(remainingTime) / 60000;
         int seconds = (static_cast<int>(remainingTime) % 60000) / 1000;
         Write->SetTimeranning(minutes, seconds);
-        Write->SetPosition(Vector2(100.0f, 100.0f));
 
         //プレイヤーのアップデート
         Pl->Update();
@@ -372,7 +352,6 @@ void STAGE1::Update()
                 CSceneManager::GetInstance()->ChangeScene(SCENE_ID::RESALT);
             }
         }
-
     }
 
 
@@ -425,14 +404,7 @@ void STAGE1::Draw()
     {
         UM->ListCler();
         radar->Draw(EM->GetEnemies());
-        if (Pl->GetState() == PStateType::STAND)
-        {
-            UM->SetActiveUI({ "KeyUI" ,"WalkUI"});
-        }
-        else if (Pl->GetState() == PStateType::SNEAK)
-        {
-            UM->SetActiveUI({ "KeyUI" ,"SyagamiUI" });
-        }
+        UM->PlayerStateUI(Pl);
         UM->EnemyUIActive(EM->GetEnemies());
         Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }

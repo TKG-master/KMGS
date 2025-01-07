@@ -61,6 +61,7 @@ void GUI::PlayerUpdate(Player* player)
     auto speed = player->GetSpeed();
     auto square = player->Getsquare();
     auto BlendeBool = player->GetAnimEndState();
+    auto dir = player->Getdir();
 
 
     //ŠK‘w\‘¢
@@ -104,6 +105,13 @@ void GUI::PlayerUpdate(Player* player)
     {
         ImGui::Checkbox("stand", &BlendeBool);
         player->SetAnimEndState(BlendeBool); // ’l‚ð”½‰f
+        ImGui::TreePop();
+    }
+
+    if (ImGui::TreeNode("dir"))
+    {
+        ImGui::SliderInt("dir.x", &dir.x, 0.0f, 1.0f);
+        ImGui::SliderInt("dir.z", &dir.z, 0.0f, 1.0f);
         ImGui::TreePop();
     }
 

@@ -27,7 +27,9 @@ public:
     void InitEnemyUI(const std::vector<Enemy*>& enemies);
     void EnemyUIActive(const std::vector<Enemy*>& enemies);
 
-    void PlayerStateUI(const Player* Pl);
+    void InitPlayerUI();
+
+    void PlayerStateUI(Player* Pl);
 
     void SetactiveUI(const std::vector<std::string>& ids);
 
