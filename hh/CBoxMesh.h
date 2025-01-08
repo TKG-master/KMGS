@@ -23,8 +23,11 @@ public:
 	void Update();
 	void Draw();
 
+	void SetColor(DirectX::SimpleMath::Color color) { m_color = color; };
+	DirectX::SimpleMath::Color GetColor() { return this->m_color; };
+
 private:
-	DirectX::SimpleMath::Color m_color;
+	DirectX::SimpleMath::Color m_color = DirectX::SimpleMath::Color(0.0f, 0.75f, 0.75f, 0.5f);
 	float m_lengthx = 0.0f;
 	float m_lengthy = 0.0f;
 	float m_lengthz = 0.0f;

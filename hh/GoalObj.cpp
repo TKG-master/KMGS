@@ -16,7 +16,7 @@ GoalObj::GoalObj(float X, float Y, float Z)
 	mtrl.Shiness = 0;
 	mtrl.TextureEnable = TRUE;
 
-	this->Init(X, Y, Z, DirectX::SimpleMath::Color(0.0f, 0.75f, 0.75f, 0.5f),
+	this->Init(X, Y, Z,this->GetColor(),
 		"assets\\Texture\\siro.jpg", "shader/unlitTextureVS.hlsl", "shader/unlitTexturePS.hlsl", mtrl);
 
 	this->square.sizeX = X;

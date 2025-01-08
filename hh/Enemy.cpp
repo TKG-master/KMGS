@@ -214,7 +214,7 @@ bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::V
     float objlength = vecobj.Length();
     // 距離範囲外ならfalse
     if (objlength > length) {
-        test = false;
+        //this->test = false;
         return false;
     }
     // 視線ベクトル

@@ -17,8 +17,10 @@ TitleScene::TitleScene()
 	Dome->DrawInit(2000.0f, "assets\\Texture\\MGfloor.jpeg");
 
 	GR = new GameUI();
-	GR->Init("assets\\Texture\\START.png");
-	GR->SetCenter(Vector2(650.0f, 450.0f));
+	GR->Init("assets\\Texture\\TITLE.png");
+	GR->SetCenter(Vector2(960.0f, 200.0f));
+	GR->SetHeight(200.0f);
+	GR->SetWidth(800.0f);
 
 	UI2 = new GameUI();
 	UI2->Init("assets\\Texture\\SPACEUI.png");

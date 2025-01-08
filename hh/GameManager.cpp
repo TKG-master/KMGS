@@ -19,6 +19,9 @@ GameManager::GameManager()
     Fadeout = true;
     ClearUIEasingX = true;
     ClearUIEasingY = true;
+    ImageUIEasing = true;
+    ImageEasingEnd = true;
+
 }
 
 GameManager::~GameManager()
@@ -336,6 +339,31 @@ void GameManager::ClearEasing(GameUI* Clear)
         {
             Stime = 0.0f;
             ClearUIEasingY = false;
+        }
+    }
+}
+
+void GameManager::ImageEasing(GameUI* Image)
+{
+    if (ImageUIEasing && ImageEasingEnd)
+    {
+        Image->SetWH(EaselnSine(Vector3(0.0f, 20.0f, 0.0f), Vector3(500.0f, 20.0f, 0.0f), ImageT));
+        ImageT += 0.025;
+        if (ImageT >= 1.0f)
+        {
+            ImageT = 0.0f;
+            ImageUIEasing = false;
+        }
+    }
+    else if (!ImageUIEasing && ImageEasingEnd)
+    {
+        Image->SetWH(EaselnSine(Vector3(500.0f, 20.0f, 0.0f), Vector3(500.0f, 700.0f, 0.0f), ImageT));
+        ImageT += 0.025;
+        if (ImageT >= 1.0f)
+        {
+            ImageT = 0.0f;
+            ImageUIEasing = true;
+            ImageEasingEnd = false;
         }
     }
 }

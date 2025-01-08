@@ -20,6 +20,9 @@ private:
 	GameUI* STAGE1;
 	GameUI* STAGE2;
 	GameUI* STAGE3;
+	GameUI* StageImage;
+	GameUI* StageImage2;
+	GameUI* StageImage3;
 	GameUI* UISelect;
 
 	GameManager* GM;

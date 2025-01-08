@@ -36,6 +36,9 @@ private:
 	//クリア時の画面のイージングを管理するbool型
 	bool ClearUIEasingX = true;
 	bool ClearUIEasingY = true;
+	//セレクト画面のイメージのイージングを管理するbool型
+	bool ImageUIEasing = true;
+	bool ImageEasingEnd = false;
 
 
 	//イージングの時に使う時間の変数
@@ -49,6 +52,7 @@ private:
 	float EnemyTime = 0.00f;
 	float GoalTime = 0.00f;
 	float Stime = 0.00f;
+	float ImageT = 0.00f;
 
 	//敵が見つけた場合の余分なループをなくすためのbool型
 	bool Rookfarst = false;
@@ -93,6 +97,10 @@ public:
 
 	void ClearEasing(GameUI* Clear);
 
+	void ImageEasing(GameUI* Image);
+
+	void SelectEasing(GameUI* Select);
+
 	bool GetFadein() { return this->Fadein; };
 	bool GetFadeout() { return this->Fadeout; };
 
@@ -104,7 +112,10 @@ public:
 	bool GetClearUIEasingX() { return this->ClearUIEasingX; };
 	bool GetClearUIEasingY() { return this->ClearUIEasingY; };
 
-	void SelectEasing(GameUI* Select);
+	bool GetImageUIEasing() { return this->ImageUIEasing; };
+	void SetImageUIEasing(bool flg) { this->ImageUIEasing = flg; };
+	bool GetImageEasingEnd() { return this->ImageEasingEnd; }
+	void SetImageEasingEnd(bool flg) { this->ImageEasingEnd = flg; };
 
 
 
