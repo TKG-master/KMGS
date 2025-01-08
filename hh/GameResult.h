@@ -14,7 +14,7 @@ protected:
 
 	DirectX::SimpleMath::Vector2 Center = DirectX::SimpleMath::Vector2(650.0f,450.0f);
 
-	DirectX::SimpleMath::Color color = DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f);
+	DirectX::SimpleMath::Color color = DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 0.8f);
 
 	float differenceX = 0.0f;
 	float differenceY = 0.0f;

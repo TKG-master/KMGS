@@ -17,6 +17,7 @@ private:
     std::vector<std::string> activeUI;
 
 public:
+
     ~UIManager(); // デストラクタでメモリ解放
     void AddUI(const std::string& id, GameUI* ui);  // UIを登録
     GameUI* GetUI(const std::string& id);           // UIを取得
