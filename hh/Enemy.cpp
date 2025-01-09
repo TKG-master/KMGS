@@ -400,6 +400,7 @@ void Enemy::FollowPath()
             this->bookCount++;
             this->time->Reset();
             this->SetRookBook(false);
+            this->SethearSound(false);
             this->bookRead = true;
           return;
         }
