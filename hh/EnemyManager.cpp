@@ -48,35 +48,6 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         enemy->Update();
         //“G‚ÌŽ‹–ì”ÍˆÍ‚Ì”»’è
 
-        //‚È‚ñ‚Æ‚È‚­Œ©‚¦‚Ä‚¢‚é‹——£
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength() * 1.5f))
-        {
-            if (enemy->RayLookHit())
-            {
-                EnemyPathsAster(enemy, Pl->GetPosition());
-                enemy->SetSearch(true);
-            }
-        }
-        //â‘Î‚ÉŒ©‚Â‚©‚é‹——£
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()))
-        {
-            if (enemy->RayLookHit())
-            {
-                enemy->SetTest(true);
-                this->Rook = true;
-            }
-        }
-        else {
-            enemy->SetTest(false);
-        }
-
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetBookpos(), enemy->Getlength() * 1.5f) && enemy->GetbookCount() == 0)
-        {
-            if (enemy->RayLookBook(Pl->GetBookpos(),Pl->GetBooksquare()))
-            {
-                EnemyPathsAster(enemy, Pl->GetBookpos());
-            }
-        }
 
         //‰¹‚ª–Â‚Á‚½Žž‚©‚Â“G‚Ìó‘Ô‚ªAlertedˆÈŠO‚ÌŽž
         if (Pl->GetKnockSound() && enemy->GetState() != EStateType::Lookaround)
@@ -102,6 +73,46 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
                 this->EnemyPathsAster(enemy, enemy->GetwanderingPath()[0]);
             }
         }
+
+        //‚È‚ñ‚Æ‚È‚­Œ©‚¦‚Ä‚¢‚é‹——£
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength() * 1.5f))
+        {
+            if (enemy->RayLookHit())
+            {
+                EnemyPathsAster(enemy, Pl->GetPosition());
+                enemy->SetSearch(true);
+            }
+        }
+        //â‘Î‚ÉŒ©‚Â‚©‚é‹——£
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()))
+        {
+            if (enemy->RayLookHit())
+            {
+                enemy->SetTest(true);
+                this->Rook = true;
+            }
+        }
+        else {
+            enemy->SetTest(false);
+        }
+
+        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetBookpos(), enemy->Getlength() * 1.5f) && enemy->GetbookCount() == 0)
+        {
+            if (enemy->RayLookBook(Pl->GetBookpos(), Pl->GetBooksquare()))
+            {
+                EnemyPathsAster(enemy, Pl->GetBookpos());
+                if (enemy->GetSearch())
+                {
+                    enemy->SetSearch(false);
+                }
+                else if (enemy->Getback())
+                {
+                    enemy->Setback(false);
+                }
+            }
+        }
+
+
     }
 
 }

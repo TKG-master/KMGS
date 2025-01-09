@@ -3,7 +3,7 @@
 // static ƒƒ“ƒo•Ï”‚Ì’è‹`
 CSceneManager* CSceneManager::instance = nullptr;
 
-CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::TEST),nextScene(SCENE_ID::TITLE)
+CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::TITLE),nextScene(SCENE_ID::TITLE)
 {
 
 }
