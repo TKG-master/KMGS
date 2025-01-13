@@ -138,7 +138,7 @@ STAGE1::STAGE1()
     );
     Pl->SetPosition(this->GetPlayerStartPos());
     Pl->SetScale(CharacterScale);
-    Pl->CollisionInit(Pl->GetPosition(), Pl->GetCollisionScale());
+    Pl->CollisionInit(Vector3(0.0f,20.0f,0.0f), Pl->GetCollisionScale());
     Pl->SetMapdata(this->GetMapData());
 
     EM = new EnemyManager(this->GetMapData(), this->GetWanderingdata());
@@ -240,14 +240,8 @@ void STAGE1::Update()
             gameTime->Stop();
         }
 
-        //プレイヤーとすべての敵の位置をレーダーに渡す
-        std::vector<DirectX::SimpleMath::Vector3> enemyPositions;
-        for (const auto& enemy : EM->GetEnemies()) {
-            enemyPositions.push_back(enemy->GetPosition());
-        }
-
         //レーダーのアップデート
-        radar->Update(Pl->GetPosition(), enemyPositions);
+        radar->Update(Pl->GetPosition(), EM->GetEnemies());
 
         //普通のカメラの追尾処理
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing() && !Pl->GetSticky())
@@ -380,6 +374,7 @@ void STAGE1::Draw()
         Pl->Draw();
 
         goal->Draw();
+
     }
 
     UM->Draw();
@@ -403,10 +398,10 @@ void STAGE1::Draw()
     else
     {
         UM->ListCler();
-        radar->Draw(EM->GetEnemies());
         UM->PlayerStateUI(Pl);
         UM->EnemyUIActive(EM->GetEnemies());
         Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        radar->Draw(EM->GetEnemies());
     }
 
     if (gameTime->TameStarflg == true && !GM->GetisEasingstart())

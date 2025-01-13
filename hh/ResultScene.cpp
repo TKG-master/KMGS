@@ -26,17 +26,17 @@ ResultScene::ResultScene()
 	BsckTitle->SetWidth(300.0f);
 
 	Select = new GameUI();
-	Select->Init("assets\\Texture\\SelectUI.png");
+	Select->Init("assets\\Texture\\Select.png");
 	Select->SetCenter(Vector2(900.0f, 500.0f));
 	Select->SetHeight(100.0f);
 	Select->SetWidth(300.0f);
 
 
 	UISelect = new GameUI();
-	UISelect->Init("assets\\Texture\\siro.jpg");
-	UISelect->SetCenter(Vector2(400.0f, 500.0f));
+	UISelect->Init("assets\\Texture\\SelectUI.png");
+	UISelect->SetCenter(Vector2(BsckTitle->GetCenter().x - 200, BsckTitle->GetCenter().y));
 	UISelect->SetHeight(100.0f);
-	UISelect->SetWidth(300.0f);
+	UISelect->SetWidth(100.0f);
 	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
 
 	Fade = new GameUI();
@@ -77,28 +77,49 @@ void ResultScene::Update()
 	//カーソルの移動
 	if (Input::Get()->GetKeyTrigger(DIK_D) && UISelect->GetCenter() != Select->GetCenter())
 	{
-		UISelect->SetCenter(Select->GetCenter());
+		UISelect->SetCenter(Vector2(Select->GetCenter().x - 200, Select->GetCenter().y));
 	}
 	//カーソルの移動
 	else if (Input::Get()->GetKeyTrigger(DIK_A) && UISelect->GetCenter() != BsckTitle->GetCenter())
 	{
-		UISelect->SetCenter(BsckTitle->GetCenter());
+		UISelect->SetCenter(Vector2(BsckTitle->GetCenter().x - 200, BsckTitle->GetCenter().y));
 	}
+
+	/*if (UISelect->GetCenter().x == Select->GetCenter().x)
+	{
+
+		GM->SelectEasing(Select);
+		BsckTitle->SetWidth(300.0f);
+		BsckTitle->SetHeight(150.0f);
+
+	}
+	else if (UISelect->GetCenter().x == BsckTitle->GetCenter().x)
+	{
+
+		GM->SelectEasing(BsckTitle);
+		Select->SetWidth(300.0f);
+		Select->SetHeight(150.0f);
+
+	}*/
+
+
+
+
+
 	//決定したとき
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 	{
 		this->FadeOut = true;
 		Input::Get()->Setkeyflg(false);
 	}
-
 	if (this->FadeOut)
 	{
 		GM->FadeOut(Fade);
-		if (UISelect->GetCenter() == BsckTitle->GetCenter() && !GM->GetFadeout())
+		if (UISelect->GetCenter().y == BsckTitle->GetCenter().y && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::TITLE);
 		}
-		else if (UISelect->GetCenter() == Select->GetCenter() && !GM->GetFadeout())
+		else if (UISelect->GetCenter().y == Select->GetCenter().y && !GM->GetFadeout())
 		{
 			CSceneManager::GetInstance()->ChangeScene(SCENE_ID::SELECT);
 		}

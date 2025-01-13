@@ -66,20 +66,6 @@ CTest::CTest()
     Fade->SetWidth(1920.0f);
     Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
 
-    KeyUI = new GameUI();
-    KeyUI->Init("assets\\Texture\\WASDkeyUI.png");
-    KeyUI->SetCenter(Vector2(200.0f, 900.0f));
-    KeyUI->SetHeight(200.0f);
-    KeyUI->SetWidth(250.0f);
-    UM->AddUI("KeyUI", KeyUI);
-
-    WalkUI = new GameUI();
-    WalkUI->Init("assets\\Texture\\WalkUI.png");
-    WalkUI->SetCenter(Vector2(200.0f, 750.0f));
-    WalkUI->SetHeight(100.0f);
-    WalkUI->SetWidth(100.0f);
-    UM->AddUI("WalkUI", WalkUI);
-
     StartUI = new GameUI();
     StartUI->Init("assets\\Texture\\siro.jpg");
     StartUI->SetCenter(Vector2(960.0f, 540.0f));
@@ -172,6 +158,7 @@ CTest::CTest()
     EM->SetEnemywandering();
 
     UM->InitEnemyUI(EM->GetEnemies());
+    UM->InitPlayerUI();
 
     //レーダーの初期化
     radar = new Radar();
@@ -251,14 +238,8 @@ void CTest::Update()
             gameTime->Stop();
         }
 
-        //プレイヤーとすべての敵の位置をレーダーに渡す
-        std::vector<DirectX::SimpleMath::Vector3> enemyPositions;
-        for (const auto& enemy : EM->GetEnemies()) {
-            enemyPositions.push_back(enemy->GetPosition());
-        }
-
         //レーダーのアップデート
-        radar->Update(Pl->GetPosition(), enemyPositions);
+        radar->Update(Pl->GetPosition(), EM->GetEnemies());
 
         //普通のカメラの追尾処理
         if (camera->GetCranning() && !gameTime->TameStarflg && GM->GetEndEasing() && !Pl->GetSticky())
@@ -416,7 +397,7 @@ void CTest::Draw()
     {
         UM->ListCler();
         radar->Draw(EM->GetEnemies());
-        UM->SetActiveUI({ "KeyUI","WalkUI" });
+        UM->PlayerStateUI(Pl);
         UM->EnemyUIActive(EM->GetEnemies());
         Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }

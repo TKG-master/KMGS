@@ -104,6 +104,9 @@ public:
 
     SQUARE3D Getsquare() { return this->square; };
 
+    bool GethitBox() { return this->hitBox; };
+
+    bool GetStand() const { return this->Stand; };
 
 
 };

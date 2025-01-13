@@ -340,7 +340,7 @@ void Enemy::SetPath(const std::vector<DirectX::SimpleMath::Vector3>& newPath)
 void Enemy::SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath)
 {
     wandering_path = wanderingPath;
-    currentwanderingpathIndex = 1;
+    currentwanderingpathIndex = 0;
 }
 
 void Enemy::Wanderaround()
@@ -353,7 +353,7 @@ void Enemy::Wanderaround()
     currentPosition = this->GetPosition();
 
     // 移動量を計算
-    direction = targetPos - currentPosition;
+    DirectX::SimpleMath::Vector3 direction = targetPos - currentPosition;
     float distance = direction.Length();
 
     // 次の位置に到達した場合の判定を緩める
@@ -465,7 +465,14 @@ bool Enemy::RayLookHit()
     rayDirection = playerdate->GetPosition() - this->GetPosition();
     Vector3 Epos = this->GetPosition();
     // レイの発射位置をY軸方向に少し高くする
-    Epos.y += rayY;
+    if (playerdate->GetStand())
+    {
+        Epos.y += rayY;
+    }
+    else if (!playerdate->GetStand())
+    {
+        Epos.y += 45.0f;
+    }
     //正規化
     rayDirection.Normalize();
     if (CCollision::RayIntersectsBox(Epos, rayDirection, playerdate->square,CScene::BOXS, hitDis)) {

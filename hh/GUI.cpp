@@ -61,6 +61,7 @@ void GUI::PlayerUpdate(Player* player)
     auto speed = player->GetSpeed();
     auto square = player->Getsquare();
     auto BlendeBool = player->GetAnimEndState();
+    bool hit = player->GethitBox();
     auto dir = player->Getdir();
 
 
@@ -68,7 +69,7 @@ void GUI::PlayerUpdate(Player* player)
     if (ImGui::TreeNode("Transform")) {
         if (ImGui::TreeNode("Position")) {
             ImGui::SliderFloat("X", &pos.x, -500.0f, 500.0f);
-            ImGui::InputFloat("Y", &pos.y, -500.0f, 500.0f);
+            ImGui::SliderFloat("Y", &pos.y, -500.0f, 500.0f);
             ImGui::SliderFloat("Z", &pos.z, -500.0f, 500.0f);
             ImGui::TreePop();
         }
@@ -98,6 +99,9 @@ void GUI::PlayerUpdate(Player* player)
         ImGui::SliderFloat("Square3D.X", &square.sizeX, 0.0f, 40.0f);
         ImGui::SliderFloat("Square3D.Y", &square.sizeY, 0.0f, 40.0f);
         ImGui::SliderFloat("Square3D.Z", &square.sizeZ, 0.0f, 40.0f);
+        ImGui::SliderFloat("Square3D.X", &square.centerX, 0.0f, 40.0f);
+        ImGui::SliderFloat("Square3D.Y", &square.centerY, 0.0f, 40.0f);
+        ImGui::SliderFloat("Square3D.Z", &square.centerZ, 0.0f, 40.0f);
         ImGui::TreePop();
     }
 
@@ -112,6 +116,12 @@ void GUI::PlayerUpdate(Player* player)
     {
         ImGui::SliderInt("dir.x", &dir.x, 0.0f, 1.0f);
         ImGui::SliderInt("dir.z", &dir.z, 0.0f, 1.0f);
+        ImGui::TreePop();
+    }
+
+    if (ImGui::TreeNode("hit"))
+    {
+        ImGui::Checkbox("hit", &hit);
         ImGui::TreePop();
     }
 
@@ -162,6 +172,7 @@ void GUI::CameraUpdate(Camera* camera)
         ImGui::DragFloat("Speed", &speed, 0.1f, 0.0f, 10.0f);
         ImGui::TreePop();
     }
+
 
 
 

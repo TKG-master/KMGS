@@ -112,6 +112,13 @@ public:
         this->square.sizeZ = S.sizeZ;
     }
 
+    void SetSquarePos(DirectX::SimpleMath::Vector3 pos)
+    {
+        this->square.centerX = pos.x;
+        this->square.centerY = pos.y;
+        this->square.centerZ = pos.z;
+    }
+
     void SetSquare3D(DirectX::SimpleMath::Vector3 v) {
         this->square.sizeX = v.x;
         this->square.sizeY = v.y;

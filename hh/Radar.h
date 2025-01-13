@@ -15,6 +15,7 @@ private:
 	std::vector<DirectX::SimpleMath::Vector2> m_EnemyPositions; // 複数の敵の位置
 	DirectX::SimpleMath::Vector2 relativePos;
 	DirectX::SimpleMath::Vector3 playerpos;
+	std::vector<int> m_EnemyIndices;
 
 	//レーダー上の座標への変換した値を保持する
 	float differenceX = 0.0f;
@@ -47,7 +48,7 @@ public:
 	//初期化
 	void Init();
 	//敵の位置と自分の位置の差分を2Dの位置に変換
-	void Update(DirectX::SimpleMath::Vector3 playerPosition, const std::vector<DirectX::SimpleMath::Vector3>& enemyPositions);
+	void Update(DirectX::SimpleMath::Vector3 playerPosition, std::vector<Enemy*> enemies);
 	//描画
 	void Draw(const std::vector<Enemy*>& enemies);
 
