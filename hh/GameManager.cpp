@@ -10,7 +10,7 @@
 
 using namespace DirectX::SimpleMath;
 
-GameManager::GameManager()
+EasingManager::EasingManager()
 {
     Rookfarst = false;
     Goal = false;
@@ -24,12 +24,12 @@ GameManager::GameManager()
 
 }
 
-GameManager::~GameManager()
+EasingManager::~EasingManager()
 {
 
 }
 
-bool GameManager::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
+bool EasingManager::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
 {
     //ゴールのポジション
     DirectX::SimpleMath::Vector3 goalpos = goal->GetPosition();
@@ -64,7 +64,7 @@ bool GameManager::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
     return false;
 }
 
-bool GameManager::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath::Vector3 PlPos, Camera* camera, Timer* timer)
+bool EasingManager::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath::Vector3 PlPos, Camera* camera, Timer* timer)
 {
 
     if (!enemys.empty() && this->RookEasing == true)
@@ -95,7 +95,7 @@ bool GameManager::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath::V
     return false;
 }
 
-void GameManager::farstBoxEasing(std::vector<BoxObj*> boxs)
+void EasingManager::farstBoxEasing(std::vector<BoxObj*> boxs)
 {
     // イージングの開始時間オフセットを設定
     std::vector<float> startTimeOffsets(boxs.size());
@@ -135,7 +135,7 @@ void GameManager::farstBoxEasing(std::vector<BoxObj*> boxs)
     }
 }
 
-void GameManager::GameEnd(std::vector<Enemy*> enemys, GoalObj* goal)
+void EasingManager::GameEnd(std::vector<Enemy*> enemys, GoalObj* goal)
 {
     for (auto enemy : enemys)
     {
@@ -150,7 +150,7 @@ void GameManager::GameEnd(std::vector<Enemy*> enemys, GoalObj* goal)
     }
 }
 
-void GameManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
+void EasingManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
 {
     //スタートはカメラのポジション
     //ゴールはプレイヤーのポジション
@@ -174,7 +174,7 @@ void GameManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
 
 }
 
-bool GameManager::SEasing(Player* Pl, Camera* camera)
+bool EasingManager::SEasing(Player* Pl, Camera* camera)
 {
     //プレイヤーより右
     if (Pl->Getdir().x == 1)
@@ -280,7 +280,7 @@ bool GameManager::SEasing(Player* Pl, Camera* camera)
     return false;
 }
 
-void GameManager::FadeIn(GameUI* FadeUI)
+void EasingManager::FadeIn(GameUI* FadeUI)
 {
     DirectX::SimpleMath::Vector3 FadePos;
     FadePos.x = FadeUI->GetCenter().x;
@@ -299,7 +299,7 @@ void GameManager::FadeIn(GameUI* FadeUI)
     }
 }
 
-void GameManager::FadeOut(GameUI* FadeUI)
+void EasingManager::FadeOut(GameUI* FadeUI)
 {
     DirectX::SimpleMath::Vector3 FadePos;
     FadePos.x = FadeUI->GetCenter().x;
@@ -318,13 +318,13 @@ void GameManager::FadeOut(GameUI* FadeUI)
     }
 }
 
-void GameManager::ClearEasing(GameUI* Clear)
+void EasingManager::ClearEasing(GameUI* Clear)
 {
 
     if (ClearUIEasingX)
     {
         Clear->SetWH(EaselnSine(Vector3(0.0f, 0.0f, 0.0f), Vector3(2500.0f, 0.0f, 0.0f), Stime));
-        Stime += 0.02;
+        Stime += 0.02f;
         if (Stime >= 1.0f)
         {
             Stime = 0.0f;
@@ -334,7 +334,7 @@ void GameManager::ClearEasing(GameUI* Clear)
     else if (ClearUIEasingY)
     {
         Clear->SetWH(EaselnSine(Vector3(2500.0f, 0.0f, 0.0f), Vector3(2500.0f, 2500.0f, 0.0f), Stime));
-        Stime += 0.02;
+        Stime += 0.02f;
         if (Stime >= 1.0f)
         {
             Stime = 0.0f;
@@ -343,12 +343,12 @@ void GameManager::ClearEasing(GameUI* Clear)
     }
 }
 
-void GameManager::ImageEasing(GameUI* Image)
+void EasingManager::ImageEasing(GameUI* Image)
 {
     if (ImageUIEasing && ImageEasingEnd)
     {
         Image->SetWH(EaselnSine(Vector3(0.0f, 20.0f, 0.0f), Vector3(500.0f, 20.0f, 0.0f), ImageT));
-        ImageT += 0.025;
+        ImageT += 0.025f;
         if (ImageT >= 1.0f)
         {
             ImageT = 0.0f;
@@ -358,7 +358,7 @@ void GameManager::ImageEasing(GameUI* Image)
     else if (!ImageUIEasing && ImageEasingEnd)
     {
         Image->SetWH(EaselnSine(Vector3(500.0f, 20.0f, 0.0f), Vector3(500.0f, 700.0f, 0.0f), ImageT));
-        ImageT += 0.025;
+        ImageT += 0.025f;
         if (ImageT >= 1.0f)
         {
             ImageT = 0.0f;
@@ -368,12 +368,12 @@ void GameManager::ImageEasing(GameUI* Image)
     }
 }
 
-void GameManager::SelectEasing(GameUI* Select)
+void EasingManager::SelectEasing(GameUI* Select)
 {
     if (SelectUIEasing)
     {
         Select->SetWH(EaselnSine(Vector3(300.0f,150.0f,0.0f), Vector3(280.0f,130.0f,0.0f), Stime));
-        Stime += 0.03;
+        Stime += 0.03f;
         if (Stime >= 1.0f)
         {
             Stime = 0.0f;
@@ -383,7 +383,7 @@ void GameManager::SelectEasing(GameUI* Select)
     else if (!SelectUIEasing)
     {
         Select->SetWH(EaselnSine(Vector3(280.0f, 130.0f, 0.0f), Vector3(300.0f, 150.0f, 0.0f), Stime));
-        Stime += 0.03;
+        Stime += 0.03f;
         if (Stime >= 1.0f)
         {
             Stime = 0.0f;

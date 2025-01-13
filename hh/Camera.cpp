@@ -74,22 +74,6 @@ void Camera::Draw()
 
 	Renderer::SetProjectionMatrix(&projectionMatrix);
 }
-
-void Camera::II(DirectX::SimpleMath::Vector3 G)
-{
-	this->m_Position.x = (pow(1 - T, 2) * 0.0f)
-		+ (2 * T) * (1 - T) * ((0.0f + G.x) / 2)
-		+ (pow(T, 2) * G.x);
-
-	this->m_Position.y = (pow(1 - T, 2) * 250.0f)
-		+ (2 * T) * (1 - T) * ((250.0f + G.y) / 2)
-		+ (pow(T, 2) * G.y);
-
-	this->m_Position.z = (pow(1 - T, 2) * -150.0f)
-		+ (2 * T) * (1 - T) * ((-150.0f + G.z) / 2)
-		+ (pow(T, 2) * G.z);
-}
-
 //カメラの追尾
 void Camera::LateUpdate(DirectX::SimpleMath::Vector3 TargetPos, float deltaTime,float Ypos,bool flg, DirectX::SimpleMath::Vector3 Direction)
 {
@@ -208,18 +192,5 @@ void Camera::SetT(float a)
 float Camera::GetT()
 {
 	return T;
-}
-
-// テンプレートメソッドの特殊化実装
-template<>
-void Camera::TSetFocus(const DirectX::SimpleMath::Vector3& focusPosition)
-{
-	m_Target = focusPosition;
-}
-
-template<>
-void Camera::TSetFocus(const float& focusPosition)
-{
-	m_Target = DirectX::SimpleMath::Vector3(focusPosition); // 任意の軸にフォーカスを設定
 }
 

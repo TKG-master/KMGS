@@ -3,8 +3,8 @@
 
 bool ActionConcern::Execute(Enemy* enemy)
 {
-	if (enemy->GetSearch() || enemy->GetRookBook() || enemy->GetbookRead()) {
-		return false;  // œpœjó‘Ô‚Å‚È‚¢ê‡Aˆ—‚µ‚È‚¢
+	if (enemy->GetSearch() || enemy->GetRookBook() || enemy->GetbookRead() || enemy->GetState() != EStateType::Fixed) {
+		return false;
 	}
 
     if (enemy->GetAstatus() != IDLE)

@@ -41,8 +41,6 @@ private:
 
 
 public:
-	template<typename T>
-	void TSetFocus(const T& focusPosition);
 
 	Camera(DirectX::SimpleMath::Vector3 Pos);
 	~Camera();
@@ -99,12 +97,4 @@ public:
 
 
 };
-
-
-// テンプレートメソッドの特殊化宣言
-template<>
-void Camera::TSetFocus(const DirectX::SimpleMath::Vector3& focusPosition);
-
-template<>
-void Camera::TSetFocus(const float& focusPosition);
 

@@ -25,7 +25,7 @@ private:
 	GameUI* StageImage3;
 	GameUI* UISelect;
 
-	GameManager* GM;
+	EasingManager* GM;
 	GameUI* Fade;
 	bool FadeOut = false;
 

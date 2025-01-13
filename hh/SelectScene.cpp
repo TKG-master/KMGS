@@ -75,7 +75,7 @@ SelectScene::SelectScene()
 	StageImage3->SetColor(Color(1.0, 1.0, 1.0, 1.0f));
 
 
-	GM = new GameManager();
+	GM = new EasingManager();
 
 	Input::Get()->Setkeyflg(false);
 

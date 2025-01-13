@@ -340,7 +340,7 @@ void Enemy::SetPath(const std::vector<DirectX::SimpleMath::Vector3>& newPath)
 void Enemy::SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath)
 {
     wandering_path = wanderingPath;
-    currentwanderingpathIndex = 0;
+    currentwanderingpathIndex = 1;
 }
 
 void Enemy::Wanderaround()

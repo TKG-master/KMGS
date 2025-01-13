@@ -112,13 +112,6 @@ void GUI::PlayerUpdate(Player* player)
         ImGui::TreePop();
     }
 
-    if (ImGui::TreeNode("dir"))
-    {
-        ImGui::SliderInt("dir.x", &dir.x, 0.0f, 1.0f);
-        ImGui::SliderInt("dir.z", &dir.z, 0.0f, 1.0f);
-        ImGui::TreePop();
-    }
-
     if (ImGui::TreeNode("hit"))
     {
         ImGui::Checkbox("hit", &hit);

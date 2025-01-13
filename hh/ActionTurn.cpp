@@ -19,4 +19,7 @@ bool ActionTurn::Execute(Enemy* enemy)
         enemy->SetState(EStateType::Patrolling);
         return true;
     }
+
+    return false;
+
 }

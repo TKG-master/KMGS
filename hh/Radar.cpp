@@ -114,29 +114,31 @@ void Radar::Draw(const std::vector<Enemy*>& enemies)
 	// 各敵の位置を描画
 	for (int i = 0; i < enemies.size(); ++i)
 	{
-		Vector2 enemyPos = radarCenter + enemies[i]->GetRaderPos();
-		std::vector<VERTEX_3D> enemyVertices(4);
-
-		float enemySize = 2.0f; // 敵の四角形のサイズ
-		enemyVertices[0].Position = Vector3(enemyPos.x - enemySize, enemyPos.y - enemySize, 0);
-		enemyVertices[1].Position = Vector3(enemyPos.x + enemySize, enemyPos.y - enemySize, 0);
-		enemyVertices[2].Position = Vector3(enemyPos.x - enemySize, enemyPos.y + enemySize, 0);
-		enemyVertices[3].Position = Vector3(enemyPos.x + enemySize, enemyPos.y + enemySize, 0);
-
-		Color enemyColor(1, 0, 0, 1);
-		for (int i = 0; i < 4; ++i)
-		{
-			enemyVertices[i].Diffuse = enemyColor;
-		}
-
-		m_VertexBuffer.Create(enemyVertices);
-		m_VertexBuffer.SetGPU();
-
-		devicecontext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-		devicecontext->Draw(4, 0);
 
 		if (enemies[i]->GetRaderIn())
 		{
+			Vector2 enemyPos = radarCenter + enemies[i]->GetRaderPos();
+			std::vector<VERTEX_3D> enemyVertices(4);
+
+			float enemySize = 2.0f; // 敵の四角形のサイズ
+			enemyVertices[0].Position = Vector3(enemyPos.x - enemySize, enemyPos.y - enemySize, 0);
+			enemyVertices[1].Position = Vector3(enemyPos.x + enemySize, enemyPos.y - enemySize, 0);
+			enemyVertices[2].Position = Vector3(enemyPos.x - enemySize, enemyPos.y + enemySize, 0);
+			enemyVertices[3].Position = Vector3(enemyPos.x + enemySize, enemyPos.y + enemySize, 0);
+
+			Color enemyColor(1, 0, 0, 1);
+			for (int i = 0; i < 4; ++i)
+			{
+				enemyVertices[i].Diffuse = enemyColor;
+			}
+
+			m_VertexBuffer.Create(enemyVertices);
+			m_VertexBuffer.SetGPU();
+
+			devicecontext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+			devicecontext->Draw(4, 0);
+
+
 			float fanRadius = enemies[i]->Getlength() / 3.14f; // 扇型の半径（視野距離を縮小して表示）
 			float viewAngle = enemies[i]->GetFov(); // 視野角
 			Vector2 radarEnemyPosition = radarCenter + enemies[i]->GetRaderPos(); // レーダー上の敵の位置
@@ -150,7 +152,7 @@ void Radar::Draw(const std::vector<Enemy*>& enemies)
 
 			// 中心点の設定
 			fanVertices[0].Position = Vector3(radarEnemyPosition.x, radarEnemyPosition.y, 0);
-			Color fanColor(0, 0.8, 0.8, 0.8f);
+			Color fanColor(0.0f, 0.8f, 0.8f, 0.8f);
 			fanVertices[0].Diffuse = fanColor;
 
 			// 扇型のセグメントを計算
