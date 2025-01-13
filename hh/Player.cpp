@@ -202,7 +202,7 @@ void Player::moveprocess()
 		SetToAnimationName("Walk");
 	}
 	else if (STATUS == RUN) {
-		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5);
+		m_AnimationObject.m_Position += Velocity * (MoveSpeed * 2.5f);
 		SetToAnimationName("Run");
 		if (this->GetAnimEndState())
 		{
@@ -276,7 +276,7 @@ void Player::StickyWall(CORRECT_DIR dir)
 {
 	// 壁に張り付く方向に応じて処理を実行
 	if (dir.x == 1) {
-		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky && this->GetState() == PStateType::STAND)
 		{
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 270.0f, 0.0f));
@@ -292,7 +292,7 @@ void Player::StickyWall(CORRECT_DIR dir)
 		}
 	}
 	else if (dir.x == -1) {
-		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky && this->GetState() == PStateType::STAND)
 		{
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 90.0f, 0.0f));
@@ -309,7 +309,7 @@ void Player::StickyWall(CORRECT_DIR dir)
 
 	}
 	if (dir.z == 1) {
-		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky && this->GetState() == PStateType::STAND)
 		{
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 180.0f, 0.0f));
@@ -325,7 +325,7 @@ void Player::StickyWall(CORRECT_DIR dir)
 		}
 	}
 	else if (dir.z == -1) {
-		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky)
+		if (Input::Get()->GetKeyTrigger(DIK_Q) && !this->Sticky && this->GetState() == PStateType::STAND)
 		{
 			// 右方向に張り付く処理
 			this->SetRotation(Vector3(0.0f, 0.0f, 0.0f));

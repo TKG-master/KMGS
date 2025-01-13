@@ -46,7 +46,7 @@ ResultScene::ResultScene()
 	Fade->SetWidth(1920.0f);
 	Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
 
-	GM = new GameManager();
+	GM = new EasingManager();
 
 	Input::Get()->Setkeyflg(false);
 

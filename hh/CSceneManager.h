@@ -30,9 +30,6 @@ private:
 	// 現在のシーンのポインタ
 	CScene* currentScene;
 
-	// フェードオブジェクト
-	Fade* m_Fade;
-
 	//現在のシーン
 	SCENE_ID NowScene = SCENE_ID::TITLE;
 	//次のシーン
@@ -50,19 +47,9 @@ public:
 
 	static void CleanupSingleton();
 
-	void PerformSceneChange();
-
 	void Init();
 	void Update();
 	void Draw();
 	void Dis();
-
-	// フェードの開始（フェードイン）
-	void SFadeIn();
-
-	// フェードの開始（フェードアウト）
-	void SFadeOut();
-
-	void UpdateFade();
 };
 

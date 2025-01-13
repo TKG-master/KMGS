@@ -1,27 +1,29 @@
 #pragma once
-#include <chrono>   //時間系のクラスや関数を使うためにインクルード
+#include <chrono>
 
-
-//時間を管理するクラス
-class Timer 
+// 時間を管理するクラス
+class Timer
 {
 private:
-
     bool isCountingDown;
-    long long initialTime;
+    long long initialTime;  // ミリ秒単位で保存
     std::chrono::time_point<std::chrono::high_resolution_clock> startTime;
-    long long elapsedTime;  // milliseconds
+    long long elapsedTime;  // ミリ秒
     bool isRunning;
     bool TimeUp = false;
 
 public:
-
     bool TameStarflg = true;
 
     bool GetTimeUp() { return this->TimeUp; };
     void SetTimeUp(bool flg) { this->TimeUp = flg; };
 
-    Timer(bool countDown = false) : isCountingDown(countDown), startTime(), elapsedTime(0), isRunning(false) {}
+    Timer(bool countDown = false)
+        : isCountingDown(countDown),
+        startTime(),
+        elapsedTime(0),
+        isRunning(false),
+        initialTime(0) {}
 
     void Start() {
         if (!isRunning) {
@@ -58,31 +60,30 @@ public:
     }
 
     void SetInitialTime(float timeInMilliseconds) {
-        initialTime = timeInMilliseconds;
+        initialTime = static_cast<long long>(timeInMilliseconds);
     }
 
-    void StartCountDown(float timeInMilliseconds) {
-        timeInMilliseconds *= 1000.0f;
-        SetInitialTime(timeInMilliseconds);
+    void StartCountDown(float timeInSeconds) {
+        // 秒をミリ秒に変換
+        long long timeInMilliseconds = static_cast<long long>(timeInSeconds * 1000.0f);
+        SetInitialTime(static_cast<float>(timeInMilliseconds));
         Restart();
     }
 
     float GetRemainingTime() const {
         if (!isCountingDown) {
-            return 0; // カウントダウンモードでない場合は0を返す
+            return 0.0f; // カウントダウンモードでない場合は 0 を返す
         }
         auto now = std::chrono::high_resolution_clock::now();
-        float elapsed = elapsedTime;
+        long long elapsed = elapsedTime;
         if (isRunning) {
             elapsed += std::chrono::duration_cast<std::chrono::milliseconds>(now - startTime).count();
         }
-        float remainingTime = initialTime - elapsed;
-        return remainingTime > 0 ? remainingTime : 0;
+        long long remainingTime = initialTime - elapsed;
+        return remainingTime > 0 ? static_cast<float>(remainingTime) : 0.0f;
     }
 
     bool IsTimeUp() const {
-        return isCountingDown && GetRemainingTime() == 0;
+        return isCountingDown && GetRemainingTime() == 0.0f;
     }
 };
-
-

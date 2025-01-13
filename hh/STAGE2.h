@@ -30,7 +30,7 @@ private:
 	Player* Pl;
 	EnemyManager* EM;
 	Timer* gameTime;
-	GameManager* GM;
+	EasingManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
 

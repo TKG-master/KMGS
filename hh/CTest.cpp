@@ -12,7 +12,7 @@ CTest::CTest()
     FontData* data = new FontData();
     data->fontSize = 50;
     data->font = Font::HG_SOUEIKAKU_GOTHIC;
-    data->Color = D2D1_COLOR_F(1, 1, 1, 1);
+    data->Color = D2D1_COLOR_F(1.0f, 1.0f, 1.0f, 1.0f);
 
     Write = new DirectWrite(data);
     Write->Init();
@@ -20,7 +20,7 @@ CTest::CTest()
     data->fontSize = 25;
     StartWrite = new DirectWrite(data);
     StartWrite->Init();
-    StartWrite->SetPosition(Vector2(720.0f, 500.0f));
+    StartWrite->SetPosition(Vector2(static_cast<float>(720.0f), static_cast<float>(500.0f)));
 
     delete data;
     data = nullptr;
@@ -29,7 +29,7 @@ CTest::CTest()
 
 
 
-    GM = new GameManager();
+    GM = new EasingManager();
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
@@ -42,7 +42,7 @@ CTest::CTest()
     GoalUI->SetCenter(Vector2(1000.0f, 500.0f));
     GoalUI->SetHeight(0.0f);
     GoalUI->SetWidth(0.0f);
-    GoalUI->SetColor(Color(0.2, 0.2, 0.2, 0.8f));
+    GoalUI->SetColor(Color(0.2f, 0.2f, 0.2f, 0.8f));
     UM->AddUI("GoalUI", GoalUI);
 
     ClearUI = new GameUI();

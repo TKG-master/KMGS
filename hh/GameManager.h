@@ -12,9 +12,9 @@ class BoxObj;
 class GameUI;
 
 
+//GameManager
 
-
-class GameManager
+class EasingManager
 {
 private:
 	//最初のイージングを管理するbool型
@@ -64,8 +64,8 @@ private:
 
 public:
 
-	GameManager();
-	~GameManager();
+	EasingManager();
+	~EasingManager();
 
 	//カメラの最初の処理
 	bool farstEasing(Camera* camera,Player* Pl,GoalObj* goal);

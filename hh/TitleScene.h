@@ -18,7 +18,7 @@ private:
 	GameUI* GR;
 	GameUI* UI2;
 	GameUI* Fade;
-	GameManager* GM;
+	EasingManager* GM;
 
 
 	bool FadeOut = false;
