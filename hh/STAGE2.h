@@ -25,6 +25,7 @@ private:
 	DirectX::SimpleMath::Vector3 CharacterScale = DirectX::SimpleMath::Vector3(0.5f, 0.5f, 0.5f);
 
 	Radar* radar;
+
 	Camera* camera;
 	Player* Pl;
 	EnemyManager* EM;
@@ -32,15 +33,15 @@ private:
 	GameManager* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+
+
 	DirectWrite* Write;
 	DirectWrite* StartWrite;
 
 	GameUI* GoalUI;
 	GameUI* SpaceUI;
 	GameUI* ClearUI;
-	GameUI* KeyUI;
 	GameUI* failedUI;
-	GameUI* WalkUI;
 	GameUI* StartUI;
 	UIManager* UM;
 

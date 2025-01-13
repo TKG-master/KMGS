@@ -69,7 +69,7 @@ public:
 	//カメラの見る方向を設定する関数
 	void SetFoucus(DirectX::SimpleMath::Vector3 focusPosition);
 	//カメラの位置を取ってくる
-	DirectX::SimpleMath::Vector3 GetCamPosition();
+	DirectX::SimpleMath::Vector3 GetCamPosition() const;
 	//カメラの見ている場所を取ってくる
 	DirectX::SimpleMath::Vector3 GetCamforcas();
 	//カメラの位置のセッター

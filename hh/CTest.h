@@ -41,9 +41,7 @@ private:
 	GameUI* GoalUI;
 	GameUI* SpaceUI;
 	GameUI* ClearUI;
-	GameUI* KeyUI;
 	GameUI* failedUI;
-	GameUI* WalkUI;
 	GameUI* StartUI;
 	UIManager* UM;
 

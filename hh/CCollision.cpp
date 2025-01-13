@@ -39,6 +39,10 @@ bool CCollision::Square3DCollision(const SQUARE3D& box1, const SQUARE3D& box2)
     {
         return true;
     }
+    else
+    {
+        return false;
+    }
 }
 
 
@@ -48,8 +52,8 @@ bool CCollision::RayIntersectsBox(const DirectX::SimpleMath::Vector3& origin, co
 {
     //DirectXCollision の BoundingBox を使用して当たり判定を行う
     DirectX::BoundingBox boundingBox(
-        DirectX::XMFLOAT3(box.centerX, (box.centerY + 50.0f), box.centerZ),
-        DirectX::XMFLOAT3(box.sizeX / 2.0f, box.sizeY / 2.0f, box.sizeZ / 2.0f)
+        DirectX::XMFLOAT3(box.centerX,(box.centerY + 50.0f), box.centerZ),
+        DirectX::XMFLOAT3(box.sizeX / 2.0f, box.sizeY/* / 2.0f*/, box.sizeZ / 2.0f)
     );
 
     //プレイヤーにレイが当たるかどうかを確認
@@ -98,11 +102,10 @@ CORRECT_DIR CCollision::ResolveCollision(SQUARE3D& box1, SQUARE3D& box2)
     // 補正した方向を格納するCORRECT_DIR型変数
     CORRECT_DIR correct_dir = { 0 };
 
-
     // コライダーを補正する
-    if (overlapZ < overlapX)
+    if (overlapZ < overlapX && overlapZ < overlapY)
     {
-        // Y軸方向にめり込んでいる場合
+        // Z軸方向にめり込んでいる場合
         if (box1.centerZ < box2.centerZ)
         {
             box1.centerZ -= overlapZ;
@@ -114,21 +117,64 @@ CORRECT_DIR CCollision::ResolveCollision(SQUARE3D& box1, SQUARE3D& box2)
             correct_dir.z = 1;
         }
     }
-    else if (overlapX < overlapZ) {
+    else if (overlapX < overlapZ && overlapX < overlapY) {
         // X軸方向にめり込んでいる場合
         if (box1.centerX < box2.centerX)
         {
             box1.centerX -= overlapX;
             correct_dir.x = -1;
         }
-        else if (box1.centerX > box2.centerX)
+        else
         {
             box1.centerX += overlapX;
             correct_dir.x = 1;
         }
     }
+    //else {
+    //    // Y軸方向にめり込んでいる場合
+    //    if (box1.centerY < box2.centerY)
+    //    {
+    //        box1.centerY -= overlapY;
+    //    }
+    //    else
+    //    {
+    //        box1.centerY += overlapY;
+    //    }
+    //}
 
     return correct_dir;
+
+
+    // コライダーを補正する
+    //if (overlapZ < overlapX)
+    //{
+    //    // Y軸方向にめり込んでいる場合
+    //    if (box1.centerZ < box2.centerZ)
+    //    {
+    //        box1.centerZ -= overlapZ;
+    //        correct_dir.z = -1;
+    //    }
+    //    else
+    //    {
+    //        box1.centerZ += overlapZ;
+    //        correct_dir.z = 1;
+    //    }
+    //}
+    //else if (overlapX < overlapZ) {
+    //    // X軸方向にめり込んでいる場合
+    //    if (box1.centerX < box2.centerX)
+    //    {
+    //        box1.centerX -= overlapX;
+    //        correct_dir.x = -1;
+    //    }
+    //    else if (box1.centerX > box2.centerX)
+    //    {
+    //        box1.centerX += overlapX;
+    //        correct_dir.x = 1;
+    //    }
+    //}
+
+    //return correct_dir;
 
 }
 

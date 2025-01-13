@@ -19,7 +19,6 @@ private:
 
 	Timer* time;
 
-
 	//向いている方向
 	DirectX::SimpleMath::Vector3 forward = { 0.0f,0.0f,-1.0f };
 	//視野範囲の色
@@ -50,9 +49,12 @@ private:
 	DirectX::SimpleMath::Vector3 currentPosition;
 	//例のVector3
 	DirectX::SimpleMath::Vector3 rayDirection;
-	//45固定
-	float rayY = 45.0f;
-	//例がどこまで伸ばして当たったか
+	//レーダのどこに自分がいるか
+	DirectX::SimpleMath::Vector2 RaderPos;
+
+
+	float rayY = 80.0f;
+	//レイがどこまで伸ばして当たったか
 	float hitDis = 0.0f;
 
 	int bookCount = 0;
@@ -72,6 +74,8 @@ private:
 	bool RookBook = false;
 	//本に夢中になっているとき
 	bool bookRead = false;
+	//レーダの中にいるのか？
+	bool RaderIn = false;
 
 
 
@@ -79,25 +83,12 @@ private:
 	float Time1 = 0.5;
 	float Time = 0.0f;
 
-	// 移動量を計算
-	DirectX::SimpleMath::Vector3 direction;
-
-	// 視野範囲の最大角度
-	float maxLookAngle = 45.0f;  // 最大30度の範囲で左右に回転
-	// 右に向かっているかどうか
-	bool isLookingRight = false;
-	//振り向ている最中か？
-	bool turn = false;
-
-	float lookSpeed = 0.01f; // 回転速度
 	//プレイヤーのデーター（読み取り用）
 	const Player* playerdate;
 
 	//扇形を描画するときのセグメント数
 	static constexpr int numSegments = 50;
 	std::vector<VERTEX_3D> fanVertices = std::vector<VERTEX_3D>(numSegments + 2);
-
-	std::vector<DirectX::SimpleMath::Vector3> intersectionPoints;
 
 	// 視野角の設定
 	float viewAngle = 0.5f; // 視野角
@@ -120,7 +111,6 @@ public:
 	void Init(std::string ModelName, std::string TexFolderPath,
 		std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader);
 
-	void UIInit(int nam);
 
 	Enemy(std::string ModelName, std::string TexFolderPath, std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader,const Player*Pl);
 	~Enemy();
@@ -238,6 +228,12 @@ public:
 	//本を読んでいるときのbool型
 	bool GetbookRead() { return this->bookRead; };
 	void SetbookRead(bool flg) { this->bookRead = flg; };
+	//レーダーの中にいるかどうかのbool型のゲッターとセッター
+	bool GetRaderIn() { return this->RaderIn; };
+	void SetRaderIn(bool flg) { this->RaderIn = flg; };
+	//レーダー上のポス
+	DirectX::SimpleMath::Vector2 GetRaderPos() { return this->RaderPos; };
+	void SetRaderPos(DirectX::SimpleMath::Vector2 pos) { this->RaderPos = pos; }
 
 	//レイを飛ばす処理
 	bool RayLookHit();

@@ -10,7 +10,8 @@ class BoxObj;
 class EnemyManager
 {
 private:
-    std::vector<Enemy*> enemies; // シーン内のすべての敵を格納するベクター
+    // シーン内のすべての敵を格納するベクター
+    std::vector<Enemy*> enemies;
     std::vector<std::vector<int>> grid;
     //敵の徘徊ルートの情報
     std::vector<std::vector<int>> Wandering;

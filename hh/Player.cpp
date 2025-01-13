@@ -53,7 +53,7 @@ Player::Player(std::string ModelName, std::string TexFolderPath,
 	STATUS = IDLE;
 	book = new Book();
 	book->Init();
-	book->Setscale(Vector3(10.0f, 10.0f, 10.0f));
+	book->Setscale(Vector3(20.0f, 10.0f, 20.0f));
 	book->Setrot(Vector3(0.0f, 0.0f, 0.0f));
 
 	this->square.type = ObjectType::PLAYER;
@@ -183,7 +183,7 @@ void Player::PlayerInput()
 			Bookput = true;
 			book->Setthisbook(true);
 			book->Setpos(this->GetPosition());
-			book->CollisionInit(book->Getpos(), Vector3(10.0f, 10.0f, 10.0f));
+			book->CollisionInit(book->Getpos(), Vector3(20.0f, 40.0f, 20.0f));
 		}
 
 	}
@@ -361,6 +361,7 @@ void Player::Update()
 				this->squareUpdate();
 				this->hitBox = true;
 			}
+
 		}
 
 		if (box->square.type == ObjectType::PPLATE && STATUS == RUN)
@@ -386,15 +387,14 @@ void Player::Update()
 	//‚µ‚á‚ª‚Ýó‘Ô‚Æ—§‚¿ó‘Ô‚Ì“–‚½‚è”»’è‚Ì•ÏX
 	if (STATUS == SNEAK || STATUS == SNEAKWLKE)
 	{
-		this->SetSquare3D(Vector3(45.0f, 40.0f, 45.0f));
-		this->SetPosition(Vector3(this->GetPosition().x, 0.0f, this->GetPosition().z));
+		this->SetSquare3D(Vector3(45.0f, 35.0f, 45.0f));
+		this->Stand = false;
 	}
-	else if (STATUS != SNEAK && STATUS != SNEAKWLKE && this->Stand == true)
+	else if (STATUS != SNEAK && STATUS != SNEAKWLKE)
 	{
 		this->SetSquare3D(Vector3(25.0f, 80.0f, 25.0f));
-		this->SetPosition(Vector3(this->GetPosition().x, 0.1f, this->GetPosition().z));
+		this->Stand = true;
 	}
-
 }
 
 void Player::Draw()

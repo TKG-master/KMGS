@@ -52,7 +52,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
     // floorBoxのサイズと位置を設定
     floorBox = new BoxObj(total_width, 100.0f, total_depth, "assets\\Texture\\yuka.png");
     Vector3 floor_position(ORIGIN_TILE_POS_X + (total_width / 2.0f) - (tile_size_x / 2.0f),
-        tile_size_y / 2.0 - 92.0f,
+        /*tile_size_y / 2.0 - 92.0f*/-60.0f,
         ORIGIN_TILE_POS_Z - (total_depth / 2.0f) + (tile_size_z / 2.0f));
     floorBox->SetPosition(floor_position);
     //floorBox->CollisionInit(floor_position, Vector3(total_width, tile_size_y / 2, total_depth));
@@ -74,7 +74,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
                 BoxObj* box = new BoxObj(tile_size_x, tile_size_y, tile_size_z , "assets\\Texture\\floor.png");
                 Vector3 position(x_tile, (tile_size_y / 2), z_tile);
                 box->SetPosition(position);
-                box->CollisionInit(position, Vector3(tile_size_x, (tile_size_y / 2.0f), tile_size_z));
+                box->CollisionInit(position, Vector3(tile_size_x, tile_size_y, tile_size_z));
                 BOXS.push_back(box);
             }
             else if (map_data[z][x] == 2) //Player
@@ -107,7 +107,7 @@ void CScene::CreateStage(TERRAIN_ID ID)
                 BoxObj* box = new BoxObj(tile_size_x, 10.0f, tile_size_z, "assets\\Texture\\VR.miisyon.png");
                 Vector3 position(x_tile,0.0f, z_tile);
                 box->SetPosition(position);
-                box->CollisionInit(position, Vector3(tile_size_x, Bigtile_size_y, tile_size_z));
+                box->CollisionInit(position, Vector3(tile_size_x, (Bigtile_size_y / 2.0f), tile_size_z));
                 box->SetObjectType(ObjectType::PPLATE);
                 BOXS.push_back(box);
             }

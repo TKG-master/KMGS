@@ -158,7 +158,7 @@ void Camera::SetFoucus(DirectX::SimpleMath::Vector3 focusPosition)
 }
 
 //カメラの位置をゲット
-DirectX::SimpleMath::Vector3 Camera::GetCamPosition()
+DirectX::SimpleMath::Vector3 Camera::GetCamPosition() const
 {
 	return this->m_Position;
 }
