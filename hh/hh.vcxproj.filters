@@ -100,9 +100,6 @@
     <Filter Include="System\Model">
       <UniqueIdentifier>{3549485d-8ee6-480a-99c7-707b4cad179f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\GameManager">
-      <UniqueIdentifier>{42452c89-a552-47da-a51d-86592994a11f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System\Terrain">
       <UniqueIdentifier>{49eb3dd1-bdcd-4e6d-bbd7-0e68690d6d16}</UniqueIdentifier>
     </Filter>
@@ -187,7 +184,10 @@
     <Filter Include="System\UI">
       <UniqueIdentifier>{d8a37db5-6d8b-48c1-b8c9-001e14bcb630}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\UI\GameResult">
+    <Filter Include="System\EasingController">
+      <UniqueIdentifier>{42452c89-a552-47da-a51d-86592994a11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\UI\GameUI">
       <UniqueIdentifier>{d775d6b4-2c0d-4e14-bb58-da9f08614831}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -345,8 +345,8 @@
     <ClCompile Include="EnemyManager.cpp">
       <Filter>Obj\Object\ENEMY</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>System\GameManager</Filter>
+    <ClCompile Include="EasingController.cpp">
+      <Filter>System\EasingController</Filter>
     </ClCompile>
     <ClCompile Include="TerrainLoder.cpp">
       <Filter>System\Terrain</Filter>
@@ -375,8 +375,8 @@
     <ClCompile Include="GoalObj.cpp">
       <Filter>Gaol</Filter>
     </ClCompile>
-    <ClCompile Include="GameResult.cpp">
-      <Filter>System\UI\GameResult</Filter>
+    <ClCompile Include="GameUI.cpp">
+      <Filter>System\UI\GameUI</Filter>
     </ClCompile>
     <ClCompile Include="SelectScene.cpp">
       <Filter>System\Scene\cpp</Filter>
@@ -632,8 +632,8 @@
     <ClInclude Include="EnemyManager.h">
       <Filter>Obj\Object\ENEMY</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>System\GameManager</Filter>
+    <ClInclude Include="EasingController.h">
+      <Filter>System\EasingController</Filter>
     </ClInclude>
     <ClInclude Include="TerrainLoder.h">
       <Filter>System\Terrain</Filter>
@@ -662,8 +662,8 @@
     <ClInclude Include="GoalObj.h">
       <Filter>Gaol</Filter>
     </ClInclude>
-    <ClInclude Include="GameResult.h">
-      <Filter>System\UI\GameResult</Filter>
+    <ClInclude Include="GameUI.h">
+      <Filter>System\UI\GameUI</Filter>
     </ClInclude>
     <ClInclude Include="SelectScene.h">
       <Filter>System\Scene\h</Filter>

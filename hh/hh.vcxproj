@@ -185,9 +185,9 @@
     <ClCompile Include="ETexture.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Field.cpp" />
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="EasingController.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GameResult.cpp" />
+    <ClCompile Include="GameUI.cpp" />
     <ClCompile Include="GoalObj.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="gui\backends\imgui_impl_dx11.cpp" />
@@ -280,9 +280,9 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="fpscontrol.h" />
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="EasingController.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GameResult.h" />
+    <ClInclude Include="GameUI.h" />
     <ClInclude Include="GoalObj.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="gui\backends\imgui_impl_dx11.h" />

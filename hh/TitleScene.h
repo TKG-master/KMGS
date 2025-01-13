@@ -4,8 +4,8 @@
 #include "GoalObj.h"
 #include "Player.h"
 #include "SkyDome.h"
-#include "GameResult.h"
-#include "GameManager.h"
+#include "GameUI.h"
+#include "EasingController.h"
 #include "DirectWrite.h"
 #include "Timer.h"
 
@@ -18,7 +18,7 @@ private:
 	GameUI* GR;
 	GameUI* UI2;
 	GameUI* Fade;
-	EasingManager* GM;
+	EasingController* GM;
 
 
 	bool FadeOut = false;
