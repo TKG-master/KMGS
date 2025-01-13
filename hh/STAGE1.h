@@ -10,9 +10,9 @@
 #include "GoalObj.h"
 #include "Timer.h"
 #include "EnemyManager.h"
-#include "GameManager.h"
+#include "EasingController.h"
 #include "SkyDome.h"
-#include "GameResult.h"
+#include "GameUI.h"
 #include "TimerUI.h"
 #include "Polygon2D.h"
 #include "DirectWrite.h"
@@ -33,7 +33,7 @@ private:
 	Player* Pl;
 	EnemyManager* EM;
 	Timer* gameTime;
-	EasingManager* GM;
+	EasingController* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "GameResult.h"
+#include "GameUI.h"
 #include <map>
 
 class Player;

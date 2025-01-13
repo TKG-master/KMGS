@@ -1,4 +1,4 @@
-#include "GameResult.h"
+#include "GameUI.h"
 #include "Camera.h"
 
 using namespace DirectX::SimpleMath;

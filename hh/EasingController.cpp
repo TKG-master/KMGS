@@ -1,4 +1,4 @@
-#include "GameManager.h"
+#include "EasingController.h"
 #include "Camera.h"
 #include "Enemy.h"
 #include "easings.h"
@@ -6,11 +6,11 @@
 #include "GoalObj.h"
 #include "BoxObj.h"
 #include "CSceneManager.h"
-#include "GameResult.h"
+#include "GameUI.h"
 
 using namespace DirectX::SimpleMath;
 
-EasingManager::EasingManager()
+EasingController::EasingController()
 {
     Rookfarst = false;
     Goal = false;
@@ -24,12 +24,12 @@ EasingManager::EasingManager()
 
 }
 
-EasingManager::~EasingManager()
+EasingController::~EasingController()
 {
 
 }
 
-bool EasingManager::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
+bool EasingController::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
 {
     //ゴールのポジション
     DirectX::SimpleMath::Vector3 goalpos = goal->GetPosition();
@@ -64,7 +64,7 @@ bool EasingManager::farstEasing(Camera* camera, Player* Pl, GoalObj* goal)
     return false;
 }
 
-bool EasingManager::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath::Vector3 PlPos, Camera* camera, Timer* timer)
+bool EasingController::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath::Vector3 PlPos, Camera* camera, Timer* timer)
 {
 
     if (!enemys.empty() && this->RookEasing == true)
@@ -95,7 +95,7 @@ bool EasingManager::EnemyEasing(std::vector<Enemy*> enemys, DirectX::SimpleMath:
     return false;
 }
 
-void EasingManager::farstBoxEasing(std::vector<BoxObj*> boxs)
+void EasingController::farstBoxEasing(std::vector<BoxObj*> boxs)
 {
     // イージングの開始時間オフセットを設定
     std::vector<float> startTimeOffsets(boxs.size());
@@ -135,7 +135,7 @@ void EasingManager::farstBoxEasing(std::vector<BoxObj*> boxs)
     }
 }
 
-void EasingManager::GameEnd(std::vector<Enemy*> enemys, GoalObj* goal)
+void EasingController::GameEnd(std::vector<Enemy*> enemys, GoalObj* goal)
 {
     for (auto enemy : enemys)
     {
@@ -150,7 +150,7 @@ void EasingManager::GameEnd(std::vector<Enemy*> enemys, GoalObj* goal)
     }
 }
 
-void EasingManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
+void EasingController::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camera)
 {
     //スタートはカメラのポジション
     //ゴールはプレイヤーのポジション
@@ -174,7 +174,7 @@ void EasingManager::GoalEasing(DirectX::SimpleMath::Vector3 Plpos, Camera* camer
 
 }
 
-bool EasingManager::SEasing(Player* Pl, Camera* camera)
+bool EasingController::SEasing(Player* Pl, Camera* camera)
 {
     //プレイヤーより右
     if (Pl->Getdir().x == 1)
@@ -280,7 +280,7 @@ bool EasingManager::SEasing(Player* Pl, Camera* camera)
     return false;
 }
 
-void EasingManager::FadeIn(GameUI* FadeUI)
+void EasingController::FadeIn(GameUI* FadeUI)
 {
     DirectX::SimpleMath::Vector3 FadePos;
     FadePos.x = FadeUI->GetCenter().x;
@@ -299,7 +299,7 @@ void EasingManager::FadeIn(GameUI* FadeUI)
     }
 }
 
-void EasingManager::FadeOut(GameUI* FadeUI)
+void EasingController::FadeOut(GameUI* FadeUI)
 {
     DirectX::SimpleMath::Vector3 FadePos;
     FadePos.x = FadeUI->GetCenter().x;
@@ -318,7 +318,7 @@ void EasingManager::FadeOut(GameUI* FadeUI)
     }
 }
 
-void EasingManager::ClearEasing(GameUI* Clear)
+void EasingController::ClearEasing(GameUI* Clear)
 {
 
     if (ClearUIEasingX)
@@ -343,7 +343,7 @@ void EasingManager::ClearEasing(GameUI* Clear)
     }
 }
 
-void EasingManager::ImageEasing(GameUI* Image)
+void EasingController::ImageEasing(GameUI* Image)
 {
     if (ImageUIEasing && ImageEasingEnd)
     {
@@ -368,7 +368,7 @@ void EasingManager::ImageEasing(GameUI* Image)
     }
 }
 
-void EasingManager::SelectEasing(GameUI* Select)
+void EasingController::SelectEasing(GameUI* Select)
 {
     if (SelectUIEasing)
     {

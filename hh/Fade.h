@@ -4,7 +4,7 @@
 #include "CShader.h"
 #include "CMaterial.h"
 #include "CTexture.h"
-#include "GameResult.h"
+#include "GameUI.h"
 
 
 class Fade : public GameUI

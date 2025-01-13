@@ -3,7 +3,7 @@
 #include "Player.h"
 #include "CScene.h"
 #include "BoxObj.h"
-#include "GameResult.h"
+#include "GameUI.h"
 #include "Camera.h"
 #include "easings.h"
 #include <algorithm>

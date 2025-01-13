@@ -4,8 +4,8 @@
 #include "GoalObj.h"
 #include "Player.h"
 #include "SkyDome.h"
-#include "GameResult.h"
-#include "GameManager.h"
+#include "GameUI.h"
+#include "EasingController.h"
 
 
 class SelectScene : public CScene
@@ -25,7 +25,7 @@ private:
 	GameUI* StageImage3;
 	GameUI* UISelect;
 
-	EasingManager* GM;
+	EasingController* GM;
 	GameUI* Fade;
 	bool FadeOut = false;
 

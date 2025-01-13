@@ -29,7 +29,7 @@ STAGE1::STAGE1()
 
 
 
-    GM = new EasingManager();
+    GM = new EasingController();
 
     Dome = new SkyDome();
     Dome->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
