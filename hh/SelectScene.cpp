@@ -44,7 +44,7 @@ SelectScene::SelectScene()
 	UISelect->SetCenter(Vector2(1200.0f, 200.0f));
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(100.0f);
-	UISelect->SetColor(Color(1.0, 1.0, 1.0, 0.7f));
+	UISelect->SetColor(Color(1.0, 1.0, 1.0, 0.5f));
 
 	Fade = new GameUI();
 	Fade->Init("assets\\Texture\\siro.jpg");

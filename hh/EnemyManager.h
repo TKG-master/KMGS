@@ -30,7 +30,7 @@ private:
     //45ŒÅ’è
     float rayY = 45.0f;
 
-    int pointIndex;
+    int pointIndex = 0;
 
     float hitDis = 0.0f;
 

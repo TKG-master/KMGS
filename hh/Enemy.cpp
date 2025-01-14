@@ -170,7 +170,7 @@ void Enemy::viewDraw()
         fanIndices.push_back(i);
     }
 
-    if (this->Search)
+    if (this->Search && !this->RookBook && !this->bookRead)
     {
         this->SetColor(Color(1.0f, 0.0f, 0.0f, 0.8f));
     }
@@ -488,7 +488,7 @@ bool Enemy::RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square)
     rayDirection = pos - this->GetPosition();
     Vector3 Epos = this->GetPosition();
     // ƒŒƒC‚Ì”­ËˆÊ’u‚ğY²•ûŒü‚É­‚µ‚‚­‚·‚é
-    Epos.y += rayY;
+    Epos.y += 45.0f;
     //³‹K‰»
     rayDirection.Normalize();
     if (CCollision::RayIntersectsBox(Epos, rayDirection,square,CScene::BOXS, hitDis)) {

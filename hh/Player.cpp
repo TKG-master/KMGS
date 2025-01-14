@@ -183,7 +183,7 @@ void Player::PlayerInput()
 			Bookput = true;
 			book->Setthisbook(true);
 			book->Setpos(this->GetPosition());
-			book->CollisionInit(book->Getpos(), Vector3(20.0f, 40.0f, 20.0f));
+			book->CollisionInit(book->Getpos(), Vector3(20.0f, 35.0f, 20.0f));
 		}
 
 	}

@@ -93,7 +93,7 @@ void UIManager::EnemyUIActive(const std::vector<Enemy*>& enemies)
 
         this->SetActiveUI({id});
 
-        if (enemies[i]->GetSearch())
+        if (enemies[i]->GetSearch() && !enemies[i]->GetRookBook() && !enemies[i]->GetbookRead())
         {
             this->SetActiveUI({id2});
         }
