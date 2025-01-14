@@ -21,13 +21,13 @@ ResultScene::ResultScene()
 
 	BsckTitle = new GameUI();
 	BsckTitle->Init("assets\\Texture\\BsckTitleUI.png");
-	BsckTitle->SetCenter(Vector2(400.0f, 500.0f));
+	BsckTitle->SetCenter(Vector2(900.0f, 400.0f));
 	BsckTitle->SetHeight(100.0f);
 	BsckTitle->SetWidth(300.0f);
 
 	Select = new GameUI();
 	Select->Init("assets\\Texture\\Select.png");
-	Select->SetCenter(Vector2(900.0f, 500.0f));
+	Select->SetCenter(Vector2(900.0f, 700.0f));
 	Select->SetHeight(100.0f);
 	Select->SetWidth(300.0f);
 
@@ -37,14 +37,14 @@ ResultScene::ResultScene()
 	UISelect->SetCenter(Vector2(BsckTitle->GetCenter().x - 200, BsckTitle->GetCenter().y));
 	UISelect->SetHeight(100.0f);
 	UISelect->SetWidth(100.0f);
-	UISelect->SetColor(Color(0, 0.5, 0.5, 0.5f));
+	UISelect->SetColor(Color(1.0f, 1.0f, 1.0f, 0.7f));
 
 	Fade = new GameUI();
 	Fade->Init("assets\\Texture\\siro.jpg");
 	Fade->SetCenter(Vector2(960.0f, 540.0f));
 	Fade->SetHeight(1080.0f);
 	Fade->SetWidth(1920.0f);
-	Fade->SetColor(Color(0.0, 0.0, 0.0, 1.0f));
+	Fade->SetColor(Color(0.0f, 0.0f, 0.0f, 1.0f));
 
 	GM = new EasingController();
 
@@ -75,17 +75,17 @@ void ResultScene::Update()
 	Cam->FocusCamera(goal->GetPosition(), 0.5f,0.0f);
 
 	//カーソルの移動
-	if (Input::Get()->GetKeyTrigger(DIK_D) && UISelect->GetCenter() != Select->GetCenter())
+	if (Input::Get()->GetKeyTrigger(DIK_S) && UISelect->GetCenter() != Select->GetCenter())
 	{
-		UISelect->SetCenter(Vector2(Select->GetCenter().x - 200, Select->GetCenter().y));
+		UISelect->SetCenter(Vector2(Select->GetCenter().x - 200.0f, Select->GetCenter().y));
 	}
 	//カーソルの移動
-	else if (Input::Get()->GetKeyTrigger(DIK_A) && UISelect->GetCenter() != BsckTitle->GetCenter())
+	else if (Input::Get()->GetKeyTrigger(DIK_W) && UISelect->GetCenter() != BsckTitle->GetCenter())
 	{
-		UISelect->SetCenter(Vector2(BsckTitle->GetCenter().x - 200, BsckTitle->GetCenter().y));
+		UISelect->SetCenter(Vector2(BsckTitle->GetCenter().x - 200.0f, BsckTitle->GetCenter().y));
 	}
 
-	/*if (UISelect->GetCenter().x == Select->GetCenter().x)
+	if (UISelect->GetCenter().y == Select->GetCenter().y)
 	{
 
 		GM->SelectEasing(Select);
@@ -93,14 +93,14 @@ void ResultScene::Update()
 		BsckTitle->SetHeight(150.0f);
 
 	}
-	else if (UISelect->GetCenter().x == BsckTitle->GetCenter().x)
+	else if (UISelect->GetCenter().y == BsckTitle->GetCenter().y)
 	{
 
 		GM->SelectEasing(BsckTitle);
 		Select->SetWidth(300.0f);
 		Select->SetHeight(150.0f);
 
-	}*/
+	}
 
 
 

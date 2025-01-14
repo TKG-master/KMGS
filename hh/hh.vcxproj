@@ -226,6 +226,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UIManager.cpp" />
     <ClCompile Include="utility.cpp" />
+    <ClCompile Include="xa2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionBookRook.h" />
@@ -324,6 +325,7 @@
     <ClInclude Include="Type.h" />
     <ClInclude Include="UIManager.h" />
     <ClInclude Include="utility.h" />
+    <ClInclude Include="xa2.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">

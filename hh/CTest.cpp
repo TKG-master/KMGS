@@ -69,10 +69,17 @@ CTest::CTest()
     StartUI = new GameUI();
     StartUI->Init("assets\\Texture\\siro.jpg");
     StartUI->SetCenter(Vector2(960.0f, 540.0f));
-    StartUI->SetHeight(500.0f);
+    StartUI->SetHeight(300.0f);
     StartUI->SetWidth(500.0f);
     StartUI->SetColor(Color(0, 0.5, 0.5, 0.5f));
     UM->AddUI("StartUI", StartUI);
+
+    PushUI = new GameUI();
+    PushUI->Init("assets\\Texture\\PushSpace.png");
+    PushUI->SetCenter(Vector2(1500.0f, 850.0f));
+    PushUI->SetHeight(200.0f);
+    PushUI->SetWidth(600.0f);
+    UM->AddUI("pushspace", PushUI);
 
 
     CScene::CreateStage(TERRAIN_ID::STAGE_TEST);
@@ -202,11 +209,11 @@ void CTest::Update()
             Pl->AnimUpdate();
             EM->EnemysAnimUpdate();
         }
-        else if (!GM->GetisEasingstart())
+        else if (!GM->GetisEasingstart() && !EM->GetRookNow() && !GM->GetGoal())
         {
-            if (Input::Get()->GetKeyTrigger(DIK_K))
+            if (Input::Get()->GetKeyTrigger(DIK_SPACE))
             {
-                gameTime->StartCountDown(300);
+                gameTime->StartCountDown(120);
                 gameTime->TameStarflg = false;
             }
         }
@@ -362,13 +369,13 @@ void CTest::Draw()
 
     if (!GM->GetFadein())
     {
-        EM->DrawEnemies();
 
         for (auto& box : BOXS)
         {
             box->Draw();
         }
 
+        EM->DrawEnemies();
 
         Pl->Draw();
 
@@ -383,7 +390,7 @@ void CTest::Draw()
         UM->SetActiveUI({ "GoalUI" });
         if (!GM->GetClearUIEasingY())
         {
-            UM->SetActiveUI({ "GoalUI","SpaceUI","ClearUI" });
+            UM->SetActiveUI({ "GoalUI","ClearUI","pushspace" });
         }
     }
     else if (EM->GetRookNow() || gameTime->GetTimeUp())
@@ -391,7 +398,7 @@ void CTest::Draw()
         UM->ListCler();
         GoalUI->SetHeight(2500.0f);
         GoalUI->SetWidth(2500.0f);
-        UM->SetActiveUI({ "GoalUI","failedUI" });
+        UM->SetActiveUI({ "GoalUI","failedUI","pushspace" });
     }
     else
     {
@@ -406,7 +413,7 @@ void CTest::Draw()
     {
         UM->ListCler();
         UM->SetActiveUI({ "StartUI" });
-        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI\n§ŒÀŽžŠÔ‚Q•ª00•b", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI\n§ŒÀŽžŠÔ‚Q•ª00•b\n SPACE‚ÅƒXƒ^[ƒg", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
 
     Fade->Draw();

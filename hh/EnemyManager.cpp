@@ -49,17 +49,21 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         //“G‚ÌŽ‹–ì”ÍˆÍ‚Ì”»’è
 
 
-        //‰¹‚ª–Â‚Á‚½Žž‚©‚Â“G‚Ìó‘Ô‚ªAlertedˆÈŠO‚ÌŽž
-        if (Pl->GetKnockSound() && enemy->GetState() != EStateType::Lookaround)
+        //‰¹‚ª–Â‚Á‚½Žž
+        if (Pl->GetKnockSound() && !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback())
         {
             //‰¹‚ª•·‚±‚¦‚é”ÍˆÍ‚É‚¢‚é‚©H
-            if (CCollision::PointInCircle(Pl->GetPosition(), 500.0f, enemy->GetPosition()) && !enemy->GethearSound())
+            if (CCollision::PointInCircle(Pl->GetPosition(), 500.0f, enemy->GetPosition()) /*&& !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback()*/)
             {
                 this->EnemyPathsAster(enemy, Pl->GetPosition());
                 Pl->SetknockSound(false);
                 enemy->SethearSound(true);
                 enemy->SetSearch(true);
             }
+        }
+        else
+        {
+            Pl->SetknockSound(false);
         }
 
         if (enemy->Getback())

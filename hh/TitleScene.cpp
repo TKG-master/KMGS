@@ -23,10 +23,10 @@ TitleScene::TitleScene()
 	GR->SetWidth(800.0f);
 
 	UI2 = new GameUI();
-	UI2->Init("assets\\Texture\\SPACEUI.png");
-	UI2->SetCenter(Vector2(200.0f, 800.0f));
-	UI2->SetHeight(200.0f);
-	UI2->SetWidth(250.0f);
+	UI2->Init("assets\\Texture\\PushSpace.png");
+	UI2->SetCenter(Vector2(960.0f, 800.0f));
+	UI2->SetHeight(300.0f);
+	UI2->SetWidth(500.0f);
 
 
 
