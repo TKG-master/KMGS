@@ -22,6 +22,13 @@ TerrainLoder::TerrainLoder()
 		Wandering_path.push_back(Wandering_name[i].insert(0, "assets/Wandering/"));
 	}
 
+	// ファイルの数だけループ
+	for (int i = 0; i < Eparameter_name.size(); i++)
+	{
+		// パスを完成させ、path配列に格納
+		Eparameter_path.push_back(Eparameter_name[i].insert(0, "assets/Eparameter/"));
+	}
+
 }
 
 TerrainLoder::~TerrainLoder()
@@ -146,9 +153,59 @@ void TerrainLoder::LoadWnderingData(TERRAIN_ID stage)
 	ifs_csv_file.close();
 }
 
+void TerrainLoder::LoadEparameterData(TERRAIN_ID stage)
+{
+	// 前に読み込まれた情報をクリアする
+	Eparameter.clear();
+
+	// 読み込んだデータを格納
+
+	std::string line;
+
+	// 指定されたcsvファイルを開く
+	std::ifstream ifs_csv_file(Eparameter_path[(int)stage]);
+
+	// ファイルが正常に開けているかチェック
+	if (!ifs_csv_file.is_open())
+	{
+		int a = 0;
+		return;
+	}
+
+	// データを読み込む
+	while (getline(ifs_csv_file, line))
+	{
+		std::vector<int> num;
+		std::stringstream linestream(line);
+		std::string cell;
+		// 行に ','が現れるまで繰り返す
+		while (getline(linestream, cell, ','))
+		{
+			try {
+				int nu = std::stoi(cell);
+				num.push_back(nu);
+			}
+			catch (const std::invalid_argument)
+			{
+				//情報をint型に変換できなかった時に通る
+				int a = 0;
+			}
+		}
+		Eparameter.push_back(num);
+	}
+
+	// ファイルを閉じる
+	ifs_csv_file.close();
+}
+
 std::vector<std::vector<int>> TerrainLoder::GetWnderingData()
 {
 	return Wandering_info;
+}
+
+std::vector<std::vector<int>> TerrainLoder::GetEparameter()
+{
+	return Eparameter;
 }
 
 

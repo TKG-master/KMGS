@@ -147,7 +147,7 @@ STAGE1::STAGE1()
     Pl->CollisionInit(Vector3(0.0f,20.0f,0.0f), Pl->GetCollisionScale());
     Pl->SetMapdata(this->GetMapData());
 
-    EM = new EnemyManager(this->GetMapData(), this->GetWanderingdata());
+    EM = new EnemyManager(this->GetMapData(), this->GetWanderingdata(),this->GetEparameterdata());
 
     //“G‚Ì‰Šú‰»
     for (int a = 0; a < this->GetEnemyStartPoss().size(); a++) {
@@ -165,6 +165,7 @@ STAGE1::STAGE1()
     }
 
     EM->SetEnemywandering();
+    EM->SetEnemyParameter();
 
     UM->InitEnemyUI(EM->GetEnemies());
     UM->InitPlayerUI();

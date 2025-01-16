@@ -15,6 +15,8 @@ private:
     std::vector<std::vector<int>> grid;
     //敵の徘徊ルートの情報
     std::vector<std::vector<int>> Wandering;
+    //敵のパラメータの情報
+    std::vector<std::vector<int>> parameter;
 
     CAnimationMesh m_AnimationMesh;
 
@@ -38,7 +40,7 @@ private:
 public:
 
     // コンストラクタ（グリッドを受け取る）
-    EnemyManager(const std::vector<std::vector<int>>& grid,const std::vector<std::vector<int>> wandering);
+    EnemyManager(const std::vector<std::vector<int>>& grid,const std::vector<std::vector<int>> wandering, const std::vector<std::vector<int>> para);
 
     ~EnemyManager();
 
@@ -98,6 +100,8 @@ public:
 
     //徘徊ルートをセット
     void SetEnemywandering();
+    //パラメーターをセット
+    void SetEnemyParameter();
 
 };
 

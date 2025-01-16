@@ -40,6 +40,8 @@ public:
 
 	static std::vector<std::vector<int>> GetWanderingdata() { return Wandering_data; };
 
+	static std::vector<std::vector<int>> GetEparameterdata() { return Eparameter_data; };
+
 
 	DirectX::SimpleMath::Vector3 GetStartEasingPlayerPos() {
 		StartEasingPlayerPos = PlayerStartPos;
@@ -60,6 +62,8 @@ protected:
 	static std::vector<std::vector<int>> map_data;
 	//敵の徘徊ルートに関連するデータ
 	static std::vector<std::vector<int>> Wandering_data;
+	//敵のパラメーター
+	static std::vector<std::vector<int>> Eparameter_data;
 
 	DirectX::SimpleMath::Vector3 PlayerStartPos;
 	DirectX::SimpleMath::Vector3 StartEasingPlayerPos;

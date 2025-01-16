@@ -28,7 +28,7 @@ private:
 	//次の地点
 	DirectX::SimpleMath::Vector3 nextPosition;
 	//動く速度
-	float MoveSpeed = 0.8f;
+	float MoveSpeed = 1.5f;
 	//一番初めにいる場所
 	DirectX::SimpleMath::Vector3 StartPosition;
 	//視野範囲を描画するために必要な行列
@@ -94,8 +94,10 @@ private:
 	float viewAngle = 0.5f; // 視野角
 	float viewDistance = 300.0f; // 視野の距離
 	bool test = false;
+	//視野範囲を描画するときの微調整用のfloat型
 	float viewX = 2.0f;
 	float viewZ = 2.8f;
+	//向いている方向の保持
 	DirectX::SimpleMath::Vector3 SaveForward;
 
 	CIndexBuffer				e_IndexBuffer;
@@ -133,6 +135,11 @@ public:
 	//視野角内かの確認のbool型のゲット
 	bool GetTest() const { return this->test; }
 	DirectX::SimpleMath::Vector3 GetSaveForward() { return this->SaveForward; };
+
+	//移動速度のセット
+	void SetMoveSpeed(float num) { this->MoveSpeed = num; };
+
+
 	//視野範囲の色のゲット
 	DirectX::SimpleMath::Color GetColor() const { return color; }
 	//扇形の原点
@@ -237,7 +244,6 @@ public:
 
 	//レイを飛ばす処理
 	bool RayLookHit();
-
 	bool RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square);
 
 	Timer* GetTimer() { return this->time; };
@@ -255,6 +261,7 @@ public:
 	void securityMove();
 
 	int GetbookCount() { return this->bookCount; };
+	void SetbookCount(int num) { this->bookCount = num; };
 
 
 
