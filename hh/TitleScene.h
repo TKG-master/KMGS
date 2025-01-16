@@ -8,6 +8,7 @@
 #include "EasingController.h"
 #include "DirectWrite.h"
 #include "Timer.h"
+#include "xa2.h"
 
 class TitleScene : public CScene
 {

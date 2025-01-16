@@ -186,6 +186,9 @@ void Application::MainLoop()
 
     CSceneManager::GetInstance()->Init();
 
+    HRESULT hr;
+    hr = XA_Initialize();
+
     //imguiの初期化
     gui->Init(m_hWnd, Renderer::GetDevice(), Renderer::GetDeviceContext());
 
@@ -242,6 +245,7 @@ void Application::MainLoop()
     CSceneManager::GetInstance()->CleanupSingleton();
     //imguiの終了処理
     gui->UnInit();
+    XA_Release();
     delete gui;
 
 

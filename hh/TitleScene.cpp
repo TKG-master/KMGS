@@ -51,7 +51,6 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 
-
 	GM->FadeIn(Fade);
 
 	if (!GM->GetFadein())
@@ -67,6 +66,7 @@ void TitleScene::Update()
 
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetFadein())
 	{
+		XA_Play(SOUND_LABEL_KETEI);
 		this->FadeOut = true;
 	}
 

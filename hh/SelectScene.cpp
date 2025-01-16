@@ -103,21 +103,25 @@ void SelectScene::Update()
 	//カーソルの移動
 	if (Input::Get()->GetKeyTrigger(DIK_S) && UISelect->GetCenter().y == STAGE1->GetCenter().y)
 	{
+		XA_Play(SOUND_LABEL_SELECT);
 		UISelect->SetCenter(Vector2(STAGE2->GetCenter().x - 200 ,STAGE2->GetCenter().y));
 		GM->SetImageEasingEnd(true);
 	}
 	else if (Input::Get()->GetKeyTrigger(DIK_S) && UISelect->GetCenter().y == STAGE2->GetCenter().y)
 	{
+		XA_Play(SOUND_LABEL_SELECT);
 		UISelect->SetCenter(Vector2(STAGE3->GetCenter().x - 200 ,STAGE3->GetCenter().y));
 		GM->SetImageEasingEnd(true);
 	}
 	else if (Input::Get()->GetKeyTrigger(DIK_W) && UISelect->GetCenter().y == STAGE3->GetCenter().y)
 	{
+		XA_Play(SOUND_LABEL_SELECT);
 		UISelect->SetCenter(Vector2(STAGE2->GetCenter().x - 200, STAGE2->GetCenter().y));
 		GM->SetImageEasingEnd(true);
 	}
 	else if (Input::Get()->GetKeyTrigger(DIK_W) && UISelect->GetCenter().y == STAGE2->GetCenter().y)
 	{
+		XA_Play(SOUND_LABEL_SELECT);
 		UISelect->SetCenter(Vector2(STAGE1->GetCenter().x - 200, STAGE1->GetCenter().y));
 		GM->SetImageEasingEnd(true);
 	}
@@ -169,6 +173,7 @@ void SelectScene::Update()
 
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 	{
+		XA_Play(SOUND_LABEL_KETEI);
 		this->FadeOut = true;
 	}
 	//フェードしてシーンの移動

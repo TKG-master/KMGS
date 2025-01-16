@@ -60,12 +60,15 @@ void CSceneManager::ChangeScene(SCENE_ID _scene)
     {
     case SCENE_ID::TEST:
         currentScene = new CTest();
+        XA_Play(SOUND_LABEL_BGM);
         break;
     case SCENE_ID::STAGE_1:
         currentScene = new STAGE1();
+        XA_Play(SOUND_LABEL_BGM);
         break;
     case SCENE_ID::STAGE_2:
         currentScene = new STAGE2();
+        XA_Play(SOUND_LABEL_BGM);
         break;
     case SCENE_ID::ANIM:
         currentScene = new AnimScene();

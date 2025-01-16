@@ -190,7 +190,7 @@
     <Filter Include="System\UI\GameUI">
       <UniqueIdentifier>{d775d6b4-2c0d-4e14-bb58-da9f08614831}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Xa2">
+    <Filter Include="System\Xa2">
       <UniqueIdentifier>{2d70c234-1634-4a3e-9c47-d88e1e72a90c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -451,7 +451,7 @@
       <Filter>System\UI</Filter>
     </ClCompile>
     <ClCompile Include="xa2.cpp">
-      <Filter>Xa2</Filter>
+      <Filter>System\Xa2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -744,7 +744,7 @@
       <Filter>System\UI</Filter>
     </ClInclude>
     <ClInclude Include="xa2.h">
-      <Filter>Xa2</Filter>
+      <Filter>System\Xa2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
