@@ -6,6 +6,7 @@
 #include "SkyDome.h"
 #include "GameUI.h"
 #include "EasingController.h"
+#include "xa2.h"
 
 
 class SelectScene : public CScene

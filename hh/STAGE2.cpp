@@ -265,6 +265,7 @@ void STAGE2::Update()
         //プレイヤーを見つけた敵に対してイージング
         if (GM->EnemyEasing(EM->GetEnemiesWhoSawPlayer(), Pl->GetPosition(), camera, gameTime))
         {
+            XA_Stop(SOUND_LABEL_BGM);
             EM->SetRookNow(true);
         }
     }
@@ -287,6 +288,7 @@ void STAGE2::Update()
     //ゴールにぶつかったらイージング
     if (GM->GetGoal() && GM->GetEndEasing())
     {
+        XA_Stop(SOUND_LABEL_BGM);
         GM->GoalEasing(Pl->GetPosition(), camera);
     }
 
@@ -307,6 +309,7 @@ void STAGE2::Update()
 
         if (Input::Get()->GetKeyTrigger(DIK_SPACE) && !GM->GetClearUIEasingY())
         {
+            XA_Play(SOUND_LABEL_KETEI);
             this->FadeOut = true;
         }
         else if (this->FadeOut)
@@ -323,6 +326,7 @@ void STAGE2::Update()
     {
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
+            XA_Play(SOUND_LABEL_KETEI);
             this->FadeOut = true;
         }
         else if (this->FadeOut)
@@ -340,6 +344,7 @@ void STAGE2::Update()
         gameTime->SetTimeUp(true);
         if (Input::Get()->GetKeyTrigger(DIK_SPACE))
         {
+            XA_Play(SOUND_LABEL_KETEI);
             this->FadeOut = true;
         }
         else if (this->FadeOut)

@@ -51,6 +51,7 @@ Player::Player(std::string ModelName, std::string TexFolderPath,
 	//ƒ‚ƒfƒ‹“Ç‚Ýž‚Ý“™
 	Character::Init(ModelName, TexFolderPath, MotionName, vShader, pShader);
 	STATUS = IDLE;
+	State = PStateType::STAND;
 	book = new Book();
 	book->Init();
 	book->Setscale(Vector3(20.0f, 10.0f, 20.0f));

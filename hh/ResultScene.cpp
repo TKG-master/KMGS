@@ -77,11 +77,13 @@ void ResultScene::Update()
 	//カーソルの移動
 	if (Input::Get()->GetKeyTrigger(DIK_S) && UISelect->GetCenter() != Select->GetCenter())
 	{
+		XA_Play(SOUND_LABEL_SELECT);
 		UISelect->SetCenter(Vector2(Select->GetCenter().x - 200.0f, Select->GetCenter().y));
 	}
 	//カーソルの移動
 	else if (Input::Get()->GetKeyTrigger(DIK_W) && UISelect->GetCenter() != BsckTitle->GetCenter())
 	{
+		XA_Play(SOUND_LABEL_SELECT);
 		UISelect->SetCenter(Vector2(BsckTitle->GetCenter().x - 200.0f, BsckTitle->GetCenter().y));
 	}
 
@@ -110,6 +112,7 @@ void ResultScene::Update()
 	if (Input::Get()->GetKeyTrigger(DIK_SPACE))
 	{
 		this->FadeOut = true;
+		XA_Play(SOUND_LABEL_KETEI);
 		Input::Get()->Setkeyflg(false);
 	}
 	if (this->FadeOut)
