@@ -42,12 +42,19 @@ private:
 		"stageF_data.csv",
 		"StageS_data.csv",
 	};
-
+	//巡回ルートのデータ
 	std::vector<std::string> Wandering_name =
 	{
 		"Stage_T.csv",
 		"Stage_Fw.csv",
 		"Stage_Sw.csv"
+	};
+	//敵のパラメーターのデータ
+	std::vector<std::string> Eparameter_name =
+	{
+		"Stage_Tpara.csv",
+		"Stage_Fpara.csv",
+		"Stage_Spara.csv",
 	};
 
 	// 文字列連結で完成させたパスの情報を格納
@@ -58,6 +65,9 @@ private:
 	std::vector<std::string> Wandering_path;
 	// マップデータ保存用
 	std::vector<std::vector<int>> Wandering_info;
+	//敵のパラメーターのデータ
+	std::vector<std::vector<int>> Eparameter;
+	std::vector<std::string> Eparameter_path;
 
 
 
@@ -78,7 +88,11 @@ public:
 
 	void LoadWnderingData(TERRAIN_ID stage);
 
+	void LoadEparameterData(TERRAIN_ID stage);
+
 	std::vector<std::vector<int>> GetWnderingData();
+
+	std::vector<std::vector<int>> GetEparameter();
 
 
 

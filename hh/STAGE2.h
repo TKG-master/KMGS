@@ -39,7 +39,6 @@ private:
 	DirectWrite* StartWrite;
 
 	GameUI* GoalUI;
-	GameUI* SpaceUI;
 	GameUI* ClearUI;
 	GameUI* failedUI;
 	GameUI* StartUI;

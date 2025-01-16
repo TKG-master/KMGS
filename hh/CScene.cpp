@@ -5,6 +5,7 @@
 //staticの配列
 std::vector<std::vector<int>> CScene::map_data;
 std::vector<std::vector<int>> CScene::Wandering_data;
+std::vector<std::vector<int>> CScene::Eparameter_data;
 std::vector<BoxObj*> CScene::BOXS;
 BoxObj* CScene::floorBox = nullptr;
 
@@ -44,6 +45,9 @@ void CScene::CreateStage(TERRAIN_ID ID)
     //敵の徘徊ルートの情報
     TerrainLoder::GetInstance()->LoadWnderingData(ID);
     Wandering_data = TerrainLoder::GetInstance()->GetWnderingData();
+    //敵のパラメーターの情報
+    TerrainLoder::GetInstance()->LoadEparameterData(ID);
+    Eparameter_data = TerrainLoder::GetInstance()->GetEparameter();
 
     // ステージの総幅と総奥行きを計算
     total_width = (map_data[0].size()) * tile_size_x;

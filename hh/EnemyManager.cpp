@@ -9,8 +9,8 @@
 using namespace DirectX::SimpleMath;
 
 // コンストラクタ（グリッドを受け取る）
-EnemyManager::EnemyManager(const std::vector<std::vector<int>>& grid, const std::vector<std::vector<int>> wandering)
-    : grid(grid), Wandering(wandering), astar(grid)
+EnemyManager::EnemyManager(const std::vector<std::vector<int>>& grid, const std::vector<std::vector<int>> wandering, const std::vector<std::vector<int>> para)
+    : grid(grid), Wandering(wandering), astar(grid),parameter(para)
 {
 
 }
@@ -290,4 +290,36 @@ void EnemyManager::SetEnemywandering()
             }
         }
 
+}
+
+void EnemyManager::SetEnemyParameter()
+{
+    for (int i = 0; i < parameter.size(); i++)
+    {
+        std::vector<Vector3> worldPositions;
+        for (int x = 0; x < parameter[i].size(); x++)
+        {
+            //スピードのセット
+            if (x == 0)
+            {
+                float Mspeed = static_cast<float>(parameter[i][x]);
+                Mspeed = (Mspeed / 10.0f);
+                enemies[i]->SetMoveSpeed(Mspeed);
+            }
+            //視野角のセット
+            else if (x == 1)
+            {
+                float vAngle = static_cast<float>(parameter[i][x]);
+                vAngle = (vAngle / 10.0f);
+                enemies[i]->SetFov(vAngle);
+            }
+            //視野の半径
+            else if (x == 2)
+            {
+                float length = static_cast<float>(parameter[i][x]);
+                length = (length / 10.0f);
+                enemies[i]->Setlength(length);
+            }
+        }
+    }
 }
