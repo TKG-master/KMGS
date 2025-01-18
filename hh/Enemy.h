@@ -5,9 +5,13 @@
 #include "Timer.h"
 #include "EnemyAI.h"
 
-class EnemyAI;
+// セグメント
+struct Segment {
+	DirectX::SimpleMath::Vector3		startpoint;				// 開始点
+	DirectX::SimpleMath::Vector3		endpoint;				// 終了点
+};
 
-class GameUI;
+class EnemyAI;
 
 class Player;
 
@@ -52,8 +56,11 @@ private:
 	//レーダのどこに自分がいるか
 	DirectX::SimpleMath::Vector2 RaderPos;
 
+	//レイを飛ばす高さ
+	float StandrayY = 80.0f;
+	float SneakrayY = 45.0f;
 
-	float rayY = 80.0f;
+
 	//レイがどこまで伸ばして当たったか
 	float hitDis = 0.0f;
 
@@ -169,6 +176,10 @@ public:
 	//見えている範囲の距離を指定
 	void Setview(float viewX) { this->viewX = viewX; };
 
+	//目線の高さのセッターとゲッター
+	void SetStandrayY(float num) { this->StandrayY = num; };
+	void SetSneakrayY(float num) { this->SneakrayY = num; };
+
 	void SetState(EStateType newState) { state = newState; };
 
 	void SetStartPositon(DirectX::SimpleMath::Vector3 Spos) { this->StartPosition = Spos; };
@@ -176,10 +187,26 @@ public:
 
 	DirectX::SimpleMath::Vector3 PositionForward();
 
+	//見えている範囲の描画
 	void viewDraw();
 
-	//視野角の計算
+
+
+	//視野角の計算（座標が入っているか？）
 	bool IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 checkpoint, float length);
+
+	//視野角の計算（境界円）
+	bool InInViewCircle(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 circlecenter, float	radius, float length);
+
+
+	// 直線と点の距離を求める
+	float calcPointLineDist(const DirectX::SimpleMath::Vector3& point, const Segment& segment, DirectX::SimpleMath::Vector3& intersectionpoint, float& t);
+
+	// 線分と直線の長さを求める
+	float calcPointSegmentDist(const DirectX::SimpleMath::Vector3& p, const Segment& segment, DirectX::SimpleMath::Vector3& intersectionpoint, float& t);
+
+
+
 	//キャラクターの描画
 	void EnemyDraw() { Character::Draw(); };
 	//敵の向きを計算する
