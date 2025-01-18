@@ -88,7 +88,7 @@ void TitleScene::Draw()
 
 	goal->Draw();
 
-	//GR->Draw();
+	GR->Draw();
 
 	UI2->Draw();
 

@@ -236,17 +236,148 @@ bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::V
     float dotrotview = vecview.Dot(vecrotview);
     // 視野角範囲内？
     if (dotrotview <= dotobj) {
-        //if (RayLookHit())
-        //{
             return true;
-        //}
-//        false;
     }
     else {
         return false;
     }
 
 }
+
+bool Enemy::InInViewCircle(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 circlecenter, float radius, float length)
+{
+    // 向きがすべて0のときはどこも向いていないとみなす
+    if (lookat.x == 0 && lookat.z == 0 && lookat.y == 0) {
+        return false;
+    }
+
+    bool sts = true;
+
+
+    // チェック対象と視点を結ぶベクトル
+    Vector3 vecobj;
+    vecobj = circlecenter - eyepos;
+    // オブジェクトとの距離を求める
+    float objlength = vecobj.Length();
+    // 距離範囲外？
+    if (objlength - radius > length) {
+        return false;
+    }
+    // 視野の上限ベクトルを求める
+    // 回転
+    Matrix mtx;
+    mtx = mtx.CreateRotationY(fov / 2.0f);// 視野角の半分を指定して行列を作成
+    Vector3 lookatplus;
+    Vector3 lookatminus;
+
+    // 視線ベクトル
+    Vector3 v;
+    v = lookat - eyepos;
+    lookatplus = v.Transform(v, mtx);// 視線ベクトルを視野角の半分 回転させる
+    lookatplus += eyepos;
+    // 視野の下限ベクトルを求める
+    mtx = mtx.CreateRotationY(-fov / 2.0f);// 視野角の半分を指定して行列を作成
+    lookatminus = v.Transform(v, mtx);// 視線ベクトルを視野角の半分 回転させる
+    lookatminus += eyepos;
+    // 上限ベクトルと点の距離を求める
+    {
+        Segment s;
+        Vector3 intersectionpoint;
+        float t = 0.0f;
+        float distance = 0.0f;
+        s.startpoint = eyepos;
+        s.endpoint = lookatplus;
+        distance = calcPointSegmentDist(circlecenter, s, intersectionpoint, t);
+        if (distance < radius) {
+            return true;
+        }
+    }
+
+    // 下限ベクトルと点の距離を求める
+    {
+        Segment s;
+        Vector3 intersectionpoint;
+        float t = 0.0f;
+        float distance = 0.0f;
+        s.startpoint = eyepos;
+        s.endpoint = lookatminus;
+        distance = calcPointSegmentDist(circlecenter, s, intersectionpoint, t);
+        if (distance < radius) {
+            return true;
+        }
+    }
+    // 中心座標が視野範囲内か？ をチェックする
+    sts = IsInView(eyepos,lookat,fov,circlecenter,length);
+
+    return sts;
+}
+
+float Enemy::calcPointLineDist(const DirectX::SimpleMath::Vector3& point, const Segment& segment, DirectX::SimpleMath::Vector3& intersectionpoint, float& t)
+{
+    float distance = 0.0f;
+
+    //線分のベクトル
+    double ABx = segment.endpoint.x - segment.startpoint.x;
+    double ABy = segment.endpoint.y - segment.startpoint.y;
+    double ABz = segment.endpoint.z - segment.startpoint.z;
+
+
+    //線分の視点と点を結ぶベクトル
+    double APx = point.x - segment.startpoint.x;
+    double APy = point.y - segment.startpoint.y;
+    double APz = point.z - segment.startpoint.z;
+
+    //線分ABの長さを求める
+    double AB2 = ABx * ABx + ABy * ABy + ABz * ABz;
+
+    double ABdotAP = ABx * APx + ABy * APy + ABz * APz;
+
+    //ABベクトルとAPベクトルの内積を計算
+    double tt = ABdotAP / AB2;
+
+    //垂線の足
+    intersectionpoint.x = static_cast<float>(segment.startpoint.x + ABx * tt);
+    intersectionpoint.y = static_cast<float>(segment.startpoint.y + ABy * tt);
+    intersectionpoint.z = static_cast<float>(segment.startpoint.z + ABz * tt);
+
+    t = static_cast<float>(tt);
+
+    //垂線の足の長さ
+    distance = (intersectionpoint - point).Length();
+
+    return distance;
+}
+
+float Enemy::calcPointSegmentDist(const DirectX::SimpleMath::Vector3& p, const Segment& segment, DirectX::SimpleMath::Vector3& intersectionpoint, float& t)
+{
+    float distance = calcPointLineDist(p, segment, intersectionpoint, t);
+
+    // 交点が線分の外にある（始点に近い）
+    if (t < 0.0f) {
+
+        intersectionpoint = segment.startpoint;		// 開始点が交点
+
+        float l = (p - intersectionpoint).Length();	// 交点との距離を求める
+
+        return l;
+    }
+
+    // 交点が線分の外にある（終点に近い）
+    if (t > 1.0f) {
+
+        intersectionpoint = segment.endpoint;		// 終点が交点
+
+        float l = (p - intersectionpoint).Length();	// 交点との距離を求める
+
+        return l;
+    }
+
+    // 交点が線分上にある（０＜ｔ＜１）
+    return distance;
+}
+
+
+
 //敵の向いている向きとモデルの向きを合わせる
 void Enemy::UpdateRotation()
 {
@@ -467,11 +598,11 @@ bool Enemy::RayLookHit()
     // レイの発射位置をY軸方向に少し高くする
     if (playerdate->GetStand())
     {
-        Epos.y += rayY;
+        Epos.y += StandrayY;
     }
     else if (!playerdate->GetStand())
     {
-        Epos.y += 45.0f;
+        Epos.y += SneakrayY;
     }
     //正規化
     rayDirection.Normalize();

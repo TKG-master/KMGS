@@ -79,7 +79,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         }
 
         //‚È‚ñ‚Æ‚È‚­Œ©‚¦‚Ä‚¢‚é‹——£
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength() * 1.5f))
+        if (enemy->InInViewCircle(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), 50.0f, enemy->Getlength()))
         {
             if (enemy->RayLookHit())
             {
@@ -88,7 +88,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             }
         }
         //â‘Î‚ÉŒ©‚Â‚©‚é‹——£
-        if (enemy->IsInView(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), enemy->Getlength()))
+        if (enemy->InInViewCircle(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(),50.0f,enemy->Getlength()))
         {
             if (enemy->RayLookHit())
             {
@@ -319,6 +319,18 @@ void EnemyManager::SetEnemyParameter()
                 float length = static_cast<float>(parameter[i][x]);
                 length = (length / 10.0f);
                 enemies[i]->Setlength(length);
+            }
+            else if (x == 3)
+            {
+                float rayY = static_cast<float>(parameter[i][x]);
+                rayY = (rayY / 10.0f);
+                enemies[i]->SetStandrayY(rayY);
+            }
+            else if (x == 4)
+            {
+                float rayY = static_cast<float>(parameter[i][x]);
+                rayY = (rayY / 10.0f);
+                enemies[i]->SetSneakrayY(rayY);
             }
         }
     }
