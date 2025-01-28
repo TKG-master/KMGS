@@ -45,7 +45,6 @@ void EnemyManager::EnemysAnimUpdate()
 void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacleBoxes) {
 
     for (Enemy* enemy : enemies) {
-        enemy->Update();
         //“G‚ÌŽ‹–ì”ÍˆÍ‚Ì”»’è
 
 
@@ -53,7 +52,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         if (Pl->GetKnockSound() && !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback())
         {
             //‰¹‚ª•·‚±‚¦‚é”ÍˆÍ‚É‚¢‚é‚©H
-            if (CCollision::PointInCircle(Pl->GetPosition(), 500.0f, enemy->GetPosition()) /*&& !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback()*/)
+            if (CCollision::PointInCircle(Pl->GetPosition(), enemy->Gethearrange(), enemy->GetPosition()) /*&& !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback()*/)
             {
                 this->EnemyPathsAster(enemy, Pl->GetPosition());
                 Pl->SetknockSound(false);
@@ -79,7 +78,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         }
 
         //‚È‚ñ‚Æ‚È‚­Œ©‚¦‚Ä‚¢‚é‹——£
-        if (enemy->InInViewCircle(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), 50.0f, enemy->Getlength()))
+        if (enemy->InInViewCircle(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(), 10.0f, enemy->Getlength() * 1.5f) && !enemy->GetbookRead())
         {
             if (enemy->RayLookHit())
             {
@@ -88,7 +87,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             }
         }
         //â‘Î‚ÉŒ©‚Â‚©‚é‹——£
-        if (enemy->InInViewCircle(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(),50.0f,enemy->Getlength()))
+        if (enemy->InInViewCircle(enemy->GetPosition(), enemy->PositionForward(), enemy->GetFov(), Pl->GetPosition(),10.0f,enemy->Getlength()) && !enemy->GetbookRead())
         {
             if (enemy->RayLookHit())
             {
@@ -115,7 +114,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
                 }
             }
         }
-
+        enemy->Update();
 
     }
 
@@ -245,6 +244,14 @@ void EnemyManager::EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vec
     }
 }
 
+void EnemyManager::ShadowDraw()
+{
+    for (Enemy* enemy : enemies)
+    {
+        enemy->ShadowDraw();
+    }
+}
+
 void EnemyManager::SetEnemywandering()
 {
         for (int i = 0 ; i < Wandering.size() ; i++)
@@ -331,6 +338,18 @@ void EnemyManager::SetEnemyParameter()
                 float rayY = static_cast<float>(parameter[i][x]);
                 rayY = (rayY / 10.0f);
                 enemies[i]->SetSneakrayY(rayY);
+            }
+            else if (x == 5)
+            {
+                float ReadTime = static_cast<float>(parameter[i][x]);
+                ReadTime = (ReadTime / 10.0f);
+                enemies[i]->SetBookReadTime(ReadTime);
+            }
+            else if (x == 6)
+            {
+                float range = static_cast<float>(parameter[i][x]);
+                range = (range / 10.0f);
+                enemies[i]->Sethearrange(range);
             }
         }
     }

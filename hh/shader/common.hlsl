@@ -41,11 +41,24 @@ cbuffer LightBuffer : register(b4)
     LIGHT Light;
 };
 
+
 #define MAX_BONE 400
 cbuffer BoneMatrixBuffer : register(b5)
 {
     matrix BoneMatrix[MAX_BONE];
 }
+
+
+cbuffer LightViewBuffer : register(b6)
+{
+    matrix LightView;
+}
+
+cbuffer LightProjection : register(b7)
+{
+    matrix LightProjection;
+}
+
 
 struct VS_IN
 {
@@ -70,4 +83,5 @@ struct PS_IN
     float4 Position : SV_POSITION;
     float4 Diffuse : COLOR0;
     float2 TexCoord : TEXCOORD0;
+    float4 screenPos : Position1;
 };

@@ -122,81 +122,84 @@ DirectX::SimpleMath::Vector3 Enemy::PositionForward()
 //敵の見えている範囲の描画
 void Enemy::viewDraw()
 {
-    ID3D11DeviceContext* deviceContext = Renderer::GetDeviceContext();
-
-    // トポロジーをセット（旧プリミティブタイプ）
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    // 中心点の設定
-    //扇形の原点を敵のポジションに指定
-    fanVertices[0].Position = this->GetPosition() + (this->GetPosition() * -1);
-    //扇形になんの色を付けるかの指定
-    DirectX::SimpleMath::Color fanColor(color);
-    fanVertices[0].Diffuse = fanColor;
-
-
-    //扇形の各セグメントの位置を計算
-    for (int i = 0; i <= numSegments; ++i)
+    if (!this->GetbookRead())
     {
+        ID3D11DeviceContext* deviceContext = Renderer::GetDeviceContext();
 
-        float angle = -viewAngle / 2 + viewAngle * i / numSegments;
+        // トポロジーをセット（旧プリミティブタイプ）
+        deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-        //１セグメントの点のｘ軸とｚ軸の計算
-        float x = cos(angle) * viewDistance * this->Getview();
-        float z = sin(angle) * viewDistance * viewZ;
+        // 中心点の設定
+        //扇形の原点を敵のポジションに指定
+        fanVertices[0].Position = this->GetPosition() + (this->GetPosition() * -1);
+        //扇形になんの色を付けるかの指定
+        DirectX::SimpleMath::Color fanColor(color);
+        fanVertices[0].Diffuse = fanColor;
 
-        //扇形が埋もれないようにy軸に+0.1f
-        point = DirectX::SimpleMath::Vector3(x, 0.1f, z);
 
-        // エネミーの向きに応じて回転
-        rotation = DirectX::SimpleMath::Matrix::CreateRotationY(atan2(90.0f, 0.0f));
-        point = DirectX::SimpleMath::Vector3::Transform(point, rotation);
+        //扇形の各セグメントの位置を計算
+        for (int i = 0; i <= numSegments; ++i)
+        {
 
-        // エネミーの位置を基準に移動
-        point += this->GetPosition() + (this->GetPosition() * -1);
+            float angle = -viewAngle / 2 + viewAngle * i / numSegments;
 
-        //０は原点だからiにプラス１
-        fanVertices[i + 1].Position = point;
-        fanVertices[i + 1].Diffuse = fanColor;
+            //１セグメントの点のｘ軸とｚ軸の計算
+            float x = cos(angle) * viewDistance * this->Getview();
+            float z = sin(angle) * viewDistance * viewZ;
 
+            //扇形が埋もれないようにy軸に+0.1f
+            point = DirectX::SimpleMath::Vector3(x, 0.1f, z);
+
+            // エネミーの向きに応じて回転
+            rotation = DirectX::SimpleMath::Matrix::CreateRotationY(atan2(90.0f, 0.0f));
+            point = DirectX::SimpleMath::Vector3::Transform(point, rotation);
+
+            // エネミーの位置を基準に移動
+            point += this->GetPosition() + (this->GetPosition() * -1);
+
+            //０は原点だからiにプラス１
+            fanVertices[i + 1].Position = point;
+            fanVertices[i + 1].Diffuse = fanColor;
+
+        }
+
+        //インデックスに登録
+        std::vector<unsigned int> fanIndices;
+        for (int i = 1; i < numSegments + 1; ++i)
+        {
+            fanIndices.push_back(0);
+            fanIndices.push_back(i + 1);
+            fanIndices.push_back(i);
+        }
+
+        if (this->Search && !this->RookBook && !this->bookRead)
+        {
+            this->SetColor(Color(1.0f, 0.0f, 0.0f, 0.8f));
+        }
+        else if (!this->Search)
+        {
+            this->SetColor(Color(1.0f, 1.0f, 0.0f, 0.8f));
+        }
+
+        // 頂点バッファを作成して設定
+        e_VertexBuffer.Create(fanVertices);
+        e_VertexBuffer.SetGPU();
+
+        // インデックスバッファを作成して設定
+        e_IndexBuffer.Create(fanIndices);
+        e_IndexBuffer.SetGPU();
+
+        //シェーダーの設定
+        e_Shader.SetGPU();
+
+        e_Material.SetGPU();
+        //テクスチャの設定
+        e_Texture.SetGPU();
+
+        // トポロジーを三角形リストに設定して描画
+        deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+        deviceContext->DrawIndexed(fanIndices.size(), 0, 0);
     }
-
-    //インデックスに登録
-    std::vector<unsigned int> fanIndices;
-    for (int i = 1; i < numSegments + 1; ++i)
-    {
-        fanIndices.push_back(0);
-        fanIndices.push_back(i + 1);
-        fanIndices.push_back(i);
-    }
-
-    if (this->Search && !this->RookBook && !this->bookRead)
-    {
-        this->SetColor(Color(1.0f, 0.0f, 0.0f, 0.8f));
-    }
-    else if (!this->Search)
-    {
-        this->SetColor(Color(1.0f, 1.0f, 0.0f, 0.8f));
-    }
-
-    // 頂点バッファを作成して設定
-    e_VertexBuffer.Create(fanVertices);
-    e_VertexBuffer.SetGPU();
-
-    // インデックスバッファを作成して設定
-    e_IndexBuffer.Create(fanIndices);
-    e_IndexBuffer.SetGPU();
-
-    //シェーダーの設定
-    e_Shader.SetGPU();
-
-    e_Material.SetGPU();
-    //テクスチャの設定
-    e_Texture.SetGPU();
-
-    // トポロジーを三角形リストに設定して描画
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    deviceContext->DrawIndexed(fanIndices.size(), 0, 0);
 
 }
 //敵の視野範囲にプレイヤーが入ってるかの判定
@@ -376,8 +379,6 @@ float Enemy::calcPointSegmentDist(const DirectX::SimpleMath::Vector3& p, const S
     return distance;
 }
 
-
-
 //敵の向いている向きとモデルの向きを合わせる
 void Enemy::UpdateRotation()
 {
@@ -501,14 +502,14 @@ void Enemy::Wanderaround()
         this->SetPosition(currentPosition + direction * MoveSpeed);
     }
 
-     //進行方向に向けて回転を更新（イージングを使用）
+     //進行方向に向けて回転を更新
     if (direction.LengthSquared() > 0.0f) {
         DirectX::SimpleMath::Vector3 currentForward = this->Getforward();
         DirectX::SimpleMath::Vector3 newForward = EaseInCirc(currentForward, direction, Time1);
         this->Setforward(newForward);
         Time1 += deltaTime;
         if (Time1 >= 1.0f) {
-            Time1 = 0.5f;
+            Time1 = 0.0f;
         }
     }
 }

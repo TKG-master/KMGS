@@ -98,6 +98,9 @@ public:
 
     void EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vector3& playerPosition);
 
+
+    void ShadowDraw();
+
     //徘徊ルートをセット
     void SetEnemywandering();
     //パラメーターをセット

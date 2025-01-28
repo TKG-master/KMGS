@@ -35,6 +35,9 @@ void Character::Init(
 	std::string ModelName, std::string TexFolderPath,
 	std::vector<MotionStruct> MotionName, std::string vShader, std::string pShader)
 {
+	DepthS.Create("shader/vertexLightingOneSkinVS.hlsl","shader/PS_DepthWrite.hlsl");
+
+
 	STATUS = IDLE;
 
 	// アニメーションメッシュ読み込み
@@ -177,4 +180,10 @@ void Character::CollisionInit(DirectX::SimpleMath::Vector3 pos, DirectX::SimpleM
 	this->square.sizeX = size.x;
 	this->square.sizeY = size.y;
 	this->square.sizeZ = size.z;
+}
+
+void Character::ShadowDraw()
+{
+	DepthS.SetGPU();
+	m_AnimationObject.Draw();
 }

@@ -178,6 +178,39 @@ void Camera::SetFoucusFloat(float& CenterX, float& CenterZ)
 
 }
 
+void Camera::LightDraw()
+{
+	//カメラ行列の更新
+	Vector3 up = Vector3(0.0f, 0.0f, -1.0f);
+	m_ViewMatrix =
+		DirectX::XMMatrixLookAtLH(
+			m_Position,
+			m_Target,
+			up
+		);
+
+	Renderer::SetViewMatrix(&m_ViewMatrix);
+
+	constexpr float fieldOfView = DirectX::XMConvertToRadians(50.0f);
+
+	float aspectRatio = static_cast<float>(Application::GetWidth()) / static_cast<float>(Application::GetHeight());
+	float nearPlane = 1.0f;
+	float farPlane = 3500.0f;
+
+	projectionMatrix =
+		DirectX::XMMatrixOrthographicLH(
+			400.0f,
+			400.0f,
+			0.0f,
+			2000.0f
+		);
+
+	Renderer::SetLightProjectionMatrix(&projectionMatrix);
+	Renderer::SetProjectionMatrix(&projectionMatrix);
+	Renderer::SetLightViewMatrix(&m_ViewMatrix);
+
+}
+
 void Camera::Setpos(float& CenterX, float& CenterZ)
 {
 	m_Position.x = CenterX;

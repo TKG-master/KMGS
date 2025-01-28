@@ -1,6 +1,6 @@
 #include "renderer.h"
 #include "Application.h"
-
+#define SAFE_RELEASE(p)       { if( NULL != p ) { p->Release(); p = NULL; } }
 using namespace DirectX::SimpleMath;
 
 D3D_FEATURE_LEVEL       Renderer::m_FeatureLevel = D3D_FEATURE_LEVEL_11_0;
@@ -10,12 +10,22 @@ ID3D11DeviceContext* Renderer::m_DeviceContext{};
 IDXGISwapChain* Renderer::m_SwapChain{};
 ID3D11RenderTargetView* Renderer::m_RenderTargetView{};
 ID3D11DepthStencilView* Renderer::m_DepthStencilView{};
+ID3D11SamplerState* Renderer::m_samplerState{};
+ID3D11RasterizerState* Renderer::m_rsCullModeFront;
+ID3D11RasterizerState* Renderer::m_rsCullModeBack;
+
+
 
 ID3D11Buffer* Renderer::m_WorldBuffer{};
 ID3D11Buffer* Renderer::m_ViewBuffer{};
 ID3D11Buffer* Renderer::m_ProjectionBuffer{};
+ID3D11Buffer* Renderer::m_LightViewBuffer{};
+ID3D11Buffer* Renderer::m_LightProjectionBuffer{};
+
+
 ID3D11Buffer* Renderer::m_MaterialBuffer{};
 ID3D11Buffer* Renderer::m_LightBuffer{};
+
 
 ID3D11DepthStencilState* Renderer::m_DepthStateEnable{};
 ID3D11DepthStencilState* Renderer::m_DepthStateDisable{};
@@ -24,14 +34,22 @@ ID3D11DepthStencilState* Renderer::m_DepthStateDisable{};
 ID3D11BlendState* Renderer::m_BlendState[MAX_BLENDSTATE];
 ID3D11BlendState* Renderer::m_BlendStateATC{};
 
-ID3D11RasterizerState* Renderer::rasterizer{};
+ID3D11Texture2D* Renderer::m_depthStencile{};
+ID3D11Texture2D* Renderer::m_WipedepthStencile{};
+D3D11_TEXTURE2D_DESC Renderer::textureDesc{};
+ID3D11Texture2D* Renderer::m_renderTarget{};
+
+DirectX::SimpleMath::Matrix Renderer::m_view{};
 
 void Renderer::Init()
 {
 	HRESULT hr = S_OK;
+	UINT flag = 0;
 
-	UINT flags = 0;
-	flags |= D3D11_CREATE_DEVICE_DEBUG | D3D11_CREATE_DEVICE_BGRA_SUPPORT;
+
+#ifdef _DEBUG
+	flag |= D3D11_CREATE_DEVICE_DEBUG;
+#endif // _DEBUG
 
 	// デバイス、スワップチェーン作成
 	DXGI_SWAP_CHAIN_DESC swapChainDesc{};
@@ -47,11 +65,10 @@ void Renderer::Init()
 	swapChainDesc.SampleDesc.Quality = 0;
 	swapChainDesc.Windowed = TRUE;
 
-	hr = D3D11CreateDeviceAndSwapChain(
-		NULL,
+	hr = D3D11CreateDeviceAndSwapChain(NULL,
 		D3D_DRIVER_TYPE_HARDWARE,
 		NULL,
-		D3D11_CREATE_DEVICE_BGRA_SUPPORT,
+		flag,
 		NULL,
 		0,
 		D3D11_SDK_VERSION,
@@ -64,18 +81,12 @@ void Renderer::Init()
 
 
 
-
-
 	// レンダーターゲットビュー作成
-	ID3D11Texture2D* renderTarget{};
-	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&renderTarget);
-	m_Device->CreateRenderTargetView(renderTarget, NULL, &m_RenderTargetView);
-	renderTarget->Release();
+	m_SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&m_renderTarget);
+	m_Device->CreateRenderTargetView(m_renderTarget, NULL, &m_RenderTargetView);
 
 
 	// デプスステンシルバッファ作成
-	ID3D11Texture2D* depthStencile{};
-	D3D11_TEXTURE2D_DESC textureDesc{};
 	textureDesc.Width = swapChainDesc.BufferDesc.Width;
 	textureDesc.Height = swapChainDesc.BufferDesc.Height;
 	textureDesc.MipLevels = 1;
@@ -86,19 +97,24 @@ void Renderer::Init()
 	textureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	textureDesc.CPUAccessFlags = 0;
 	textureDesc.MiscFlags = 0;
-	m_Device->CreateTexture2D(&textureDesc, NULL, &depthStencile);
+	m_Device->CreateTexture2D(&textureDesc, NULL, &m_depthStencile);
 
-	// デプスステンシルビュー作成
-	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
-	depthStencilViewDesc.Format = textureDesc.Format;
-	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	depthStencilViewDesc.Flags = 0;
-	m_Device->CreateDepthStencilView(depthStencile, &depthStencilViewDesc, &m_DepthStencilView);
-	depthStencile->Release();
+	// デプスステンシルバッファ作成
+	textureDesc.Width = swapChainDesc.BufferDesc.Width;
+	textureDesc.Height = swapChainDesc.BufferDesc.Height;
+	textureDesc.MipLevels = 1;
+	textureDesc.ArraySize = 1;
+	textureDesc.Format = DXGI_FORMAT_D16_UNORM;
+	textureDesc.SampleDesc = swapChainDesc.SampleDesc;
+	textureDesc.Usage = D3D11_USAGE_DEFAULT;
+	textureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	textureDesc.CPUAccessFlags = 0;
+	textureDesc.MiscFlags = 0;
+	m_Device->CreateTexture2D(&textureDesc, NULL, &m_WipedepthStencile);
 
+	CreateDepthStencli(&m_DepthStencilView, m_depthStencile);
 
 	m_DeviceContext->OMSetRenderTargets(1, &m_RenderTargetView, m_DepthStencilView);
-
 
 	// ビューポート設定
 	D3D11_VIEWPORT viewport;
@@ -111,23 +127,25 @@ void Renderer::Init()
 	m_DeviceContext->RSSetViewports(1, &viewport);
 
 
-
-	// ラスタライザステート設定
+	// ラスタライザステート設定CullModeBack版
 	D3D11_RASTERIZER_DESC rasterizerDesc{};
 	rasterizerDesc.FillMode = D3D11_FILL_SOLID;
 	//	rasterizerDesc.FillMode = D3D11_FILL_WIREFRAME;
 	rasterizerDesc.CullMode = D3D11_CULL_BACK;
 	//rasterizerDesc.CullMode = D3D11_CULL_NONE;
-	//	rasterizerDesc.CullMode = D3D11_CULL_FRONT;
+	//rasterizerDesc.CullMode = D3D11_CULL_FRONT;
 	rasterizerDesc.DepthClipEnable = TRUE;
 	rasterizerDesc.MultisampleEnable = FALSE;
 
-	ID3D11RasterizerState* rs;
-	m_Device->CreateRasterizerState(&rasterizerDesc, &rs);
+	m_Device->CreateRasterizerState(&rasterizerDesc, &m_rsCullModeBack);
 
-	m_DeviceContext->RSSetState(rs);
+	//CullModeFront版も設定
+	rasterizerDesc.CullMode = D3D11_CULL_FRONT;
+	//rasterizerDesc.CullMode = D3D11_CULL_NONE;
 
-	rs->Release();
+	m_Device->CreateRasterizerState(&rasterizerDesc, &m_rsCullModeFront);
+	//デフォルトはBackをセット
+	m_DeviceContext->RSSetState(m_rsCullModeBack);
 
 	// ブレンド ステート生成
 	D3D11_BLEND_DESC BlendDesc;
@@ -187,13 +205,10 @@ void Renderer::Init()
 	samplerDesc.MaxAnisotropy = 4;
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
-	ID3D11SamplerState* samplerState{};
-	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
+	m_Device->CreateSamplerState(&samplerDesc, &m_samplerState);
 
-	m_DeviceContext->PSSetSamplers(0, 1, &samplerState);
+	m_DeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 
-
-	samplerState->Release();
 
 
 	// 定数バッファ生成
@@ -229,26 +244,22 @@ void Renderer::Init()
 	m_DeviceContext->PSSetConstantBuffers(4, 1, &m_LightBuffer);
 
 
-	//D3D11_RASTERIZER_DESC desc = {};
-	//desc.CullMode = D3D11_CULL_BACK;
-	//desc.FillMode = D3D11_FILL_SOLID;
-	//desc.FrontCounterClockwise = false;
-	//desc.ScissorEnable = false;
-	//desc.MultisampleEnable = false;
-	//m_Device->CreateRasterizerState(&desc, &rasterizer);
+	m_Device->CreateBuffer(&bufferDesc, NULL, &m_LightViewBuffer);
+	m_DeviceContext->VSSetConstantBuffers(6, 1, &m_LightViewBuffer);
 
-	//m_DeviceContext->RSSetState(rasterizer);
-
+	m_Device->CreateBuffer(&bufferDesc, NULL, &m_LightProjectionBuffer);
+	m_DeviceContext->VSSetConstantBuffers(7, 1, &m_LightProjectionBuffer);
 
 
 	// ライト初期化
 	LIGHT light{};
 	light.Enable = true;
+	light.Position = {};
 	light.Direction = Vector4(0.5f, -1.0f, 0.8f, 0.0f);
 	light.Direction.Normalize();
-	light.Ambient = Color(0.2f, 0.2f, 0.2f, 1.0f);
-	light.Diffuse = Color(1.5f, 1.5f, 1.5f, 1.0f);
-	SetLight(light);
+	light.Ambient = Color(1.0f, 1.2f, 0.2f, 1.0f);
+	light.Diffuse = Color(3.5f, 1.5f, 1.5f, 1.0f);
+	SetLight(&light);
 
 
 
@@ -258,33 +269,104 @@ void Renderer::Init()
 	material.Ambient = Color(1.0f, 1.0f, 1.0f, 1.0f);
 	SetMaterial(material);
 
+
+
 }
 
 void Renderer::Uninit()
 {
+#if 1
+	if (m_DeviceContext) {
+		m_DeviceContext->ClearState();
+		//	m_DeviceContext->Release();
+	}
 
-	m_WorldBuffer->Release();
-	m_ViewBuffer->Release();
-	m_ProjectionBuffer->Release();
-	m_LightBuffer->Release();
-	m_MaterialBuffer->Release();
 
-	m_DepthStateDisable->Release();
-	m_DepthStateEnable->Release();
+	SAFE_RELEASE(m_WorldBuffer);
+	SAFE_RELEASE(m_ViewBuffer);
+	SAFE_RELEASE(m_ProjectionBuffer);
+	SAFE_RELEASE(m_LightBuffer);
+	SAFE_RELEASE(m_MaterialBuffer);
+	SAFE_RELEASE(m_LightViewBuffer);
+	SAFE_RELEASE(m_LightProjectionBuffer);
 
-	m_DeviceContext->ClearState();
-	m_RenderTargetView->Release();
-	m_SwapChain->Release();
-	m_DeviceContext->Release();
-	m_Device->Release();
+	SAFE_RELEASE(m_samplerState);
+	SAFE_RELEASE(m_DepthStateEnable);
+	SAFE_RELEASE(m_DepthStateDisable);
+	SAFE_RELEASE(m_rsCullModeBack);
+	SAFE_RELEASE(m_rsCullModeFront);
+
+	for (int Index = 0; Index < MAX_BLENDSTATE; Index++) {
+		SAFE_RELEASE(m_BlendState[Index]);
+	}
+	SAFE_RELEASE(m_BlendStateATC);
+
+	SAFE_RELEASE(m_RenderTargetView);
+	SAFE_RELEASE(m_DepthStencilView);
+	SAFE_RELEASE(m_renderTarget);
+	SAFE_RELEASE(m_depthStencile);
+	SAFE_RELEASE(m_WipedepthStencile);
+
+	SAFE_RELEASE(m_SwapChain);
+	SAFE_RELEASE(m_DeviceContext);
+	SAFE_RELEASE(m_Device);
+#else
+	SAFE_RELEASE(m_WorldBuffer);
+	SAFE_RELEASE(m_ViewBuffer);
+	SAFE_RELEASE(m_ProjectionBuffer);
+	SAFE_RELEASE(m_LightBuffer);
+	SAFE_RELEASE(m_MaterialBuffer);
+	SAFE_RELEASE(m_WipeBuffer);
+	SAFE_RELEASE(m_CameraPosBuffer);
+	SAFE_RELEASE(m_PlayerPosBuffer);
+	SAFE_RELEASE(m_TimeBuffer);
+	SAFE_RELEASE(m_FrgBuffer);
+	SAFE_RELEASE(m_LightViewBuffer);
+	SAFE_RELEASE(m_LightProjectionBuffer);
+
+
+	SAFE_RELEASE(m_samplerState)
+
+		m_DeviceContext->ClearState();
+	SAFE_RELEASE(m_RenderTargetView);
+	SAFE_RELEASE(m_SwapChain);
+	SAFE_RELEASE(m_DeviceContext);
+	SAFE_RELEASE(m_Device);
+	SAFE_RELEASE(m_DepthStencilView);
+	SAFE_RELEASE(m_rsCullModeBack);
+	SAFE_RELEASE(m_rsCullModeFront);
+
+	SAFE_RELEASE(m_DepthStateEnable);
+	SAFE_RELEASE(m_DepthStateDisable);
+	for (int Index = 0; Index < MAX_BLENDSTATE; Index++)
+	{
+		SAFE_RELEASE(m_BlendState[Index]);
+	}
+	SAFE_RELEASE(m_BlendStateATC);
+	SAFE_RELEASE(m_renderTarget);
+	SAFE_RELEASE(m_depthStencile);
+	SAFE_RELEASE(m_WipedepthStencile);
+
+#endif
 
 }
 
 void Renderer::Begin()
 {
-	float clearColor[4] = { 0.0f, 0.0f, 1.0f, 1.0f };
+	float clearColor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+
+	// スロット数に応じてリソースを解除する
+	constexpr UINT kMaxTextureSlots = D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT;
+
+	// スロット数分の null ポインタ配列を作成
+	ID3D11ShaderResourceView* nullSRVs[kMaxTextureSlots] = { nullptr };
+
+	// ピクセルシェーダーの全スロットに null を設定
+	m_DeviceContext->PSSetShaderResources(0, kMaxTextureSlots, nullSRVs);
 	m_DeviceContext->ClearRenderTargetView(m_RenderTargetView, clearColor);
 	m_DeviceContext->ClearDepthStencilView(m_DepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	m_DeviceContext->OMSetDepthStencilState(m_DepthStateEnable, 0);
 }
 
 void Renderer::End()
@@ -352,9 +434,24 @@ void Renderer::SetWorldMatrix(Matrix* WorldMatrix)
 void Renderer::SetViewMatrix(Matrix* ViewMatrix)
 {
 	Matrix view;
-	view = ViewMatrix->Transpose();						// 転置
+	view = ViewMatrix->Transpose();
+
+	m_view = *ViewMatrix;					// 転置
+
 
 	m_DeviceContext->UpdateSubresource(m_ViewBuffer, 0, NULL, &view, 0, 0);
+}
+DirectX::SimpleMath::Matrix Renderer::GetViewMatrix()
+{
+	return m_view;
+}
+
+void Renderer::SetLightViewMatrix(Matrix* ViewMatrix)
+{
+	Matrix view;
+	view = ViewMatrix->Transpose();						// 転置
+
+	m_DeviceContext->UpdateSubresource(m_LightViewBuffer, 0, NULL, &view, 0, 0);
 }
 
 void Renderer::SetProjectionMatrix(Matrix* ProjectionMatrix)
@@ -364,15 +461,109 @@ void Renderer::SetProjectionMatrix(Matrix* ProjectionMatrix)
 
 	m_DeviceContext->UpdateSubresource(m_ProjectionBuffer, 0, NULL, &projection, 0, 0);
 }
+void Renderer::SetLightProjectionMatrix(Matrix* ProjectionMatrix)
+{
+	Matrix projection;
+	projection = ProjectionMatrix->Transpose();
+
+	m_DeviceContext->UpdateSubresource(m_LightProjectionBuffer, 0, NULL, &projection, 0, 0);
+}
 
 void Renderer::SetMaterial(MATERIAL Material)
 {
 	m_DeviceContext->UpdateSubresource(m_MaterialBuffer, 0, NULL, &Material, 0, 0);
 }
 
-void Renderer::SetLight(LIGHT Light)
+void Renderer::SetLight(void* Light)
 {
-	m_DeviceContext->UpdateSubresource(m_LightBuffer, 0, NULL, &Light, 0, 0);
+	m_DeviceContext->UpdateSubresource(m_LightBuffer, 0, NULL, Light, 0, 0);
+}
+
+
+//void Renderer::CreateDepthStencli(ID3D11DepthStencilView** _DepthStencilView)
+//{
+//	// デプスステンシルビュー作成
+//	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
+//	depthStencilViewDesc.Format = textureDesc.Format;
+//	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+//	depthStencilViewDesc.Flags = 0;
+//	m_Device->CreateDepthStencilView(m_depthStencile, &depthStencilViewDesc, _DepthStencilView);
+//
+//}
+
+void Renderer::CreateDepthStencli(ID3D11DepthStencilView** _DepthStencilView, ID3D11Texture2D* _Depth)
+{
+	// デプスステンシルビュー作成
+	D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc{};
+	depthStencilViewDesc.Format = textureDesc.Format;
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depthStencilViewDesc.Flags = 0;
+	m_Device->CreateDepthStencilView(_Depth, &depthStencilViewDesc, _DepthStencilView);
+
+}
+
+void Renderer::CreateRenderTargetView(ID3D11RenderTargetView** _TargetView, ID3D11Texture2D** _ptex, ID3D11ShaderResourceView** _SRV)
+{
+	D3D11_TEXTURE2D_DESC desc = {};
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+	desc.Width = Application::GetWidth();
+	desc.Height = Application::GetHeight();
+	desc.MipLevels = 1;
+	desc.ArraySize = 1;
+	desc.SampleDesc.Count = 1;
+
+	HRESULT hr = GetDevice()->CreateTexture2D(&desc, nullptr, _ptex);
+	if (FAILED(hr)) {
+		// エラーハンドリング
+	}
+
+	// シェーダーリソースビューの作成
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+	srvDesc.Format = desc.Format;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MipLevels = 1;
+	hr = GetDevice()->CreateShaderResourceView(*_ptex, &srvDesc, _SRV);
+	if (FAILED(hr)) {
+		// エラーハンドリング
+	}
+
+	// レンダーターゲットビューの作成
+	hr = GetDevice()->CreateRenderTargetView(*_ptex, NULL, _TargetView);
+	if (FAILED(hr)) {
+		// エラーハンドリング
+	}
+}
+
+ID3D11RenderTargetView* Renderer::GetRenderTargetView()
+{
+	return m_RenderTargetView;
+}
+
+ID3D11DepthStencilView* Renderer::GetDepthStencli()
+{
+	return m_DepthStencilView;
+}
+
+void Renderer::SetRenderTargets(UINT num, ID3D11RenderTargetView* ppViews, ID3D11DepthStencilView* pView)
+{
+	static ID3D11RenderTargetView* rtvs[4];
+
+	if (num > 4) num = 4;
+	for (UINT i = 0; i < num; ++i)
+		rtvs[i] = &ppViews[i];
+	m_DeviceContext->OMSetRenderTargets(num, rtvs, pView ? pView : nullptr);
+
+	// ビューポートの設定
+	D3D11_VIEWPORT vp;
+	vp.TopLeftX = 0.0f;
+	vp.TopLeftY = 0.0f;
+	vp.Width = (float)Application::GetWidth();
+	vp.Height = (float)Application::GetHeight();
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	m_DeviceContext->RSSetViewports(1, &vp);
 }
 
 void Renderer::CreateVertexShader(ID3D11VertexShader** VertexShader, ID3D11InputLayout** VertexLayout, const char* FileName)
@@ -426,4 +617,20 @@ void Renderer::CreatePixelShader(ID3D11PixelShader** PixelShader, const char* Fi
 	m_Device->CreatePixelShader(buffer, fsize, NULL, PixelShader);
 
 	delete[] buffer;
+
+}
+
+void Renderer::SetCullMode(CULLMODE _Cull)
+{
+	switch (_Cull)
+	{
+	case FRONT:
+		m_DeviceContext->RSSetState(m_rsCullModeFront);
+		break;
+	case BACK:
+		m_DeviceContext->RSSetState(m_rsCullModeBack);
+		break;
+	default:
+		break;
+	}
 }

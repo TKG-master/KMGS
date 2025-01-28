@@ -94,10 +94,5 @@ public:
 
 	std::vector<std::vector<int>> GetEparameter();
 
-
-
-
-
-
 };
 

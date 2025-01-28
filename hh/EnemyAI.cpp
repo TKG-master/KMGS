@@ -4,8 +4,9 @@
 EnemyAI::EnemyAI() {
     // ビヘイビアツリーの構築
 
-    //パトロール
+    
     Selector* root = new Selector();
+    //パトロール
     patrolSelector = new Selector();
     patrolSelector->AddChild(new ActionRead());
     patrolSelector->AddChild(new ActionBookRook());
@@ -22,7 +23,7 @@ EnemyAI::EnemyAI() {
     LookaroundSequence = new Sequence();
     LookaroundSequence->AddChild(new ActionLookaround());
     root->AddChild(LookaroundSequence);
-    //Fixed
+    //警備
     FixedSelector = new Selector();
     FixedSelector->AddChild(new ActionRead());
     FixedSelector->AddChild(new ActionBookRook());

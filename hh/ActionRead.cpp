@@ -10,7 +10,7 @@ bool ActionRead::Execute(Enemy* enemy)
     
     //10•bŽ~‚Ü‚Á‚Ä–ß‚éˆ—‚ð‘‚­
     if (!enemy->GetTimer()->IsRunning()) {
-        enemy->GetTimer()->StartCountDown(10.0f);
+        enemy->GetTimer()->StartCountDown(enemy->GetBookReadTime());
     }
     if (enemy->GetTimer()->IsTimeUp())
     {

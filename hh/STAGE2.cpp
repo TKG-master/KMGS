@@ -9,25 +9,10 @@ STAGE2::STAGE2()
 {
     gameTime = new Timer(true);
 
-    FontData* data = new FontData();
-    data->fontSize = 50;
-    data->font = Font::HG_SOUEIKAKU_GOTHIC;
-    data->Color = D2D1_COLOR_F(1.0f, 1.0f, 1.0f, 1.0f);
-
-    Write = new DirectWrite(data);
-    Write->Init();
-
-    data->fontSize = 25;
-    StartWrite = new DirectWrite(data);
-    StartWrite->Init();
-    StartWrite->SetPosition(Vector2(static_cast<float>(720.0f), static_cast<float>(500.0f)));
-
-    delete data;
-    data = nullptr;
-
     UM = new UIManager();
 
-
+    uragiri = new Uragiri();
+    uragiri->Init();
 
     GM = new EasingController();
 
@@ -177,6 +162,9 @@ STAGE2::STAGE2()
     EMS.clear();
 
     camera = new Camera(this->GetCameraPos());
+
+    Scamera = new Camera(Vector3(Pl->GetPosition().x, Pl->GetPosition().y + 800.0f, Pl->GetPosition().z));
+    Scamera->SetFoucus(Pl->GetPosition());
 }
 
 STAGE2::~STAGE2()
@@ -225,13 +213,6 @@ void STAGE2::Update()
     //タイマーが走っているなら通常の処理
     if (gameTime->IsRunning())
     {
-        //時間を分と秒に変換している
-        float remainingTime = gameTime->GetRemainingTime();
-        // 残り時間を分と秒に変換
-        int minutes = static_cast<int>(remainingTime) / 60000;
-        int seconds = (static_cast<int>(remainingTime) % 60000) / 1000;
-        Write->SetTimeranning(minutes, seconds);
-        Write->SetPosition(Vector2(100.0f, 100.0f));
 
         //プレイヤーのアップデート
         Pl->Update();
@@ -258,6 +239,8 @@ void STAGE2::Update()
                 GM->SetStikyEasing(true);
             }
         }
+        Scamera->SetPosition(Vector3(Pl->GetPosition().x, Pl->GetPosition().y + 800, Pl->GetPosition().z));
+        Scamera->SetFoucus(Pl->GetPosition());
     }
 
     //時間が止まっているときの処理
@@ -370,11 +353,25 @@ void STAGE2::Update()
 
 void STAGE2::Draw()
 {
+    camera->Draw();
+
     Dome->Draw();
 
     if (!GM->GetFadein())
     {
-        
+        uragiri->Begin();
+
+        Scamera->LightDraw();
+
+        Pl->ShadowDraw();
+
+        EM->ShadowDraw();
+
+        uragiri->End();
+
+        camera->Draw();
+
+
 
         for (auto& box : BOXS)
         {
@@ -386,9 +383,8 @@ void STAGE2::Draw()
         Pl->Draw();
 
         goal->Draw();
-    }
 
-    UM->Draw();
+    }
 
     if (!GM->GetEndEasing())
     {
@@ -409,23 +405,22 @@ void STAGE2::Draw()
     else
     {
         UM->ListCler();
-        radar->Draw(EM->GetEnemies());
         UM->PlayerStateUI(Pl);
         UM->EnemyUIActive(EM->GetEnemies());
-        Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        // Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        radar->Draw(EM->GetEnemies());
     }
 
     if (gameTime->TameStarflg == true && !GM->GetisEasingstart())
     {
         UM->ListCler();
         UM->SetActiveUI({ "StartUI" });
-        StartWrite->DrawString("敵に見つからない様、ゴールせよ！\n 敵の行動をよく観察しろ！\n制限時間２分00秒\n SPACEでスタート", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        //StartWrite->DrawString("敵に見つからない様、ゴールせよ！\n 敵の行動をよく観察しろ！\n制限時間２分00秒\n SPACEでスタート", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
     }
+    UM->Draw();
 
     Fade->Draw();
 
-    //カメラの描画
-    camera->Draw();
 }
 
 void STAGE2::Init()
@@ -461,6 +456,12 @@ void STAGE2::UnInit()
     delete Fade;
     Fade = nullptr;
 
+    delete uragiri;
+    uragiri = nullptr;
+
+    delete Scamera;
+    Scamera = nullptr;
+
 
     Pl->UnInit();
     delete Pl;
@@ -469,14 +470,6 @@ void STAGE2::UnInit()
     camera->Dispose();
     delete camera;
     camera = nullptr;
-
-    Write->Release();
-    delete Write;
-    Write = nullptr;
-
-    StartWrite->Release();
-    delete StartWrite;
-    StartWrite = nullptr;
 
 
     for (auto& box : BOXS)
