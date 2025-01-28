@@ -63,6 +63,11 @@ private:
 
 	//レイがどこまで伸ばして当たったか
 	float hitDis = 0.0f;
+	//本を読む時間
+	float BookReadTime = 0.0f;
+	//音が聞こえる範囲
+	float hearrange = 0.0f;
+
 
 	int bookCount = 0;
 
@@ -86,8 +91,8 @@ private:
 
 
 
-	float deltaTime = 0.005f;
-	float Time1 = 0.5;
+	float deltaTime = 0.01f;
+	float Time1 = 0.0;
 	float Time = 0.0f;
 
 	//プレイヤーのデーター（読み取り用）
@@ -187,26 +192,17 @@ public:
 
 	DirectX::SimpleMath::Vector3 PositionForward();
 
+
 	//見えている範囲の描画
 	void viewDraw();
-
-
-
 	//視野角の計算（座標が入っているか？）
 	bool IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 checkpoint, float length);
-
 	//視野角の計算（境界円）
 	bool InInViewCircle(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 circlecenter, float	radius, float length);
-
-
 	// 直線と点の距離を求める
 	float calcPointLineDist(const DirectX::SimpleMath::Vector3& point, const Segment& segment, DirectX::SimpleMath::Vector3& intersectionpoint, float& t);
-
 	// 線分と直線の長さを求める
 	float calcPointSegmentDist(const DirectX::SimpleMath::Vector3& p, const Segment& segment, DirectX::SimpleMath::Vector3& intersectionpoint, float& t);
-
-
-
 	//キャラクターの描画
 	void EnemyDraw() { Character::Draw(); };
 	//敵の向きを計算する
@@ -274,17 +270,24 @@ public:
 	bool RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square);
 
 	Timer* GetTimer() { return this->time; };
-
+	//タイマーのゲット
 	float GetTime() { return this->Time; };
 	float GetTime1() { return this->Time1; };
-
+	//タイマーのセット
 	void SetTime(float delta) { this->Time = delta; }
 	void SetTime1(float delta) { this->Time1 = delta; };
-
+	//イージングに使う値のセットとゲッター
 	void Setdeltatime(float delta) { this->deltaTime = delta; };
 	float Getdeltatime() { return this->deltaTime; };
+	//本を読む時間のゲッターとセッター
+	void SetBookReadTime(float ReadTime) { this->BookReadTime = ReadTime; };
+	float GetBookReadTime() { return this->BookReadTime; };
+	//音が聞こえる範囲
+	void Sethearrange(float range) { this->hearrange = range; };
+	float Gethearrange() { return this->hearrange; };
 
 	void Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath);
+	//見渡すパターンの関数
 	void securityMove();
 
 	int GetbookCount() { return this->bookCount; };

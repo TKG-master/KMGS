@@ -15,7 +15,7 @@
 #include "TimerUI.h"
 #include "DirectWrite.h"
 #include "UIManager.h"
-
+#include "Uragiri.h"
 
 
 class STAGE2 : public CScene
@@ -27,16 +27,14 @@ private:
 	Radar* radar;
 
 	Camera* camera;
+	Camera* Scamera;
 	Player* Pl;
 	EnemyManager* EM;
 	Timer* gameTime;
 	EasingController* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
-
-
-	DirectWrite* Write;
-	DirectWrite* StartWrite;
+	Uragiri* uragiri;
 
 	GameUI* GoalUI;
 	GameUI* ClearUI;

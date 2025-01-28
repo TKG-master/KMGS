@@ -54,8 +54,6 @@ public:
 	//描画処理
 	void Draw();
 
-	void II(DirectX::SimpleMath::Vector3 G);
-
 	//カメラの追尾処理
 	void LateUpdate(DirectX::SimpleMath::Vector3 playerPos,float deltaTime,float Ypos,bool flog , DirectX::SimpleMath::Vector3 Direction);
 
@@ -80,6 +78,9 @@ public:
 	void SetSpeed(float speed);
 	//
 	void SetFoucusFloat(float& CenterX, float& CenterZ);
+
+	//ライトカメラ
+	void LightDraw();
 
 	//
 	void Setpos(float& CenterX, float& CenterZ);

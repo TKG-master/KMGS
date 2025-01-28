@@ -40,9 +40,6 @@
     <Filter Include="Render">
       <UniqueIdentifier>{efdf4685-7f4b-4d2f-bd82-88b0bfb6f160}</UniqueIdentifier>
     </Filter>
-    <Filter Include="struct">
-      <UniqueIdentifier>{d53f9f3c-bef0-46ad-894e-af4ed69c3ae7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System">
       <UniqueIdentifier>{69cb7126-3cf9-4ea1-8b6a-8cbdaea1f5ac}</UniqueIdentifier>
     </Filter>
@@ -192,6 +189,9 @@
     </Filter>
     <Filter Include="System\Xa2">
       <UniqueIdentifier>{2d70c234-1634-4a3e-9c47-d88e1e72a90c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Uragiri">
+      <UniqueIdentifier>{06e3253d-f729-402d-b943-db3c9d6a90cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -452,6 +452,9 @@
     </ClCompile>
     <ClCompile Include="xa2.cpp">
       <Filter>System\Xa2</Filter>
+    </ClCompile>
+    <ClCompile Include="Uragiri.cpp">
+      <Filter>Uragiri</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -746,6 +749,9 @@
     <ClInclude Include="xa2.h">
       <Filter>System\Xa2</Filter>
     </ClInclude>
+    <ClInclude Include="Uragiri.h">
+      <Filter>Uragiri</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="shader\common.hlsl">
@@ -769,5 +775,13 @@
     <FxCompile Include="shader\VS_skyDome.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
+    <FxCompile Include="shader\PS_DepthWrite.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\VS_Block.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+    <FxCompile Include="shader\PixelShader.hlsl" />
+    <FxCompile Include="shader\VS_shadow.hlsl" />
   </ItemGroup>
 </Project>

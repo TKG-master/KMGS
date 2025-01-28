@@ -15,6 +15,7 @@
 #include "GameUI.h"
 #include "DirectWrite.h"
 #include "UIManager.h"
+#include "Uragiri.h"
 
 
 
@@ -27,6 +28,7 @@ private:
 
 	Radar* radar;
 	Camera* camera;
+	Camera* Scamera;
 	Field field;
 	Player* Pl;
 	EnemyManager* EM;
@@ -34,9 +36,8 @@ private:
 	EasingController* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
+	Uragiri* uragiri;
 
-	DirectWrite* Write;
-	DirectWrite* StartWrite;
 
 	GameUI* GoalUI;
 	GameUI* ClearUI;

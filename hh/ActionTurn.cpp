@@ -12,10 +12,10 @@ bool ActionTurn::Execute(Enemy* enemy)
         return false;
     }
 
-    enemy->Setforward(EaseInCirc(enemy->Getforward(), Vector3(0.0f, 0.0f, -1.0f), enemy->GetTime()));
-    enemy->SetTime(enemy->GetTime() + enemy->Getdeltatime());
-    if (enemy->GetTime() >= 1.0f) {
-        enemy->SetTime(0.5f);
+    enemy->Setforward(EaseInCirc(enemy->Getforward(), Vector3(0.0f, 0.0f, -1.0f), enemy->GetTime1()));
+    enemy->SetTime1(enemy->GetTime1() + enemy->Getdeltatime());
+    if (enemy->GetTime1() >= 1.0f) {
+        enemy->SetTime1(0.0f);
         enemy->SetState(EStateType::Patrolling);
         return true;
     }

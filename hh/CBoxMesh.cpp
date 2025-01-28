@@ -29,7 +29,7 @@ void BoxMesh::DrawInit(float x, float y, float z,std::string TexPath)
 	mtrl.TextureEnable = TRUE;
 
 	this->Init(x, y, z, DirectX::SimpleMath::Color(1.0f, 1.0f, 1.0f, 1.0f),
-		TexPath, "shader/unlitTextureVS.hlsl", "shader/unlitTexturePS.hlsl", mtrl);
+		TexPath, "shader/VS_shadow.hlsl", "shader/PS_Shadow.hlsl", mtrl);
 
 }
 
@@ -72,6 +72,7 @@ void BoxMesh::Update()
 
 void BoxMesh::Draw()
 {
+	m_Shader.SetGPU();
 	CMesh::Draw();
 }
 

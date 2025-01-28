@@ -28,6 +28,9 @@ protected:
 
     // シェーダー
     CShader	m_Shader;
+
+    CShader DepthS;
+
     // アニメーションメッシュ
     CAnimationMesh m_AnimationMesh;
     // アニメーションオブジェクト
@@ -130,6 +133,8 @@ public:
 
     void SetAnimEndState(bool flg) { this->AnimEndState = flg; };
     bool GetAnimEndState() { return this->AnimEndState; };
+
+    void ShadowDraw();
 
 
 };
