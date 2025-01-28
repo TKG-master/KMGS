@@ -782,6 +782,8 @@
       <Filter>リソース ファイル</Filter>
     </FxCompile>
     <FxCompile Include="shader\PixelShader.hlsl" />
-    <FxCompile Include="shader\VS_shadow.hlsl" />
+    <FxCompile Include="shader\VS_shadow.hlsl">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
