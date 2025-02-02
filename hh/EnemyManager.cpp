@@ -24,11 +24,6 @@ EnemyManager::~EnemyManager() {
     enemies.clear();
 }
 
-void EnemyManager::EnemyModelInit(std::string ModelName, std::string TexFolderPath)
-{
-    // アニメーションメッシュ読み込み
-    m_AnimationMesh.Load(ModelName, TexFolderPath);
-}
 
 void EnemyManager::AddEnemy(Enemy* enemy) {
     enemies.push_back(enemy);
@@ -49,7 +44,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 
 
         //音が鳴った時
-        if (Pl->GetKnockSound() && !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback())
+        if (Pl->GetKnockSound() && !enemy->GethearSound() && (enemy->GetState() == EStateType::Patrolling || enemy->GetState() == EStateType::Turn || enemy->GetState() == EStateType::Fixed || enemy->GetState() == EStateType::FixedLeft))
         {
             //音が聞こえる範囲にいるか？
             if (CCollision::PointInCircle(Pl->GetPosition(), enemy->Gethearrange(), enemy->GetPosition()) /*&& !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback()*/)
@@ -57,7 +52,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
                 this->EnemyPathsAster(enemy, Pl->GetPosition());
                 Pl->SetknockSound(false);
                 enemy->SethearSound(true);
-                enemy->SetSearch(true);
+                enemy->ChangeState(EStateType::Serch);
             }
         }
         else
@@ -65,9 +60,9 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             Pl->SetknockSound(false);
         }
 
-        if (enemy->Getback())
+        if (enemy->GetState() == EStateType::Back)
         {
-            if (enemy->GetState() == EStateType::Fixed)
+            if (enemy->GetTypeSecrity())
             {
                 this->EnemyPathsAster(enemy, enemy->GetStartPositon());
             }
@@ -83,6 +78,7 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             if (enemy->RayLookHit())
             {
                 EnemyPathsAster(enemy, Pl->GetPosition());
+                enemy->ChangeState(EStateType::Serch);
                 enemy->SetSearch(true);
             }
         }
@@ -104,14 +100,8 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
             if (enemy->RayLookBook(Pl->GetBookpos(), Pl->GetBooksquare()))
             {
                 EnemyPathsAster(enemy, Pl->GetBookpos());
-                if (enemy->GetSearch())
-                {
-                    enemy->SetSearch(false);
-                }
-                else if (enemy->Getback())
-                {
-                    enemy->Setback(false);
-                }
+                enemy->ChangeState(EStateType::Bookconnection);
+                enemy->SetbookCount(1);
             }
         }
         enemy->Update();
@@ -123,46 +113,6 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
 void EnemyManager::DrawEnemies() {
     for (Enemy* enemy : enemies) {
         enemy->Draw();
-    }
-}
-
-void EnemyManager::DrawEnemiesUI()
-{
-
-}
-
-void EnemyManager::NotifyEnemies(Enemy* alertingEnemy) {
-    for (Enemy* enemy : enemies) {
-        if (enemy != alertingEnemy) {
-            enemy->SetState(EStateType::Lookaround);
-        }
-    }
-}
-
-void EnemyManager::AlertEnemies(Enemy* alertedEnemy) {
-    for (Enemy* enemy : enemies) {
-        if (enemy != alertedEnemy) {
-            enemy->SetState(EStateType::Lookaround);
-        }
-    }
-}
-
-void EnemyManager::ManageEnemyState(Enemy* enemy, bool find, const DirectX::SimpleMath::Vector3 PlPos) {
-    switch (enemy->GetState()) {
-    case EStateType::Patrolling:
-        if (Rook) {
-            enemy->SetState(EStateType::Lookaround);
-            NotifyEnemies(enemy);
-        }
-        break;
-    case EStateType::Lookaround:
-        if (Rook)
-        {
-            this->UpdateEnemyPaths(PlPos);
-        }
-        break;
-    case EStateType::Turn:
-        break;
     }
 }
 
@@ -265,7 +215,7 @@ void EnemyManager::SetEnemywandering()
 
                 float gridX = static_cast<float>(Wandering[i][a + 1]);
                 float gridZ = static_cast<float>(Wandering[i][a + 2]);
-
+                //値が１００じゃないなら巡回パターンの設定
                 if (pointIndex != 100)
                 {
                     // ワールド座標に変換
@@ -276,6 +226,7 @@ void EnemyManager::SetEnemywandering()
                     Vector3 worldPosition(worldX, 0.0f, worldZ); // Y座標は0と仮定
                     worldPositions.push_back(worldPosition);
                 }
+                //値が１００なら巡回パターンの設定
                 else if (pointIndex == 100)
                 {
                     float FovX = gridX / 100.0f;
@@ -290,10 +241,17 @@ void EnemyManager::SetEnemywandering()
             {
                 // 変換されたワールド座標をエネミーに設定
                 enemies[i]->SetwanderingPath(worldPositions);
+                //ビヘイビアツリーの構築
+                enemies[i]->EnemyAIInit(pointIndex);
+
+
             }
             else if (pointIndex == 100)
             {
+                //見渡す方向を設定
                 enemies[i]->Getsecurityfov(worldPositions);
+                //ビヘイビアツリーの構築
+                enemies[i]->EnemyAIInit(pointIndex);
             }
         }
 
@@ -327,24 +285,28 @@ void EnemyManager::SetEnemyParameter()
                 length = (length / 10.0f);
                 enemies[i]->Setlength(length);
             }
+            //目線の高さの設定
             else if (x == 3)
             {
                 float rayY = static_cast<float>(parameter[i][x]);
                 rayY = (rayY / 10.0f);
                 enemies[i]->SetStandrayY(rayY);
             }
+            //プレイヤーがしゃがんでいるときの目線の高さの設定
             else if (x == 4)
             {
                 float rayY = static_cast<float>(parameter[i][x]);
                 rayY = (rayY / 10.0f);
                 enemies[i]->SetSneakrayY(rayY);
             }
+            //本を読む時間の設定
             else if (x == 5)
             {
                 float ReadTime = static_cast<float>(parameter[i][x]);
                 ReadTime = (ReadTime / 10.0f);
                 enemies[i]->SetBookReadTime(ReadTime);
             }
+            //音が聞こえる範囲の設定
             else if (x == 6)
             {
                 float range = static_cast<float>(parameter[i][x]);

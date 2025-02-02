@@ -11,9 +11,13 @@ enum ObjectType {
 
 enum class EStateType {
     Patrolling,     //œpœj
-    Lookaround,     //ü‚è‚ğŒ©‚é
-    Turn,            //“G‚ÌŒü‚«‚ğ–ß‚·
-    Fixed,
+    Fixed,          //Œx‰ú‰EŒü‚«
+    FixedLeft,      //Œx‰ú¶Œü‚«
+    Turn,            //“G‚ÌŒü‚«‚ğ‚©‚¦‚é
+    Bookconnection, //–{‚ğ“Ç‚Ş‚Ü‚Å
+    BookRead,       //–{‚ğ“Ç‚ñ‚Å‚é‚Æ‚«
+    Serch,          //’T‚µ‚É—ˆ‚é‚Æ‚«
+    Back,
 };
 
 enum class PStateType {
@@ -22,17 +26,4 @@ enum class PStateType {
     STIKY,
     STANDEYE,
     SNEAKEYE,
-};
-
-
-enum class GameState {
-    START,
-    UPDATE,
-    END,
-};
-
-enum class FadeState {
-    NO_FADE,
-    FADE_IN,
-    FADE_OUT,
 };

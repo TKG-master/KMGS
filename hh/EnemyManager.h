@@ -18,8 +18,6 @@ private:
     //敵のパラメータの情報
     std::vector<std::vector<int>> parameter;
 
-    CAnimationMesh m_AnimationMesh;
-
     // A*アルゴリズムを利用するためのAStarインスタンス
     Astar astar;
 
@@ -29,7 +27,7 @@ private:
     bool RookNow = false;
 
     DirectX::SimpleMath::Vector3 rayDirection;
-    //45固定
+
     float rayY = 45.0f;
 
     int pointIndex = 0;
@@ -44,8 +42,6 @@ public:
 
     ~EnemyManager();
 
-    void EnemyModelInit(std::string ModelName, std::string TexFolderPath);
-
     // 敵を追加する
     void AddEnemy(Enemy* enemy);
 
@@ -53,7 +49,7 @@ public:
     {
         enemies = Enemies;
     }
-
+    //アニメーションのアップデート
     void EnemysAnimUpdate();
 
     // 敵を更新する
@@ -61,8 +57,6 @@ public:
 
     // 敵を描画する
     void DrawEnemies();
-
-    void DrawEnemiesUI();
 
     // 敵同士の通信を管理する
     void NotifyEnemies(Enemy* alertingEnemy);
@@ -95,13 +89,13 @@ public:
 
     // 経路を計算して敵を更新する
     void UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPosition);
-
+    //単体の敵に経路のパスを渡す
     void EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vector3& playerPosition);
 
-
+    //影の描画
     void ShadowDraw();
 
-    //徘徊ルートをセット
+    //敵の行動を設定
     void SetEnemywandering();
     //パラメーターをセット
     void SetEnemyParameter();

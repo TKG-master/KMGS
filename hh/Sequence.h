@@ -10,6 +10,10 @@ public:
     void AddChild(IBehaviorNode* child);
     bool Execute(Enemy* enemy) override;
 
+    ~Sequence() {
+        this->UnInit();
+    }
+
     void UnInit() {
         for (auto child : children)
         {

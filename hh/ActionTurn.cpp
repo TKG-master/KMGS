@@ -16,7 +16,7 @@ bool ActionTurn::Execute(Enemy* enemy)
     enemy->SetTime1(enemy->GetTime1() + enemy->Getdeltatime());
     if (enemy->GetTime1() >= 1.0f) {
         enemy->SetTime1(0.0f);
-        enemy->SetState(EStateType::Patrolling);
+        enemy->ChangeState(EStateType::Patrolling);
         return true;
     }
 

@@ -1,6 +1,7 @@
 #include "UIManager.h"
 #include "Enemy.h"
 #include "Player.h"
+#include "Timer.h"
 #include <iostream>
 
 using namespace DirectX::SimpleMath;
@@ -93,11 +94,11 @@ void UIManager::EnemyUIActive(const std::vector<Enemy*>& enemies)
 
         this->SetActiveUI({id});
 
-        if (enemies[i]->GetSearch() && !enemies[i]->GetRookBook() && !enemies[i]->GetbookRead())
+        if (enemies[i]->GetState() == EStateType::Serch)
         {
             this->SetActiveUI({id2});
         }
-        else if (enemies[i]->GetbookRead())
+        else if (enemies[i]->GetState() == EStateType::BookRead)
         {
             this->SetActiveUI({id3});
         }
@@ -121,6 +122,65 @@ void UIManager::InitPlayerUI()
     KeyUI2->SetWidth(125.0f);
     AddUI("KeyUI2", KeyUI2);
 
+}
+
+void UIManager::InitTimeUI()
+{
+    GameUI* Time4UI = new GameUI();
+    Time4UI->Init("assets\\Texture\\TimeUI4.png");
+    Time4UI->SetCenter(Vector2(250.0f, 100.0f));
+    Time4UI->SetHeight(150.0f);
+    Time4UI->SetWidth(500.0f);
+    AddUI("TimeUI4", Time4UI);
+
+    GameUI* Time3UI = new GameUI();
+    Time3UI->Init("assets\\Texture\\TimeUI3.png");
+    Time3UI->SetCenter(Vector2(250.0f, 100.0f));
+    Time3UI->SetHeight(150.0f);
+    Time3UI->SetWidth(500.0f);
+    AddUI("TimeUI3", Time3UI);
+
+    GameUI* Time2UI = new GameUI();
+    Time2UI->Init("assets\\Texture\\TimeUI2.png");
+    Time2UI->SetCenter(Vector2(250.0f, 100.0f));
+    Time2UI->SetHeight(150.0f);
+    Time2UI->SetWidth(500.0f);
+    AddUI("TimeUI2", Time2UI);
+
+    GameUI* TimeUI = new GameUI();
+    TimeUI->Init("assets\\Texture\\TimeUI.png");
+    TimeUI->SetCenter(Vector2(250.0f, 100.0f));
+    TimeUI->SetHeight(150.0f);
+    TimeUI->SetWidth(500.0f);
+    AddUI("TimeUI", TimeUI);
+
+}
+
+void UIManager::TimeactiveUI(Timer* time)
+{
+    // Žc‚èŽžŠÔ‚ðƒ~ƒŠ•b‚©‚ç•b‚É•ÏŠ·
+    float remainingTimeInSeconds = time->GetRemainingTime() / 1000.0f;
+
+    if (remainingTimeInSeconds <= 120.0f && remainingTimeInSeconds > 90.0f) 
+    {
+        // 2•ªˆÈ‰º‚©‚Â1•ª30•bˆÈã‚Ì‚Æ‚«
+        this->SetActiveUI({"TimeUI4"});
+    }
+    else if (remainingTimeInSeconds <= 90.0f && remainingTimeInSeconds > 60.0f) 
+    {
+        // 1•ª30•bˆÈ‰º‚©‚Â1•ªˆÈã‚Ì‚Æ‚«
+        this->SetActiveUI({ "TimeUI3" });
+    }
+    else if (remainingTimeInSeconds <= 60.0f && remainingTimeInSeconds > 0.0f) 
+    {
+        // 1•ªˆÈ‰º‚Ì‚Æ‚«
+        this->SetActiveUI({ "TimeUI2" });
+    }
+    else if (remainingTimeInSeconds <= 0.0f) 
+    {
+        // ƒ^ƒCƒ€ƒAƒbƒv
+        this->SetActiveUI({ "TimeUI" });
+    }
 }
 
 
