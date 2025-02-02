@@ -199,8 +199,8 @@ void Camera::LightDraw()
 
 	projectionMatrix =
 		DirectX::XMMatrixOrthographicLH(
-			400.0f,
-			400.0f,
+			500.0f,
+			500.0f,
 			0.0f,
 			2000.0f
 		);

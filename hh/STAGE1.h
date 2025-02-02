@@ -45,6 +45,7 @@ private:
 	GameUI* failedUI;
 	GameUI* StartUI;
 	GameUI* PushUI;
+	GameUI* explainUI;
 	UIManager* UM;
 
 	GameUI* Fade;

@@ -4,6 +4,7 @@
 
 class Player;
 class Enemy;
+class Timer;
 
 
 class UIManager
@@ -29,6 +30,10 @@ public:
     void EnemyUIActive(const std::vector<Enemy*>& enemies);
 
     void InitPlayerUI();
+
+    void InitTimeUI();
+
+    void TimeactiveUI(Timer* time);
 
     void PlayerStateUI(Player* Pl);
 

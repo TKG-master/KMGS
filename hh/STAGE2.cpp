@@ -59,6 +59,14 @@ STAGE2::STAGE2()
     StartUI->SetColor(Color(0.0f, 0.5f, 0.5f, 0.5f));
     UM->AddUI("StartUI", StartUI);
 
+    explainUI = new GameUI();
+    explainUI->Init("assets\\Texture\\setumei.png");
+    explainUI->SetCenter(Vector2(960.0f, 540.0f));
+    explainUI->SetHeight(300.0f);
+    explainUI->SetWidth(500.0f);
+    explainUI->SetColor(Color(1.0f, 1.0f, 1.0f, 1.0f));
+    UM->AddUI("explainUI", explainUI);
+
     PushUI = new GameUI();
     PushUI->Init("assets\\Texture\\PushSpace.png");
     PushUI->SetCenter(Vector2(1500.0f, 850.0f));
@@ -152,6 +160,7 @@ STAGE2::STAGE2()
 
     UM->InitEnemyUI(EM->GetEnemies());
     UM->InitPlayerUI();
+    UM->InitTimeUI();
 
     //ƒŒ[ƒ_[‚Ì‰Šú‰»
     radar = new Radar();
@@ -402,12 +411,12 @@ void STAGE2::Draw()
         GoalUI->SetWidth(2500.0f);
         UM->SetActiveUI({ "GoalUI","failedUI","pushspace" });
     }
-    else
+    else if (!GM->GetisEasingstart())
     {
         UM->ListCler();
         UM->PlayerStateUI(Pl);
         UM->EnemyUIActive(EM->GetEnemies());
-        // Write->DrawString(Write->GetTimerannig(), Write->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        UM->TimeactiveUI(gameTime);
         radar->Draw(EM->GetEnemies());
     }
 
@@ -415,7 +424,7 @@ void STAGE2::Draw()
     {
         UM->ListCler();
         UM->SetActiveUI({ "StartUI" });
-        //StartWrite->DrawString("“G‚ÉŒ©‚Â‚©‚ç‚È‚¢—lAƒS[ƒ‹‚¹‚æI\n “G‚Ìs“®‚ð‚æ‚­ŠÏŽ@‚µ‚ëI\n§ŒÀŽžŠÔ‚Q•ª00•b\n SPACE‚ÅƒXƒ^[ƒg", StartWrite->GetPosition(), D2D1_DRAW_TEXT_OPTIONS_NONE);
+        UM->SetActiveUI({ "explainUI" });
     }
     UM->Draw();
 

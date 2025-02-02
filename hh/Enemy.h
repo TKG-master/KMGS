@@ -44,9 +44,9 @@ private:
 	int currentPathIndex = 0;
 	//徘徊するルートのポイント格納の配列
 	std::vector<DirectX::SimpleMath::Vector3> wandering_path;
+	int currentwanderingpathIndex = 0;
 	//警戒する場合の向き
 	std::vector<DirectX::SimpleMath::Vector3> forward_path;
-	int currentwanderingpathIndex = 0;
 	//次の徘徊の目的地
 	DirectX::SimpleMath::Vector3 targetPos;
 	// 現在の位置
@@ -88,6 +88,8 @@ private:
 	bool bookRead = false;
 	//レーダの中にいるのか？
 	bool RaderIn = false;
+	//巡回か警備か？
+	bool TypeSecrity = false;
 
 
 
@@ -157,13 +159,40 @@ public:
 	//扇形の原点
 	DirectX::SimpleMath::Vector3 GetPoint() { return fanVertices[0].Position; };
 
+	//見えている奥行をゲット
 	float Getview() { return this->viewX; };
 
+	//プレイヤークラスのデータをゲット
 	const Player* getPlayer() const {
 		return playerdate;
 	};
 
+	//ステイとのゲットとセッター
 	EStateType GetState() const { return state; };
+	void ChangeState(EStateType newState);
+	//巡回経路のポイントのゲットとセット
+	int GetWaypointIndex() { return this->currentwanderingpathIndex; };
+	void SetWaypointIndex(int num) { this->currentwanderingpathIndex = num; };
+	//Astarの経路のポイントのゲットとセット
+	int GetPathIndex() { return this->currentPathIndex; };
+	void SetPathIndex(int num) { this->currentPathIndex = num; };
+	//次の巡回ルートのポイント設定
+	void NextWaypointIndex() { this->currentwanderingpathIndex++; };
+	//ターゲットポスのゲットとセット
+	void SetTargetPos(DirectX::SimpleMath::Vector3 pos) { this->targetPos = pos; };
+	DirectX::SimpleMath::Vector3 GetTargetPos() { return this->targetPos; };
+	//Astarで受け取ったパスのゲット
+	std::vector<DirectX::SimpleMath::Vector3> Getpath() { return this->path; };
+	//向く方向のゲット
+	std::vector<DirectX::SimpleMath::Vector3> Getforwardpath() { return this->forward_path; };
+
+	//スピードのゲット
+	float GetMoveSpeed() { return this->MoveSpeed; };
+
+
+
+	//AIの初期化
+	void EnemyAIInit(int num);
 
 	//情報のセッター
 	//向いている方向のセット
@@ -186,10 +215,10 @@ public:
 	void SetSneakrayY(float num) { this->SneakrayY = num; };
 
 	void SetState(EStateType newState) { state = newState; };
-
+	//見渡すタイプの敵の位置のゲッターとセッター
 	void SetStartPositon(DirectX::SimpleMath::Vector3 Spos) { this->StartPosition = Spos; };
 	DirectX::SimpleMath::Vector3 GetStartPositon() { return this->StartPosition; };
-
+	//向いている方向の保持
 	DirectX::SimpleMath::Vector3 PositionForward();
 
 
@@ -230,7 +259,16 @@ public:
 	// 経路に沿って移動するメソッド
 	void FollowPath();
 	//アニメーションのアップデート
-	void AnimUpdate() { Character::Update(); };
+	void AnimUpdate() { 
+		if (this->GetAstatus() == WALK)
+		{
+			this->SetToAnimationName("Walk");
+		}
+		else if (this->GetAstatus() == IDLE)
+		{
+			this->SetToAnimationName("Idle");
+		}
+		Character::Update(); };
 
 	
 	//当たり判定の位置を更新
@@ -261,6 +299,12 @@ public:
 	//レーダーの中にいるかどうかのbool型のゲッターとセッター
 	bool GetRaderIn() { return this->RaderIn; };
 	void SetRaderIn(bool flg) { this->RaderIn = flg; };
+	//敵がどっちを警戒しているかのbool型のゲットとセット
+	bool Getsecurity() { return this->secrity; };
+	void Setsecurity(bool flg) { this->secrity = flg; };
+
+	bool GetTypeSecrity() { return this->TypeSecrity; };
+
 	//レーダー上のポス
 	DirectX::SimpleMath::Vector2 GetRaderPos() { return this->RaderPos; };
 	void SetRaderPos(DirectX::SimpleMath::Vector2 pos) { this->RaderPos = pos; }
@@ -268,7 +312,7 @@ public:
 	//レイを飛ばす処理
 	bool RayLookHit();
 	bool RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square);
-
+	//タイマークラスのゲット
 	Timer* GetTimer() { return this->time; };
 	//タイマーのゲット
 	float GetTime() { return this->Time; };
@@ -285,11 +329,11 @@ public:
 	//音が聞こえる範囲
 	void Sethearrange(float range) { this->hearrange = range; };
 	float Gethearrange() { return this->hearrange; };
-
+	//見渡すタイプの敵の場合の初期化
 	void Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& wanderingPath);
 	//見渡すパターンの関数
 	void securityMove();
-
+	//本を読む回数のゲッターとセッター
 	int GetbookCount() { return this->bookCount; };
 	void SetbookCount(int num) { this->bookCount = num; };
 

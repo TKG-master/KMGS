@@ -31,7 +31,6 @@ Enemy::Enemy(std::string ModelName, std::string TexFolderPath, std::vector<Motio
     time = new Timer(true);
 
 
-    AI = new EnemyAI();
     this->Setgetcaught(false);
     this->SethearSound(false);
     this->Setback(false);
@@ -111,6 +110,19 @@ void Enemy::Draw()
 
 }
 
+void Enemy::ChangeState(EStateType newState)
+{
+    if (state != newState) {
+        state = newState;
+        AI->SetState(newState);
+    }
+}
+
+void Enemy::EnemyAIInit(int num)
+{
+    AI = new EnemyAI(num);
+}
+
 DirectX::SimpleMath::Vector3 Enemy::PositionForward()
 {
     this->SaveForward.x = this->GetPosition().x + (this->Getforward().x * 0.0001f);
@@ -172,11 +184,11 @@ void Enemy::viewDraw()
             fanIndices.push_back(i);
         }
 
-        if (this->Search && !this->RookBook && !this->bookRead)
+        if (this->GetState() == EStateType::Serch)
         {
             this->SetColor(Color(1.0f, 0.0f, 0.0f, 0.8f));
         }
-        else if (!this->Search)
+        else
         {
             this->SetColor(Color(1.0f, 1.0f, 0.0f, 0.8f));
         }
@@ -246,7 +258,7 @@ bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::V
     }
 
 }
-
+//‹«ŠE‰~‚Ì”»’è
 bool Enemy::InInViewCircle(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 circlecenter, float radius, float length)
 {
     // Œü‚«‚ª‚·‚×‚Ä0‚Ì‚Æ‚«‚Í‚Ç‚±‚àŒü‚¢‚Ä‚¢‚È‚¢‚Æ‚İ‚È‚·
@@ -494,7 +506,7 @@ void Enemy::Wanderaround()
         // Ÿ‚ÌˆÊ’u‚É“’B‚µ‚½ê‡
         this->SetPosition(targetPos);
         currentwanderingpathIndex++;
-        this->SetState(EStateType::Lookaround);
+        //this->SetState(EStateType::Lookaround);
     }
     else {
         // ˆÚ“®—Ê‚ğ³‹K‰»‚µ‚Ä‘¬“x‚ğŠ|‚¯‚é
@@ -633,6 +645,7 @@ bool Enemy::RayLookBook(DirectX::SimpleMath::Vector3 pos,SQUARE3D square)
 void Enemy::Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& forvPath)
 {
     this->SetState(EStateType::Fixed);
+    this->TypeSecrity = true;
     this->SetStartPositon(this->GetPosition());
     forward_path = forvPath;
 }

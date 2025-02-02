@@ -138,15 +138,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionBookRead.cpp" />
     <ClCompile Include="ActionBookRook.cpp" />
+    <ClCompile Include="ActionCheck.cpp" />
+    <ClCompile Include="ActionCheckArrival.cpp" />
+    <ClCompile Include="ActionCheckState.cpp" />
+    <ClCompile Include="ActionCheckTurn.cpp" />
     <ClCompile Include="ActionConcern.cpp" />
     <ClCompile Include="ActionFixed.cpp" />
     <ClCompile Include="ActionLookaround.cpp" />
     <ClCompile Include="ActionMoveback.cpp" />
     <ClCompile Include="ActionMoveSearch.cpp" />
     <ClCompile Include="ActionMoveToPlayer.cpp" />
+    <ClCompile Include="ActionMoveToWaypoint.cpp" />
+    <ClCompile Include="ActionPerformTurn.cpp" />
+    <ClCompile Include="ActionPrepareTurn.cpp" />
     <ClCompile Include="ActionRead.cpp" />
+    <ClCompile Include="ActionSelectNextWaypoint.cpp" />
+    <ClCompile Include="ActionSerchMove.cpp" />
     <ClCompile Include="ActionTurn.cpp" />
+    <ClCompile Include="ActionTurnTo.cpp" />
+    <ClCompile Include="ActionWait.cpp" />
     <ClCompile Include="AnimObj.cpp" />
     <ClCompile Include="AnimScene.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -219,6 +231,7 @@
     <ClCompile Include="SkyDome.cpp" />
     <ClCompile Include="STAGE1.cpp" />
     <ClCompile Include="STAGE2.cpp" />
+    <ClCompile Include="StateSelector.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="TerrainLoder.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -230,15 +243,27 @@
     <ClCompile Include="xa2.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionBookRead.h" />
     <ClInclude Include="ActionBookRook.h" />
+    <ClInclude Include="ActionCheck.h" />
+    <ClInclude Include="ActionCheckArrival.h" />
+    <ClInclude Include="ActionCheckState.h" />
+    <ClInclude Include="ActionCheckTurn.h" />
     <ClInclude Include="ActionConcern.h" />
     <ClInclude Include="ActionFixed.h" />
     <ClInclude Include="ActionLookaround.h" />
     <ClInclude Include="ActionMoveback.h" />
     <ClInclude Include="ActionMoveSearch.h" />
     <ClInclude Include="ActionMoveToPlayer.h" />
+    <ClInclude Include="ActionMoveToWaypoint.h" />
+    <ClInclude Include="ActionPerformTurn.h" />
+    <ClInclude Include="ActionPrepareTurn.h" />
     <ClInclude Include="ActionRead.h" />
+    <ClInclude Include="ActionSelectNextWaypoint.h" />
+    <ClInclude Include="ActionSerchMove.h" />
     <ClInclude Include="ActionTurn.h" />
+    <ClInclude Include="ActionTurnTo.h" />
+    <ClInclude Include="ActionWait.h" />
     <ClInclude Include="AnimObj.h" />
     <ClInclude Include="AnimScene.h" />
     <ClInclude Include="Application.h" />
@@ -317,6 +342,7 @@
     <ClInclude Include="SkyDome.h" />
     <ClInclude Include="STAGE1.h" />
     <ClInclude Include="STAGE2.h" />
+    <ClInclude Include="StateSelector.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="TerrainLoder.h" />
