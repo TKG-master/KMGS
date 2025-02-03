@@ -136,9 +136,6 @@
     <Filter Include="System\EnemyAI\Behaviortree\Sequence">
       <UniqueIdentifier>{9ff65483-7a65-49d8-a8c8-a6b4783d758f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\CheckPlayerInSight">
-      <UniqueIdentifier>{1ca718bc-8c4d-439e-b3e7-9b39fc72e878}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DirectXwrite">
       <UniqueIdentifier>{4dd2991c-f319-4eb0-8acb-88b80d059860}</UniqueIdentifier>
     </Filter>
@@ -150,30 +147,6 @@
     </Filter>
     <Filter Include="Book">
       <UniqueIdentifier>{fda11d53-67b7-4281-a2ad-6d3d29379a02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction">
-      <UniqueIdentifier>{42b83790-285a-4794-9423-58423ac054f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionMoveToPlayer">
-      <UniqueIdentifier>{bb33d6a6-ac59-4750-9963-373b9c750a17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionMoveSearch">
-      <UniqueIdentifier>{9b72d2a5-1521-4d6b-846c-1cc687c327e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionMoveback">
-      <UniqueIdentifier>{4b1f017e-49eb-4b2a-b2e8-1377330504ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionLookaround">
-      <UniqueIdentifier>{4ff6885d-dd39-4465-8a2e-7d6e5126e994}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionFixed">
-      <UniqueIdentifier>{b6ea5dcc-cafa-4506-8994-45cc47caf364}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionConcern">
-      <UniqueIdentifier>{cb2e786b-23e9-4320-a30d-1d5d99849057}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\EnemyAction\ActionRead">
-      <UniqueIdentifier>{d90871a4-a669-42c3-9554-0d68ca7fcd86}</UniqueIdentifier>
     </Filter>
     <Filter Include="System\UI">
       <UniqueIdentifier>{d8a37db5-6d8b-48c1-b8c9-001e14bcb630}</UniqueIdentifier>
@@ -193,59 +166,62 @@
     <Filter Include="System\EnemyAI\Behaviortree\StateSelector">
       <UniqueIdentifier>{bb63f254-deae-425d-aa69-f7b117b090c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State">
+    <Filter Include="System\EnemyAI\StateAction">
       <UniqueIdentifier>{c3b035cf-e925-49b9-b9f8-d3e4a0d0cb7b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\patrol">
+    <Filter Include="System\EnemyAI\StateAction\patrol">
       <UniqueIdentifier>{3ccb1cda-aa0e-4929-aa9b-f491999df920}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\patrol\ActionSelectNextWaypoint">
+    <Filter Include="System\EnemyAI\StateAction\patrol\ActionSelectNextWaypoint">
       <UniqueIdentifier>{64d2f130-0e12-4300-9ce9-2e00f0c26183}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\patrol\ActionMoveToWaypoint">
+    <Filter Include="System\EnemyAI\StateAction\patrol\ActionMoveToWaypoint">
       <UniqueIdentifier>{9dcecddd-a4a0-4f6b-98a6-25c46b37fcbd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\patrol\ActionCheckArrival">
+    <Filter Include="System\EnemyAI\StateAction\patrol\ActionCheckArrival">
       <UniqueIdentifier>{a1b5d0ee-aea1-4925-9ed3-9c6c8283ea1c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\patrol\ActionLookAround">
+    <Filter Include="System\EnemyAI\StateAction\patrol\ActionLookAround">
       <UniqueIdentifier>{c77a4f7c-acc9-49f5-9c4f-72be1c4b7b21}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Serch">
+    <Filter Include="System\EnemyAI\StateAction\Serch">
       <UniqueIdentifier>{3b01e746-0213-4e05-8f67-7483fabab5bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Serch\ActionWait">
+    <Filter Include="System\EnemyAI\StateAction\Serch\ActionWait">
       <UniqueIdentifier>{bc5caf8f-c923-4275-b258-949b0398529f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Serch\ActionSerchMove">
+    <Filter Include="System\EnemyAI\StateAction\Serch\ActionSerchMove">
       <UniqueIdentifier>{3ee163cf-f9ee-4c80-b4d1-bb6175813840}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Turn">
+    <Filter Include="System\EnemyAI\StateAction\Turn">
       <UniqueIdentifier>{73f88ae2-1b18-4e91-ba75-f1ee723156bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Turn\ActionPrepareTurn">
+    <Filter Include="System\EnemyAI\StateAction\Turn\ActionPrepareTurn">
       <UniqueIdentifier>{bc6a0b79-a662-4131-977d-7563a8f3a5b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Turn\ActionPerformTurn">
+    <Filter Include="System\EnemyAI\StateAction\Turn\ActionPerformTurn">
       <UniqueIdentifier>{54f8eb5f-de23-4aa0-a05d-054d0b6bc8bc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\BookRead">
+    <Filter Include="System\EnemyAI\StateAction\BookRead">
       <UniqueIdentifier>{c8d12d62-db21-4df0-b47d-975ccde5e827}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\ActionCheck">
+    <Filter Include="System\EnemyAI\StateAction\ActionCheck">
       <UniqueIdentifier>{7a2742b4-cfd7-4bd2-93e8-0476778beb15}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\ActionCheckState">
-      <UniqueIdentifier>{a115f1f1-2181-4263-9274-f7d5aad48505}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\EnemyAI\State\Fixed">
+    <Filter Include="System\EnemyAI\StateAction\Fixed">
       <UniqueIdentifier>{3f00dd0e-d859-42e3-a645-8bd82d5cd93b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Fixed\ActionTurnTo">
+    <Filter Include="System\EnemyAI\StateAction\Fixed\ActionTurnTo">
       <UniqueIdentifier>{9631d612-644a-43a3-b076-0f166ee2fbd0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\EnemyAI\State\Fixed\ActionCheckTurnComplete">
+    <Filter Include="System\EnemyAI\StateAction\Fixed\ActionCheckTurnComplete">
       <UniqueIdentifier>{ab20e5d0-3707-4f5e-8763-4dd81441fea4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\StateAction\Turn\ActionTurn">
+      <UniqueIdentifier>{b600c931-95eb-45af-88bc-5af004cb2d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\StateAction\ActionCheckState">
+      <UniqueIdentifier>{a115f1f1-2181-4263-9274-f7d5aad48505}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -444,35 +420,14 @@
     <ClCompile Include="Sequence.cpp">
       <Filter>System\EnemyAI\Behaviortree\Sequence</Filter>
     </ClCompile>
-    <ClCompile Include="ActionMoveToPlayer.cpp">
-      <Filter>System\EnemyAI\EnemyAction\ActionMoveToPlayer</Filter>
-    </ClCompile>
-    <ClCompile Include="CheckPlayerInSight.cpp">
-      <Filter>System\EnemyAI\CheckPlayerInSight</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyAI.cpp">
       <Filter>System\EnemyAI</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionTurn.cpp">
-      <Filter>System\EnemyAI\State\Turn</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionMoveSearch.cpp">
-      <Filter>System\EnemyAI\EnemyAction\ActionMoveSearch</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionMoveback.cpp">
-      <Filter>System\EnemyAI\EnemyAction\ActionMoveback</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionConcern.cpp">
-      <Filter>System\EnemyAI\EnemyAction\ActionConcern</Filter>
     </ClCompile>
     <ClCompile Include="TimerUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="DirectWrite.cpp">
       <Filter>DirectXwrite</Filter>
-    </ClCompile>
-    <ClCompile Include="ActionFixed.cpp">
-      <Filter>System\EnemyAI\EnemyAction\ActionFixed</Filter>
     </ClCompile>
     <ClCompile Include="CFBXMesh.cpp">
       <Filter>FBXObj</Filter>
@@ -495,9 +450,6 @@
     <ClCompile Include="ItemManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ActionRead.cpp">
-      <Filter>System\EnemyAI\EnemyAction\ActionRead</Filter>
-    </ClCompile>
     <ClCompile Include="UIManager.cpp">
       <Filter>System\UI</Filter>
     </ClCompile>
@@ -511,43 +463,46 @@
       <Filter>System\EnemyAI\Behaviortree\StateSelector</Filter>
     </ClCompile>
     <ClCompile Include="ActionSelectNextWaypoint.cpp">
-      <Filter>System\EnemyAI\State\patrol\ActionSelectNextWaypoint</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionSelectNextWaypoint</Filter>
     </ClCompile>
     <ClCompile Include="ActionMoveToWaypoint.cpp">
-      <Filter>System\EnemyAI\State\patrol\ActionMoveToWaypoint</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionMoveToWaypoint</Filter>
     </ClCompile>
     <ClCompile Include="ActionCheckArrival.cpp">
-      <Filter>System\EnemyAI\State\patrol\ActionCheckArrival</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionCheckArrival</Filter>
     </ClCompile>
     <ClCompile Include="ActionLookaround.cpp">
-      <Filter>System\EnemyAI\State\patrol\ActionLookAround</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionLookAround</Filter>
     </ClCompile>
     <ClCompile Include="ActionPrepareTurn.cpp">
-      <Filter>System\EnemyAI\State\Turn\ActionPrepareTurn</Filter>
+      <Filter>System\EnemyAI\StateAction\Turn\ActionPrepareTurn</Filter>
     </ClCompile>
     <ClCompile Include="ActionPerformTurn.cpp">
-      <Filter>System\EnemyAI\State\Turn\ActionPerformTurn</Filter>
+      <Filter>System\EnemyAI\StateAction\Turn\ActionPerformTurn</Filter>
     </ClCompile>
     <ClCompile Include="ActionWait.cpp">
-      <Filter>System\EnemyAI\State\Serch\ActionWait</Filter>
+      <Filter>System\EnemyAI\StateAction\Serch\ActionWait</Filter>
     </ClCompile>
     <ClCompile Include="ActionSerchMove.cpp">
-      <Filter>System\EnemyAI\State\Serch\ActionSerchMove</Filter>
+      <Filter>System\EnemyAI\StateAction\Serch\ActionSerchMove</Filter>
     </ClCompile>
     <ClCompile Include="ActionBookRead.cpp">
-      <Filter>System\EnemyAI\State\BookRead</Filter>
+      <Filter>System\EnemyAI\StateAction\BookRead</Filter>
     </ClCompile>
     <ClCompile Include="ActionCheck.cpp">
-      <Filter>System\EnemyAI\State\ActionCheck</Filter>
+      <Filter>System\EnemyAI\StateAction\ActionCheck</Filter>
     </ClCompile>
     <ClCompile Include="ActionCheckState.cpp">
-      <Filter>System\EnemyAI\State\ActionCheckState</Filter>
+      <Filter>System\EnemyAI\StateAction\ActionCheckState</Filter>
     </ClCompile>
     <ClCompile Include="ActionTurnTo.cpp">
-      <Filter>System\EnemyAI\State\Fixed\ActionTurnTo</Filter>
+      <Filter>System\EnemyAI\StateAction\Fixed\ActionTurnTo</Filter>
     </ClCompile>
     <ClCompile Include="ActionCheckTurn.cpp">
-      <Filter>System\EnemyAI\State\Fixed\ActionCheckTurnComplete</Filter>
+      <Filter>System\EnemyAI\StateAction\Fixed\ActionCheckTurnComplete</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionTurn.cpp">
+      <Filter>System\EnemyAI\StateAction\Turn\ActionTurn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -779,35 +734,14 @@
     <ClInclude Include="Sequence.h">
       <Filter>System\EnemyAI\Behaviortree\Sequence</Filter>
     </ClInclude>
-    <ClInclude Include="ActionMoveToPlayer.h">
-      <Filter>System\EnemyAI\EnemyAction\ActionMoveToPlayer</Filter>
-    </ClInclude>
-    <ClInclude Include="CheckPlayerInSight.h">
-      <Filter>System\EnemyAI\CheckPlayerInSight</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyAI.h">
       <Filter>System\EnemyAI</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionTurn.h">
-      <Filter>System\EnemyAI\State\Turn</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionMoveSearch.h">
-      <Filter>System\EnemyAI\EnemyAction\ActionMoveSearch</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionMoveback.h">
-      <Filter>System\EnemyAI\EnemyAction\ActionMoveback</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionConcern.h">
-      <Filter>System\EnemyAI\EnemyAction\ActionConcern</Filter>
     </ClInclude>
     <ClInclude Include="TimerUI.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="DirectWrite.h">
       <Filter>DirectXwrite</Filter>
-    </ClInclude>
-    <ClInclude Include="ActionFixed.h">
-      <Filter>System\EnemyAI\EnemyAction\ActionFixed</Filter>
     </ClInclude>
     <ClInclude Include="CFBXMesh.h">
       <Filter>FBXObj</Filter>
@@ -830,9 +764,6 @@
     <ClInclude Include="ItemManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ActionRead.h">
-      <Filter>System\EnemyAI\EnemyAction\ActionRead</Filter>
-    </ClInclude>
     <ClInclude Include="UIManager.h">
       <Filter>System\UI</Filter>
     </ClInclude>
@@ -846,43 +777,46 @@
       <Filter>System\EnemyAI\Behaviortree\StateSelector</Filter>
     </ClInclude>
     <ClInclude Include="ActionSelectNextWaypoint.h">
-      <Filter>System\EnemyAI\State\patrol\ActionSelectNextWaypoint</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionSelectNextWaypoint</Filter>
     </ClInclude>
     <ClInclude Include="ActionMoveToWaypoint.h">
-      <Filter>System\EnemyAI\State\patrol\ActionMoveToWaypoint</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionMoveToWaypoint</Filter>
     </ClInclude>
     <ClInclude Include="ActionCheckArrival.h">
-      <Filter>System\EnemyAI\State\patrol\ActionCheckArrival</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionCheckArrival</Filter>
     </ClInclude>
     <ClInclude Include="ActionLookaround.h">
-      <Filter>System\EnemyAI\State\patrol\ActionLookAround</Filter>
+      <Filter>System\EnemyAI\StateAction\patrol\ActionLookAround</Filter>
     </ClInclude>
     <ClInclude Include="ActionPrepareTurn.h">
-      <Filter>System\EnemyAI\State\Turn\ActionPrepareTurn</Filter>
+      <Filter>System\EnemyAI\StateAction\Turn\ActionPrepareTurn</Filter>
     </ClInclude>
     <ClInclude Include="ActionPerformTurn.h">
-      <Filter>System\EnemyAI\State\Turn\ActionPerformTurn</Filter>
+      <Filter>System\EnemyAI\StateAction\Turn\ActionPerformTurn</Filter>
     </ClInclude>
     <ClInclude Include="ActionWait.h">
-      <Filter>System\EnemyAI\State\Serch\ActionWait</Filter>
+      <Filter>System\EnemyAI\StateAction\Serch\ActionWait</Filter>
     </ClInclude>
     <ClInclude Include="ActionSerchMove.h">
-      <Filter>System\EnemyAI\State\Serch\ActionSerchMove</Filter>
+      <Filter>System\EnemyAI\StateAction\Serch\ActionSerchMove</Filter>
     </ClInclude>
     <ClInclude Include="ActionBookRead.h">
-      <Filter>System\EnemyAI\State\BookRead</Filter>
+      <Filter>System\EnemyAI\StateAction\BookRead</Filter>
     </ClInclude>
     <ClInclude Include="ActionCheck.h">
-      <Filter>System\EnemyAI\State\ActionCheck</Filter>
+      <Filter>System\EnemyAI\StateAction\ActionCheck</Filter>
     </ClInclude>
     <ClInclude Include="ActionCheckState.h">
-      <Filter>System\EnemyAI\State\ActionCheckState</Filter>
+      <Filter>System\EnemyAI\StateAction\ActionCheckState</Filter>
     </ClInclude>
     <ClInclude Include="ActionTurnTo.h">
-      <Filter>System\EnemyAI\State\Fixed\ActionTurnTo</Filter>
+      <Filter>System\EnemyAI\StateAction\Fixed\ActionTurnTo</Filter>
     </ClInclude>
     <ClInclude Include="ActionCheckTurn.h">
-      <Filter>System\EnemyAI\State\Fixed\ActionCheckTurnComplete</Filter>
+      <Filter>System\EnemyAI\StateAction\Fixed\ActionCheckTurnComplete</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionTurn.h">
+      <Filter>System\EnemyAI\StateAction\Turn\ActionTurn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
