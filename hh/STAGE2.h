@@ -13,7 +13,6 @@
 #include "SkyDome.h"
 #include "GameUI.h"
 #include "TimerUI.h"
-#include "DirectWrite.h"
 #include "UIManager.h"
 #include "Uragiri.h"
 

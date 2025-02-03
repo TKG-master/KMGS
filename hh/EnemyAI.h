@@ -4,18 +4,25 @@
 #include "Sequence.h"
 #include "StateSelector.h"
 #include "ActionTurn.h"
-#include "ActionSelectNextWaypoint.h"
-#include "ActionMoveToWaypoint.h"
-#include "ActionCheckArrival.h"
-#include "ActionLookaround.h"
 #include "ActionPerformTurn.h"
 #include "ActionWait.h"
-#include "ActionSerchMove.h"
+#include "ActionPathMove.h"
 #include "ActionCheck.h"
 #include "ActionBookRead.h"
 #include "ActionCheckState.h"
 #include "ActionCheckTurn.h"
 #include "ActionTurnTo.h"
+
+
+#include "patrolSequence.h"
+#include "FixedSequence.h"
+#include "FixedLeftSequence.h"
+#include "TurnSequence.h"
+#include "SerchSequence.h"
+#include "BackSequence.h"
+#include "BookconnectionSequence.h"
+#include "BookReadSequence.h"
+
 
 class Enemy;
 
@@ -28,21 +35,21 @@ private:
 
     Selector* stateSelector;
 
-    Sequence* patrolSequence;
+    Sequence* PatrolSequence;
 
-    Sequence* TurnSequence;
+    Sequence* turnSequence;
 
-    Sequence* SerchSequence;
+    Sequence* serchSequence;
 
-    Sequence* BookconnectionSequence;
+    Sequence* backSequence;
 
-    Sequence* BookReadSequence;
+    Sequence* bookconnectionSequence;
 
-    Sequence* LookaroundSequence;
+    Sequence* bookReadSequence;
 
-    Sequence* FixedSequence;
+    Sequence* fixedSequence;
 
-    Sequence* FixedLeftSequence;
+    Sequence* fixedLeftSequence;
 
     int Typenum = 0;
 

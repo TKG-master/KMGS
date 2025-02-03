@@ -6,7 +6,6 @@
 #include "SkyDome.h"
 #include "GameUI.h"
 #include "EasingController.h"
-#include "DirectWrite.h"
 #include "Timer.h"
 #include "xa2.h"
 
