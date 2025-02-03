@@ -60,26 +60,6 @@ EnemyAI::EnemyAI(int num) {
 
 
         root->AddChild(stateSelector);
-
-
-
-
-        ////パトロール
-        //patrolSelector = new Sequence();
-        //patrolSelector->AddChild(new ActionRead());
-        //patrolSelector->AddChild(new ActionBookRook());
-        //patrolSelector->AddChild(new ActionMoveSearch());
-        //patrolSelector->AddChild(new ActionMoveback());
-        //patrolSelector->AddChild(new ActionMoveToPlayer());
-        //root->AddChild(patrolSelector);
-        ////ターン
-        //TurnSequence = new Sequence();
-        //TurnSequence->AddChild(new ActionTurn());
-        //root->AddChild(TurnSequence);
-        ////止まる
-        //LookaroundSequence = new Sequence();
-        //LookaroundSequence->AddChild(new ActionLookaround());
-        //root->AddChild(LookaroundSequence);
     }
 
     if (num == 100)
@@ -133,16 +113,6 @@ EnemyAI::EnemyAI(int num) {
         stateSelector->AddChild(BookReadSequence);
 
         root->AddChild(stateSelector);
-
-
-        //警備
-        //FixedSelector = new Selector();
-        //FixedSelector->AddChild(new ActionRead());
-        //FixedSelector->AddChild(new ActionBookRook());
-        //FixedSelector->AddChild(new ActionMoveSearch());
-        //FixedSelector->AddChild(new ActionMoveback());
-        //FixedSelector->AddChild(new ActionConcern());
-        //root->AddChild(FixedSelector);
     }
 
     rootNode = root;
@@ -159,47 +129,6 @@ void EnemyAI::SetState(EStateType state)
     if (currentState != state) {
         currentState = state;
     }
-}
-
-void EnemyAI::BuildBehaviorTree()
-{
-    //delete rootNode;  // 古いツリーを削除
-    //Selector* root = new Selector();
-
-    //switch (currentState) {
-    //case EStateType::Patrolling:
-    //    patrolSequence = new Sequence();
-    //    // パトロールシーケンスを作成
-    //    patrolSequence = new Sequence();
-    //    // 次の目的地を決定
-    //    patrolSequence->AddChild(new ActionSelectNextWaypoint());
-    //    // 目的地へ移動
-    //    patrolSequence->AddChild(new ActionMoveToWaypoint());
-    //    // 目的地到達チェック
-    //    patrolSequence->AddChild(new ActionCheckArrival());
-    //    // 到達したら見回す
-    //    patrolSequence->AddChild(new ActionLookaround());
-    //    // ルートノードに追加
-    //    root->AddChild(patrolSequence);
-    //    break;
-    //case EStateType::Turn:
-    //    TurnSequence = new Sequence();
-    //    TurnSequence->AddChild(new ActionPerformTurn());
-    //    root->AddChild(TurnSequence);
-    //    break;
-
-    //case EStateType::BookRead:
-    //    BookReadSequence = new Sequence();
-
-    //    root->AddChild(BookReadSequence);
-    //    break;
-
-    //case EStateType::RookBook:
-    //    RookBookSequence = new Sequence();
-
-    //    root->AddChild(RookBookSequence);
-        //break;
-    
 }
 
 // メモリの解放

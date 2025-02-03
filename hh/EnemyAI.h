@@ -3,14 +3,7 @@
 #include "Selector.h"
 #include "Sequence.h"
 #include "StateSelector.h"
-#include "ActionMoveToPlayer.h"
-#include "CheckPlayerInSight.h"
 #include "ActionTurn.h"
-#include "ActionMoveSearch.h"
-#include "ActionMoveback.h"
-#include "ActionConcern.h"
-#include "ActionBookRook.h"
-#include "ActionRead.h"
 #include "ActionSelectNextWaypoint.h"
 #include "ActionMoveToWaypoint.h"
 #include "ActionCheckArrival.h"
@@ -28,8 +21,6 @@ class Enemy;
 
 class EnemyAI {
 private:
-    //ó‘Ô‚É‰‚¶‚ÄƒcƒŠ[‚ğÄ\’z
-    void BuildBehaviorTree();
 
     EStateType currentState;
 
