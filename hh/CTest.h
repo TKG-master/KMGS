@@ -13,7 +13,6 @@
 #include "EasingController.h"
 #include "SkyDome.h"
 #include "GameUI.h"
-#include "DirectWrite.h"
 #include "UIManager.h"
 #include "Uragiri.h"
 

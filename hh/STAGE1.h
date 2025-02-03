@@ -15,7 +15,6 @@
 #include "GameUI.h"
 #include "TimerUI.h"
 #include "Polygon2D.h"
-#include "DirectWrite.h"
 #include "Book.h"
 #include "UIManager.h"
 #include "Uragiri.h"
