@@ -160,9 +160,6 @@
     <Filter Include="System\Xa2">
       <UniqueIdentifier>{2d70c234-1634-4a3e-9c47-d88e1e72a90c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Uragiri">
-      <UniqueIdentifier>{06e3253d-f729-402d-b943-db3c9d6a90cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System\EnemyAI\Behaviortree\StateSelector">
       <UniqueIdentifier>{bb63f254-deae-425d-aa69-f7b117b090c9}</UniqueIdentifier>
     </Filter>
@@ -222,6 +219,9 @@
     </Filter>
     <Filter Include="System\EnemyAI\StateAction\ActionCheckState">
       <UniqueIdentifier>{a115f1f1-2181-4263-9274-f7d5aad48505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shadow">
+      <UniqueIdentifier>{06e3253d-f729-402d-b943-db3c9d6a90cf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -426,9 +426,6 @@
     <ClCompile Include="TimerUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="DirectWrite.cpp">
-      <Filter>DirectXwrite</Filter>
-    </ClCompile>
     <ClCompile Include="CFBXMesh.cpp">
       <Filter>FBXObj</Filter>
     </ClCompile>
@@ -444,9 +441,6 @@
     <ClCompile Include="Book.cpp">
       <Filter>Book</Filter>
     </ClCompile>
-    <ClCompile Include="ActionBookRook.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ItemManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -456,8 +450,8 @@
     <ClCompile Include="xa2.cpp">
       <Filter>System\Xa2</Filter>
     </ClCompile>
-    <ClCompile Include="Uragiri.cpp">
-      <Filter>Uragiri</Filter>
+    <ClCompile Include="Shadow.cpp">
+      <Filter>Shadow</Filter>
     </ClCompile>
     <ClCompile Include="StateSelector.cpp">
       <Filter>System\EnemyAI\Behaviortree\StateSelector</Filter>
@@ -483,9 +477,6 @@
     <ClCompile Include="ActionWait.cpp">
       <Filter>System\EnemyAI\StateAction\Serch\ActionWait</Filter>
     </ClCompile>
-    <ClCompile Include="ActionSerchMove.cpp">
-      <Filter>System\EnemyAI\StateAction\Serch\ActionSerchMove</Filter>
-    </ClCompile>
     <ClCompile Include="ActionBookRead.cpp">
       <Filter>System\EnemyAI\StateAction\BookRead</Filter>
     </ClCompile>
@@ -503,6 +494,33 @@
     </ClCompile>
     <ClCompile Include="ActionTurn.cpp">
       <Filter>System\EnemyAI\StateAction\Turn\ActionTurn</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionPathMove.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BackSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BookconnectionSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="BookReadSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedLeftSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="patrolSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SerchSequence.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TurnSequence.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -740,9 +758,6 @@
     <ClInclude Include="TimerUI.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="DirectWrite.h">
-      <Filter>DirectXwrite</Filter>
-    </ClInclude>
     <ClInclude Include="CFBXMesh.h">
       <Filter>FBXObj</Filter>
     </ClInclude>
@@ -758,9 +773,6 @@
     <ClInclude Include="Book.h">
       <Filter>Book</Filter>
     </ClInclude>
-    <ClInclude Include="ActionBookRook.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="ItemManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -770,8 +782,8 @@
     <ClInclude Include="xa2.h">
       <Filter>System\Xa2</Filter>
     </ClInclude>
-    <ClInclude Include="Uragiri.h">
-      <Filter>Uragiri</Filter>
+    <ClInclude Include="Shadow.h">
+      <Filter>Shadow</Filter>
     </ClInclude>
     <ClInclude Include="StateSelector.h">
       <Filter>System\EnemyAI\Behaviortree\StateSelector</Filter>
@@ -797,9 +809,6 @@
     <ClInclude Include="ActionWait.h">
       <Filter>System\EnemyAI\StateAction\Serch\ActionWait</Filter>
     </ClInclude>
-    <ClInclude Include="ActionSerchMove.h">
-      <Filter>System\EnemyAI\StateAction\Serch\ActionSerchMove</Filter>
-    </ClInclude>
     <ClInclude Include="ActionBookRead.h">
       <Filter>System\EnemyAI\StateAction\BookRead</Filter>
     </ClInclude>
@@ -817,6 +826,33 @@
     </ClInclude>
     <ClInclude Include="ActionTurn.h">
       <Filter>System\EnemyAI\StateAction\Turn\ActionTurn</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionPathMove.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BackSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BookconnectionSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BookReadSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedLeftSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="patrolSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SerchSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TurnSequence.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

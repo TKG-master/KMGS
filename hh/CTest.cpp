@@ -11,8 +11,8 @@ CTest::CTest()
 
     UM = new UIManager();
 
-    uragiri = new Uragiri();
-    uragiri->Init();
+    shadow = new Shadow();
+    shadow->Init();
 
 
     GM = new EasingController();
@@ -370,13 +370,13 @@ void CTest::Draw()
 
     if (!GM->GetFadein())
     {
-        uragiri->Begin();
+        shadow->Begin();
 
         Scamera->LightDraw();
 
         Pl->ShadowDraw();
 
-        uragiri->End();
+        shadow->End();
 
         camera->Draw();
 
@@ -467,8 +467,8 @@ void CTest::UnInit()
     delete Fade;
     Fade = nullptr;
 
-    delete uragiri;
-    uragiri = nullptr;
+    delete shadow;
+    shadow = nullptr;
 
     delete Scamera;
     Scamera = nullptr;

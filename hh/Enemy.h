@@ -236,12 +236,6 @@ public:
 	void EnemyDraw() { Character::Draw(); };
 	//敵の向きを計算する
 	void UpdateRotation();
-	//Patrollingの時の動作
-	void PatrollingMove();
-	//Alertedの時の動作
-	void lookaround();
-	//Investigatingの時の動作
-	void InvestigatingMove();
 
 	//経路のパスをセット
 	void SetPath(const std::vector<DirectX::SimpleMath::Vector3>& newPath);
@@ -252,12 +246,6 @@ public:
 	//徘徊ルートのポイントをゲット
 	std::vector<DirectX::SimpleMath::Vector3> GetwanderingPath() { return this->wandering_path; };
 	
-
-	//徘徊する関数
-	void Wanderaround();
-
-	// 経路に沿って移動するメソッド
-	void FollowPath();
 	//アニメーションのアップデート
 	void AnimUpdate() { 
 		if (this->GetAstatus() == WALK)
@@ -270,7 +258,6 @@ public:
 		}
 		Character::Update(); };
 
-	
 	//当たり判定の位置を更新
 	void squareUpdate() {	
 		this->m_AnimationObject.m_Position.x = this->square.centerX;

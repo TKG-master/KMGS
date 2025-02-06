@@ -14,7 +14,7 @@
 #include "GameUI.h"
 #include "TimerUI.h"
 #include "UIManager.h"
-#include "Uragiri.h"
+#include "Shadow.h"
 
 
 class STAGE2 : public CScene
@@ -33,7 +33,7 @@ private:
 	EasingController* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
-	Uragiri* uragiri;
+	Shadow* uragiri;
 
 	GameUI* GoalUI;
 	GameUI* ClearUI;

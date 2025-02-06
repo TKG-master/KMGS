@@ -11,7 +11,7 @@ STAGE2::STAGE2()
 
     UM = new UIManager();
 
-    uragiri = new Uragiri();
+    uragiri = new Shadow();
     uragiri->Init();
 
     GM = new EasingController();

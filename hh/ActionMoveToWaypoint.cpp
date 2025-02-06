@@ -14,11 +14,12 @@ bool ActionMoveToWaypoint::Execute(Enemy* enemy)
     if (distance < enemy->GetMoveSpeed() * 2.5f) {
         return true; // すでに目的地に近い場合、移動しない
     }
-
-    // 正規化して移動
-    direction.Normalize();
-    enemy->SetPosition(current + direction * enemy->GetMoveSpeed());
-
+    else
+    {
+        // 正規化して移動
+        direction.Normalize();
+        enemy->SetPosition(current + direction * enemy->GetMoveSpeed());
+    }
     //進行方向に向けて回転を更新
     if (direction.LengthSquared() > 0.0f) {
         DirectX::SimpleMath::Vector3 currentForward = enemy->Getforward();

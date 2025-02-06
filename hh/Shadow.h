@@ -1,11 +1,11 @@
 #pragma once
 #include "renderer.h"
 #include "CShader.h"
-class Uragiri
+class Shadow
 {
 public:
-	Uragiri() {}
-	virtual ~Uragiri()
+	Shadow() {}
+	virtual ~Shadow()
 	{
 		UnInit();
 	}

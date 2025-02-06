@@ -3,17 +3,6 @@
 #include "Selector.h"
 #include "Sequence.h"
 #include "StateSelector.h"
-#include "ActionTurn.h"
-#include "ActionPerformTurn.h"
-#include "ActionWait.h"
-#include "ActionPathMove.h"
-#include "ActionCheck.h"
-#include "ActionBookRead.h"
-#include "ActionCheckState.h"
-#include "ActionCheckTurn.h"
-#include "ActionTurnTo.h"
-
-
 #include "patrolSequence.h"
 #include "FixedSequence.h"
 #include "FixedLeftSequence.h"
@@ -28,8 +17,6 @@ class Enemy;
 
 class EnemyAI {
 private:
-
-    EStateType currentState;
 
     IBehaviorNode* rootNode;
 
@@ -57,8 +44,6 @@ public:
     EnemyAI(int num);
     void Update(Enemy* enemy);  // AIの更新
     ~EnemyAI();
-
-    void SetState(EStateType state);  // Enemy から状態変更通知
 
 
     IBehaviorNode* GetrootNode() { return rootNode; };
