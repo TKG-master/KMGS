@@ -11,7 +11,7 @@ STAGE1::STAGE1()
 
     UM = new UIManager();
 
-    uragiri = new Uragiri();
+    uragiri = new Shadow();
     uragiri->Init();
 
 

@@ -1,7 +1,7 @@
-#include "Uragiri.h"
+#include "Shadow.h"
 #define SAFE_RELEASE(p)       { if( NULL != p ) { p->Release(); p = NULL; } }
 
-void Uragiri::Init()
+void Shadow::Init()
 {
 
 	Renderer::CreateDepthStencli(&m_DSV);
@@ -10,7 +10,7 @@ void Uragiri::Init()
 
 }
 
-void Uragiri::Begin()
+void Shadow::Begin()
 {
 	float clearColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	ID3D11DeviceContext* Context = Renderer::GetDeviceContext();
@@ -34,7 +34,7 @@ void Uragiri::Begin()
 
 }
 
-void Uragiri::End()
+void Shadow::End()
 {
 	ID3D11RenderTargetView* RTV = Renderer::GetRenderTargetView();
 	ID3D11DepthStencilView* DSV = Renderer::GetDepthStencli();
@@ -47,11 +47,11 @@ void Uragiri::End()
 
 }
 
-void Uragiri::Draw()
+void Shadow::Draw()
 {
 }
 
-void Uragiri::UnInit()
+void Shadow::UnInit()
 {
 	SAFE_RELEASE(m_DSV);
 	SAFE_RELEASE(m_RTV);

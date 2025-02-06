@@ -63,14 +63,6 @@ void EnemyAI::Update(Enemy* enemy) {
     rootNode->Execute(enemy);
 }
 
-
-void EnemyAI::SetState(EStateType state)
-{
-    if (currentState != state) {
-        currentState = state;
-    }
-}
-
 // ƒƒ‚ƒŠ‚Ì‰ğ•ú
 EnemyAI::~EnemyAI() {
 

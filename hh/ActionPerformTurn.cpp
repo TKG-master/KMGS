@@ -15,6 +15,7 @@ bool ActionPerformTurn::Execute(Enemy* enemy)
     if (enemy->GetTime1() < 1.0f) {
         return false;
     }
+
     else if (enemy->GetTime1() >= 1.0f)
     {
         if (enemy->GetAstatus() != IDLE)

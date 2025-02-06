@@ -14,7 +14,7 @@
 #include "SkyDome.h"
 #include "GameUI.h"
 #include "UIManager.h"
-#include "Uragiri.h"
+#include "Shadow.h"
 
 
 
@@ -35,7 +35,7 @@ private:
 	EasingController* GM;
 	GoalObj* goal;
 	SkyDome* Dome;
-	Uragiri* uragiri;
+	Shadow* shadow;
 
 
 	GameUI* GoalUI;

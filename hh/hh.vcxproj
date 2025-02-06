@@ -139,7 +139,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionBookRead.cpp" />
-    <ClCompile Include="ActionBookRook.cpp" />
     <ClCompile Include="ActionCheck.cpp" />
     <ClCompile Include="ActionCheckArrival.cpp" />
     <ClCompile Include="ActionCheckState.cpp" />
@@ -238,13 +237,12 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TurnSequence.cpp" />
     <ClCompile Include="UIManager.cpp" />
-    <ClCompile Include="Uragiri.cpp" />
+    <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="utility.cpp" />
     <ClCompile Include="xa2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionBookRead.h" />
-    <ClInclude Include="ActionBookRook.h" />
     <ClInclude Include="ActionCheck.h" />
     <ClInclude Include="ActionCheckArrival.h" />
     <ClInclude Include="ActionCheckState.h" />
@@ -351,7 +349,7 @@
     <ClInclude Include="TurnSequence.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="UIManager.h" />
-    <ClInclude Include="Uragiri.h" />
+    <ClInclude Include="Shadow.h" />
     <ClInclude Include="utility.h" />
     <ClInclude Include="xa2.h" />
   </ItemGroup>

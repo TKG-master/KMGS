@@ -3,9 +3,6 @@
 #include "Player.h"
 #include "CScene.h"
 #include "BoxObj.h"
-#include "GameUI.h"
-#include "Camera.h"
-#include "easings.h"
 #include <algorithm>
 #include <iostream>
 
@@ -114,7 +111,6 @@ void Enemy::ChangeState(EStateType newState)
 {
     if (state != newState) {
         state = newState;
-        AI->SetState(newState);
     }
 }
 
@@ -261,7 +257,7 @@ bool Enemy::IsInView(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::V
 //境界円の判定
 bool Enemy::InInViewCircle(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleMath::Vector3 lookat, float fov, DirectX::SimpleMath::Vector3 circlecenter, float radius, float length)
 {
-    // 向きがすべて0のときはどこも向いていないとみなす
+    // 向きがすべて0のときはどこも向いていない
     if (lookat.x == 0 && lookat.z == 0 && lookat.y == 0) {
         return false;
     }
@@ -321,7 +317,7 @@ bool Enemy::InInViewCircle(DirectX::SimpleMath::Vector3 eyepos, DirectX::SimpleM
             return true;
         }
     }
-    // 中心座標が視野範囲内か？ をチェックする
+    // 中心座標が視野範囲内か
     sts = IsInView(eyepos,lookat,fov,circlecenter,length);
 
     return sts;
@@ -407,73 +403,6 @@ void Enemy::UpdateRotation()
     ModifyRotation();
 
 }
-//敵がプレイヤーを見つけていない時の動き
-void Enemy::PatrollingMove()
-{
-    if (STATUS == WALK)
-    {
-        SetToAnimationName("Walk");
-    }
-    else if (STATUS != WALK)
-    {
-        STATUS = WALK;
-    }
-
-    //徘徊モード
-    if (!this->GetSearch() && !this->back)
-    {
-        this->Wanderaround();
-    }
-    //探しに行っている
-    else if (this->GetSearch())
-    {
-        this->FollowPath();
-    }
-    else if (this->back)
-    {
-        this->FollowPath();
-    }
-
-
-}
-
-void Enemy::lookaround()
-{
-        // タイマーがまだ開始されていない場合に開始する
-        if (!time->IsRunning()) {
-            time->StartCountDown(1.5f);
-        }
-        if (STATUS != IDLE)
-        {
-            STATUS = IDLE;
-        }
-        else if (STATUS == IDLE)
-        {
-            SetToAnimationName("Idle");
-        }
-        if (time->IsTimeUp())
-        {
-            time->Reset();
-            if (currentwanderingpathIndex >= wandering_path.size())
-            {
-                currentwanderingpathIndex = 0;
-            }
-
-            targetPos = wandering_path[currentwanderingpathIndex];
-
-            this->SetState(EStateType::Turn);
-        }
-}
-
-void Enemy::InvestigatingMove()
-{
-    this->Setforward(EaseInCirc(this->Getforward(),Vector3(0.0f,0.0f,-1.0f), Time));
-    Time += deltaTime;
-    if (Time >= 1.0f) {
-        Time = 0.5f;
-        this->SetState(EStateType::Patrolling);
-    }
-}
 
 void Enemy::SetPath(const std::vector<DirectX::SimpleMath::Vector3>& newPath)
 {
@@ -485,122 +414,6 @@ void Enemy::SetwanderingPath(const std::vector<DirectX::SimpleMath::Vector3>& wa
 {
     wandering_path = wanderingPath;
     currentwanderingpathIndex = 1;
-}
-
-void Enemy::Wanderaround()
-{
-
-    // 次の位置
-    targetPos = wandering_path[currentwanderingpathIndex];
-
-    // 現在の位置
-    currentPosition = this->GetPosition();
-
-    // 移動量を計算
-    DirectX::SimpleMath::Vector3 direction = targetPos - currentPosition;
-    float distance = direction.Length();
-
-    // 次の位置に到達した場合の判定を緩める
-    float tolerance = MoveSpeed * 2.5f;
-    if (distance < tolerance) {
-        // 次の位置に到達した場合
-        this->SetPosition(targetPos);
-        currentwanderingpathIndex++;
-        //this->SetState(EStateType::Lookaround);
-    }
-    else {
-        // 移動量を正規化して速度を掛ける
-        direction.Normalize();
-        this->SetPosition(currentPosition + direction * MoveSpeed);
-    }
-
-     //進行方向に向けて回転を更新
-    if (direction.LengthSquared() > 0.0f) {
-        DirectX::SimpleMath::Vector3 currentForward = this->Getforward();
-        DirectX::SimpleMath::Vector3 newForward = EaseInCirc(currentForward, direction, Time1);
-        this->Setforward(newForward);
-        Time1 += deltaTime;
-        if (Time1 >= 1.0f) {
-            Time1 = 0.0f;
-        }
-    }
-}
-
-void Enemy::FollowPath()
-{
-    // 経路がないか、すでに経路の終点に到達している場合
-    if (path.empty() || currentPathIndex >= path.size()) {
-        //探索モードが終わったら
-        if (this->GetSearch())
-        {
-            this->SetSearch(false);
-            this->SethearSound(false);
-            this->back = true;
-            this->time->Reset();
-            return;
-        }
-        else if (this->GetRookBook())
-        {
-            this->bookCount++;
-            this->time->Reset();
-            this->SetRookBook(false);
-            this->SethearSound(false);
-            this->bookRead = true;
-          return;
-        }
-        //徘徊ルートに戻ったら
-        if(this->back)
-        {
-            if (this->GetState() == EStateType::Fixed)
-            {
-                this->back = false;
-                currentwanderingpathIndex = 0;
-                return;
-            }
-            else
-            {
-                this->SetState(EStateType::Patrolling);
-                this->back = false;
-                currentwanderingpathIndex = 0;
-                return;
-            }
-        }
-        else
-        {
-            return;
-        }
-    }
-    else {
-        // 次の位置
-        DirectX::SimpleMath::Vector3 targetPos = path[currentPathIndex];
-
-        // 現在の位置
-        DirectX::SimpleMath::Vector3 currentPosition = this->GetPosition();
-
-        // 移動量を計算
-        DirectX::SimpleMath::Vector3 direction = targetPos - currentPosition;
-        float distance = direction.Length();
-
-        // 次の位置に到達した場合の判定を緩める
-        float tolerance = MoveSpeed * 2.5f;
-        if (distance < tolerance) {
-            // 次の位置に到達した場合
-            this->SetPosition(targetPos);
-            currentPathIndex++;
-        }
-        else {
-            // 移動量を正規化して速度を掛ける
-            direction.Normalize();
-            this->SetPosition(currentPosition + direction * MoveSpeed * 1.5f);
-        }
-
-        // 進行方向に向けて回転を更新
-        if (direction.LengthSquared() > 0.0f) {
-            //向きをセット
-            this->Setforward(direction);
-            UpdateRotation();  // 回転の更新
-        }
-    }
 }
 
 bool Enemy::RayLookHit()
@@ -648,36 +461,4 @@ void Enemy::Getsecurityfov(const std::vector<DirectX::SimpleMath::Vector3>& forv
     this->TypeSecrity = true;
     this->SetStartPositon(this->GetPosition());
     forward_path = forvPath;
-}
-
-void Enemy::securityMove()
-{
-
-    if (!time->IsRunning()) {
-        time->StartCountDown(0.5f);
-    }
-
-    if (time->IsTimeUp())
-    {
-        if (!this->secrity)
-        {
-            this->Setforward(EaselnQuart(forward_path[0], forward_path[1], Time));
-            Time += deltaTime;
-            if (Time >= 1.0f) {
-                Time = 0.0f;
-                time->Reset();
-                this->secrity = true;
-            }
-        }
-        else if (this->secrity)
-        {
-            this->Setforward(EaselnQuart(forward_path[1], forward_path[0], Time));
-            Time += deltaTime;
-            if (Time >= 1.0f) {
-                Time = 0.0f;
-                time->Reset();
-                this->secrity = false;
-            }
-        }
-    }
 }
