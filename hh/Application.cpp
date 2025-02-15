@@ -9,7 +9,6 @@
 #include "CBoxMesh.h"
 #include "GUI.h"
 #include "Input.h"
-#include "Polygon2D.h"
 #include "CSceneManager.h"
 
 // Constant Values.
