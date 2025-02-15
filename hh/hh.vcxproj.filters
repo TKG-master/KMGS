@@ -19,23 +19,14 @@
     <Filter Include="Obj\3D">
       <UniqueIdentifier>{8079af06-c5b0-4174-98aa-729cb8c70396}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Obj\2D">
-      <UniqueIdentifier>{756221a7-9b90-49f4-bb92-dcda0a5d4be9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Field">
       <UniqueIdentifier>{b984ceab-53c7-419d-a037-901173947f58}</UniqueIdentifier>
     </Filter>
     <Filter Include="Box">
       <UniqueIdentifier>{437dcdc7-e40d-47c3-8a7d-73d6497f5a80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Preyer Test">
-      <UniqueIdentifier>{90a4a412-b1ab-4f7f-84b5-b764fdbbdadb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="main">
       <UniqueIdentifier>{1cd085f2-860d-4c9a-b02c-5c7e2242a423}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D">
-      <UniqueIdentifier>{2cfb7093-cf44-45e3-915c-61b89f8e4051}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render">
       <UniqueIdentifier>{efdf4685-7f4b-4d2f-bd82-88b0bfb6f160}</UniqueIdentifier>
@@ -94,9 +85,6 @@
     <Filter Include="Obj\Character">
       <UniqueIdentifier>{c58d20f8-8399-420e-be8d-6ec44f7d4dd3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\Model">
-      <UniqueIdentifier>{3549485d-8ee6-480a-99c7-707b4cad179f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="System\Terrain">
       <UniqueIdentifier>{49eb3dd1-bdcd-4e6d-bbd7-0e68690d6d16}</UniqueIdentifier>
     </Filter>
@@ -118,9 +106,6 @@
     <Filter Include="Radar">
       <UniqueIdentifier>{9cb73b00-ed76-4eed-8d13-a92af92b4fcb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="System\Fade">
-      <UniqueIdentifier>{4428fe5c-8350-493a-908c-1dc2f92069b9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SkyDome">
       <UniqueIdentifier>{8b7a65d1-7a45-4a53-bb5f-762836db904c}</UniqueIdentifier>
     </Filter>
@@ -136,14 +121,8 @@
     <Filter Include="System\EnemyAI\Behaviortree\Sequence">
       <UniqueIdentifier>{9ff65483-7a65-49d8-a8c8-a6b4783d758f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectXwrite">
-      <UniqueIdentifier>{4dd2991c-f319-4eb0-8acb-88b80d059860}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FBXObj">
       <UniqueIdentifier>{c4adae78-fcfc-4b71-a459-d221fff9c8cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PressurePlate">
-      <UniqueIdentifier>{ef96244a-c07a-41c9-9052-5d0ea45220a9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Book">
       <UniqueIdentifier>{fda11d53-67b7-4281-a2ad-6d3d29379a02}</UniqueIdentifier>
@@ -223,6 +202,12 @@
     <Filter Include="Shadow">
       <UniqueIdentifier>{06e3253d-f729-402d-b943-db3c9d6a90cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\EnemyAI\StateAction\BookRead\ActionBookRead">
+      <UniqueIdentifier>{159d16a4-0544-44fd-b692-f80b0460d0e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\StateAction\BookRead\BookSequence">
+      <UniqueIdentifier>{7ddf90b4-08dd-450f-a277-548696fd52b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -285,14 +270,8 @@
     <ClCompile Include="CBoxMesh.cpp">
       <Filter>Box</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerTest.cpp">
-      <Filter>Preyer Test</Filter>
-    </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>System\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelLoader.cpp">
-      <Filter>System\Model</Filter>
     </ClCompile>
     <ClCompile Include="utility.cpp">
       <Filter>ソース ファイル</Filter>
@@ -305,9 +284,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="Polygon2D.cpp">
-      <Filter>2D</Filter>
     </ClCompile>
     <ClCompile Include="renderer.cpp">
       <Filter>Render</Filter>
@@ -324,9 +300,6 @@
     <ClCompile Include="CCollision.cpp">
       <Filter>System\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="AnimScene.cpp">
-      <Filter>System\Scene\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="CStaticMeshRenderer.cpp">
       <Filter>System\Anim</Filter>
     </ClCompile>
@@ -341,9 +314,6 @@
     </ClCompile>
     <ClCompile Include="CAnimationData.cpp">
       <Filter>System\Anim</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Obj\Object</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Obj\Object\Player</Filter>
@@ -399,9 +369,6 @@
     <ClCompile Include="STAGE1.cpp">
       <Filter>System\Scene\cpp</Filter>
     </ClCompile>
-    <ClCompile Include="Fade.cpp">
-      <Filter>System\Fade</Filter>
-    </ClCompile>
     <ClCompile Include="SkyDome.cpp">
       <Filter>SkyDome</Filter>
     </ClCompile>
@@ -434,9 +401,6 @@
     </ClCompile>
     <ClCompile Include="STAGE2.cpp">
       <Filter>System\Scene\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="PressurePlate.cpp">
-      <Filter>PressurePlate</Filter>
     </ClCompile>
     <ClCompile Include="Book.cpp">
       <Filter>Book</Filter>
@@ -477,9 +441,6 @@
     <ClCompile Include="ActionWait.cpp">
       <Filter>System\EnemyAI\StateAction\Serch\ActionWait</Filter>
     </ClCompile>
-    <ClCompile Include="ActionBookRead.cpp">
-      <Filter>System\EnemyAI\StateAction\BookRead</Filter>
-    </ClCompile>
     <ClCompile Include="ActionCheck.cpp">
       <Filter>System\EnemyAI\StateAction\ActionCheck</Filter>
     </ClCompile>
@@ -496,9 +457,6 @@
       <Filter>System\EnemyAI\StateAction\Turn\ActionTurn</Filter>
     </ClCompile>
     <ClCompile Include="ActionPathMove.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BackSequence.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="BookconnectionSequence.cpp">
@@ -521,6 +479,12 @@
     </ClCompile>
     <ClCompile Include="TurnSequence.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionBookRead.cpp">
+      <Filter>System\EnemyAI\StateAction\BookRead\ActionBookRead</Filter>
+    </ClCompile>
+    <ClCompile Include="BackSequence.cpp">
+      <Filter>System\EnemyAI\StateAction\BookRead\BookSequence</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,14 +569,8 @@
     <ClInclude Include="CBoxMesh.h">
       <Filter>Box</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerTest.h">
-      <Filter>Preyer Test</Filter>
-    </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>System\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelLoader.h">
-      <Filter>System\Model</Filter>
     </ClInclude>
     <ClInclude Include="utility.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -625,9 +583,6 @@
     </ClInclude>
     <ClInclude Include="main.h">
       <Filter>main</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygon2D.h">
-      <Filter>2D</Filter>
     </ClInclude>
     <ClInclude Include="renderer.h">
       <Filter>Render</Filter>
@@ -650,9 +605,6 @@
     <ClInclude Include="CCollision.h">
       <Filter>System\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="AnimScene.h">
-      <Filter>System\Scene\h</Filter>
-    </ClInclude>
     <ClInclude Include="CStaticMeshRenderer.h">
       <Filter>System\Anim</Filter>
     </ClInclude>
@@ -667,9 +619,6 @@
     </ClInclude>
     <ClInclude Include="CAnimationData.h">
       <Filter>System\Anim</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Obj\Object</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Obj\Object\Player</Filter>
@@ -728,9 +677,6 @@
     <ClInclude Include="STAGE1.h">
       <Filter>System\Scene\h</Filter>
     </ClInclude>
-    <ClInclude Include="Fade.h">
-      <Filter>System\Fade</Filter>
-    </ClInclude>
     <ClInclude Include="SkyDome.h">
       <Filter>SkyDome</Filter>
     </ClInclude>
@@ -766,9 +712,6 @@
     </ClInclude>
     <ClInclude Include="STAGE2.h">
       <Filter>System\Scene\h</Filter>
-    </ClInclude>
-    <ClInclude Include="PressurePlate.h">
-      <Filter>PressurePlate</Filter>
     </ClInclude>
     <ClInclude Include="Book.h">
       <Filter>Book</Filter>
@@ -809,9 +752,6 @@
     <ClInclude Include="ActionWait.h">
       <Filter>System\EnemyAI\StateAction\Serch\ActionWait</Filter>
     </ClInclude>
-    <ClInclude Include="ActionBookRead.h">
-      <Filter>System\EnemyAI\StateAction\BookRead</Filter>
-    </ClInclude>
     <ClInclude Include="ActionCheck.h">
       <Filter>System\EnemyAI\StateAction\ActionCheck</Filter>
     </ClInclude>
@@ -828,9 +768,6 @@
       <Filter>System\EnemyAI\StateAction\Turn\ActionTurn</Filter>
     </ClInclude>
     <ClInclude Include="ActionPathMove.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="BackSequence.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="BookconnectionSequence.h">
@@ -853,6 +790,12 @@
     </ClInclude>
     <ClInclude Include="TurnSequence.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionBookRead.h">
+      <Filter>System\EnemyAI\StateAction\BookRead\ActionBookRead</Filter>
+    </ClInclude>
+    <ClInclude Include="BackSequence.h">
+      <Filter>System\EnemyAI\StateAction\BookRead\BookSequence</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "GUI.h"
 #include "CTest.h"
-#include "PlayerTest.h"
 #include "Camera.h"
 #include  "Player.h"
 #include "easings.h"

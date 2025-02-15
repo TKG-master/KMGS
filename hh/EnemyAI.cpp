@@ -22,12 +22,12 @@ EnemyAI::EnemyAI(int num) {
         bookReadSequence        = new BookReadSequence();
 
 
+        stateSelector->AddChild(bookconnectionSequence);
+        stateSelector->AddChild(bookReadSequence);
         stateSelector->AddChild(PatrolSequence);
         stateSelector->AddChild(turnSequence);
         stateSelector->AddChild(serchSequence);
         stateSelector->AddChild(backSequence);
-        stateSelector->AddChild(bookconnectionSequence);
-        stateSelector->AddChild(bookReadSequence);
 
         root->AddChild(stateSelector);
     }
@@ -45,12 +45,12 @@ EnemyAI::EnemyAI(int num) {
         bookconnectionSequence  = new BookconnectionSequence();
         bookReadSequence        = new BookReadSequence();
         //セレクターに動作のシーケンスを追加
+        stateSelector->AddChild(bookconnectionSequence);
+        stateSelector->AddChild(bookReadSequence);
         stateSelector->AddChild(fixedSequence);
         stateSelector->AddChild(fixedLeftSequence);
         stateSelector->AddChild(serchSequence);
         stateSelector->AddChild(backSequence);
-        stateSelector->AddChild(bookconnectionSequence);
-        stateSelector->AddChild(bookReadSequence);
 
         root->AddChild(stateSelector);
     }

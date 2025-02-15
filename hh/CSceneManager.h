@@ -2,11 +2,9 @@
 #include "CTest.h"
 #include "TitleScene.h"
 #include "ResultScene.h"
-#include "AnimScene.h"
 #include "STAGE1.h"
 #include "STAGE2.h"
 #include "SelectScene.h"
-#include "Fade.h"
 
 //ÉVÅ[ÉìÇÃéÌóﬁ
 enum class SCENE_ID
@@ -17,7 +15,6 @@ enum class SCENE_ID
 	STAGE_1,
 	STAGE_2,
 	SELECT,
-	ANIM,
 };
 
 class CSceneManager

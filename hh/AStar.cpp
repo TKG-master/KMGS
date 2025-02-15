@@ -1,4 +1,3 @@
-// Astar.cpp
 #include "Astar.h"
 #include <iostream>
 
@@ -13,21 +12,27 @@ std::vector<AStarNode> Astar::findPath(const AStarVec2& start, const AStarVec2& 
     auto compare = [](const AStarNode& a, const AStarNode& b) {
         return a.cost > b.cost;
         };
+
     //優先度付きキュー (最小ヒープ) を使ってオープンリストを作成
     std::priority_queue<AStarNode, std::vector<AStarNode>, decltype(compare)> openList(compare);
+
     // オープンリストとクローズドリストを管理するマップ
     std::unordered_map<int, AStarNode> openMap, closedMap;
+
     // 開始ノードを作成し、オープンリストに追加
     AStarNode startNode(start, start, 0, heuristic(start, goal));
     openList.push(startNode);
     openMap[start.x * static_cast<int>(grid[0].size()) + start.z] = startNode;
+
     // オープンリストが空になるまでループする
     while (!openList.empty()) {
         // オープンリストからコストの最も低いノードを取得する
         AStarNode current = openList.top();
         openList.pop();
+
         // オープンマップからも削除
         openMap.erase(current.position.x * static_cast<int>(grid[0].size()) + current.position.z);
+
         // 目標位置に到達したとき経路を再構築して返す
         if (current.position == goal) {
             std::vector<AStarNode> path;
@@ -41,6 +46,7 @@ std::vector<AStarNode> Astar::findPath(const AStarVec2& start, const AStarVec2& 
         }
         // 現在のノードをクローズドリストに追加
         closedMap[current.position.x * static_cast<int>(grid[0].size()) + current.position.z] = current;
+
         // 隣接ノードの座標
         std::vector<AStarVec2> directions = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
         for (const auto& dir : directions) {
@@ -50,10 +56,13 @@ std::vector<AStarNode> Astar::findPath(const AStarVec2& start, const AStarVec2& 
                 if (grid[neighborPos.x][neighborPos.z] != 1 && grid[neighborPos.x][neighborPos.z] != 6) {
                     // 隣接ノードがクローズドリストにある場合は無視する
                     if (closedMap.find(neighborPos.x * static_cast<int>(grid[0].size()) + neighborPos.z) != closedMap.end()) continue;
+
                     // 現在のノードから隣接ノードへの暫定の移動コストを計算
                     std::int_fast32_t tentative_g = current.distance + 1;
+
                     // 隣接ノードを作成し、コストを計算
                     AStarNode neighbor(neighborPos, current.position, tentative_g, tentative_g + heuristic(neighborPos, goal));
+
                     // 隣接ノードがオープンリストにないまたは新しいコストが既存のコストよりも小さい場合
                     if (openMap.find(neighborPos.x * static_cast<int>(grid[0].size()) + neighborPos.z) == openMap.end() || tentative_g < openMap[neighborPos.x * static_cast<int>(grid[0].size()) + neighborPos.z].distance) {
                         // 隣接ノードをオープンリストに追加しオープンマップを更新

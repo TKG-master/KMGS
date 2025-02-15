@@ -420,16 +420,14 @@ bool Enemy::RayLookHit()
 {
     // プレイヤーに向かってレイを飛ばす
     rayDirection = playerdate->GetPosition() - this->GetPosition();
+
     Vector3 Epos = this->GetPosition();
-    // レイの発射位置をY軸方向に少し高くする
-    if (playerdate->GetStand())
-    {
-        Epos.y += StandrayY;
-    }
-    else if (!playerdate->GetStand())
-    {
-        Epos.y += SneakrayY;
-    }
+
+    Epos.y += StandrayY;
+
+    rayDirection.y -= 60.0f;
+
+
     //正規化
     rayDirection.Normalize();
     if (CCollision::RayIntersectsBox(Epos, rayDirection, playerdate->square,CScene::BOXS, hitDis)) {
