@@ -11,7 +11,6 @@
 #include "Input.h"
 #include "Polygon2D.h"
 #include "CSceneManager.h"
-#include "GameObject.h"
 
 // Constant Values.
 const auto ClassName = TEXT("KoMGS");                      //ウィンドウクラス名

@@ -3,7 +3,7 @@
 // static ÉÅÉìÉoïœêîÇÃíËã`
 CSceneManager* CSceneManager::instance = nullptr;
 
-CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::STAGE_1),nextScene(SCENE_ID::TITLE)
+CSceneManager::CSceneManager() : currentScene(nullptr),NowScene(SCENE_ID::TITLE),nextScene(SCENE_ID::TITLE)
 {
 
 }
@@ -60,18 +60,15 @@ void CSceneManager::ChangeScene(SCENE_ID _scene)
     {
     case SCENE_ID::TEST:
         currentScene = new CTest();
-        //XA_Play(SOUND_LABEL_BGM);
+        XA_Play(SOUND_LABEL_BGM);
         break;
     case SCENE_ID::STAGE_1:
         currentScene = new STAGE1();
-        //XA_Play(SOUND_LABEL_BGM);
+        XA_Play(SOUND_LABEL_BGM);
         break;
     case SCENE_ID::STAGE_2:
         currentScene = new STAGE2();
-        //XA_Play(SOUND_LABEL_BGM);
-        break;
-    case SCENE_ID::ANIM:
-        currentScene = new AnimScene();
+        XA_Play(SOUND_LABEL_BGM);
         break;
     case SCENE_ID::TITLE:
         currentScene = new TitleScene();

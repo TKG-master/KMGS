@@ -50,7 +50,7 @@ bool CCollision::Square3DCollision(const SQUARE3D& box1, const SQUARE3D& box2)
 
 bool CCollision::RayIntersectsBox(const DirectX::SimpleMath::Vector3& origin, const DirectX::SimpleMath::Vector3& direction, const SQUARE3D& box, const std::vector<BoxObj*>& obstacleBoxes,float& hitDistance)
 {
-    //DirectXCollision の BoundingBox を使用して当たり判定を行う
+    //DirectXCollisionのBoundingBox を使用して当たり判定を行う
     DirectX::BoundingBox boundingBox(
         DirectX::XMFLOAT3(box.centerX,(box.centerY + 50.0f), box.centerZ),
         DirectX::XMFLOAT3(box.sizeX / 2.0f, box.sizeY/* / 2.0f*/, box.sizeZ / 2.0f)

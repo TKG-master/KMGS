@@ -153,7 +153,6 @@
     <ClCompile Include="ActionTurnTo.cpp" />
     <ClCompile Include="ActionWait.cpp" />
     <ClCompile Include="AnimObj.cpp" />
-    <ClCompile Include="AnimScene.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AssimpPerse.cpp" />
     <ClCompile Include="AStar.cpp" />
@@ -189,12 +188,10 @@
     <ClCompile Include="EnemyAI.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="ETexture.cpp" />
-    <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Field.cpp" />
     <ClCompile Include="EasingController.cpp" />
     <ClCompile Include="FixedLeftSequence.cpp" />
     <ClCompile Include="FixedSequence.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameUI.cpp" />
     <ClCompile Include="GoalObj.cpp" />
     <ClCompile Include="GUI.cpp" />
@@ -212,13 +209,9 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\81909\Desktop\GM31\a\hh\hh\directxtk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\81909\Desktop\GM31\a\hh\hh\directxtk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="ParesObj.cpp" />
     <ClCompile Include="patrolSequence.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerTest.cpp" />
-    <ClCompile Include="Polygon2D.cpp" />
-    <ClCompile Include="PressurePlate.cpp" />
     <ClCompile Include="Radar.cpp" />
     <ClCompile Include="renderer.cpp" />
     <ClCompile Include="ResultScene.cpp" />
@@ -257,7 +250,6 @@
     <ClInclude Include="ActionTurnTo.h" />
     <ClInclude Include="ActionWait.h" />
     <ClInclude Include="AnimObj.h" />
-    <ClInclude Include="AnimScene.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="AssimpPerse.h" />
     <ClInclude Include="AStar.h" />
@@ -297,13 +289,11 @@
     <ClInclude Include="EnemyAI.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="ETexture.h" />
-    <ClInclude Include="Fade.h" />
     <ClInclude Include="Field.h" />
     <ClInclude Include="FixedLeftSequence.h" />
     <ClInclude Include="FixedSequence.h" />
     <ClInclude Include="fpscontrol.h" />
     <ClInclude Include="EasingController.h" />
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameUI.h" />
     <ClInclude Include="GoalObj.h" />
     <ClInclude Include="GUI.h" />
@@ -321,14 +311,10 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="ItemManager.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="NonCopyable.h" />
     <ClInclude Include="ParesObj.h" />
     <ClInclude Include="patrolSequence.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerTest.h" />
-    <ClInclude Include="Polygon2D.h" />
-    <ClInclude Include="PressurePlate.h" />
     <ClInclude Include="Radar.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="ResultScene.h" />

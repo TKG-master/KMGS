@@ -21,10 +21,4 @@ public:
             child = nullptr;
         }
     }
-
-
-    // children ‚ğæ“¾‚·‚é‚½‚ß‚Ì getter ƒƒ\ƒbƒh
-    const std::vector<IBehaviorNode*>& GetChildren() const {
-        return children;
-    }
 };
