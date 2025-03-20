@@ -76,3 +76,29 @@ std::vector<AStarNode> Astar::findPath(const AStarVec2& start, const AStarVec2& 
     // 目標位置に到達できなかった場合空の経路を返す
     return {};
 }
+
+bool Astar::isSoundReachable(const AStarVec2& start, const AStarVec2& goal, float initialVolume, float attenuationRate, float minThreshold)
+{
+    // A*で経路を探索
+    std::vector<AStarNode> path = findPath(start, goal);
+
+    // 経路が存在しない場合は到達不可
+    if (path.empty()) return false;
+
+    // 音量の計算
+    float currentVolume = initialVolume;
+
+    for (size_t i = 0; i < path.size(); ++i) {
+        // 距離ごとに音量が減衰
+        currentVolume *= (1.0f - attenuationRate);
+
+        // 音量がしきい値以下になったら到達失敗
+        if (currentVolume < minThreshold) {
+            return false;
+        }
+    }
+
+    // 経路を通じて最後まで到達できた場合は true
+    return true;
+
+}
