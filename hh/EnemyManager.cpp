@@ -47,7 +47,8 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
         if (Pl->GetKnockSound() && !enemy->GethearSound() && (enemy->GetState() == EStateType::Patrolling || enemy->GetState() == EStateType::Turn || enemy->GetState() == EStateType::Fixed || enemy->GetState() == EStateType::FixedLeft))
         {
             //音が聞こえる範囲にいるか？
-            if (CCollision::PointInCircle(Pl->GetPosition(), enemy->Gethearrange(), enemy->GetPosition()) /*&& !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback()*/)
+            //if (CCollision::PointInCircle(Pl->GetPosition(), enemy->Gethearrange(), enemy->GetPosition()) /*&& !enemy->GethearSound() && !enemy->GetRookBook() && !enemy->GetbookRead() && !enemy->Getback()*/)
+            if(EnemyPathsSound(enemy,Pl->GetPosition()))
             {
                 this->EnemyPathsAster(enemy, Pl->GetPosition());
                 Pl->SetknockSound(false);
@@ -104,6 +105,14 @@ void EnemyManager::UpdateEnemies(Player* Pl, const std::vector<BoxObj*>& obstacl
                 enemy->SetbookCount(1);
             }
         }
+
+        if (enemy->GetTest())
+        {
+            this->Rook = true;
+        }
+
+
+
         enemy->Update();
 
     }
@@ -116,7 +125,7 @@ void EnemyManager::DrawEnemies() {
     }
 }
 
-std::vector<Enemy*> EnemyManager::GetEnemiesWhoSawPlayer() {
+std::vector<Enemy*> EnemyManager::GetEnemiesWhoSawPlayer() const{
     std::vector<Enemy*> enemiesWhoSawPlayer;
     for (Enemy* enemy : enemies) {
         if (enemy->GetTest()) {
@@ -192,6 +201,31 @@ void EnemyManager::EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vec
         // 経路を設定
         enemy->SetPath(worldPath);
     }
+}
+
+bool EnemyManager::EnemyPathsSound(Enemy* enemy, const DirectX::SimpleMath::Vector3& playerPosition)
+{
+    // グリッド座標に変換
+    int start_x = static_cast<int>(std::round(std::abs(enemy->GetPosition().x - ORIGIN_TILE_POS_X) / SIZEX));
+    int start_y = static_cast<int>(std::round(std::abs(enemy->GetPosition().z - ORIGIN_TILE_POS_Z) / SIZEZ));
+
+    int goal_x = static_cast<int>(std::round(std::abs(playerPosition.x - ORIGIN_TILE_POS_X) / SIZEX));
+    int goal_y = static_cast<int>(std::round(std::abs(playerPosition.z - ORIGIN_TILE_POS_Z) / SIZEZ));
+
+    // グリッド座標をAStarVec2に変換
+    AStarVec2 start(start_y, start_x);
+    AStarVec2 goal(goal_y, goal_x);
+
+    // 音の減衰計算
+    float initialVolume = 100.0f;       // 初期音量
+    float attenuationRate = 0.1f;        // 1マスごとに10%減衰
+    float minThreshold = 10.0f;          // 到達判定の閾値
+
+    // 音が到達するか判定
+    bool isReachable = astar.isSoundReachable(start, goal, initialVolume, attenuationRate, minThreshold);
+
+    return isReachable;
+
 }
 
 void EnemyManager::ShadowDraw()

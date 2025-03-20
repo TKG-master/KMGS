@@ -58,20 +58,11 @@ public:
     // 敵を描画する
     void DrawEnemies();
 
-    // 敵同士の通信を管理する
-    void NotifyEnemies(Enemy* alertingEnemy);
-
-    // 特定の敵がプレイヤーを見つけた場合に他の敵に通知する
-    void AlertEnemies(Enemy* alertedEnemy);
-
-    // 敵の状態を管理する
-    void ManageEnemyState(Enemy* enemy,bool find,const DirectX::SimpleMath::Vector3 PlPos);
-
     // enemies ベクターのゲッター関数を追加
     const std::vector<Enemy*>& GetEnemies() const { return enemies; };
 
     // プレイヤーを見つけたエネミーを取得する関数
-    std::vector<Enemy*> GetEnemiesWhoSawPlayer();
+    std::vector<Enemy*> GetEnemiesWhoSawPlayer() const;
 
     bool GetRook() { return this->Rook; };
 
@@ -91,6 +82,8 @@ public:
     void UpdateEnemyPaths(const DirectX::SimpleMath::Vector3& playerPosition);
     //単体の敵に経路のパスを渡す
     void EnemyPathsAster(Enemy* enemy , const DirectX::SimpleMath::Vector3& playerPosition);
+    //音の減衰を行う
+    bool EnemyPathsSound(Enemy* enemy , const DirectX::SimpleMath::Vector3& playerPosition);
 
     //影の描画
     void ShadowDraw();

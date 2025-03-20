@@ -49,4 +49,6 @@ private:
 public:
     Astar(const std::vector<std::vector<int>>& grid);
     std::vector<AStarNode> findPath(const AStarVec2& start, const AStarVec2& goal);
+    // 音の減衰を計算し、音が到達可能かを判定する関数
+    bool isSoundReachable(const AStarVec2& start, const AStarVec2& goal, float initialVolume, float attenuationRate, float minThreshold);
 };

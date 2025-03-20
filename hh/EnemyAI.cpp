@@ -10,7 +10,7 @@ EnemyAI::EnemyAI(int num) {
 
     if (num != 100)
     {
-        // **StateSelector** を作成
+        //StateSelector** を作成
         stateSelector = new Selector();
 
         //ビヘイビアツリーの作成
@@ -18,10 +18,10 @@ EnemyAI::EnemyAI(int num) {
         turnSequence            = new TurnSequence();
         serchSequence           = new SerchSequence();
         backSequence            = new BackSequence();
-        bookconnectionSequence  = new BookconnectionSequence();
+        bookconnectionSequence = new BookconnectionSequence();
         bookReadSequence        = new BookReadSequence();
 
-
+        //セレクターに動作のシーケンスを追加
         stateSelector->AddChild(bookconnectionSequence);
         stateSelector->AddChild(bookReadSequence);
         stateSelector->AddChild(PatrolSequence);
@@ -44,6 +44,7 @@ EnemyAI::EnemyAI(int num) {
         backSequence            = new BackSequence();
         bookconnectionSequence  = new BookconnectionSequence();
         bookReadSequence        = new BookReadSequence();
+
         //セレクターに動作のシーケンスを追加
         stateSelector->AddChild(bookconnectionSequence);
         stateSelector->AddChild(bookReadSequence);
@@ -65,7 +66,5 @@ void EnemyAI::Update(Enemy* enemy) {
 
 // メモリの解放
 EnemyAI::~EnemyAI() {
-
     delete rootNode;
-
 }

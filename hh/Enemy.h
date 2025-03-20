@@ -323,8 +323,5 @@ public:
 	//本を読む回数のゲッターとセッター
 	int GetbookCount() { return this->bookCount; };
 	void SetbookCount(int num) { this->bookCount = num; };
-
-
-
 };
 

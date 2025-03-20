@@ -425,7 +425,7 @@ bool Enemy::RayLookHit()
 
     Epos.y += StandrayY;
 
-    rayDirection.y -= 60.0f;
+    rayDirection.y -= 50.0f;
 
 
     //ê≥ãKâª

@@ -208,6 +208,27 @@
     <Filter Include="System\EnemyAI\StateAction\BookRead\BookSequence">
       <UniqueIdentifier>{7ddf90b4-08dd-450f-a277-548696fd52b2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System\EnemyAI\StateAction\FixedLeft">
+      <UniqueIdentifier>{383b7960-1a22-437b-8c4e-0d1dce0f4b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\StateAction\FixedLeft\FixedLeftSequence">
+      <UniqueIdentifier>{377c1b48-6fac-4317-b10d-673337662fd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\StateAction\Bookconnection">
+      <UniqueIdentifier>{60274ea9-fe36-447a-a982-59fe86de7eac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="System\EnemyAI\StateAction\Back">
+      <UniqueIdentifier>{6a400415-b94d-44d4-8be1-7c6a2be81878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="metaAI">
+      <UniqueIdentifier>{1a9aaaf0-1ae9-4ca7-822c-80ddae17b596}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="metaAI\PlayerChecker">
+      <UniqueIdentifier>{8974d3d8-e2b2-4806-807e-a3e9b796e3ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="metaAI\EnemyChecker">
+      <UniqueIdentifier>{91883633-0c94-4e58-94d7-66b9a254b858}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTexture.cpp">
@@ -459,15 +480,6 @@
     <ClCompile Include="ActionPathMove.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="BookconnectionSequence.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BookReadSequence.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FixedLeftSequence.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="FixedSequence.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -483,8 +495,20 @@
     <ClCompile Include="ActionBookRead.cpp">
       <Filter>System\EnemyAI\StateAction\BookRead\ActionBookRead</Filter>
     </ClCompile>
+    <ClCompile Include="FixedLeftSequence.cpp">
+      <Filter>System\EnemyAI\StateAction\FixedLeft\FixedLeftSequence</Filter>
+    </ClCompile>
+    <ClCompile Include="BookconnectionSequence.cpp">
+      <Filter>System\EnemyAI\StateAction\Bookconnection</Filter>
+    </ClCompile>
     <ClCompile Include="BackSequence.cpp">
+      <Filter>System\EnemyAI\StateAction\Back</Filter>
+    </ClCompile>
+    <ClCompile Include="BookReadSequence.cpp">
       <Filter>System\EnemyAI\StateAction\BookRead\BookSequence</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionCheckViewCircle.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -770,15 +794,6 @@
     <ClInclude Include="ActionPathMove.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="BookconnectionSequence.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="BookReadSequence.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FixedLeftSequence.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="FixedSequence.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -794,8 +809,20 @@
     <ClInclude Include="ActionBookRead.h">
       <Filter>System\EnemyAI\StateAction\BookRead\ActionBookRead</Filter>
     </ClInclude>
+    <ClInclude Include="FixedLeftSequence.h">
+      <Filter>System\EnemyAI\StateAction\FixedLeft\FixedLeftSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="BookconnectionSequence.h">
+      <Filter>System\EnemyAI\StateAction\Bookconnection</Filter>
+    </ClInclude>
     <ClInclude Include="BackSequence.h">
+      <Filter>System\EnemyAI\StateAction\Back</Filter>
+    </ClInclude>
+    <ClInclude Include="BookReadSequence.h">
       <Filter>System\EnemyAI\StateAction\BookRead\BookSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="ActionCheckViewCircle.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -830,5 +857,8 @@
     <FxCompile Include="shader\VS_shadow.hlsl">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
